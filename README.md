@@ -1,0 +1,1 @@
+The HockeySDK for Windows Phone allows users to send crash reports right from within the application. If a crash has occured, it will ask the tester on the start of the app he wants to send information about the crash to the server.
