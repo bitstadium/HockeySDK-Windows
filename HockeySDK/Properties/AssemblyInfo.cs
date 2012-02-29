@@ -6,7 +6,7 @@ using System.Resources;
 [assembly: AssemblyTitle("HockeySDK")]
 [assembly: AssemblyDescription("Windows Phone Class Library to do crash reporting with hockeyapp.net")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Codenauts UG")]
 [assembly: AssemblyProduct("HockeySDK")]
 [assembly: AssemblyCopyright("Copyright © Codenauts UG 2012")]
 [assembly: AssemblyTrademark("")]
