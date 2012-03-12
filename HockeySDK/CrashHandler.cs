@@ -43,6 +43,8 @@ namespace HockeyApp
     public sealed class CrashHandler
     {
         private const String CrashDirectoryName = "CrashLogs";
+        private const String SdkName = "HockeySDK";
+        private const String SdkVersion = "1.0.1";
 
         private static readonly CrashHandler instance = new CrashHandler();
 
@@ -266,7 +268,10 @@ namespace HockeyApp
                     {
                         log = reader.ReadToEnd();
                     }
-                    string body = "raw=" + HttpUtility.UrlEncode(log);
+                    string body = "";
+                    body += "raw=" + HttpUtility.UrlEncode(log);
+                    body += "&sdk=" + SdkName;
+                    body += "&sdk_version=" + SdkVersion;
                     fileStream.Close();
 
                     WebRequest request = WebRequestCreator.ClientHttp.Create(new Uri("https://rink.hockeyapp.net/api/2/apps/" + identifier + "/crashes"));
