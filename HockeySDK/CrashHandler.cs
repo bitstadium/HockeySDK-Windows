@@ -104,7 +104,10 @@ namespace HockeyApp
         {
             Exception exception = args.ExceptionObject;
             StringBuilder builder = new StringBuilder();
-            builder.AppendLine(string.IsNullOrEmpty(exception.Message) ? "No reason" : exception.Message);
+            builder.Append (exception.GetType ().ToString());
+            builder.Append (": ");
+            builder.Append(string.IsNullOrEmpty(exception.Message) ? "No reason" : exception.Message);
+            builder.AppendLine ();
             builder.Append(string.IsNullOrEmpty(exception.StackTrace) ? "  at unknown location" : exception.StackTrace);
 
             Exception inner = exception.InnerException;
