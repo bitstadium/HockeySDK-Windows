@@ -84,8 +84,8 @@
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="local:NotificationBox">
-          <Border Background="#99000000" d:DesignWidth="312" d:DesignHeight="464">
-            <Border x:Name="border" Background="#FF1F1F1F" VerticalAlignment="Top">
+          <Border Background="{StaticResource PhoneBackgroundBrush}" d:DesignWidth="312" d:DesignHeight="464">
+            <Border x:Name="border" Background="{StaticResource PhoneChromeBrush}" VerticalAlignment="Top">
               <Grid Margin="24,40,24,0">
                 <Grid.RowDefinitions>
                   <RowDefinition Height="60"/>
@@ -95,7 +95,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Text="{TemplateBinding Title}" VerticalAlignment="Center" Margin="0,0,0,2" FontSize="32" />
-                <TextBlock Text="{TemplateBinding Message}" TextWrapping="Wrap" Grid.Row="1" Margin="0,2,0,2" FontSize="22" Foreground="#FFDDDDDD" />
+                <TextBlock Text="{TemplateBinding Message}" TextWrapping="Wrap" Grid.Row="1" Margin="0,2,0,2" FontSize="22" Foreground="{StaticResource PhoneForegroundBrush}" />
 
                 <ItemsPresenter Grid.Row="2" Margin="0,2,0,8" />
 
