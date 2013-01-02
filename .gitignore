@@ -43,4 +43,5 @@ _ReSharper*/
 ~$*
 
 # NuGet
-packages/
+NuGet/*.nupkg
+NuGet/lib*/
