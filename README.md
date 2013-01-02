@@ -1,7 +1,5 @@
 The HockeySDK for Windows Phone allows users to send crash reports right from within the application. When your app crashes, a file with basic information about the environment (device type, OS version, etc.), the reason and the stacktrace of the exception is created. Then the apps is killed. The next time the user starts the app, he is asked to send the crash data to the developer. If he confirms the dialog, the crash log is sent to HockeyApp and then the file deleted from the device.
 
-An example integration can be found [here](https://github.com/codenauts/HockeyAppTweets-WP7). The example app loads all tweets from the HockeyApp account. A crash can be provokoed by tapping the third row.
-
 ## Requirements
 
 * Windows Phone SDK 8.0
