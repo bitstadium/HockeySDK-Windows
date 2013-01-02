@@ -4,8 +4,8 @@ An example integration can be found [here](https://github.com/codenauts/HockeyAp
 
 ## Requirements
 
-* Windows Phone SDK 7.1
-* Visual Studio 2010
+* Windows Phone SDK 8.0
+* Visual Studio 2012
 
 ## Import Library
 
@@ -22,12 +22,12 @@ An example integration can be found [here](https://github.com/codenauts/HockeyAp
 * Search the method "App" and add the following line at the top of the method:<pre>HockeyApp.CrashHandler.Instance.Configure(this, APP_ID);</pre>
 * Replace APP_ID with the App ID of your app on HockeyApp.
 * Open the root page of your app (or the page in which you want to check for new crashes), for example MainPage.xaml.cs.
-* Search the method "Initialize" and add the following line at the bottom:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes();</pre>
+* Search the method "Initialize" and add the following line at the bottom:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes();</pre>If you want to send crashes without user interaction, use this line instead:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes(true);</pre>
 * Run your app from Visual Studio (menu Debug > Start Debugging).
 * Stop your app to detach the debugger.
 * Start your app from the home screen or the list of apps.
 
-Now every time when an unhandled exception occurs, the app is killed. At the next start, you should be asked to send the crash data.
+Now every time when an unhandled exception occurs, the app is killed. At the next start, you should be asked to send the crash data (or crashes are sent automatically if you configured this).
 
 ## Support
 
