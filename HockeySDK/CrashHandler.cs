@@ -225,6 +225,11 @@ namespace HockeyApp
 
         public void HandleCrashes()
         {
+            HandleCrashes(false);
+        }
+
+        public void HandleCrashes(Boolean sendAutomatically)
+        {
             try
             {
                 IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
@@ -235,21 +240,14 @@ namespace HockeyApp
 
                     if (filenames.Length > 0)
                     {
-                        Scheduler.Dispatcher.Schedule(() =>
+                        if (sendAutomatically)
                         {
-                            NotificationTool.Show(
-                                "Crash Data",
-                                "The app quit unexpectedly. Would you like to send information about this to the developer?",
-                                new NotificationAction("Send", () =>
-                                {
-                                    SendCrashes(store, filenames);
-                                }),
-                                new NotificationAction("Delete", () =>
-                                {
-                                    DeleteCrashes(store, filenames);
-                                })
-                            );
-                        });
+                            SendCrashes(store, filenames);
+                        }
+                        else
+                        {
+                            ShowNotificationToSend(store, filenames);
+                        }
                     }
                 }
             }
@@ -257,6 +255,25 @@ namespace HockeyApp
             {
                 // Ignore all exceptions
             }
+        }
+
+        private void ShowNotificationToSend(IsolatedStorageFile store, string[] filenames)
+        {
+            Scheduler.Dispatcher.Schedule(() =>
+            {
+                NotificationTool.Show(
+                    "Crash Data",
+                    "The app quit unexpectedly. Would you like to send information about this to the developer?",
+                    new NotificationAction("Send", () =>
+                    {
+                        SendCrashes(store, filenames);
+                    }),
+                    new NotificationAction("Delete", () =>
+                    {
+                        DeleteCrashes(store, filenames);
+                    })
+                );
+            });
         }
 
         private void SendCrashes(IsolatedStorageFile store, string[] filenames)
