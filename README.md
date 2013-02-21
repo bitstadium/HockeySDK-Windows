@@ -20,7 +20,7 @@ The HockeySDK for Windows Phone allows users to send crash reports right from wi
 * Search the method "App" and add the following line at the top of the method:<pre>HockeyApp.CrashHandler.Instance.Configure(this, APP_ID);</pre>
 * Replace APP_ID with the App ID of your app on HockeyApp.
 * Open the root page of your app (or the page in which you want to check for new crashes), for example MainPage.xaml.cs.
-* Search the method "Initialize" and add the following line at the bottom:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes();</pre>If you want to send crashes without user interaction, use this line instead:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes(true);</pre>
+* Search the constructor of the class, e.g. "MainPage", and add the following line at the bottom:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes();</pre>If you want to send crashes without user interaction, use this line instead:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes(true);</pre>
 * Run your app from Visual Studio (menu Debug > Start Debugging).
 * Stop your app to detach the debugger.
 * Start your app from the home screen or the list of apps.
