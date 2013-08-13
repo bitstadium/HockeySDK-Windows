@@ -28,6 +28,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -37,19 +38,24 @@ using System.Diagnostics;
 using System.IO.IsolatedStorage;
 using System.Net.Browser;
 using HockeyApp.Tools;
+using System.Windows.Controls;
 
 namespace HockeyApp
 {
+
+    public enum CrashInfoType {
+        crash, user, contact, description
+    }
+
     public sealed class CrashHandler
     {
-        private const String CrashDirectoryName = "CrashLogs";
-        private const String SdkName = "HockeySDK";
-        private const String SdkVersion = "1.0.1";
-
         private static readonly CrashHandler instance = new CrashHandler();
 
         private Application application = null;
         private string identifier = null;
+
+        private string userid = null;
+        private string contactInfo = null;
 
         static CrashHandler() { }
         private CrashHandler() { }
@@ -62,14 +68,18 @@ namespace HockeyApp
             }
         }
 
-        public void Configure(Application application, string identifier)
+        public void Configure(Application application, string identifier, Frame rootFrame = null)
         {
             if (this.application == null)
             {
                 this.application = application;
                 this.identifier = identifier;
-
                 this.application.UnhandledException += OnUnhandledException;
+                if (rootFrame != null)
+                {
+                    //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
+                    AsyncSynchronizationContext.RegisterForFrame(rootFrame, this);
+                }
             }
             else
             {
@@ -77,21 +87,35 @@ namespace HockeyApp
             }
         }
 
+        public void AddUserInfo(String userid, String contactInfo)
+        {
+            this.userid = userid;
+            this.contactInfo = contactInfo;
+        }
+
         private void OnUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs args)
+        {
+            HandleException(args.ExceptionObject);
+        }
+
+        internal void HandleException(Exception e)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(CreateHeader());
             builder.AppendLine();
-            builder.Append(CreateStackTrace(args));
-            SaveLog(builder.ToString());
+            builder.Append(CreateStackTrace(e));
+            var crashId = SaveLog(builder.ToString(), CrashInfoType.crash);
+            if (this.userid != null) { SaveLog(userid, CrashInfoType.user, crashId); }
+            if (this.contactInfo != null) { SaveLog(userid, CrashInfoType.contact, crashId); }
         }
+
 
         public String CreateHeader()
         {
             StringBuilder builder = new StringBuilder();
             builder.AppendFormat("Package: {0}\n", application.GetType().Namespace);
-            builder.AppendFormat("Product-ID: {0}\n", GetProductID());
-            builder.AppendFormat("Version: {0}\n", GetAppVersion());
+            builder.AppendFormat("Product-ID: {0}\n", ManifestHelper.GetProductID());
+            builder.AppendFormat("Version: {0}\n", ManifestHelper.GetAppVersion());
             builder.AppendFormat("Windows Phone: {0}\n", Environment.OSVersion.Version.ToString());
             builder.AppendFormat("Manufacturer: {0}\n", GetDeviceManufacturer());
             builder.AppendFormat("Model: {0}\n", GetDeviceModel());
@@ -100,9 +124,8 @@ namespace HockeyApp
             return builder.ToString();
         }
 
-        private String CreateStackTrace(ApplicationUnhandledExceptionEventArgs args)
+        private String CreateStackTrace(Exception exception)
         {
-            Exception exception = args.ExceptionObject;
             StringBuilder builder = new StringBuilder();
             builder.Append (exception.GetType ().ToString());
             builder.Append (": ");
@@ -121,18 +144,19 @@ namespace HockeyApp
             return builder.ToString().Trim();
         }
 
-        private void SaveLog(String log)
+        private Guid SaveLog(String log, CrashInfoType infoType, Guid? id = null)
         {
+            var crashId = id ?? Guid.NewGuid();
             try
             {
                 IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
-                if (!store.DirectoryExists(CrashDirectoryName))
+                if (!store.DirectoryExists(Constants.CrashDirectoryName))
                 {
-                    store.CreateDirectory(CrashDirectoryName);
+                    store.CreateDirectory(Constants.CrashDirectoryName);
                 }
-
-                String filename = string.Format("crash{0}.log", Guid.NewGuid());
-                FileStream stream = store.CreateFile(Path.Combine(CrashDirectoryName, filename));
+                
+                String filename = string.Format("{0}{1}.log", infoType.ToString(), crashId);
+                FileStream stream = store.CreateFile(Path.Combine(Constants.CrashDirectoryName, filename));
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     writer.Write(log);
@@ -143,84 +167,7 @@ namespace HockeyApp
             {
                 // Ignore all exceptions
             }
-        }
-
-        private static String GetDeviceManufacturer()
-        {
-            object manufacturer;
-            if (DeviceExtendedProperties.TryGetValue("DeviceManufacturer", out manufacturer))
-            {
-                return manufacturer.ToString();
-            }
-            else
-            {
-                return "Unknown";
-            }
-        }
-
-        private static String GetDeviceModel()
-        {
-            object model;
-            if (DeviceExtendedProperties.TryGetValue("DeviceName", out model))
-            {
-                return model.ToString();
-            }
-            else
-            {
-                return "Unknown";
-            }
-        }
-
-        // Idea based on http://bjorn.kuiper.nu/2011/10/01/wp7-notify-user-of-new-application-version/
-        private static String GetAppVersion()
-        {
-            return getValueFromManifest("Version");
-        }
-
-        private static String GetProductID()
-        {
-            return getValueFromManifest("ProductID");
-        }
-
-        private static String getValueFromManifest(String key)
-        {
-            try
-            {
-                StreamReader reader = getManifestReader();
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    int begin = line.IndexOf(" " + key + "=\"", StringComparison.InvariantCulture);
-                    if (begin >= 0)
-                    {
-                        int end = line.IndexOf("\"", begin + key.Length + 3, StringComparison.InvariantCulture);
-                        if (end >= 0)
-                        {
-                            return line.Substring(begin + key.Length + 3, end - begin - key.Length - 3);
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
-                // Ignore all exceptions
-            }
-
-            return "";
-        }
-
-        private static StreamReader getManifestReader()
-        {
-            Uri manifest = new Uri("WMAppManifest.xml", UriKind.Relative);
-            var stream = Application.GetResourceStream(manifest);
-            if (stream != null)
-            {
-                return new StreamReader(stream.Stream);
-            }
-            else
-            {
-                return null;
-            }
+            return crashId;
         }
 
         public void HandleCrashes()
@@ -233,9 +180,9 @@ namespace HockeyApp
             try
             {
                 IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
-                if (store.DirectoryExists(CrashDirectoryName))
+                if (store.DirectoryExists(Constants.CrashDirectoryName))
                 {
-                    string[] filenames = store.GetFileNames(CrashDirectoryName + "\\crash*.log");
+                    string[] filenames = store.GetFileNames(Constants.CrashDirectoryName + "\\crash*.log");
                     Debugger.Log(0, "HockeyApp", filenames.ToString());
 
                     if (filenames.Length > 0)
@@ -276,28 +223,53 @@ namespace HockeyApp
             });
         }
 
+        private String GetFileContentsIfExists(IsolatedStorageFile store, string filename)
+        {
+            String content = null;
+            if (store.FileExists(Path.Combine(Constants.CrashDirectoryName, filename)))
+            {
+                Stream fileStream = store.OpenFile(Path.Combine(Constants.CrashDirectoryName, filename), FileMode.Open);
+                using (StreamReader reader = new StreamReader(fileStream))
+                {
+                     content = reader.ReadToEnd();
+                } 
+                fileStream.Close();
+            }
+            return content;
+        }
+
         private void SendCrashes(IsolatedStorageFile store, string[] filenames)
         {
             foreach (String filename in filenames)
             {
                 try
                 {
-                    Stream fileStream = store.OpenFile(Path.Combine(CrashDirectoryName, filename), FileMode.Open);
-                    string log = "";
-                    using (StreamReader reader = new StreamReader(fileStream))
-                    {
-                        log = reader.ReadToEnd();
-                    }
+                    string log = GetFileContentsIfExists(store, filename) ?? "";
+                    string user = GetFileContentsIfExists(store, filename.Replace(CrashInfoType.crash.ToString(), CrashInfoType.user.ToString()));
+                    string contact = GetFileContentsIfExists(store, filename.Replace(CrashInfoType.crash.ToString(), CrashInfoType.contact.ToString())); ;
+                    string description = GetFileContentsIfExists(store, filename.Replace(CrashInfoType.crash.ToString(), CrashInfoType.description.ToString())); ;
+
                     string body = "";
                     body += "raw=" + HttpUtility.UrlEncode(log);
-                    body += "&sdk=" + SdkName;
-                    body += "&sdk_version=" + SdkVersion;
-                    fileStream.Close();
+                    if (user != null)
+                    {
+                        body += "&userID=" + HttpUtility.UrlEncode(user);
+                    }
+                    if (contact != null)
+                    {
+                        body += "&contact=" + HttpUtility.UrlEncode(contact);
+                    }
+                    if (description != null)
+                    {
+                        body += "&description=" + HttpUtility.UrlEncode(description);
+                    }
+                    body += "&sdk=" + Constants.SdkName;
+                    body += "&sdk_version=" + Constants.SdkVersion;
 
-                    WebRequest request = WebRequestCreator.ClientHttp.Create(new Uri("https://rink.hockeyapp.net/api/2/apps/" + identifier + "/crashes"));
+                    WebRequest request = WebRequestCreator.ClientHttp.Create(new Uri(Constants.ApiBase + "apps/" + identifier + "/crashes"));
                     request.Method = "POST";
                     request.ContentType = "application/x-www-form-urlencoded";
-                    request.Headers[HttpRequestHeader.UserAgent] = "Hockey/WP7";
+                    request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
 
                     request.BeginGetRequestStream(requestResult =>
                     {
@@ -345,7 +317,7 @@ namespace HockeyApp
                 }
                 catch (Exception)
                 {
-                    store.DeleteFile(Path.Combine(CrashDirectoryName, filename));
+                    store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                 }
             }
         }
@@ -354,7 +326,33 @@ namespace HockeyApp
         {
             foreach (String filename in filenames)
             {
-                store.DeleteFile(Path.Combine(CrashDirectoryName, filename));
+                store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
+            }
+        }
+
+        internal static String GetDeviceManufacturer()
+        {
+            object manufacturer;
+            if (DeviceExtendedProperties.TryGetValue("DeviceManufacturer", out manufacturer))
+            {
+                return manufacturer.ToString();
+            }
+            else
+            {
+                return "Unknown";
+            }
+        }
+
+        internal static String GetDeviceModel()
+        {
+            object model;
+            if (DeviceExtendedProperties.TryGetValue("DeviceName", out model))
+            {
+                return model.ToString();
+            }
+            else
+            {
+                return "Unknown";
             }
         }
     }
