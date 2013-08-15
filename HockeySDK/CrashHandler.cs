@@ -39,6 +39,9 @@ using System.IO.IsolatedStorage;
 using System.Net.Browser;
 using HockeyApp.Tools;
 using System.Windows.Controls;
+using HockeyApp.Resources;
+using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 
 namespace HockeyApp
 {
@@ -56,6 +59,8 @@ namespace HockeyApp
 
         private string userid = null;
         private string contactInfo = null;
+        Func<Exception, string> descriptionLoader = null;
+
 
         static CrashHandler() { }
         private CrashHandler() { }
@@ -68,12 +73,14 @@ namespace HockeyApp
             }
         }
 
-        public void Configure(Application application, string identifier, Frame rootFrame = null)
+
+        public void Configure(Application application, string identifier, Frame rootFrame = null, Func<Exception,string> descriptionLoader = null)
         {
             if (this.application == null)
             {
                 this.application = application;
                 this.identifier = identifier;
+                this.descriptionLoader = descriptionLoader;
                 this.application.UnhandledException += OnUnhandledException;
                 if (rootFrame != null)
                 {
@@ -107,8 +114,20 @@ namespace HockeyApp
             var crashId = SaveLog(builder.ToString(), CrashInfoType.crash);
             if (this.userid != null) { SaveLog(userid, CrashInfoType.user, crashId); }
             if (this.contactInfo != null) { SaveLog(userid, CrashInfoType.contact, crashId); }
+            if (this.descriptionLoader != null)
+            {
+                string desc = null;
+                try
+                {
+                    desc = descriptionLoader.Invoke(e);
+                }
+                catch (Exception) { }
+                if (desc != null)
+                {
+                    SaveLog(desc, CrashInfoType.description, crashId);
+                }
+            }
         }
-
 
         public String CreateHeader()
         {
@@ -170,57 +189,94 @@ namespace HockeyApp
             return crashId;
         }
 
-        public void HandleCrashes()
+        [Obsolete("Use HandleCrashesAsync if possible.")]
+        public bool HandleCrashes(Boolean sendAutomatically = false)
         {
-            HandleCrashes(false);
-        }
-
-        public void HandleCrashes(Boolean sendAutomatically)
-        {
-            try
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
-                IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
-                if (store.DirectoryExists(Constants.CrashDirectoryName))
+                try
                 {
-                    string[] filenames = store.GetFileNames(Constants.CrashDirectoryName + "\\crash*.log");
-                    Debugger.Log(0, "HockeyApp", filenames.ToString());
-
-                    if (filenames.Length > 0)
+                    IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+                    if (store.DirectoryExists(Constants.CrashDirectoryName))
                     {
-                        if (sendAutomatically)
+                        string[] filenames = store.GetFileNames(Constants.CrashDirectoryName + "\\crash*.log");
+                        if (filenames.Length > 0)
                         {
-                            SendCrashes(store, filenames);
-                        }
-                        else
-                        {
-                            ShowNotificationToSend(store, filenames);
+                            Debugger.Log(0, "HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
+                            if (sendAutomatically)
+                            {
+                                SendCrashes(store, filenames);
+                                return true;
+                            }
+                            else
+                            {
+                                ShowNotificationToSend(store, filenames);
+                            }
                         }
                     }
                 }
+                catch (Exception)
+                {
+                    // Ignore all exceptions
+                }
             }
-            catch (Exception)
-            {
-                // Ignore all exceptions
-            }
+            return false;
         }
 
-        private void ShowNotificationToSend(IsolatedStorageFile store, string[] filenames)
+        public async Task<bool> HandleCrashesAsync(Boolean sendAutomatically = false)
         {
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                try
+                {
+                    IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+                    if (store.DirectoryExists(Constants.CrashDirectoryName))
+                    {
+                        string[] filenames = store.GetFileNames(Constants.CrashDirectoryName + "\\crash*.log");
+                        if (filenames.Length > 0)
+                        {
+                            Debugger.Log(0, "HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
+                            if (sendAutomatically)
+                            {
+                                SendCrashes(store, filenames);
+                                return true;
+                            }
+                            else
+                            {
+                                return await ShowNotificationToSend(store, filenames);
+                            }
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    // Ignore all exceptions
+                }
+            }
+            return false;
+        }
+
+        private Task<bool> ShowNotificationToSend(IsolatedStorageFile store, string[] filenames)
+        {
+            var tcs = new TaskCompletionSource<bool>();
             Scheduler.Dispatcher.Schedule(() =>
             {
                 NotificationTool.Show(
-                    "Crash Data",
-                    "The app quit unexpectedly. Would you like to send information about this to the developer?",
-                    new NotificationAction("Send", () =>
+                    SdkResources.CrashData,
+                    SdkResources.SendCrashQuestion,
+                    new NotificationAction(SdkResources.Send, () =>
                     {
+                        tcs.TrySetResult(true);
                         SendCrashes(store, filenames);
                     }),
-                    new NotificationAction("Delete", () =>
+                    new NotificationAction(SdkResources.Delete, () =>
                     {
+                        tcs.TrySetResult(false);
                         DeleteCrashes(store, filenames);
                     })
                 );
             });
+            return tcs.Task;
         }
 
         private String GetFileContentsIfExists(IsolatedStorageFile store, string filename)

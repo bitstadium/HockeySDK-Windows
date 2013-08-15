@@ -61,6 +61,24 @@ namespace HockeyApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Crash Data.
+        /// </summary>
+        public static string CrashData {
+            get {
+                return ResourceManager.GetString("CrashData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dismiss.
         /// </summary>
         public static string Dismiss {
@@ -106,6 +124,24 @@ namespace HockeyApp.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send.
+        /// </summary>
+        public static string Send {
+            get {
+                return ResourceManager.GetString("Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The app quit unexpectedly. Would you like to send information about this to the developer?.
+        /// </summary>
+        public static string SendCrashQuestion {
+            get {
+                return ResourceManager.GetString("SendCrashQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show.
         /// </summary>
         public static string Show {
@@ -129,6 +165,15 @@ namespace HockeyApp.Resources {
         public static string UpdateAvailable {
             get {
                 return ResourceManager.GetString("UpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update in progress....
+        /// </summary>
+        public static string UpdateInProgress {
+            get {
+                return ResourceManager.GetString("UpdateInProgress", resourceCulture);
             }
         }
         

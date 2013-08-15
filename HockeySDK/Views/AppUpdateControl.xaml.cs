@@ -43,8 +43,11 @@ namespace HockeyApp.Views
                 webBrowserTask.Uri = new Uri(Constants.ApiBase + "apps/" + NewestVersion.PublicIdentifier + ".aetx", UriKind.Absolute);
                 webBrowserTask.Show();
             };
-            this.InstallOverApi.Click += (sender, e) => { updateAction.Invoke(NewestVersion); };
-
+            this.InstallOverApi.Click += (sender, e) => {
+                this.Overlay.Visibility = Visibility.Visible;
+                updateAction.Invoke(NewestVersion); 
+            };
+            
         }
 
     }
