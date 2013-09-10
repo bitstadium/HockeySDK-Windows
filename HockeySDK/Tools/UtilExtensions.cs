@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace HockeyApp.Tools
@@ -20,6 +22,37 @@ namespace HockeyApp.Tools
             dtDateTime = new GregorianCalendar().AddSeconds(dtDateTime, (int) unixTimeStamp).ToLocalTime();
             return dtDateTime;
         }
+
+
+        public static bool IsValidEmail(this string str)
+        {
+            if (str == null) { return false; }
+            const String pattern =
+                @"^([0-9a-zA-Z]" + //Start with a digit or alphabate
+                @"([\+\-_\.][0-9a-zA-Z]+)*" + // No continues or ending +-_. chars in email
+                @")+" +
+                @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+
+            return Regex.IsMatch(str, pattern);
+        }
+
+        public static bool IsEmpty(this string str)
+        {
+            return str == null || str.Trim().Length == 0;
+        }
+
+        public static void PutInfo(this IsolatedStorageSettings settings, string key, string value)
+        {
+            if (settings.Contains(key))
+            {
+                settings[key] = value;
+            }
+            else
+            {
+                settings.Add(key, value);
+            }
+        }
+
 
 
         public static String ToReadableByteString(this Int64 byteCount)

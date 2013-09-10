@@ -1,0 +1,217 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="HockeyApp.Views.FeedbackPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    xmlns:tools="clr-namespace:HockeyApp.Tools"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <phone:PhoneApplicationPage.Resources>
+
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
+        <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
+        <Style x:Key="inputbox" TargetType="TextBox">
+            <Setter Property="CaretBrush" Value="White" />
+            <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
+            <Setter Property="SelectionBackground" Value="{StaticResource PhoneAccentBrush}"/>
+            <Setter Property="SelectionForeground" Value="{StaticResource PhoneTextBoxSelectionForegroundBrush}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="2,2,2,1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid Background="Transparent">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="MouseOver"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Transparent"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="ReadOnly">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Collapsed</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <Visibility>Visible</Visibility>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="ReadonlyBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <!--
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBackgroundBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="BorderBrush" Storyboard.TargetName="MainBorder">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxEditBorderBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>-->
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Border x:Name="MainBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="{StaticResource PhoneTouchTargetOverhang}"/>
+                            <Border x:Name="ReadonlyBorder" BorderBrush="{StaticResource PhoneDisabledBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" Margin="{StaticResource PhoneTouchTargetOverhang}" Visibility="Collapsed"/>
+                            <Border BorderBrush="Transparent" BorderThickness="{TemplateBinding BorderThickness}" Background="Transparent" Margin="3">
+                                <ContentControl x:Name="ContentElement" BorderThickness="0" HorizontalContentAlignment="Stretch" Margin="{StaticResource PhoneTextBoxInnerMargin}" 
+                                                Padding="{TemplateBinding Padding}" VerticalContentAlignment="Stretch" 
+                                                Background="Transparent"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSmallStyle}">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </phone:PhoneApplicationPage.Resources>
+    <!--LayoutRoot is the root grid where all page content is placed-->
+        <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!--TitlePanel contains the name of the application and page title-->
+            <StackPanel Grid.Row="0" Margin="12,27,0,28">
+                <TextBlock Text="{Binding ThreadInfo}" Style="{StaticResource PhoneTextNormalStyle}"/>
+                <TextBlock Text="Feedback" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            </StackPanel>
+
+            <!--ContentPanel -->
+            <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+                <!-- Message List -->
+                <Grid Visibility="{Binding IsMessageListVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <phone:LongListSelector Grid.Row="0"
+                    x:Name="MessageList" Margin="0,0,0,0" 
+                                        VerticalAlignment="Top" 
+                        ItemsSource="{Binding Messages}" >
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="DarkGray" Margin="0,30,0,0" Padding="3,3,3,3" BorderBrush="Gray"
+                                    BorderThickness="1">
+                                    <TextBlock Text="{Binding text}" Foreground="{StaticResource PhoneForegroundBrush}"
+                                           Style="{StaticResource PhoneTextSmallStyle}"/>
+                                </Border>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                    <Button x:Name="AnswerButton" Grid.Row="1" Content="Answer"/>
+                </Grid>
+                <!-- Message form -->
+                <Grid x:Name="MessageForm" Visibility="{Binding IsMessageFormVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Padding="0" BorderThickness="0,0,0,2" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0"
+                           Margin="0"
+                           Style="{StaticResource label}"
+                           Text="{Binding Path=LocalizedResources.Name, Source={StaticResource LocalizedStrings}}" />
+                            <TextBox Grid.Column="1"
+                         Text="{Binding Username, Mode=TwoWay}"
+                         Style="{StaticResource inputbox}"
+                        HorizontalAlignment="Stretch"                        
+                         />
+                        </Grid>
+                    </Border>
+
+                    <TextBlock Grid.Column="0" Grid.Row="1" 
+                           Style="{StaticResource label}"
+                           Text="{Binding Path=LocalizedResources.Email, Source={StaticResource LocalizedStrings}}"  />
+                    <TextBox Grid.Column="1" Grid.Row="1" 
+                         Text="{Binding Email, Mode=TwoWay}"
+                         InputScope="EmailUserName" Style="{StaticResource inputbox}"  />
+                    <TextBlock Grid.Column="0" Grid.Row="2" 
+                           Style="{StaticResource label}"
+                           Text="{Binding Path=LocalizedResources.Subject, Source={StaticResource LocalizedStrings}}" />
+                    <TextBox Grid.Column="1" Grid.Row="2" 
+                     Text="{Binding Subject, Mode=TwoWay}"
+                         Style="{StaticResource inputbox}" />
+                    <TextBox x:Name="MessageInput" 
+                     VerticalAlignment="Stretch" 
+                     Style="{StaticResource inputbox}"
+                     BorderThickness="0"
+                     Text="{Binding Message, Mode=TwoWay}"
+                     FontSize="{StaticResource PhoneFontSizeNormal}"
+                     Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                         Margin="-2,30,0,0"
+                     />
+
+                    <!-- <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" x:Name="SendButton" Content="{Binding Path=LocalizedResources.Send, Source={StaticResource LocalizedStrings}}" />-->
+                </Grid>
+            </Grid>
+            <Grid x:Name="Overlay" Grid.Row="1" 
+                  Background="{StaticResource PhoneBackgroundBrush}"
+                  Visibility="Collapsed"
+                  Opacity="0.8">
+                <TextBlock Text="{Binding Path=LocalizedResources.UpdateInProgress, Source={StaticResource LocalizedStrings}}" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"/>
+            </Grid>
+        </Grid>
+
+</phone:PhoneApplicationPage>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
         using System.Net;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace HockeyApp.Tools
 {
@@ -14,6 +15,38 @@ namespace HockeyApp.Tools
         {
             Func<Task<WebResponse>> function = (() => Task.Factory.FromAsync<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse,TaskCreationOptions.None));
             return Task.Run(function);
+        }
+
+        public static async Task<bool> SetPostDataAsync(this HttpWebRequest request, string postData)
+        {
+            byte[] dataStream = Encoding.UTF8.GetBytes(postData);
+            request.ContentType = Constants.ContentTypeUrlEncoded;
+            request.ContentLength = dataStream.Length;
+            request.Headers[HttpRequestHeader.ContentEncoding] = Encoding.UTF8.WebName;
+            Stream stream = await request.GetRequestStreamAsync();
+            stream.Write(dataStream, 0, dataStream.Length);
+            stream.Close();
+            return true;
+        }
+
+
+        public static Task<Stream> GetRequestStreamAsync(this HttpWebRequest request)
+        {
+            var taskComplete = new TaskCompletionSource<Stream>();
+            request.BeginGetRequestStream(asyncResponse =>
+            {
+                try
+                {
+                    HttpWebRequest responseRequest = (HttpWebRequest)asyncResponse.AsyncState;
+                    var someResponse = responseRequest.EndGetRequestStream(asyncResponse);
+                    taskComplete.TrySetResult(someResponse);
+                }
+                catch (WebException webExc)
+                {
+                    taskComplete.TrySetException(webExc);
+                }
+            }, request);
+            return taskComplete.Task;
         }
     }
 

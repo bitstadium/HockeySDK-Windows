@@ -386,7 +386,7 @@ namespace HockeyApp
             }
         }
 
-        internal static String GetDeviceManufacturer()
+        public static String GetDeviceManufacturer()
         {
             object manufacturer;
             if (DeviceExtendedProperties.TryGetValue("DeviceManufacturer", out manufacturer))
@@ -399,7 +399,7 @@ namespace HockeyApp
             }
         }
 
-        internal static String GetDeviceModel()
+        public static String GetDeviceModel()
         {
             object model;
             if (DeviceExtendedProperties.TryGetValue("DeviceName", out model))

@@ -97,9 +97,13 @@
     <Compile Include="Controls\NotificationBox\NotificationBox.cs" />
     <Compile Include="Controls\NotificationBox\NotificationBoxItem.cs" />
     <Compile Include="CrashHandler.cs" />
+    <Compile Include="FeedbackManager.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="ManifestHelper.cs" />
     <Compile Include="Model\AppVersion.cs" />
+    <Compile Include="Model\FeedbackResponseSingle.cs" />
+    <Compile Include="Model\FeedbackThread.cs" />
+    <Compile Include="Model\FeedbackMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\SdkResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -107,6 +111,8 @@
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\FeedbackVM.cs" />
+    <Compile Include="Tools\FeedbackPopupTool.cs" />
     <Compile Include="Tools\HttpExtensions.cs" />
     <Compile Include="Tools\NotificationAction.cs" />
     <Compile Include="Tools\NotificationTool.cs" />
@@ -117,6 +123,12 @@
     <Compile Include="Views\AppUpdateControl.xaml.cs">
       <DependentUpon>AppUpdateControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\FeedbackControl.xaml.cs">
+      <DependentUpon>FeedbackControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackPage.xaml.cs">
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Themes\Generic.xaml">
@@ -126,6 +138,14 @@
     <Page Include="Views\AppUpdateControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FeedbackControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

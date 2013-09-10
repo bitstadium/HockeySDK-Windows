@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Phone.Info;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows;
 
 namespace HockeyApp
 {
-    internal class ManifestHelper
+    public class ManifestHelper
     {
 
         private static readonly ManifestHelper instance = new ManifestHelper();
@@ -28,12 +29,12 @@ namespace HockeyApp
         }
 
         // Idea based on http://bjorn.kuiper.nu/2011/10/01/wp7-notify-user-of-new-application-version/
-        internal static String GetAppVersion()
+        public static String GetAppVersion()
         {
             return Instance.GetValueFromManifest("Version");
         }
 
-        internal static String GetProductID()
+        public static String GetProductID()
         {
             return Instance.GetValueFromManifest("ProductID");
         }
