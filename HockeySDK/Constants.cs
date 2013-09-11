@@ -17,6 +17,7 @@ namespace HockeyApp
         internal const string FeedbackThreadKey = "HockeyAppFeedback_ThreadId";
         internal const string FeedbackEmailKey = "HockeyAppFeedback_Email";
         internal const string FeedbackUsernameKey = "HockeyAppFeedback_Username";
+        internal const string FeedbackThreadSubjectKey = "HockeyAppFeedback_Subject";
         internal const string ContentTypeUrlEncoded = "application/x-www-form-urlencoded"; 
     }
 }

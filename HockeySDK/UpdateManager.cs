@@ -24,7 +24,7 @@ namespace HockeyApp
     public enum UpdateCheckFrequency
     {
         Always
-        //TODO daily/weekly/monthly implementieren
+        //TODO daily/weekly/monthly
     }
 
     public enum UpdateMode
@@ -145,7 +145,7 @@ namespace HockeyApp
 
         internal bool CheckWithUpdateFrequency(UpdateCheckFrequency frequency)
         {
-            //TODO implement. check stored last update...
+            //TODO implement. store and check last update timestamp...
             return true;
         }
 
@@ -173,7 +173,7 @@ namespace HockeyApp
             Scheduler.Dispatcher.Schedule(() =>
             {
                 appVersions.First().PublicIdentifier = this.identifier;
-                //TODO hier eine custom page ermöglichen? => über settings steuern ?!
+                //TODO hooks for customizing
                 UpdatePopupTool.ShowPopup(currentVersion, appVersions, updateCheckSettings, DoUpdate);
             });
         }

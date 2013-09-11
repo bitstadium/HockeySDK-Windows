@@ -12,7 +12,6 @@ namespace HockeyApp.Model
     [DataContract]
     public class FeedbackResponseSingle
     {
-
         public static FeedbackResponseSingle FromJson(Stream jsonStream)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(FeedbackResponseSingle));
@@ -20,12 +19,12 @@ namespace HockeyApp.Model
         }
 
         [DataMember]
-        public FeedbackThread feedback { get; set; }
+        public FeedbackThread feedback { get; private set; }
 
         [DataMember]
-        public string token { get; set; }
+        public string token { get; private set; }
         [DataMember]
-        public string status { get; set; }
+        public string status { get; private set; }
 
     }
 }

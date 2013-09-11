@@ -11,21 +11,21 @@ namespace HockeyApp.Model
     public class FeedbackThread
     {
         [DataMember]
-        public string name { get; set; }
+        public string name { get; protected set; }
         [DataMember]
-        public string email { get; set; }
+        public string email { get; protected set; }
         [DataMember]
-        public int id { get; set; }
+        public int id { get; protected set; }
         [DataMember]
-        public string created_at { get; set; } //TODO datetime
+        public string created_at { get; protected set; } //TODO datetime conversion
         [DataMember]
-        public string token { get; set; }
+        public string token { get; protected set; }
 
         [DataMember]
-        public int status { get; set; }
+        public int status { get; protected set; }
 
         [DataMember]
-        public List<FeedbackMessage> messages { get; set; }
+        public List<FeedbackMessage> messages { get; protected set; }
 
     }
 }

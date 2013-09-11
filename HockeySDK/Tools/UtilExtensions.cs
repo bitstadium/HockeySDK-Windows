@@ -41,19 +41,38 @@ namespace HockeyApp.Tools
             return str == null || str.Trim().Length == 0;
         }
 
-        public static void PutInfo(this IsolatedStorageSettings settings, string key, string value)
+        public static bool SetValue(this IsolatedStorageSettings settings, string key, object value)
         {
             if (settings.Contains(key))
             {
                 settings[key] = value;
+                return false;
             }
             else
             {
                 settings.Add(key, value);
+                return true;
             }
         }
 
-
+        public static bool RemoveValue(this IsolatedStorageSettings settings, string key)
+        {
+            if (settings.Contains(key))
+            {
+                settings.Remove(key);
+                return true;
+            }
+            return false;
+        }
+        
+        public static object GetValue(this IsolatedStorageSettings settings, string key)
+        {
+            if (settings.Contains(key))
+            {
+                return settings[key];
+            }
+            return null;
+        }
 
         public static String ToReadableByteString(this Int64 byteCount)
         {

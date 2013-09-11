@@ -53,6 +53,10 @@
                                     </VisualState>
                                     <VisualState x:Name="ReadOnly">
                                         <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <!--
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Visibility" Storyboard.TargetName="MainBorder">
                                                 <DiscreteObjectKeyFrame KeyTime="0">
                                                     <DiscreteObjectKeyFrame.Value>
@@ -75,7 +79,7 @@
                                             </ObjectAnimationUsingKeyFrames>
                                             <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground" Storyboard.TargetName="ContentElement">
                                                 <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneTextBoxReadOnlyBrush}"/>
-                                            </ObjectAnimationUsingKeyFrames>
+                                            </ObjectAnimationUsingKeyFrames>-->
                                         </Storyboard>
                                     </VisualState>
                                 </VisualStateGroup>
@@ -108,7 +112,8 @@
         </Style>
 
         <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSmallStyle}">
-            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Margin" Value="0,0,6,6"/>
         </Style>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
@@ -127,27 +132,64 @@
             <!--ContentPanel -->
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
                 <!-- Message List -->
-                <Grid Visibility="{Binding IsMessageListVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <phone:LongListSelector Grid.Row="0"
+                <phone:LongListSelector 
+                    Visibility="{Binding IsMessageListVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     x:Name="MessageList" Margin="0,0,0,0" 
                                         VerticalAlignment="Top" 
                         ItemsSource="{Binding Messages}" >
                         <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <Border Background="DarkGray" Margin="0,30,0,0" Padding="3,3,3,3" BorderBrush="Gray"
-                                    BorderThickness="1">
-                                    <TextBlock Text="{Binding text}" Foreground="{StaticResource PhoneForegroundBrush}"
-                                           Style="{StaticResource PhoneTextSmallStyle}"/>
-                                </Border>
-                            </DataTemplate>
-                        </phone:LongListSelector.ItemTemplate>
-                    </phone:LongListSelector>
-                    <Button x:Name="AnswerButton" Grid.Row="1" Content="Answer"/>
-                </Grid>
+
+                        <Grid Margin="{Binding Margin}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid Background="{StaticResource PhoneAccentBrush}" Grid.Row="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Text="{Binding Created}"
+                                           Foreground="{StaticResource PhoneForegroundBrush}"
+                                           HorizontalAlignment="{Binding HorizontalAlignment}"
+                                           Style="{StaticResource PhoneTextSmallStyle}"
+                                           Margin="4,2,4,4"/>
+                                <TextBlock Grid.Row="1"
+                                Text="{Binding Text}" 
+                                       Foreground="{StaticResource PhoneForegroundBrush}"
+                                       Padding="2"
+                                       TextWrapping="Wrap"
+                                       Style="{StaticResource PhoneTextSmallStyle}"/>
+                            </Grid>
+                            <Path 
+                                Grid.Row="1"
+							    Name="LowerRightPath"
+						    	Data="M0,0 L1,1 L1,0 "
+				    			Fill="{StaticResource PhoneAccentBrush}"
+			    				Stretch="Fill"
+		    					Margin="12,0"
+	    						Height="12"
+							    Width="18"
+    						    Visibility="{Binding IsIncoming, Converter={StaticResource BooleanToVisibilityConverter}}"
+							    HorizontalAlignment="Right" />
+                            <!-- Fill="{Binding BgColor}"-->
+                            <Path 
+                                Grid.Row="1"
+                                Name="LowerLeftPath"
+							    Data="M0,0 L0,1 L1,0"
+							    Fill="{StaticResource PhoneAccentBrush}"
+							    Stretch="Fill"
+							    Margin="12,0"
+							    Height="12"
+							    Width="18"
+							    Visibility="{Binding IsOutgoing, Converter={StaticResource BooleanToVisibilityConverter}}"
+							    HorizontalAlignment="Left" />
+                        </Grid>
+                    </DataTemplate>
+                </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
                 <!-- Message form -->
                 <Grid x:Name="MessageForm" Visibility="{Binding IsMessageFormVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
@@ -168,47 +210,68 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
-                           Margin="0"
                            Style="{StaticResource label}"
                            Text="{Binding Path=LocalizedResources.Name, Source={StaticResource LocalizedStrings}}" />
                             <TextBox Grid.Column="1"
                          Text="{Binding Username, Mode=TwoWay}"
                          Style="{StaticResource inputbox}"
-                        HorizontalAlignment="Stretch"                        
                          />
                         </Grid>
                     </Border>
 
-                    <TextBlock Grid.Column="0" Grid.Row="1" 
+                <Border Grid.Row="1" Padding="0" BorderThickness="0,0,0,2" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
                            Style="{StaticResource label}"
-                           Text="{Binding Path=LocalizedResources.Email, Source={StaticResource LocalizedStrings}}"  />
-                    <TextBox Grid.Column="1" Grid.Row="1" 
+                           Text="{Binding Path=LocalizedResources.Email, Source={StaticResource LocalizedStrings}}" />
+                        <TextBox Grid.Column="1"
+                         InputScope="EmailUserName"
                          Text="{Binding Email, Mode=TwoWay}"
-                         InputScope="EmailUserName" Style="{StaticResource inputbox}"  />
-                    <TextBlock Grid.Column="0" Grid.Row="2" 
+                         Style="{StaticResource inputbox}"                 
+                         />
+                    </Grid>
+                </Border>
+
+                <Border Grid.Row="2" Padding="0" BorderThickness="0,0,0,2" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
                            Style="{StaticResource label}"
                            Text="{Binding Path=LocalizedResources.Subject, Source={StaticResource LocalizedStrings}}" />
-                    <TextBox Grid.Column="1" Grid.Row="2" 
-                     Text="{Binding Subject, Mode=TwoWay}"
-                         Style="{StaticResource inputbox}" />
-                    <TextBox x:Name="MessageInput" 
+                        <TextBox Grid.Column="1"
+                            Text="{Binding Subject, Mode=TwoWay}"
+                            Style="{StaticResource inputbox}"
+                            IsReadOnly="{Binding IsThreadActive}"
+                         />
+                    </Grid>
+                </Border>
+                    
+                <TextBox x:Name="MessageInput" 
                      VerticalAlignment="Stretch" 
+                     InputScope="Text"
                      Style="{StaticResource inputbox}"
-                     BorderThickness="0"
                      Text="{Binding Message, Mode=TwoWay}"
                      FontSize="{StaticResource PhoneFontSizeNormal}"
-                     Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
-                         Margin="-2,30,0,0"
+                     Grid.Row="3"
+                     AcceptsReturn="True"
+                     Margin="8,2,4,2"
                      />
-
-                    <!-- <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" x:Name="SendButton" Content="{Binding Path=LocalizedResources.Send, Source={StaticResource LocalizedStrings}}" />-->
                 </Grid>
             </Grid>
             <Grid x:Name="Overlay" Grid.Row="1" 
                   Background="{StaticResource PhoneBackgroundBrush}"
-                  Visibility="Collapsed"
+                  Visibility="{Binding IsShowOverlay, Converter={StaticResource BooleanToVisibilityConverter}}"
                   Opacity="0.8">
-                <TextBlock Text="{Binding Path=LocalizedResources.UpdateInProgress, Source={StaticResource LocalizedStrings}}" 
+                <TextBlock Text="{Binding Path=LocalizedResources.Working, Source={StaticResource LocalizedStrings}}" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"/>
             </Grid>

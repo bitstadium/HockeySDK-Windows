@@ -107,7 +107,7 @@ namespace HockeyApp.Tools
 
         private static AppUpdateControl CreateAppUpdateControl(Version currentVersion, IEnumerable<AppVersion> appVersions, UpdateCheckSettings updateCheckSettings, Action<AppVersion> updateAction)
         {
-            //TODO hooks für customizing
+            //TODO hooks for customizing
             var updateControl = new AppUpdateControl(appVersions, updateAction)
             {
                 Height =  Application.Current.Host.Content.ActualHeight,

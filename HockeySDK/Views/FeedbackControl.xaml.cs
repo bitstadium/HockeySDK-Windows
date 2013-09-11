@@ -17,22 +17,8 @@ namespace HockeyApp.Views
 {
     public partial class FeedbackControl : UserControl
     {
-        public FeedbackControl(FeedbackVM viewmodel)
+        public FeedbackControl()
         {
-            DataContext = viewmodel;
-            InitializeComponent();
-
-            //TODO 
-            /*
-            SendButton.Click += async (sender, e) =>
-            {
-                await viewmodel.SubmitForm();
-            };
-             * */
-            AnswerButton.Click += async (sender, e) =>
-            {
-                await viewmodel.ShowList();
-            };
         }
 
 

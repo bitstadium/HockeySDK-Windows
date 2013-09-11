@@ -7,7 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.Tools;
+using HockeyApp.ViewModels;
+using System.Windows.Input;
 
 namespace HockeyApp.Views
 {
@@ -20,33 +21,85 @@ namespace HockeyApp.Views
             protected set { this.DataContext = value; }
         }
 
+        ApplicationBarIconButton sendButton = new ApplicationBarIconButton();
+        ApplicationBarIconButton answerButton = new ApplicationBarIconButton();
+
+        protected void ShowFormAppBar() {
+            ApplicationBar.Buttons.Clear();
+            ApplicationBar.Buttons.Add(sendButton);
+        }
+
+        protected void ShowListAppBar() {
+            ApplicationBar.Buttons.Clear();
+            ApplicationBar.Buttons.Add(answerButton);
+            if (VM.Messages.Any())
+            {
+                MessageList.UpdateLayout();
+                MessageList.ScrollTo(VM.Messages.Last());
+            }
+        }
+        
         public FeedbackPage()
         {
-            this.VM = new FeedbackVM(FeedbackManager.Instance.AppIdentitfier);
-
-            InitializeComponent();
-
             ApplicationBar = new ApplicationBar();
-
             ApplicationBar.Mode = ApplicationBarMode.Default;
-            //TODO ?! ApplicationBar.IsMenuEnabled = true;
 
-            ApplicationBarIconButton sendButton = new ApplicationBarIconButton();
             sendButton.IconUri = new Uri("/Assets/Send.png", UriKind.Relative);
             sendButton.Text = "Send message";
-            ApplicationBar.Buttons.Add(sendButton);
+            sendButton.Click += async (sender, e) =>
+            {
+                object focusObj = FocusManager.GetFocusedElement();
+                if (focusObj != null && focusObj is TextBox)
+                {
+                    var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
+                    binding.UpdateSource();
+                }
+                await VM.SubmitForm();
+            };
 
-            sendButton.Click += async (sender, e) => { await VM.SubmitForm(); };
+            answerButton.IconUri = new Uri("/Assets/Reply.png", UriKind.Relative);
+            answerButton.Text = "Answer";
+            answerButton.Click += (sender, e) =>
+            {
+                VM.SwitchToMessageForm();
+            };
 
-            //TODO reset button ?!
+            Action<bool> showFormAppBarAction = (switchToForm) =>
+            {
+                Deployment.Current.Dispatcher.BeginInvoke(() =>
+                {
+                    if (switchToForm)
+                    {
+                        ShowFormAppBar();
+                    }
+                    else
+                    {
+                        ShowListAppBar();
+                    }
+                });
+            };
+            showFormAppBarAction(false);
+
+            this.VM = new FeedbackVM(showFormAppBarAction);
+
+            InitializeComponent();
+            
+            /*
+            ApplicationBar.IsMenuEnabled = true;
+            ApplicationBarMenuItem menuItem1 = new ApplicationBarMenuItem();
+            menuItem1.Text = "menu item 1";
+            ApplicationBar.MenuItems.Add(menuItem1);
+             */
         }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            
+            if (!VM.IsMessageListVisible && VM.IsThreadActive)
+            {
+                VM.SwitchToMessageList();
+                e.Cancel = true;
+            }
             base.OnBackKeyPress(e);
         }
-
-
     }
 }

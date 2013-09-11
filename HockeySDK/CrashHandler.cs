@@ -73,6 +73,10 @@ namespace HockeyApp
             }
         }
 
+        internal string AppIdentitfier { get { return this.identifier; } }
+        internal Application Application { get { return this.application; } }
+        internal string UserId { get { return this.userid; } }
+        internal string ContactInfo { get { return this.contactInfo; } }
 
         public void Configure(Application application, string identifier, Frame rootFrame = null, Func<Exception,string> descriptionLoader = null)
         {

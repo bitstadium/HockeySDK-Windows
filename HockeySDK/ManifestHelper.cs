@@ -41,7 +41,6 @@ namespace HockeyApp
 
         internal String GetValueFromManifest(String key)
         {
-            //TODO lohnt sich caching ?!
             try
             {
                 StreamReader reader = getManifestReader();
