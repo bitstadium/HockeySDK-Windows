@@ -1,4 +1,5 @@
 ﻿using HockeyApp.Resources;
+using System.Reflection;
 
 namespace HockeyApp
 {
@@ -7,8 +8,14 @@ namespace HockeyApp
     /// </summary>
     public class LocalizedStrings
     {
-        private static SdkResources _localizedResources = new SdkResources();
+        
 
-        public SdkResources LocalizedResources { get { return _localizedResources; } }
+        private static SdkResources _localizedResources = new SdkResources();
+        
+        public SdkResources LocalizedResources { get { 
+            
+//            Assembly.GetExecutingAssembly()
+            
+            return _localizedResources; } }
     }
 }

@@ -125,9 +125,6 @@
     <Compile Include="Views\AppUpdateControl.xaml.cs">
       <DependentUpon>AppUpdateControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FeedbackControl.xaml.cs">
-      <DependentUpon>FeedbackControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
@@ -141,18 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\FeedbackControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\FeedbackPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Reply.png" />
-    <Content Include="Assets\Send.png" />
+    <Content Include="HockeyApp.Content\Reply.png" />
+    <Content Include="HockeyApp.Content\Send.png" />
     <Content Include="Assets\wp8releasenotes.css" />
     <Content Include="Assets\windows_phone.png" />
   </ItemGroup>

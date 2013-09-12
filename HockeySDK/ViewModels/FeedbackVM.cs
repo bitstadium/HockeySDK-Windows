@@ -46,6 +46,10 @@ namespace HockeyApp.ViewModels
                             {
                                 this.Messages.Add(new FeedbackMessageVM(msg));
                             }
+                            if (FeedbackManager.Instance.FeedbackPageTopTitle.IsEmpty() && !thread.messages.First().subject.IsEmpty())
+                            {
+                                Deployment.Current.Dispatcher.BeginInvoke(() => this.ThreadInfo = thread.messages.First().subject);
+                            }
                         }
                         else //thread has been deleted
                         {
@@ -53,9 +57,12 @@ namespace HockeyApp.ViewModels
                             SwitchToMessageForm();
                         }
                     }
-                    catch (Exception)
+                    catch (Exception e)
                     {
-                        //TODO Fehler anzeien
+                        Deployment.Current.Dispatcher.BeginInvoke(() =>
+                        {
+                            MessageBox.Show("There has been a connection problem with the server. Please try again later.");
+                        });
                     }
                 }
                 else //no internet connection

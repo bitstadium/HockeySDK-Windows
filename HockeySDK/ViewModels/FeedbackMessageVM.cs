@@ -28,21 +28,11 @@ namespace HockeyApp.ViewModels
         public Brush BgColor { get { return IsIncoming ? Incoming : Outgoing; } }
          */
 
-        public HorizontalAlignment HorizontalAlignment
-        {
-            get
-            {
-                return IsIncoming ? HorizontalAlignment.Left : HorizontalAlignment.Right;
-            }
-        }
-
         public Thickness Margin
         {
             get {
-                var leftMargin = IsOutgoing ? 0 : 30;
-                var rightMargin = IsOutgoing ? 30 : 0;
-
-                return new Thickness(leftMargin, 4, rightMargin, 8); 
+                return IsIncoming ? new Thickness(2, 10, 40, 10)
+                    : new Thickness(40, 10, 2, 10);
             }
         }
 
