@@ -14,14 +14,20 @@ namespace HockeyApp.Tools
         public static Task<WebResponse> GetResponseTaskAsync(this HttpWebRequest webRequest)
         {
             Func<Task<WebResponse>> function = (() => Task.Factory.FromAsync<WebResponse>(webRequest.BeginGetResponse, webRequest.EndGetResponse,TaskCreationOptions.None));
+#if WP8
             return Task.Run(function);
+#else
+            return TaskEx.Run(function);
+#endif
         }
 
         public static async Task<bool> SetPostDataAsync(this HttpWebRequest request, string postData)
         {
             byte[] dataStream = Encoding.UTF8.GetBytes(postData);
             request.ContentType = Constants.ContentTypeUrlEncoded;
+#if WP8
             request.ContentLength = dataStream.Length;
+#endif
             request.Headers[HttpRequestHeader.ContentEncoding] = Encoding.UTF8.WebName;
             Stream stream = await request.GetRequestStreamAsync();
             stream.Write(dataStream, 0, dataStream.Length);

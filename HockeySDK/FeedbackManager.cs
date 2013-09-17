@@ -1,15 +1,12 @@
-﻿using HockeyApp.Model;
+﻿using System.Windows.Navigation;
+using HockeyApp.Model;
 using HockeyApp.Tools;
-using Microsoft.Phone.Net.NetworkInformation;
 using System;
-using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Navigation;
 
 namespace HockeyApp
 {
@@ -98,14 +95,19 @@ namespace HockeyApp
             try
             {
                 var response = await request.GetResponseTaskAsync();
+
+#if WP8
                 var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#else
+                var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#endif
                 if (fbResp.status.Equals("success"))
                 {
                     return fbResp.feedback;
                 }
                 else
                 {
-                    throw new ApplicationException("Server error. Server returned status " + fbResp.status);
+                    throw new Exception("Server error. Server returned status " + fbResp.status);
                 }
             }
             catch (Exception e)
@@ -169,22 +171,20 @@ namespace HockeyApp
             request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
             await request.SetPostDataAsync(message.SerializeToWwwForm());
 
-            try
+            var response = await request.GetResponseTaskAsync();
+#if WP8
+            var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#else
+            var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#endif
+
+            if (fbResp.status.Equals("success"))
             {
-                var response = await request.GetResponseTaskAsync();
-                var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-                if (fbResp.status.Equals("success"))
-                {
-                    return fbResp;
-                }
-                else
-                {
-                    throw new ApplicationException("Server error. Server returned status " + fbResp.status);
-                }
+                return fbResp;
             }
-            catch (Exception e)
+            else
             {
-                throw;
+                throw new Exception("Server error. Server returned status " + fbResp.status);
             }
         }
 
@@ -195,22 +195,20 @@ namespace HockeyApp
             request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
             await request.SetPostDataAsync(message.SerializeToWwwForm());
 
-            try
+            var response = await request.GetResponseTaskAsync();
+#if WP8
+            var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#else
+            var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
+#endif
+
+            if (fbResp.status.Equals("success"))
             {
-                var response = await request.GetResponseTaskAsync();
-                var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-                if (fbResp.status.Equals("success"))
-                {
-                    return fbResp;
-                }
-                else
-                {
-                    throw new ApplicationException("Server error. Server returned status " + fbResp.status);
-                }
+                return fbResp;
             }
-            catch (Exception e)
+            else
             {
-                throw;
+                throw new Exception("Server error. Server returned status " + fbResp.status);
             }
         }
 

@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{50440B23-BD16-4F87-AB91-8B8DD01780E5}</ProjectGuid>
+    <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>HockeyApp</RootNamespace>
+    <AssemblyName>HockeySDK.WP75</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
+    <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
+    <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
+    <SilverlightApplication>false</SilverlightApplication>
+    <ValidateXaml>true</ValidateXaml>
+    <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>Bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>Bin\Release</OutputPath>
+    <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
+    <NoStdLib>true</NoStdLib>
+    <NoConfig>true</NoConfig>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Reactive" />
+    <Reference Include="Microsoft.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\sl4-windowsphone71\Microsoft.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\sl4-windowsphone71\Microsoft.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Threading.Tasks.Extensions.Phone">
+      <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\sl4-windowsphone71\Microsoft.Threading.Tasks.Extensions.Phone.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Observable" />
+    <Reference Include="System.Runtime">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.19\lib\sl4-windowsphone71\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Servicemodel.Web" />
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\packages\Microsoft.Bcl.1.0.19\lib\sl4-windowsphone71\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows" />
+    <Reference Include="system" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net" />
+    <Reference Include="mscorlib.extensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\HockeySDK\AsyncSynchronizationContext.cs">
+      <Link>AsyncSynchronizationContext.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Constants.cs">
+      <Link>Constants.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Controls\NotificationBox\NotificationBox.cs">
+      <Link>Controls\NotificationBox\NotificationBox.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Controls\NotificationBox\NotificationBoxItem.cs">
+      <Link>Controls\NotificationBox\NotificationBoxItem.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\CrashHandler.cs">
+      <Link>CrashHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\FeedbackManager.cs">
+      <Link>FeedbackManager.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\LocalizedStrings.cs">
+      <Link>LocalizedStrings.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\ManifestHelper.cs">
+      <Link>ManifestHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Model\AppVersion.cs">
+      <Link>Model\AppVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Model\FeedbackMessage.cs">
+      <Link>Model\FeedbackMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Model\FeedbackResponseSingle.cs">
+      <Link>Model\FeedbackResponseSingle.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Model\FeedbackThread.cs">
+      <Link>Model\FeedbackThread.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Model\ThreadMetaInfos.cs">
+      <Link>Model\ThreadMetaInfos.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Resources\SdkResources.Designer.cs">
+      <Link>Resources\SdkResources.Designer.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SdkResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\BooleanToVisibilityConverter.cs">
+      <Link>Tools\BooleanToVisibilityConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\HttpExtensions.cs">
+      <Link>Tools\HttpExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\NotificationAction.cs">
+      <Link>Tools\NotificationAction.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\NotificationTool.cs">
+      <Link>Tools\NotificationTool.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\UtilExtensions.cs">
+      <Link>Tools\UtilExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Tools\WebBrowserHelper.cs">
+      <Link>Tools\WebBrowserHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\ViewModels\FeedbackMessageVM.cs">
+      <Link>ViewModels\FeedbackMessageVM.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\ViewModels\FeedbackVM.cs">
+      <Link>ViewModels\FeedbackVM.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\ViewModels\VMBase.cs">
+      <Link>ViewModels\VMBase.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK\Views\FeedbackPage.xaml.cs">
+      <Link>Views\FeedbackPage.xaml.cs</Link>
+      <DependentUpon>FeedbackPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\HockeySDK\Assets\windows_phone.png">
+      <Link>Assets\windows_phone.png</Link>
+    </Content>
+    <Content Include="..\HockeySDK\Assets\wp8releasenotes.css">
+      <Link>Assets\wp8releasenotes.css</Link>
+    </Content>
+    <Content Include="..\HockeySDK\HockeyApp.Content\Reply.png">
+      <Link>HockeyApp.Content\Reply.png</Link>
+    </Content>
+    <Content Include="..\HockeySDK\HockeyApp.Content\Send.png">
+      <Link>HockeyApp.Content\Send.png</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\HockeySDK\Resources\SdkResources.resx">
+      <Link>Resources\SdkResources.resx</Link>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="..\HockeySDK\Themes\Generic.xaml">
+      <Link>Themes\Generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\HockeySDK\Views\FeedbackPage.xaml">
+      <Link>Views\FeedbackPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
+  <ProjectExtensions />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

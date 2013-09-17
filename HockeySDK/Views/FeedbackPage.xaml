@@ -132,12 +132,12 @@
             <!--ContentPanel -->
             <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
                 <!-- Message List -->
-                <phone:LongListSelector 
+                <ListBox 
                     Visibility="{Binding IsMessageListVisible, Converter={StaticResource BooleanToVisibilityConverter}}"
                     x:Name="MessageList" Margin="0,0,0,0" 
                                         VerticalAlignment="Top" 
                         ItemsSource="{Binding Messages}" >
-                        <phone:LongListSelector.ItemTemplate>
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
 
                         <Grid Margin="{Binding Margin}" >
@@ -191,8 +191,8 @@
                             <!-- Fill="{Binding BgColor}"-->
                         </Grid>
                     </DataTemplate>
-                </phone:LongListSelector.ItemTemplate>
-                </phone:LongListSelector>
+                    </ListBox.ItemTemplate>
+            </ListBox>
                 <!-- Message form -->
                 <Grid x:Name="MessageForm" Visibility="{Binding IsMessageFormVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <Grid.ColumnDefinitions>
