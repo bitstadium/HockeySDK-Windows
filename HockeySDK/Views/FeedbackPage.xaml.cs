@@ -35,7 +35,7 @@ namespace HockeyApp.Views
             if (VM.Messages.Any())
             {
                 MessageList.UpdateLayout();
-                MessageList.ScrollTo(VM.Messages.Last());
+                MessageList.ScrollIntoView(VM.Messages.Last());
             }
         }
         
