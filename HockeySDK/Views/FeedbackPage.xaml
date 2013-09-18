@@ -137,6 +137,12 @@
                     x:Name="MessageList" Margin="0,0,0,0" 
                                         VerticalAlignment="Top" 
                         ItemsSource="{Binding Messages}" >
+                    <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                    </Style>
+                    </ListBox.ItemContainerStyle>
+
                         <ListBox.ItemTemplate>
                             <DataTemplate>
 
