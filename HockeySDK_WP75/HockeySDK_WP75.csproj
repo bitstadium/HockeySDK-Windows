@@ -70,107 +70,107 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\HockeyApp_WP8\AsyncSynchronizationContext.cs">
+    <Compile Include="..\HockeySDK_WP8\AsyncSynchronizationContext.cs">
       <Link>AsyncSynchronizationContext.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Constants.cs">
+    <Compile Include="..\HockeySDK_WP8\Constants.cs">
       <Link>Constants.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Controls\NotificationBox\NotificationBox.cs">
+    <Compile Include="..\HockeySDK_WP8\Controls\NotificationBox\NotificationBox.cs">
       <Link>Controls\NotificationBox\NotificationBox.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Controls\NotificationBox\NotificationBoxItem.cs">
+    <Compile Include="..\HockeySDK_WP8\Controls\NotificationBox\NotificationBoxItem.cs">
       <Link>Controls\NotificationBox\NotificationBoxItem.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\CrashHandler.cs">
+    <Compile Include="..\HockeySDK_WP8\CrashHandler.cs">
       <Link>CrashHandler.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\FeedbackManager.cs">
+    <Compile Include="..\HockeySDK_WP8\FeedbackManager.cs">
       <Link>FeedbackManager.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\LocalizedStrings.cs">
+    <Compile Include="..\HockeySDK_WP8\LocalizedStrings.cs">
       <Link>LocalizedStrings.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\ManifestHelper.cs">
+    <Compile Include="..\HockeySDK_WP8\ManifestHelper.cs">
       <Link>ManifestHelper.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Model\AppVersion.cs">
+    <Compile Include="..\HockeySDK_WP8\Model\AppVersion.cs">
       <Link>Model\AppVersion.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Model\FeedbackMessage.cs">
+    <Compile Include="..\HockeySDK_WP8\Model\FeedbackMessage.cs">
       <Link>Model\FeedbackMessage.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Model\FeedbackResponseSingle.cs">
+    <Compile Include="..\HockeySDK_WP8\Model\FeedbackResponseSingle.cs">
       <Link>Model\FeedbackResponseSingle.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Model\FeedbackThread.cs">
+    <Compile Include="..\HockeySDK_WP8\Model\FeedbackThread.cs">
       <Link>Model\FeedbackThread.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Model\ThreadMetaInfos.cs">
+    <Compile Include="..\HockeySDK_WP8\Model\ThreadMetaInfos.cs">
       <Link>Model\ThreadMetaInfos.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Resources\SdkResources.Designer.cs">
+    <Compile Include="..\HockeySDK_WP8\Resources\SdkResources.Designer.cs">
       <Link>Resources\SdkResources.Designer.cs</Link>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SdkResources.resx</DependentUpon>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\BooleanToVisibilityConverter.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\BooleanToVisibilityConverter.cs">
       <Link>Tools\BooleanToVisibilityConverter.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\HttpExtensions.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\HttpExtensions.cs">
       <Link>Tools\HttpExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\NotificationAction.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\NotificationAction.cs">
       <Link>Tools\NotificationAction.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\NotificationTool.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\NotificationTool.cs">
       <Link>Tools\NotificationTool.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\UtilExtensions.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\UtilExtensions.cs">
       <Link>Tools\UtilExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Tools\WebBrowserHelper.cs">
+    <Compile Include="..\HockeySDK_WP8\Tools\WebBrowserHelper.cs">
       <Link>Tools\WebBrowserHelper.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\ViewModels\FeedbackMessageVM.cs">
+    <Compile Include="..\HockeySDK_WP8\ViewModels\FeedbackMessageVM.cs">
       <Link>ViewModels\FeedbackMessageVM.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\ViewModels\FeedbackVM.cs">
+    <Compile Include="..\HockeySDK_WP8\ViewModels\FeedbackVM.cs">
       <Link>ViewModels\FeedbackVM.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\ViewModels\VMBase.cs">
+    <Compile Include="..\HockeySDK_WP8\ViewModels\VMBase.cs">
       <Link>ViewModels\VMBase.cs</Link>
     </Compile>
-    <Compile Include="..\HockeyApp_WP8\Views\FeedbackPage.xaml.cs">
+    <Compile Include="..\HockeySDK_WP8\Views\FeedbackPage.xaml.cs">
       <Link>Views\FeedbackPage.xaml.cs</Link>
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\HockeyApp_WP8\Assets\windows_phone.png">
+    <Content Include="..\HockeySDK_WP8\Assets\windows_phone.png">
       <Link>Assets\windows_phone.png</Link>
     </Content>
-    <Content Include="..\HockeyApp_WP8\Assets\wp8releasenotes.css">
+    <Content Include="..\HockeySDK_WP8\Assets\wp8releasenotes.css">
       <Link>Assets\wp8releasenotes.css</Link>
     </Content>
-    <Content Include="..\HockeyApp_WP8\HockeyApp.Content\Reply.png">
+    <Content Include="..\HockeySDK_WP8\HockeyApp.Content\Reply.png">
       <Link>HockeyApp.Content\Reply.png</Link>
     </Content>
-    <Content Include="..\HockeyApp_WP8\HockeyApp.Content\Send.png">
+    <Content Include="..\HockeySDK_WP8\HockeyApp.Content\Send.png">
       <Link>HockeyApp.Content\Send.png</Link>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="..\HockeyApp_WP8\Resources\SdkResources.resx">
+    <EmbeddedResource Include="..\HockeySDK_WP8\Resources\SdkResources.resx">
       <Link>Resources\SdkResources.resx</Link>
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <CodeAnalysisDictionary Include="..\HockeyApp_WP8\Themes\Generic.xaml">
+    <CodeAnalysisDictionary Include="..\HockeySDK_WP8\Themes\Generic.xaml">
       <Link>Themes\Generic.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -180,7 +180,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\HockeyApp_WP8\Views\FeedbackPage.xaml">
+    <Page Include="..\HockeySDK_WP8\Views\FeedbackPage.xaml">
       <Link>Views\FeedbackPage.xaml</Link>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

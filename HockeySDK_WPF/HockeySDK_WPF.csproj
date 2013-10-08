@@ -74,9 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HockeyApp_Portable\HockeyApp_Portable.csproj">
+    <ProjectReference Include="..\HockeySDK_Portable\HockeySDK_Portable.csproj">
       <Project>{dd8a28b6-572b-4c4f-8f73-3d4a7d4f7f96}</Project>
-      <Name>HockeyApp_Portable</Name>
+      <Name>HockeySDK_Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyApp_Portable", "HockeyApp_Portable\HockeyApp_Portable.csproj", "{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable", "HockeySDK_Portable\HockeySDK_Portable.csproj", "{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyApp_WP8", "HockeyApp_WP8\HockeyApp_WP8.csproj", "{621893EB-F854-4777-8CFD-9032E6FF740C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WP8", "HockeySDK_WP8\HockeySDK_WP8.csproj", "{621893EB-F854-4777-8CFD-9032E6FF740C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyApp_WP75", "HockeyApp_WP75\HockeyApp_WP75.csproj", "{50440B23-BD16-4F87-AB91-8B8DD01780E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WP75", "HockeySDK_WP75\HockeySDK_WP75.csproj", "{50440B23-BD16-4F87-AB91-8B8DD01780E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeyApp_WPF", "HockeySDK_WPF\HockeyApp_WPF.csproj", "{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF", "HockeySDK_WPF\HockeySDK_WPF.csproj", "{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
