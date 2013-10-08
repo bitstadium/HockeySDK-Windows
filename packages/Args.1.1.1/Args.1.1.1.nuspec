@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Args</id>
+    <version>1.1.1</version>
+    <title>Args</title>
+    <authors>Brian Ball</authors>
+    <owners>Brian Ball</owners>
+    <licenseUrl>https://github.com/littlebits/args</licenseUrl>
+    <projectUrl>https://github.com/littlebits/args</projectUrl>
+    <iconUrl>http://littlebits.github.com/args/console32.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Command line parser for .NET. Parses command line parameters into custom POCO objects.</description>
+    <releaseNotes />
+    <copyright />
+    <language>en-US</language>
+    <tags>littlebits command line parser parse arguments args</tags>
+  </metadata>
+</package>

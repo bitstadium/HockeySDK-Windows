@@ -1,0 +1,213 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Args</name>
+    </assembly>
+    <members>
+        <member name="T:Args.IModelBindingDefinition`1">
+            <summary>
+            A class that implements this interface is responsible for creating and maintaining the definition of its members as well as orchestrating the binding of data to those members
+            </summary>
+            <typeparam name="TModel">Type of the model to bind</typeparam>
+        </member>
+        <member name="T:Args.MemberBindingDefinition`1">
+            <summary>
+            The default impelmentation for IMemberBindingDefinition
+            </summary>
+            <typeparam name="TModel">Type of model to bind</typeparam>
+        </member>
+        <member name="T:Args.IMemberBindingDefinition`1">
+            <summary>
+            A class that impelments this interface is responsible for signifying if it can handle a switch and also to coordinate converting the value of the switch into the appropriate type
+            </summary>
+            <typeparam name="TModel">Type of the model to bind</typeparam>
+        </member>
+        <member name="T:Args.ArgsMemberSwitchAttribute">
+            <summary>
+            Decorate a field or property with this attribute to either specify its switches or if it is an ordinal argument
+            </summary>
+        </member>
+        <member name="P:Args.ModelBindingDefinition`1.Members">
+            <summary>
+            The default implementation for IModelBindingDefinition
+            </summary>
+        </member>
+        <member name="T:Args.IModelBindingDefinitionInitializer">
+            <summary>
+            This interface should be implemented by any class that is responsible for initializing a IModelBindingDefinition
+            </summary>
+        </member>
+        <member name="T:Args.Help.ResourceMemberHelpAttributeBase">
+            <summary>
+            This attribute is a base type that is to be implemented.  Attributes inheriting from this should only be inspected by implementations of IHelpProvider.
+            If the resource is a simple string, then you should consider using System.ComponentModel.DescriptionAttribute.
+            The purpose of this type is to provide help information that might be expensive to retrieve.
+            The attribute will only be utilized if help text has not already been provided
+            </summary>
+        </member>
+        <member name="T:Args.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.AddMethodNotFoundMessage">
+            <summary>
+              Looks up a localized string similar to Type {0} does not contain a method named &apos;Add&apos;..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.ArgsMissingValue">
+            <summary>
+              Looks up a localized string similar to Missing a value after {0}.
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.BoolWithDefaultInModel">
+            <summary>
+              Looks up a localized string similar to Booleans with a default value are not meaningful.  If the switch exists, the value is true, otherwise the value is false..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.IncorrectNumberOfOrdinalArgumentsMessage">
+            <summary>
+              Looks up a localized string similar to Number of ordinal arguments must at least {0}..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.InvalidMemberName">
+            <summary>
+              Looks up a localized string similar to Can not derive short name for member {0} in type {1}. Most likely another member name starts with &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.MemberNotFoundInAvailableMembers">
+            <summary>
+              Looks up a localized string similar to Can not derive short name for member {0} in type {1}. It is not in the list of possible members to pick from..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.NullableBoolInModel">
+            <summary>
+              Looks up a localized string similar to Nullable boolean values can not be bound in a meaningful way, please consider using Boolean or an Enum..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.OnlyLastOridnalArgumentCollectionMessage">
+            <summary>
+              Looks up a localized string similar to Only the last oridinal argument can implement IEnumerable&lt;&gt; (except System.String)..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.RequiredParameterNotProvidedMessage">
+            <summary>
+              Looks up a localized string similar to &apos;{0}&apos; is a required parameter..
+            </summary>
+        </member>
+        <member name="P:Args.Properties.Resources.TypeConverterNotFoundMessage">
+            <summary>
+              Looks up a localized string similar to Cannot find appropriate type converter from type {0} to type {1}..
+            </summary>
+        </member>
+        <member name="T:Args.IArgsConfiguration">
+            <summary>
+            An interface that will configure an IModelBindingDefinition based on a given initializer
+            </summary>
+        </member>
+        <member name="M:Args.TypeExtensions.GetGenericIEnumerable(System.Type)">
+            <summary>
+            Returns a type that represents the implemented IEnumberable&lt;&gt; (e.g. IEnumerable&lt;string&gt;)
+            Returns null if the provided type is System.String
+            </summary>
+            <param name="type"></param>
+            <returns>Returns null if none is defined</returns>
+        </member>
+        <member name="T:Args.Configuration">
+            <summary>
+            A static wraper for the default implementation of IArgsConfiguration.  Singleton instance only
+            </summary>
+        </member>
+        <member name="M:Args.Configuration.Configure``1">
+            <summary>
+            Create an IModelBindingDefinition. Will use the default ConventionBasedModelDefinitionInitializer
+            </summary>
+            <typeparam name="TModel">The type that will be bound to</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Args.Configuration.Configure``1(Args.IModelBindingDefinitionInitializer)">
+            <summary>
+            Create an IModelBindingDefinition.  Will use the provided IModelBindingDefinitionInitializer
+            </summary>
+            <typeparam name="TModel"></typeparam>
+            <param name="initializer"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Args.Help.IHelpProvider">
+            <summary>
+            Any class that generates help from a binding definition should implement this interface
+            </summary>
+        </member>
+        <member name="T:Args.FluentModelBindingConfiguration`1">
+            <summary>
+            Used for configuring an IModelBindingDefinition fluently
+            </summary>
+            <typeparam name="TModel">Type of the model to bind</typeparam>
+        </member>
+        <member name="T:Args.ConventionBasedModelDefinitionInitializer">
+            <summary>
+            The default convention-based initializer. Will create and return an instance of IModelBindingDefinition
+            </summary>
+        </member>
+        <member name="T:Args.Help.Formatters.IHelpFormatter">
+            <summary>
+            An interface that all formatters must implement
+            </summary>
+        </member>
+        <member name="M:Args.Help.Formatters.HelpFormatterExtensions.GetHelp(Args.Help.Formatters.IHelpFormatter,Args.Help.ModelHelp)">
+            <summary>
+            A helper method for getting the formatted help text into a string
+            </summary>
+            <param name="source">The implemented help formatter</param>
+            <param name="modelHelp">The data structure that contains the help information</param>
+            <returns></returns>
+        </member>
+        <member name="T:Args.ArgsModelAttribute">
+            <summary>
+            Decorate a model with this attribute to specifiy its switch delimiter as well as the StringComparison type to use when checking for switch equality
+            </summary>
+        </member>
+        <member name="T:Args.LambdaArgsTypeConverter">
+            <summary>
+            This class enables type conversion to be handled by a simple lambda expression
+            </summary>
+        </member>
+        <member name="T:Args.IArgsTypeConverter">
+            <summary>
+            A simple interface to impelment for type conversion from string. If a TypeConverter for the type does not already exist, this is the easiest way to do type conversion in Args
+            </summary>
+        </member>
+        <member name="T:Args.Help.Formatters.ConsoleHelpFormatter">
+            <summary>
+            Formats the ModelHelp data into a easily readable format for a console window
+            </summary>
+        </member>
+        <member name="T:Args.Help.HelpProvider">
+            <summary>
+            The default implementation for IHelpProvider
+            </summary>
+        </member>
+        <member name="T:Args.ArgsTypeResolver">
+            <summary>
+            Holds a static reference to an IServiceProvider.  If one is not specified, a default one will be use which simply uses Activator.CreateInstance and assumes a default constructor
+            </summary>
+        </member>
+        <member name="T:Args.FluentMemberBindingConfiguration`1">
+            <summary>
+            Used for configuring an IMemberBindingDefinition fluently
+            </summary>
+            <typeparam name="TModel">Type of the model to bind</typeparam>
+        </member>
+    </members>
+</doc>
