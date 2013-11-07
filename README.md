@@ -5,7 +5,7 @@ The official Windows SDK for the HockeyApp service. Supports .NET Framework >= 4
 
 ## Introduction
 
-The HockeySDK for Windows Phone allows users to send crash reports right from within the application.
+The HockeySDK for Windows allows users to send crash reports right from within the application.
 When your app crashes, a file with basic information about the environment (device type, OS version, etc.), the reason and the stacktrace of the exception is created. 
 The next time the user starts the app, he is asked to send the crash data to the developer. If he confirms the dialog, the crash log is sent to HockeyApp and then the file deleted from the device.
 
