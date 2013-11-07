@@ -112,9 +112,9 @@ If you have any questions, problems or suggestions, please contact us at [suppor
 ##Release notes
 All release notes can be found in the project directories
 
-* [Hockey-SDK Portable](./HockeySDK_Portable/README.MD)
-* [Hockey-SDK Portable .Net4.5](./HockeySDK_Portable45/README.MD)
-* [HockeySDK WP8](./HockeySDK_WP8/README.MD)
-* [HockeySDK WP7.5](./HockeySDK_WP75/README.MD)
-* [HockeySDK WPF](./HockeySDK_WPF/README.MD)
-* [HockeySDK WPF .Net4.5](./HockeySDK_WPF45/README.MD)
+* [Hockey-SDK Portable](./HockeySDK_Portable/)
+* [Hockey-SDK Portable .Net4.5](./HockeySDK_Portable45/)
+* [HockeySDK WP8](./HockeySDK_WP8/)
+* [HockeySDK WP7.5](./HockeySDK_WP75/)
+* [HockeySDK WPF](./HockeySDK_WPF/)
+* [HockeySDK WPF .Net4.5](./HockeySDK_WPF45/)
