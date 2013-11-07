@@ -12,57 +12,53 @@ namespace HockeyApp
 {
     public class FeedbackManager
     {
+        #region singleton
 
         private static readonly FeedbackManager instance = new FeedbackManager();
-        private string identifier = null;
-        private Application application = null;
-
-        private string usernameInitial;
-        private string emailInitial;
-
         static FeedbackManager() { }
         private FeedbackManager() { }
 
         public static FeedbackManager Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
+        }
+
+        #endregion
+
+        public string FeedbackPageTopTitle { get; private set; }
+        private string usernameInitial;
+        private string emailInitial;
+
+        private string threadToken;
+        private IFeedbackThread activeThread;
+
+        /// <summary>
+        /// Optional. Only needed if you want to set an initial toptitle for the UI or an intitial email and username.
+        /// A Crashhandler has to be configured before usage of the Feedbackmanager!
+        /// </summary>
+        /// <param name="toptitle">Title shown over the header on the feedback page</param>
+        /// <param name="initialUsername">Initial username to show in form</param>
+        /// <param name="initialEmail">Initial email to show in form</param>
+        public void Configure(string toptitle = null, string initialUsername = null, string initialEmail = null)
+        {
+            this.FeedbackPageTopTitle = toptitle;
+            this.usernameInitial = initialUsername;
+            this.emailInitial = initialEmail;
         }
 
         /// <summary>
-        /// Optional. Only needed if you don't configured a CrashHandler
+        /// Navigates to the feedback page
         /// </summary>
-        /// <param name="application"></param>
-        /// <param name="appIdentifier"></param>
-        public void Configure(Application application, string appIdentifier, string toptitle = null, string initialUsername = null, string initialEmail = null)
-        {
-            if (this.application == null)
-            {
-                this.identifier = appIdentifier;
-                this.application = application;
-                this.FeedbackPageTopTitle = toptitle;
-                this.usernameInitial = initialUsername;
-                this.emailInitial = initialEmail;
-            }
-            else
-            {
-                throw new InvalidOperationException("FeedbackManager was already configured!");
-            }
-        }
-
-        public string FeedbackPageTopTitle { get; private set; }
-
-        internal string AppIdentitfier { get { return this.identifier ?? CrashHandler.Instance.AppIdentitfier; } }
-        internal Application Application { get { return this.application ?? CrashHandler.Instance.Application; } }
-
+        /// <param name="navigationService"></param>
         public void NavigateToFeedbackUI(NavigationService navigationService)
         {
-            navigationService.Navigate(new Uri("/HockeySDK;component/Views/FeedbackPage.xaml", UriKind.Relative));
+            navigationService.Navigate(new Uri("/HockeyApp;component/Views/FeedbackPage.xaml", UriKind.Relative));
         }
-
-        private string threadToken;
+        
+        /// <summary>
+        /// The token of the open feedback thread
+        /// (you should not need this is you use the provided feedpage page)
+        /// </summary>
         public string ThreadToken
         {
             get
@@ -73,6 +69,10 @@ namespace HockeyApp
             set { threadToken = value; }
         }
 
+        /// <summary>
+        /// Indicates if a thread has already been opened by the app
+        /// (you should not need this is you use the provided feedpage page)
+        /// </summary>
         public bool IsThreadOpen
         {
             get
@@ -82,68 +82,55 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// 
+        /// Gets the active feedback thread with all messages from the HockeyApp server (cached)
+        /// (you should not need this is you use the provided feedpage page)
         /// </summary>
-        /// <returns>FeedbackThread or null if the thread got deleted</returns>
-        /// <exception cref="ApplicationException"></exception>
-        public async Task<FeedbackThread> GetActiveThreadAsync()
+        /// <param name="forceReload">[optional] force reload of thread messages</param>
+        /// <returns>the FeedbackThread</returns>
+        public async Task<IFeedbackThread> GetActiveThreadAsync(bool forceReload = false)
         {
-            var request = WebRequest.CreateHttp(new Uri(Constants.ApiBase + "apps/" + this.AppIdentitfier + "/feedback/" + this.ThreadToken + ".json", UriKind.Absolute));
-            request.Method = HttpMethod.Get;
-            request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
-
-            try
+            if (this.activeThread != null && !forceReload) { return activeThread; }
+            if (this.ThreadToken == null) { return null; }
+            var thread = await HockeyClient.Instance.OpenFeedbackThreadAsync(this.ThreadToken);
+            if (thread == null)
             {
-                var response = await request.GetResponseTaskAsync();
-
-#if WP8
-                var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#else
-                var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#endif
-                if (fbResp.status.Equals("success"))
-                {
-                    return fbResp.feedback;
-                }
-                else
-                {
-                    throw new Exception("Server error. Server returned status " + fbResp.status);
-                }
+                //thread got deleted
+                ForgetThreadInfos();
             }
-            catch (Exception e)
+            else
             {
-                var webex = e.InnerException as WebException;
-                if (webex != null)
-                {
-                    if (webex.Response.ContentType.IsEmpty())
-                    {
-                        //Connection error during call
-                        throw webex;
-                    }
-                    else
-                    {
-                        //404 Response from server => thread got deleted
-                        ForgetThreadInfos();
-                        return null;
-                    }
-                }
-                else
-                {
-                    throw;
-                }
+                this.activeThread = thread;
             }
+            return thread;
         }
 
+        /// <summary>
+        /// Get saved Feedbackthread-metadata 
+        /// (you should not need this is you use the provided feedpage page)
+        /// </summary>
         public FeedbackThreadMetaInfos ThreadMetaInfos {
             get
             {
                 IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
                 return new FeedbackThreadMetaInfos(
                     settings.GetValue(Constants.FeedbackThreadSubjectKey) as string,
-                    settings.GetValue(Constants.FeedbackUsernameKey) as string ?? this.usernameInitial ?? CrashHandler.Instance.UserId,
-                    settings.GetValue(Constants.FeedbackEmailKey) as string ?? this.emailInitial ?? CrashHandler.Instance.ContactInfo,
+                    settings.GetValue(Constants.FeedbackUsernameKey) as string ?? this.usernameInitial ?? HockeyClient.Instance.UserID,
+                    settings.GetValue(Constants.FeedbackEmailKey) as string ?? this.emailInitial ?? HockeyClient.Instance.ContactInformation,
                     settings.GetValue(Constants.FeedbackThreadKey) as string);
             }
+        }
+
+        /// <summary>
+        /// Deletes all persistently stored data like FeedbackThreadToken, UserName, etc. Call in your app if user logs out.
+        /// </summary>
+        public void Logout()
+        {
+            IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
+            settings.RemoveValue(Constants.FeedbackThreadKey);
+            settings.RemoveValue(Constants.FeedbackThreadSubjectKey);
+            settings.RemoveValue(Constants.FeedbackEmailKey);
+            settings.RemoveValue(Constants.FeedbackUsernameKey);
+            settings.Save();            
         }
 
         protected void ForgetThreadInfos()
@@ -154,86 +141,42 @@ namespace HockeyApp
             settings.Save();
         }
 
-        protected void PersistThreadMetaInfos(FeedbackResponseSingle fbResponse, string user, string email)
+        protected void PersistThreadMetaInfos(string token, string subject, string user, string email)
         {
             IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
-            settings.SetValue(Constants.FeedbackThreadKey, fbResponse.token);
-            settings.SetValue(Constants.FeedbackThreadSubjectKey, fbResponse.feedback.messages.First().subject);
+            settings.SetValue(Constants.FeedbackThreadKey, token);
+            settings.SetValue(Constants.FeedbackThreadSubjectKey, subject);
             settings.SetValue(Constants.FeedbackEmailKey, email);
             settings.SetValue(Constants.FeedbackUsernameKey, user);
             settings.Save();
         }
 
-        protected async Task<FeedbackResponseSingle> PostAnswerAsync(FeedbackMessage message)
+        /// <summary>
+        /// Send a feedback message to the server
+        /// (you should not need this is you use the provided feedpage page)
+        /// </summary>
+        /// <param name="message">message text</param>
+        /// <param name="email">email address of sender</param>
+        /// <param name="subject">subject of message</param>
+        /// <param name="name">name of sender</param>
+        /// <returns></returns>
+        public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name)
         {
-            var request = WebRequest.CreateHttp(new Uri(Constants.ApiBase + "apps/" + this.AppIdentitfier + "/feedback/" + this.ThreadToken + "/", UriKind.Absolute));
-            request.Method = HttpMethod.Put;
-            request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
-            await request.SetPostDataAsync(message.SerializeToWwwForm());
+            var thread = await this.GetActiveThreadAsync() ?? FeedbackThread.CreateInstance();
 
-            var response = await request.GetResponseTaskAsync();
-#if WP8
-            var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#else
-            var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#endif
-
-            if (fbResp.status.Equals("success"))
+            IFeedbackMessage msg;
+            try
             {
-                return fbResp;
+                msg = await thread.PostFeedbackMessageAsync(message, email, subject, name);
+                PersistThreadMetaInfos(thread.Token, subject, name, email);
+                this.activeThread = thread;
             }
-            else
+            catch (Exception)
             {
-                throw new Exception("Server error. Server returned status " + fbResp.status);
+                this.activeThread = null;
+                throw;
             }
-        }
-
-        protected async Task<FeedbackResponseSingle> StartThreadAsync(FeedbackMessage message)
-        {
-            var request = WebRequest.CreateHttp(new Uri(Constants.ApiBase + "apps/" + this.AppIdentitfier + "/feedback", UriKind.Absolute));
-            request.Method = HttpMethod.Post;
-            request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
-            await request.SetPostDataAsync(message.SerializeToWwwForm());
-
-            var response = await request.GetResponseTaskAsync();
-#if WP8
-            var fbResp = await Task.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#else
-            var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
-#endif
-
-            if (fbResp.status.Equals("success"))
-            {
-                return fbResp;
-            }
-            else
-            {
-                throw new Exception("Server error. Server returned status " + fbResp.status);
-            }
-        }
-
-
-        internal async Task<FeedbackMessage> SendFeedback(FeedbackMessage msg, string user = null, string email = null)
-        {
-            if (this.IsThreadOpen)
-            {
-                var fbResponse = await this.PostAnswerAsync(msg);
-                if (fbResponse != null)
-                {
-                    return fbResponse.feedback.messages.Last();
-                }
-            }
-            else
-            {
-                var fbResponse = await this.StartThreadAsync(msg);
-                if (fbResponse != null)
-                {
-                    this.ThreadToken = fbResponse.token;
-                    this.PersistThreadMetaInfos(fbResponse, user, email);
-                    return fbResponse.feedback.messages.Last();
-                }
-            }
-            return null;
+            return msg;
         }
     }
 

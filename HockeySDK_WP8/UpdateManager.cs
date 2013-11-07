@@ -16,7 +16,6 @@ using Windows.Management.Deployment;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using System.Windows.Media;
-using HockeyApp.Resources;
 
 namespace HockeyApp
 {
@@ -33,6 +32,9 @@ namespace HockeyApp
         InApp
     }
 
+    /// <summary>
+    /// SEttings for update-checking
+    /// </summary>
     public class UpdateCheckSettings
     {
 
@@ -45,6 +47,9 @@ namespace HockeyApp
         }
 
         private UpdateMode updateMode = UpdateMode.Startup;
+        /// <summary>
+        /// Defines the mode in which the Startup-check should be run (InApp vs. during Startup)
+        /// </summary>
         public UpdateMode UpdateMode
         {
             get { return updateMode; }
@@ -52,20 +57,29 @@ namespace HockeyApp
         }
         
         private UpdateCheckFrequency updateCheckFrequency = UpdateCheckFrequency.Always;
+        /// <summary>
+        /// Set the frequency to check for updates
+        /// </summary>
         public UpdateCheckFrequency UpdateCheckFrequency
         {
             get { return updateCheckFrequency; }
             set { updateCheckFrequency = value; }
         }
         
-        private Func<AppVersion,bool> customDoShowUpdateFunc = (version) => true;
-        public Func<AppVersion,bool> CustomDoShowUpdateFunc
+        private Func<IAppVersion,bool> customDoShowUpdateFunc = null;
+        /// <summary>
+        /// Handle a found update with custom code (no default ui shown)
+        /// </summary>
+        public Func<IAppVersion,bool> CustomDoShowUpdateFunc
         {
             get { return customDoShowUpdateFunc; }
             set { customDoShowUpdateFunc = value; }
         }
 
         private bool enforceUpdateIfMandatory = true;
+        /// <summary>
+        /// Enforce the update if new version is marked as mandatory (default: true)
+        /// </summary>
         public bool EnforceUpdateIfMandatory
         {
             get { return enforceUpdateIfMandatory; }
@@ -91,6 +105,11 @@ namespace HockeyApp
             }
         }
 
+        /// <summary>
+        /// Check for an update on the server
+        /// </summary>
+        /// <param name="identifier">public app identifier of your app</param>
+        /// <param name="settings">[optional] custom settings</param>
         public static void RunUpdateCheck(string identifier, UpdateCheckSettings settings = null)
         {
             Instance.identifier = identifier;
@@ -99,49 +118,38 @@ namespace HockeyApp
 
         internal void UpdateVersionIfAvailable(UpdateCheckSettings updateCheckSettings)
         {
-            var request = WebRequest.CreateHttp(new Uri(Constants.ApiBase + "apps/" + identifier + ".json", UriKind.Absolute));
-            request.Method = HttpMethod.Get;
-            request.Headers[HttpRequestHeader.UserAgent] = Constants.UserAgentString;
-
             if (CheckWithUpdateFrequency(updateCheckSettings.UpdateCheckFrequency) && NetworkInterface.GetIsNetworkAvailable())
             {
-                try
+                var task = HockeyClient.Instance.GetAppVersionsAsync();
+                task.ContinueWith((finishedTask) =>
                 {
-                    var responseTask = request.GetResponseTaskAsync();
-                    responseTask.ContinueWith((webResponseTask) =>
+                    var appVersions = finishedTask.Result;
+                    var newestAvailableAppVersion = appVersions.FirstOrDefault();
+
+                    var currentVersion = new Version(ManifestHelper.GetAppVersion());
+                    if (appVersions.Any()
+                        && new Version(newestAvailableAppVersion.Version) > currentVersion
+                        && (updateCheckSettings.CustomDoShowUpdateFunc == null || updateCheckSettings.CustomDoShowUpdateFunc(newestAvailableAppVersion)))
                     {
-                        var response = webResponseTask.Result;
-                        IEnumerable<AppVersion> appVersions = AppVersion.FromJson(response.GetResponseStream());
-                        var newestAvailableAppVersion = appVersions.FirstOrDefault();
-                        var currentVersion = new Version(ManifestHelper.GetAppVersion());
-                        if (newestAvailableAppVersion != null
-                            && new Version(newestAvailableAppVersion.version) > currentVersion
-                            && updateCheckSettings.CustomDoShowUpdateFunc(newestAvailableAppVersion))
+                        if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp) || (updateCheckSettings.EnforceUpdateIfMandatory && newestAvailableAppVersion.Mandatory))
                         {
-                            if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp) || (updateCheckSettings.EnforceUpdateIfMandatory && newestAvailableAppVersion.mandatory))
-                            {
-                                ShowVersionPopup(currentVersion, appVersions, updateCheckSettings);
-                            }
-                            else
-                            {
-                                ShowUpdateNotification(currentVersion, appVersions, updateCheckSettings);
-                            }
+                            ShowVersionPopup(currentVersion, appVersions, updateCheckSettings);
                         }
                         else
                         {
-                            if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp))
-                            {
-                                Scheduler.Dispatcher.Schedule(() => MessageBox.Show(SdkResources.NoUpdateAvailable));
-                            }
+                            ShowUpdateNotification(currentVersion, appVersions, updateCheckSettings);
                         }
-                    }, TaskContinuationOptions.NotOnFaulted);
-                }
-                catch (Exception e)
-                {
-                }
+                    }
+                    else
+                    {
+                        if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp))
+                        {
+                            Scheduler.Dispatcher.Schedule(() => MessageBox.Show(LocalizedStrings.LocalizedResources.NoUpdateAvailable));
+                        }
+                    }
+                });
             }
         }
-
 
         internal bool CheckWithUpdateFrequency(UpdateCheckFrequency frequency)
         {
@@ -149,42 +157,41 @@ namespace HockeyApp
             return true;
         }
 
-        protected void ShowUpdateNotification(Version currentVersion, IEnumerable<AppVersion> appVersions, UpdateCheckSettings updateCheckSettings)
+        protected void ShowUpdateNotification(Version currentVersion, IEnumerable<IAppVersion> appVersions, UpdateCheckSettings updateCheckSettings)
         {
             Scheduler.Dispatcher.Schedule(() =>
             {
                 NotificationTool.Show(
-                    SdkResources.UpdateNotification,
-                    SdkResources.UpdateAvailable,
-                    new NotificationAction(SdkResources.Show, () =>
+                    LocalizedStrings.LocalizedResources.UpdateNotification,
+                    LocalizedStrings.LocalizedResources.UpdateAvailable,
+                    new NotificationAction(LocalizedStrings.LocalizedResources.Show, (Action) (() =>
                     {
                         ShowVersionPopup(currentVersion, appVersions, updateCheckSettings);
-                    }),
-                    new NotificationAction(SdkResources.Dismiss, () =>
+                    })),
+                    new NotificationAction(LocalizedStrings.LocalizedResources.Dismiss, (Action) (() =>
                     {
                         //DO nothing
-                    })
+                    }))
                 );
             });
         }
 
-        protected void ShowVersionPopup(Version currentVersion, IEnumerable<AppVersion> appVersions, UpdateCheckSettings updateCheckSettings)
+        protected void ShowVersionPopup(Version currentVersion, IEnumerable<IAppVersion> appVersions, UpdateCheckSettings updateCheckSettings)
         {
             Scheduler.Dispatcher.Schedule(() =>
             {
-                appVersions.First().PublicIdentifier = this.identifier;
                 //TODO hooks for customizing
                 UpdatePopupTool.ShowPopup(currentVersion, appVersions, updateCheckSettings, DoUpdate);
             });
         }
 
-        internal async void DoUpdate(AppVersion availableUpdate)
+        internal async void DoUpdate(IAppVersion availableUpdate)
         {
             var aetxUri = new Uri(Constants.ApiBase + "apps/" + this.identifier + ".aetx", UriKind.Absolute);
-            var downloadUri = new Uri(Constants.ApiBase + "apps/" + this.identifier + "/app_versions/" + availableUpdate.id + ".xap", UriKind.Absolute);
+            var downloadUri = new Uri(Constants.ApiBase + "apps/" + this.identifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
-            //it won't get the result anyway because htis app-instance will get killed during the update
-            await InstallationManager.AddPackageAsync(availableUpdate.title, downloadUri);
+            //it won't get the result anyway because this app-instance will get killed during the update
+            await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);
         }
     }
 }

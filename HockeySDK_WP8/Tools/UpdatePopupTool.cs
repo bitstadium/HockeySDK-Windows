@@ -7,7 +7,6 @@ using HockeyApp.Views;
 using System.Collections.Generic;
 using Microsoft.Phone.Controls;
 using System.ComponentModel;
-using HockeyApp.Model;
 
 namespace HockeyApp.Tools
 {
@@ -32,7 +31,7 @@ namespace HockeyApp.Tools
 
         #region Utilities
 
-        internal static void ShowPopup(Version currentVersion, IEnumerable<AppVersion> appVersions, UpdateCheckSettings updateCheckSettings, Action<AppVersion> updateAction)
+        internal static void ShowPopup(Version currentVersion, IEnumerable<IAppVersion> appVersions, UpdateCheckSettings updateCheckSettings, Action<IAppVersion> updateAction)
         {
             if (IsShown)
             {
@@ -105,7 +104,7 @@ namespace HockeyApp.Tools
             }
         }
 
-        private static AppUpdateControl CreateAppUpdateControl(Version currentVersion, IEnumerable<AppVersion> appVersions, UpdateCheckSettings updateCheckSettings, Action<AppVersion> updateAction)
+        private static AppUpdateControl CreateAppUpdateControl(Version currentVersion, IEnumerable<IAppVersion> appVersions, UpdateCheckSettings updateCheckSettings, Action<IAppVersion> updateAction)
         {
             //TODO hooks for customizing
             var updateControl = new AppUpdateControl(appVersions, updateAction)

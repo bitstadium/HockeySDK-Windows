@@ -44,7 +44,7 @@ namespace HockeyApp.Views
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Default;
 
-            sendButton.IconUri = new Uri("/HockeyApp.Content/Send.png", UriKind.Relative);
+            sendButton.IconUri = new Uri("/HockeyAppContent/Send.png", UriKind.Relative);
             sendButton.Text = "Send message";
             sendButton.Click += async (sender, e) =>
             {
@@ -57,7 +57,7 @@ namespace HockeyApp.Views
                 await VM.SubmitForm();
             };
 
-            answerButton.IconUri = new Uri("/HockeyApp.Content/Reply.png", UriKind.Relative);
+            answerButton.IconUri = new Uri("/HockeyAppContent/Reply.png", UriKind.Relative);
             answerButton.Text = "Answer";
             answerButton.Click += (sender, e) =>
             {

@@ -18,7 +18,7 @@ namespace HockeyApp.Tools
             get
             {
                 if (cssStyles == null) {
-                    cssStyles = new StreamReader(Application.GetResourceStream(new Uri("Assets/wp8releasenotes.css", UriKind.Relative)).Stream).ReadToEnd();
+                    cssStyles = new StreamReader(Application.GetResourceStream(new Uri("/HockeyApp;component/Assets/wp8releasenotes.css", UriKind.Relative)).Stream).ReadToEnd();
                 }
                 return cssStyles;
             }

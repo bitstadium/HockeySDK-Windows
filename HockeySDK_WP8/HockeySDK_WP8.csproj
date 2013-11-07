@@ -26,7 +26,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Bin\Debug</OutputPath>
+    <OutputPath>..\bin\wp8\Debug\</OutputPath>
     <DefineConstants>TRACE;DEBUG;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -37,7 +37,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>Bin\Release</OutputPath>
+    <OutputPath>..\bin\wp8\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE;WP8</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -100,16 +100,12 @@
     <Compile Include="FeedbackManager.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="ManifestHelper.cs" />
-    <Compile Include="Model\AppVersion.cs" />
-    <Compile Include="Model\FeedbackResponseSingle.cs" />
-    <Compile Include="Model\FeedbackThread.cs" />
-    <Compile Include="Model\FeedbackMessage.cs" />
     <Compile Include="Model\ThreadMetaInfos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\SdkResources.Designer.cs">
+    <Compile Include="HockeyAppStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SdkResources.resx</DependentUpon>
+      <DependentUpon>HockeyAppStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\FeedbackMessageVM.cs" />
@@ -144,16 +140,23 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="HockeyApp.Content\Reply.png" />
-    <Content Include="HockeyApp.Content\Send.png" />
-    <Content Include="Assets\wp8releasenotes.css" />
+    <Resource Include="Assets\wp8releasenotes.css" />
     <Content Include="Assets\windows_phone.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\SdkResources.resx">
+    <EmbeddedResource Include="HockeyAppStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>HockeyAppStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HockeySDK_Portable\HockeySDK_Portable.csproj">
+      <Project>{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}</Project>
+      <Name>HockeySDK_Portable</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

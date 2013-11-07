@@ -29,16 +29,17 @@ namespace HockeyApp
         /// </summary>
         /// <param name="appIdentifier">Identifier of the app</param>
         /// <param name="appVersionInformation">version of the app</param>
-        /// <param name="userID">user id - e.g. the logged in user</param>
+        /// <param name="userID">optional user id - e.g. the logged in user</param>
         /// <param name="contactInformation">optional contact information like an email adress</param>
-        /// <param name="descriptionLoader">delegate for attaching description information like event logs etc. Can be null.</param>
+        /// <param name="descriptionLoader">optional delegate for attaching description information like event logs etc. Can be null.</param>
         /// <param name="apiBase">optional: apiBase - if not the standard is used</param>
         public void Configure(string appIdentifier, 
                             string appVersionInformation,
-                            string userID, 
-                            string contactInformation,
-                            Func<Exception, string> descriptionLoader,
-                            string apiBase = "https://rink.hockeyapp.net/api/2/")
+                            string userID = null, 
+                            string contactInformation = null,
+                            Func<Exception, string> descriptionLoader = null,
+                            string apiBase = "https://rink.hockeyapp.net/api/2/",
+                            string userAgentString = null)
           
         {
             if (String.IsNullOrWhiteSpace(apiBase))
@@ -49,46 +50,39 @@ namespace HockeyApp
             logger.Info("Configure HockeyClientWPF with appIdentifier={0}, userID={1}, contactInformation={2}, descriptionLoader available{3}, sendCrashesAutomatically={4}, apiBase={5}",
                 new object[] { appIdentifier, userID, contactInformation, (descriptionLoader != null).ToString(),apiBase });
 
-            HockeyClient.Configure(apiBase
-                                ,Constants.USER_AGENT_STRING
-                                ,Constants.SDKNAME
-                                ,Constants.SDKVERSION
-                                ,appIdentifier
-                                ,appVersionInformation
-                                ,userID
-                                ,contactInformation);
+            HockeyClient.ConfigureInternal(appIdentifier,
+                appVersionInformation,
+                apiBase: apiBase,
+                userID: userID,
+                contactInformation: contactInformation,
+                userAgentName: Constants.USER_AGENT_STRING,
+                sdkName: Constants.SDKNAME,
+                sdkVersion: Constants.SDKVERSION);
 
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader);
-        }
-
-        public string UserAgentName
-        {
-            get
-            {
-                return HockeyClient.Instance.UserAgentString;
-            }
-            set
-            {
-                HockeyClient.Instance.UserAgentString = value;
-            }
         }
 
         #region Crashes
         /// <summary>
         /// Returns, if not sent crashes are available
         /// </summary>
-        public bool CrashesAvailable { get { return Crash.CrashesAvailable; } }
+        public bool CrashesAvailable { get { return this._crashHandler.CrashesAvailable; } }
 
         /// <summary>
         /// returns the amount of crashes, which are not sent
         /// </summary>
-        public int CrashesAvailableCount { get { return Crash.CrashesAvailableCount; } }
+        public int CrashesAvailableCount { get { return this._crashHandler.CrashesAvailableCount; } }
 
         /// <summary>
         /// Sends all available crashes
         /// </summary>
         /// <returns>Task</returns>
         public async Task SendCrashesNow() {await this._crashHandler.SendCrashesNow(); }
+
+        public void DeleteAllCrashes()
+        {
+            this._crashHandler.DeleteAllCrashes();
+        }
 
         #endregion
 

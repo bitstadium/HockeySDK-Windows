@@ -18,8 +18,10 @@ namespace HockeyApp
             return path;
         }
 
-        internal const string USER_AGENT_STRING = "Hockey/NET40/WPF";
-        internal const string SDKNAME = "HockeySDK.Net40.WPF";
-        internal const string SDKVERSION = "1.0";
+        internal const string CrashFilePrefix = "crashinfo_";
+
+        internal const string USER_AGENT_STRING = "Hockey/WinWPF";
+        internal const string SDKNAME = "HockeySDKWinWPF";
+        internal const string SDKVERSION = "2.0.0-beta";
     }
 }

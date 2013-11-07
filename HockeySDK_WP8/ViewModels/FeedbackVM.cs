@@ -19,13 +19,11 @@ namespace HockeyApp.ViewModels
     public class FeedbackVM : VMBase
     {
 
-        string appIdentifier;
         public Task Initialization { get; private set; }
         Action<bool> showFormAppBarAction;
 
         public FeedbackVM(Action<bool> showFormAppBarAction)
         {
-            this.appIdentifier = FeedbackManager.Instance.AppIdentitfier;
             this.ThreadInfo = FeedbackManager.Instance.FeedbackPageTopTitle;
             this.showFormAppBarAction = showFormAppBarAction;
             Initialization = InitializeAsync(); //await this.Initialization to make shure its inititalized
@@ -39,16 +37,16 @@ namespace HockeyApp.ViewModels
                 {
                     try
                     {
-                        FeedbackThread thread = await FeedbackManager.Instance.GetActiveThreadAsync();
+                        IFeedbackThread thread = await FeedbackManager.Instance.GetActiveThreadAsync(forceReload: true);
                         if (thread != null)
                         {
-                            foreach (var msg in (thread.messages))
+                            foreach (var msg in (thread.Messages))
                             {
                                 this.Messages.Add(new FeedbackMessageVM(msg));
                             }
-                            if (FeedbackManager.Instance.FeedbackPageTopTitle.IsEmpty() && !thread.messages.First().subject.IsEmpty())
+                            if (FeedbackManager.Instance.FeedbackPageTopTitle.IsEmpty() && !thread.Messages.First().Subject.IsEmpty())
                             {
-                                Deployment.Current.Dispatcher.BeginInvoke(() => this.ThreadInfo = thread.messages.First().subject);
+                                Deployment.Current.Dispatcher.BeginInvoke(() => this.ThreadInfo = thread.Messages.First().Subject);
                             }
                         }
                         else //thread has been deleted
@@ -57,7 +55,7 @@ namespace HockeyApp.ViewModels
                             SwitchToMessageForm();
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
@@ -261,15 +259,8 @@ namespace HockeyApp.ViewModels
             if (ValidateInput())
             {
                 ShowOverlay();
-                var msg = new FeedbackMessage()
-                {
-                    text = this.Message,
-                    email = this.Email,
-                    subject = this.Subject,
-                    name = this.Username
-                };
 
-                var returnedMsg = await FeedbackManager.Instance.SendFeedback(msg, this.Username, this.Email);
+                var returnedMsg = await FeedbackManager.Instance.SendFeedback(this.Message, this.Email, this.Subject, this.Username);
                 if (returnedMsg != null)
                 {
                     this.Messages.Add(new FeedbackMessageVM(returnedMsg));

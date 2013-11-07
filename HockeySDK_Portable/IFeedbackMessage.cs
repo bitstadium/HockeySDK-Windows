@@ -9,6 +9,7 @@ namespace HockeyApp
         DateTime Created { get; }
         string CreatedAt { get; }
         string Email { get; set; }
+        string GravatarHash { get; set; }
         int Id { get; }
         bool? Internal { get; }
         string Model { get; }

@@ -9,6 +9,46 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WP75", "HockeySDK
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF", "HockeySDK_WPF\HockeySDK_WPF.csproj", "{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{358E4146-6747-4FD9-B395-797D3073473F}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\create-packages.cmd = Nuget\create-packages.cmd
+		Nuget\HockeySDK.Core.nuspec = Nuget\HockeySDK.Core.nuspec
+		Nuget\HockeySDK.WP.nuspec = Nuget\HockeySDK.WP.nuspec
+		Nuget\HockeySDK.WPF.nuspec = Nuget\HockeySDK.WPF.nuspec
+		Nuget\nuspec.2010.7.xsd = Nuget\nuspec.2010.7.xsd
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{AEA0F647-4682-43A0-A8D9-C51F03AD04AC}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\tools\install.ps1 = Nuget\tools\install.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{2C4096E0-88BE-4471-AC95-27CE94AD7CF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "wp8", "wp8", "{F96B05E5-52A6-4B93-A2C8-0F1E73B53216}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HockeyApp.Content", "HockeyApp.Content", "{412F2E50-D17C-4E3B-ABC9-8CD5FBF1C368}"
+	ProjectSection(SolutionItems) = preProject
+		Nuget\content\wp8\HockeyApp.Content\Reply.png = Nuget\content\wp8\HockeyApp.Content\Reply.png
+		Nuget\content\wp8\HockeyApp.Content\Send.png = Nuget\content\wp8\HockeyApp.Content\Send.png
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable45", "HockeySDK_Portable45\HockeySDK_Portable45.csproj", "{643606BA-84A8-483F-A582-49E472B8701E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3F098532-4B56-4899-AEAF-C60DC07E32EE}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF45", "HockeySDK_WPF45\HockeySDK_WPF45.csproj", "{C9612531-2077-4662-B8A4-092E06D5069B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F4997AC7-8644-45C0-BEBF-6D891706712B}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,8 +95,30 @@ Global
 		{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}.Release|ARM.ActiveCfg = Release|Any CPU
 		{BAA9D141-F91A-4C85-B6E6-64FF66D63ED1}.Release|x86.ActiveCfg = Release|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Release|ARM.ActiveCfg = Release|Any CPU
+		{643606BA-84A8-483F-A582-49E472B8701E}.Release|x86.ActiveCfg = Release|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AEA0F647-4682-43A0-A8D9-C51F03AD04AC} = {358E4146-6747-4FD9-B395-797D3073473F}
+		{2C4096E0-88BE-4471-AC95-27CE94AD7CF9} = {358E4146-6747-4FD9-B395-797D3073473F}
+		{F96B05E5-52A6-4B93-A2C8-0F1E73B53216} = {2C4096E0-88BE-4471-AC95-27CE94AD7CF9}
+		{412F2E50-D17C-4E3B-ABC9-8CD5FBF1C368} = {F96B05E5-52A6-4B93-A2C8-0F1E73B53216}
 	EndGlobalSection
 EndGlobal

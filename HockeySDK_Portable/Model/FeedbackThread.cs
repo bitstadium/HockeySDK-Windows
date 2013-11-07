@@ -31,7 +31,7 @@ namespace HockeyApp.Model
         [DataMember(Name="id")]
         public int Id { get; private set; }
         [DataMember(Name="created_at")]
-        public string CreatedAt { get; private set; } //TODO datetime conversion
+        public string CreatedAt { get; private set; }
         [DataMember(Name="token")]
         public string Token { get; private set; }
 
@@ -110,7 +110,7 @@ namespace HockeyApp.Model
         }
 
 
-        public async Task<IFeedbackMessage> PostFeedbackMessage(string message, string email="", string subject="")
+        public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null)
         {
             if (String.IsNullOrWhiteSpace(message))
             {
@@ -121,6 +121,7 @@ namespace HockeyApp.Model
             msg.Name = HockeyClient.Instance.UserID;
             msg.Text = message;
             msg.Email = email;
+            msg.Name = name;
             msg.Subject = subject;
 
             IHockeyClient client = HockeyClient.Instance;

@@ -7,7 +7,6 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.Resources;
 using HockeyApp.Tools;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
@@ -23,9 +22,9 @@ namespace HockeyApp.Views
 {
     public partial class AppUpdateControl : UserControl
     {
-        public AppVersion NewestVersion { get; set; }
+        public IAppVersion NewestVersion { get; set; }
 
-        public AppUpdateControl(IEnumerable<AppVersion> appVersions, Action<AppVersion> updateAction)
+        public AppUpdateControl(IEnumerable<IAppVersion> appVersions, Action<IAppVersion> updateAction)
         {
             this.NewestVersion = appVersions.First();
             InitializeComponent();
@@ -35,7 +34,7 @@ namespace HockeyApp.Views
 
             this.ReleaseNotesBrowser.Opacity = 0;
             this.ReleaseNotesBrowser.Navigated += (sender, e) => { (this.ReleaseNotesBrowser.Resources["fadeIn"] as Storyboard).Begin(); };
-            this.ReleaseNotesBrowser.NavigateToString(WebBrowserHelper.WrapContent(NewestVersion.notes));
+            this.ReleaseNotesBrowser.NavigateToString(WebBrowserHelper.WrapContent(NewestVersion.Notes));
 
             this.InstallAETX.Click += (sender, e) =>
             {

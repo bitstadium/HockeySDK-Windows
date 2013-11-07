@@ -8,57 +8,70 @@ using System.Net;
 using System.IO;
 using System.Reflection;
 using HockeyApp.Extensions;
+using System.Runtime.Serialization.Json;
+using HockeyApp.Exceptions;
+using System.Runtime.CompilerServices;
+
+//TODO make it work with InternalsVisibleTo (PublicKey ?!) and make class and OnDeserializing internal
+[assembly: InternalsVisibleTo("System.Runtime.Serialization")]
+[assembly: InternalsVisibleTo("System.Runtime.Serialization.Json")]
 
 namespace HockeyApp.Model
 {
     [DataContract]
-    internal class CrashData : ICrashData
+    public class CrashData : ICrashData
     {
+        private ILog _logger = HockeyLogManager.GetLog(typeof(CrashData));
         private HockeyClient _hockeyClient = null;
-        internal CrashData(HockeyClient hockeyClient){
+        internal CrashData(HockeyClient hockeyClient, Exception ex, CrashLogInformation crashLogInfo){
             this._hockeyClient = hockeyClient;
+
+            StringBuilder builder = new StringBuilder();
+            builder.Append(crashLogInfo.ToString());
+            builder.AppendLine();
+            builder.Append(ex.StackTraceToString());
+            this.Log = builder.ToString();
+
+            this.UserID = this._hockeyClient.UserID;
+            this.Contact = this._hockeyClient.ContactInformation;
             this.SDKName = this._hockeyClient.SdkName;
             this.SDKVersion = this._hockeyClient.SdkVersion;
+            if (this._hockeyClient._descriptionLoader != null)
+            {
+                try
+                {
+                    this.Description = this._hockeyClient._descriptionLoader(ex);
+                }
+                catch (Exception) { }
+            }
         }
 
-        /// <summary>
-        /// required, file with the crash log - Note: The maximum allowed file size is 200kB!
-        /// </summary>
-        /// [DataMember(Name = "log")]
+        [OnDeserializing]
+        public void OnDeserializing(StreamingContext context)
+        {
+            this._hockeyClient = HockeyClient.Instance as HockeyClient;
+        }
+
+        [DataMember(Name = "log")]
         public string Log{get;set;}
 
-        /// <summary>
-        /// optional, file with optional information, e.g. excerpts from the system log
-        /// </summary>
         [DataMember(Name = "description")]
         public string Description { get; set; }
         
-        /// <summary>
-        /// optional, string with a user or device ID, limited to 255 chars
-        /// </summary>
         [DataMember(Name = "userID")]
         public string UserID { get; set; }
 
-        /// <summary>
-        /// optional, string with contact information, limited to 255 chars
-        /// </summary>
         [DataMember(Name = "contact")]
         public string Contact{get;set;}
 
-        /// <summary>
-        /// Name of the used SDK
-        /// </summary>
         [DataMember(Name = "sdk")]
         public string SDKName{get;set;}
         
-        /// <summary>
-        /// Version of the used SDK
-        /// </summary>
         [DataMember(Name = "sdk_version")]
         public string SDKVersion{get;set;}
 
 
-        internal async Task SendData()
+        public async Task SendDataAsync()
         {
             string rawData = "";
             rawData += "raw=" + Uri.EscapeDataString(this.Log);
@@ -85,13 +98,42 @@ namespace HockeyApp.Model
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
             request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this._hockeyClient.UserAgentString);
+
             Stream stream = await request.GetRequestStreamAsync();
             byte[] byteArray = Encoding.UTF8.GetBytes(rawData);
             stream.Write(byteArray, 0, rawData.Length);
             stream.Dispose();
-            WebResponse response = await request.GetResponseAsync();
+
+            try
+            {
+                WebResponse response = await request.GetResponseAsync();
+            }
+            catch (WebException e)
+            {
+                _logger.Error(e);
+                if ((e.Status == WebExceptionStatus.ConnectFailure) ||
+                    (e.Status == WebExceptionStatus.SendFailure) ||
+                    (e.Status == WebExceptionStatus.UnknownError))
+                {
+                    throw new WebTransferException("Transfer of Crashdata to server failed", e);
+                }
+            }
         }
 
-        
+        public void Serialize(Stream outputStream)
+        {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));
+            serializer.WriteObject(outputStream, this);
+        }
+
+        public static CrashData Deserialize(Stream inputStream)
+        {
+            DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));
+            CrashData cd = serializer.ReadObject(inputStream) as CrashData;
+            return cd;
+        }
+
+
+       
     }
 }

@@ -11,16 +11,16 @@ namespace HockeyApp.ViewModels
 {
     public class FeedbackMessageVM: VMBase
     {
-        FeedbackMessage msg;
+        IFeedbackMessage msg;
 
 
-        public FeedbackMessageVM(FeedbackMessage msg)
+        public FeedbackMessageVM(IFeedbackMessage msg)
         {
             this.msg = msg;
         }
 
         public bool IsIncoming { get { return !IsOutgoing; } }
-        public bool IsOutgoing { get { return msg.via.Equals((int)FeedbackMessage.Via.API); } }
+        public bool IsOutgoing { get { return msg.Via.Equals((int)FeedbackMessage.ViaTypes.API); } }
 
         /*
         static SolidColorBrush Incoming = new SolidColorBrush(Color.FromArgb(255, 120, 120, 0));
@@ -43,7 +43,7 @@ namespace HockeyApp.ViewModels
         
         public string Text
         {
-            get { return msg.clean_text; }
+            get { return msg.CleanText; }
         }
 
         

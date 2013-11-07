@@ -2,22 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace HockeyApp
+namespace HockeyApp.Extensions
 {
-    public static class HockeyHelper
+    public static class ExceptionExtension
     {
-        public static String CreateStackTrace(Exception exception)
+        public static String StackTraceToString(this Exception @this)
         {
             StringBuilder builder = new StringBuilder();
-            builder.Append(exception.GetType().ToString());
+            builder.Append(@this.GetType().ToString());
             builder.Append(": ");
-            builder.Append(string.IsNullOrEmpty(exception.Message) ? "No reason" : exception.Message);
+            builder.Append(string.IsNullOrEmpty(@this.Message) ? "No reason" : @this.Message);
             builder.AppendLine();
-            builder.Append(string.IsNullOrEmpty(exception.StackTrace) ? "  at unknown location" : exception.StackTrace);
+            builder.Append(string.IsNullOrEmpty(@this.StackTrace) ? "  at unknown location" : @this.StackTrace);
 
-            Exception inner = exception.InnerException;
+            Exception inner = @this.InnerException;
             if ((inner != null) && (!string.IsNullOrEmpty(inner.StackTrace)))
             {
                 builder.AppendLine();
@@ -27,6 +26,5 @@ namespace HockeyApp
 
             return builder.ToString().Trim();
         }
-
     }
 }

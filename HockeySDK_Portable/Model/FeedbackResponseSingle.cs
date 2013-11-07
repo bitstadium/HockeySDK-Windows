@@ -27,6 +27,7 @@ namespace HockeyApp.Model
 
         [DataMember(Name="token")]
         public string FeedbackToken { get; private set; }
+        
         [DataMember(Name="status")]
         public string Status { get; private set; }
        

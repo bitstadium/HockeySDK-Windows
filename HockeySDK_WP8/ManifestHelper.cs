@@ -13,9 +13,7 @@ namespace HockeyApp
     {
 
         private static readonly ManifestHelper instance = new ManifestHelper();
-
         static ManifestHelper() { }
-
 
         private ManifestHelper() { 
         }

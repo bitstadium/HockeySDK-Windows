@@ -18,12 +18,14 @@
     <SilverlightApplication>false</SilverlightApplication>
     <ValidateXaml>true</ValidateXaml>
     <ThrowErrorsInValidation>true</ThrowErrorsInValidation>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>Bin\Debug</OutputPath>
+    <OutputPath>..\bin\wp75\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -33,7 +35,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>Bin\Release</OutputPath>
+    <OutputPath>..\bin\wp75\Release\</OutputPath>
     <DefineConstants>TRACE;SILVERLIGHT;WINDOWS_PHONE</DefineConstants>
     <NoStdLib>true</NoStdLib>
     <NoConfig>true</NoConfig>
@@ -70,118 +72,49 @@
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\HockeySDK_WP8\AsyncSynchronizationContext.cs">
-      <Link>AsyncSynchronizationContext.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Constants.cs">
-      <Link>Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Controls\NotificationBox\NotificationBox.cs">
-      <Link>Controls\NotificationBox\NotificationBox.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Controls\NotificationBox\NotificationBoxItem.cs">
-      <Link>Controls\NotificationBox\NotificationBoxItem.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\CrashHandler.cs">
-      <Link>CrashHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\FeedbackManager.cs">
-      <Link>FeedbackManager.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\LocalizedStrings.cs">
-      <Link>LocalizedStrings.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\ManifestHelper.cs">
-      <Link>ManifestHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Model\AppVersion.cs">
-      <Link>Model\AppVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Model\FeedbackMessage.cs">
-      <Link>Model\FeedbackMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Model\FeedbackResponseSingle.cs">
-      <Link>Model\FeedbackResponseSingle.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Model\FeedbackThread.cs">
-      <Link>Model\FeedbackThread.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Model\ThreadMetaInfos.cs">
-      <Link>Model\ThreadMetaInfos.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Resources\SdkResources.Designer.cs">
-      <Link>Resources\SdkResources.Designer.cs</Link>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SdkResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\BooleanToVisibilityConverter.cs">
-      <Link>Tools\BooleanToVisibilityConverter.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\HttpExtensions.cs">
-      <Link>Tools\HttpExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\NotificationAction.cs">
-      <Link>Tools\NotificationAction.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\NotificationTool.cs">
-      <Link>Tools\NotificationTool.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\UtilExtensions.cs">
-      <Link>Tools\UtilExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Tools\WebBrowserHelper.cs">
-      <Link>Tools\WebBrowserHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\ViewModels\FeedbackMessageVM.cs">
-      <Link>ViewModels\FeedbackMessageVM.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\ViewModels\FeedbackVM.cs">
-      <Link>ViewModels\FeedbackVM.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\ViewModels\VMBase.cs">
-      <Link>ViewModels\VMBase.cs</Link>
-    </Compile>
-    <Compile Include="..\HockeySDK_WP8\Views\FeedbackPage.xaml.cs">
-      <Link>Views\FeedbackPage.xaml.cs</Link>
-      <DependentUpon>FeedbackPage.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="AsyncSynchronizationContext.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controls\NotificationBox\NotificationBox.cs" />
+    <Compile Include="Controls\NotificationBox\NotificationBoxItem.cs" />
+    <Compile Include="CrashHandler.cs" />
+    <Compile Include="FeedbackManager.cs" />
+    <Compile Include="LocalizedStrings.cs" />
+    <Compile Include="ManifestHelper.cs" />
+    <Compile Include="Model\FeedbackMessage.cs" />
+    <Compile Include="Model\FeedbackResponseSingle.cs" />
+    <Compile Include="Model\FeedbackThread.cs" />
+    <Compile Include="Model\ThreadMetaInfos.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="..\HockeySDK_WP8\Assets\windows_phone.png">
-      <Link>Assets\windows_phone.png</Link>
-    </Content>
-    <Content Include="..\HockeySDK_WP8\Assets\wp8releasenotes.css">
-      <Link>Assets\wp8releasenotes.css</Link>
-    </Content>
-    <Content Include="..\HockeySDK_WP8\HockeyApp.Content\Reply.png">
-      <Link>HockeyApp.Content\Reply.png</Link>
-    </Content>
-    <Content Include="..\HockeySDK_WP8\HockeyApp.Content\Send.png">
-      <Link>HockeyApp.Content\Send.png</Link>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="..\HockeySDK_WP8\Resources\SdkResources.resx">
-      <Link>Resources\SdkResources.resx</Link>
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SdkResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\HockeySDK_WP8\Themes\Generic.xaml">
-      <Link>Themes\Generic.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </CodeAnalysisDictionary>
+    <Compile Include="Resources\SdkResources.Designer.cs" />
+    <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Tools\HttpExtensions.cs" />
+    <Compile Include="Tools\NotificationAction.cs" />
+    <Compile Include="Tools\NotificationTool.cs" />
+    <Compile Include="Tools\UtilExtensions.cs" />
+    <Compile Include="Tools\WebBrowserHelper.cs" />
+    <Compile Include="ViewModels\FeedbackMessageVM.cs" />
+    <Compile Include="ViewModels\FeedbackVM.cs" />
+    <Compile Include="ViewModels\VMBase.cs" />
+    <Compile Include="Views\FeedbackPage.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="..\HockeySDK_WP8\Views\FeedbackPage.xaml">
-      <Link>Views\FeedbackPage.xaml</Link>
+    <Content Include="Assets\windows_phone.png" />
+    <Content Include="Assets\wp8releasenotes.css" />
+    <Content Include="HockeyApp.Content\Reply.png" />
+    <Content Include="HockeyApp.Content\Send.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SdkResources.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FeedbackPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -194,6 +127,7 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.10\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

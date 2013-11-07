@@ -52,12 +52,12 @@
                     <TextBlock Text="{Binding NewestVersion.title}" Style="{StaticResource PhoneTextLargeStyle}"
                                    TextWrapping="NoWrap"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=LocalizedResources.Version, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources[Version], Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}"/>
                         <TextBlock Text=":" Style="{StaticResource PhoneTextSmallStyle}" Margin="0,0,3,0"/>
-                        <TextBlock Text="{Binding NewestVersion.version}" Style="{StaticResource PhoneTextSmallStyle}"/>
+                        <TextBlock Text="{Binding NewestVersion.Version}" Style="{StaticResource PhoneTextSmallStyle}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=LocalizedResources.Size, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}"/>
+                        <TextBlock Text="{Binding Path=LocalizedResources[Size], Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}"/>
                         <TextBlock Text=":" Style="{StaticResource PhoneTextSmallStyle}" Margin="0,0,3,0"/>
                         <TextBlock Text="{Binding NewestVersion.AppSizeReadable}" Style="{StaticResource PhoneTextSmallStyle}"/>
                     </StackPanel>
@@ -74,19 +74,19 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="InstallOverApi" 
-                            Content="{Binding Path=LocalizedResources.Install, Source={StaticResource LocalizedStrings}}" 
+                            Content="{Binding Path=LocalizedResources[Install], Source={StaticResource LocalizedStrings}}" 
                             Grid.Column="0"
                             Margin="-12,0,0,0"
                             VerticalAlignment="Center"/>
                 <Button x:Name="InstallAETX" 
-                            Content="{Binding Path=LocalizedResources.InstallProviderProfile, Source={StaticResource LocalizedStrings}}" 
+                            Content="{Binding Path=LocalizedResources[InstallProviderProfile], Source={StaticResource LocalizedStrings}}" 
                             Grid.Column="1"
                             Margin="0,0,-12,0"
                             VerticalAlignment="Center"/>
             </Grid>
             <Grid Grid.Row="2">
                 <TextBlock Grid.Row="1"  VerticalAlignment="Top" Margin="0,10,12,0"
-                   Text="{Binding Path=LocalizedResources.ReleaseNotes, Source={StaticResource LocalizedStrings}}" 
+                   Text="{Binding Path=LocalizedResources[ReleaseNotes], Source={StaticResource LocalizedStrings}}" 
                    Style="{StaticResource PhoneTextSmallStyle}" />
         <phone:WebBrowser 
             x:Name="ReleaseNotesBrowser"
@@ -107,7 +107,7 @@
                   Background="{StaticResource PhoneBackgroundBrush}"
                   Visibility="Collapsed"
                   Opacity="0.8">
-            <TextBlock Text="{Binding Path=LocalizedResources.UpdateInProgress, Source={StaticResource LocalizedStrings}}" 
+            <TextBlock Text="{Binding Path=LocalizedResources[UpdateInProgress], Source={StaticResource LocalizedStrings}}" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"/>
         </Grid>

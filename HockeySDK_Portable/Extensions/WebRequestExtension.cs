@@ -11,6 +11,12 @@ namespace HockeyApp.Extensions
 {
     public static class WebRequestExtension
     {
+        /// <summary>
+        /// Set a http header on a Web-Request. Either by setting the property or by adding to the Headers dict.
+        /// </summary>
+        /// <param name="request">self</param>
+        /// <param name="header">header key</param>
+        /// <param name="value">header value</param>
         public static void SetHeader(this WebRequest request, string header, string value)
         {
             // Retrieve the property through reflection.
@@ -28,6 +34,12 @@ namespace HockeyApp.Extensions
             }
         }
 
+        /// <summary>
+        /// Set form encoded postData on a webrequest.
+        /// </summary>
+        /// <param name="request">self</param>
+        /// <param name="postData">string with form encoded data</param>
+        /// <returns></returns>
         public static async Task SetPostDataAsync(this WebRequest request, string postData)
         {
             byte[] dataStream = Encoding.UTF8.GetBytes(postData);

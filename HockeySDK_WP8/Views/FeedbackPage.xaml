@@ -220,7 +220,7 @@
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Column="0"
                            Style="{StaticResource label}"
-                           Text="{Binding Path=LocalizedResources.Name, Source={StaticResource LocalizedStrings}}" />
+                           Text="{Binding Path=LocalizedResources[Name], Source={StaticResource LocalizedStrings}}" />
                             <TextBox Grid.Column="1"
                          Text="{Binding Username, Mode=TwoWay}"
                          Style="{StaticResource inputbox}"
@@ -237,7 +237,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                            Style="{StaticResource label}"
-                           Text="{Binding Path=LocalizedResources.Email, Source={StaticResource LocalizedStrings}}" />
+                           Text="{Binding Path=LocalizedResources[Email], Source={StaticResource LocalizedStrings}}" />
                         <TextBox Grid.Column="1"
                          InputScope="EmailUserName"
                          Text="{Binding Email, Mode=TwoWay}"
@@ -255,7 +255,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                            Style="{StaticResource label}"
-                           Text="{Binding Path=LocalizedResources.Subject, Source={StaticResource LocalizedStrings}}" />
+                           Text="{Binding Path=LocalizedResources[Subject], Source={StaticResource LocalizedStrings}}" />
                         <TextBox Grid.Column="1"
                             InputScope="Text"
                             Text="{Binding Subject, Mode=TwoWay}"
@@ -281,7 +281,7 @@
                   Background="{StaticResource PhoneBackgroundBrush}"
                   Visibility="{Binding IsShowOverlay, Converter={StaticResource BooleanToVisibilityConverter}}"
                   Opacity="0.8">
-                <TextBlock Text="{Binding Path=LocalizedResources.Working, Source={StaticResource LocalizedStrings}}" 
+                <TextBlock Text="{Binding Path=LocalizedResources[Working], Source={StaticResource LocalizedStrings}}" 
                        HorizontalAlignment="Center" 
                        VerticalAlignment="Center" Style="{StaticResource PhoneTextLargeStyle}"/>
             </Grid>

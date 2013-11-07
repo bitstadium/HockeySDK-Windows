@@ -24,6 +24,9 @@ namespace HockeyApp.Model
         [DataMember(Name="email")]
         public string Email { get; set; }
 
+        [DataMember(Name = "gravatar_hash")]
+        public string GravatarHash { get; set; }
+
         [DataMember(Name = "subject")]
         public string Subject { get; set; }
 
@@ -40,7 +43,7 @@ namespace HockeyApp.Model
         public string OSVersion { get; protected set; }
 
         [DataMember(Name = "created_at")]
-        public string CreatedAt { get; protected set; } //TODO datetime?!
+        public string CreatedAt { get; protected set; } 
 
         public DateTime Created
         {
@@ -92,7 +95,6 @@ namespace HockeyApp.Model
             return retVal;
         } }
 
-        //TODO: naja, das sollte auch nur Serialisieren und nicht auch props füllen...
         internal string SerializeToWwwForm()
         {
             var partsDict = new Dictionary<string, string>();
@@ -101,13 +103,14 @@ namespace HockeyApp.Model
             if(!String.IsNullOrWhiteSpace(this.Email)){ partsDict.Add("email", this.Email);}
             if(!String.IsNullOrWhiteSpace(this.Subject)){ partsDict.Add("subject", this.Subject);}
 
-            if (this.Token != null) { partsDict.Add("token", this.Token); }
+            if (!String.IsNullOrWhiteSpace(this.Token)) { partsDict.Add("token", this.Token); }
 
-            if (Oem != null) { partsDict.Add("oem", Oem); }
-            if (Model != null) { partsDict.Add("model", Model); }
-            if (OSVersion != null) { partsDict.Add("os_version", this.OSVersion); }
-            if (HockeyClient.Instance.AppIdentifier != null) { partsDict.Add("bundle_identifier", HockeyClient.Instance.AppIdentifier); }
-            if (HockeyClient.Instance.VersionInformation != null) { partsDict.Add("bundle_version", HockeyClient.Instance.VersionInformation); }
+            if (!String.IsNullOrWhiteSpace(Oem)) { partsDict.Add("oem", Oem); }
+            if (!String.IsNullOrWhiteSpace(Model)) { partsDict.Add("model", Model); }
+            if (!String.IsNullOrWhiteSpace(OSVersion)) { partsDict.Add("os_version", this.OSVersion); }
+            
+            //not used for feedback. if (HockeyClient.Instance.AppIdentifier != null) { partsDict.Add("bundle_identifier", HockeyClient.Instance.AppIdentifier); }
+            if (!String.IsNullOrWhiteSpace(HockeyClient.Instance.VersionInfo)) { partsDict.Add("bundle_version", HockeyClient.Instance.VersionInfo); }
             return partsDict.Select(e => e.Key + "=" + Uri.EscapeUriString(e.Value)).Aggregate((a, b) => a + "&" + b);
         }
     }
