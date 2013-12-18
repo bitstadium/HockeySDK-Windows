@@ -52,7 +52,6 @@ namespace HockeyApp
         {
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
             HandleException(e.Exception);
-            e.Handled = true;
         }
 
         private void HandleException(Exception e)
