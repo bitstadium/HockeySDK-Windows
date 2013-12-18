@@ -109,7 +109,7 @@ namespace HockeyApp
         internal bool CrashesAvailable { get { return GetCrashFiles().Length > 0; } }
         internal int CrashesAvailableCount { get { return GetCrashFiles().Length; } }
 
-        internal async Task SendCrashesNow()
+        internal async Task SendCrashesNowAsync()
         {
             if (!System.Threading.Monitor.TryEnter(this))
             {
