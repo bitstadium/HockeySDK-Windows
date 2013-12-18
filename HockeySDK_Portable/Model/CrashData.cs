@@ -23,11 +23,11 @@ namespace HockeyApp.Model
     {
         private ILog _logger = HockeyLogManager.GetLog(typeof(CrashData));
         private HockeyClient _hockeyClient = null;
-        internal CrashData(HockeyClient hockeyClient, Exception ex, CrashLogInformation crashLogInfo){
+        internal CrashData(HockeyClient hockeyClient, Exception ex, string crashLogInfo){
             this._hockeyClient = hockeyClient;
 
             StringBuilder builder = new StringBuilder();
-            builder.Append(crashLogInfo.ToString());
+            builder.Append(crashLogInfo);
             builder.AppendLine();
             builder.Append(ex.StackTraceToString());
             this.Log = builder.ToString();

@@ -72,9 +72,6 @@
     <Compile Include="..\HockeySDK_Portable\Model\CrashData.cs">
       <Link>Model\CrashData.cs</Link>
     </Compile>
-    <Compile Include="..\HockeySDK_Portable\Model\CrashLogInformation.cs">
-      <Link>Model\CrashLogInformation.cs</Link>
-    </Compile>
     <Compile Include="..\HockeySDK_Portable\Model\FeedbackMessage.cs">
       <Link>Model\FeedbackMessage.cs</Link>
     </Compile>

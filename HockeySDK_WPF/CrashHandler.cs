@@ -62,16 +62,13 @@ namespace HockeyApp
                 string crashID = Guid.NewGuid().ToString();
                 String filename = String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID);
 
-                CrashLogInformation logInfo = new CrashLogInformation()
-                {
-                    PackageName = Application.Current.GetType().Namespace,
-                    Version = HockeyClient.Instance.VersionInfo,
-                    OperatingSystem = Environment.OSVersion.ToString(),
-                    Manufacturer = "",
-                    Model = ""
-                };
+                StringBuilder logInfoBuilder = new StringBuilder();
+                logInfoBuilder.AppendFormat("Package: {0}\n", Application.Current.GetType().Namespace);
+                logInfoBuilder.AppendFormat("Version: {0}\n", HockeyClient.Instance.VersionInfo);
+                logInfoBuilder.AppendFormat("OS: {0}\n", Environment.OSVersion.ToString ());
+                logInfoBuilder.AppendFormat("Date: {0}\n", DateTime.UtcNow.ToString("o"));
 
-                ICrashData crash = HockeyClient.Instance.CreateCrashData(e,logInfo);
+                ICrashData crash = HockeyClient.Instance.CreateCrashData(e, logInfoBuilder.ToString());
                 FileStream stream = File.Create(Path.Combine(Constants.GetPathToHockeyCrashes(), filename));
                 crash.Serialize(stream);
                 stream.Flush();

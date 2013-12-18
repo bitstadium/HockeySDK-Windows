@@ -56,7 +56,6 @@
     <Compile Include="IFeedbackMessage.cs" />
     <Compile Include="IFeedbackThread.cs" />
     <Compile Include="IAppVersion.cs" />
-    <Compile Include="Model\CrashLogInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SDKConstants.cs" />
   </ItemGroup>
