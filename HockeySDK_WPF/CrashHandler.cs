@@ -33,7 +33,7 @@ namespace HockeyApp
         #region Exception Handler
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            logger.Info("Catched unobserved exception from TaskScheduler! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
+            logger.Info("Caught unobserved exception from TaskScheduler! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
             HandleException(e.Exception);
         }
 
@@ -43,14 +43,14 @@ namespace HockeyApp
 
             if (ex != null)
             {
-                logger.Info("Catched unobserved exception from AppDomain! Type={0}, Message={1}", new object[] { ex.GetType().Name, ex.Message });
+                logger.Info ("Caught unobserved exception from AppDomain! Type={0}, Message={1}", new object [] { ex.GetType ().Name, ex.Message });
                 HandleException(ex);
             }
         }
 
         private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
+            logger.Info ("Caught unobserved exception from Dispatcher! Type={0}, Message={1}", new object [] { e.Exception.GetType ().Name, e.Exception.Message });
             HandleException(e.Exception);
         }
 
