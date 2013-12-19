@@ -111,7 +111,7 @@ namespace HockeyApp
 
         #region API functions
 
-        public ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo)
+        public ICrashData CreateCrashData(Exception ex, string crashLogInfo)
         {
             return new CrashData(this, ex, crashLogInfo);
         }

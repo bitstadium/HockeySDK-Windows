@@ -68,7 +68,7 @@ namespace HockeyApp
         /// <param name="ex"></param>
         /// <param name="crashLogInfo"></param>
         /// <returns></returns>
-        ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo);
+        ICrashData CreateCrashData(Exception ex, string crashLogInfo);
 
         /// <summary>
         /// Deserializes an ICrashData from stream information

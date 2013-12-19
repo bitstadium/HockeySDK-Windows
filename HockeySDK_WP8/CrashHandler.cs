@@ -27,6 +27,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using Microsoft.Phone.Info;
 using Microsoft.Phone.Reactive;
@@ -125,17 +126,16 @@ namespace HockeyApp
 
         internal void HandleException(Exception e)
         {
-            CrashLogInformation crashLogInfo = new CrashLogInformation()
-            {
-                PackageName = application.GetType().Namespace,
-                ProductID = ManifestHelper.GetProductID(),
-                Version = ManifestHelper.GetAppVersion(),
-                WindowsPhone = Environment.OSVersion.Version.ToString(),
-                Manufacturer = GetDeviceManufacturer(),
-                Model = GetDeviceModel()
-            };
+            StringBuilder logInfoBuilder = new StringBuilder();
+            logInfoBuilder.AppendFormat("Package: {0}\n", application.GetType().Namespace);
+            logInfoBuilder.AppendFormat("Version: {0}\n", HockeyClient.Instance.VersionInfo);
+            logInfoBuilder.AppendFormat("Windows Phone: {0}\n", Environment.OSVersion.Version.ToString());
+            logInfoBuilder.AppendFormat("Manufacturer: {0}\n", GetDeviceManufacturer());
+            logInfoBuilder.AppendFormat("Model: {0}\n", GetDeviceModel());
+            logInfoBuilder.AppendFormat("Date: {0}\n", DateTime.UtcNow.ToString("o"));
+            logInfoBuilder.AppendFormat("Product-ID: {0}\n", ManifestHelper.GetProductID());
 
-            ICrashData cd = HockeyClient.Instance.CreateCrashData(e, crashLogInfo);
+            ICrashData cd = HockeyClient.Instance.CreateCrashData(e, logInfoBuilder.ToString());
 
             var crashId = Guid.NewGuid();
             try
