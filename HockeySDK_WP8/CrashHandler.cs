@@ -50,10 +50,21 @@ namespace HockeyApp
     {
         private static readonly CrashHandler instance = new CrashHandler();
 
+        private CrashLogInformation _crashLogInfo;
         private Application application = null;
         
         static CrashHandler() { }
-        private CrashHandler() { }
+        private CrashHandler() {
+            this._crashLogInfo = new CrashLogInformation()
+            {
+                PackageName = application.GetType().Namespace,
+                ProductID = ManifestHelper.GetProductID(),
+                Version = ManifestHelper.GetAppVersion(),
+                WindowsPhone = Environment.OSVersion.Version.ToString(),
+                Manufacturer = GetDeviceManufacturer(),
+                Model = GetDeviceModel()
+            };
+        }
 
         public static CrashHandler Instance
         {
@@ -125,17 +136,8 @@ namespace HockeyApp
 
         internal void HandleException(Exception e)
         {
-            CrashLogInformation crashLogInfo = new CrashLogInformation()
-            {
-                PackageName = application.GetType().Namespace,
-                ProductID = ManifestHelper.GetProductID(),
-                Version = ManifestHelper.GetAppVersion(),
-                WindowsPhone = Environment.OSVersion.Version.ToString(),
-                Manufacturer = GetDeviceManufacturer(),
-                Model = GetDeviceModel()
-            };
-
-            ICrashData cd = HockeyClient.Instance.CreateCrashData(e, crashLogInfo);
+            
+            ICrashData cd = HockeyClient.Instance.CreateCrashData(e, this._crashLogInfo);
 
             var crashId = Guid.NewGuid();
             try

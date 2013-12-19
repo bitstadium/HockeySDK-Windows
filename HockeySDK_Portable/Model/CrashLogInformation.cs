@@ -18,14 +18,36 @@ namespace HockeyApp.Model
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            builder.AppendFormat("Package: {0}\n", this.PackageName);
-            builder.AppendFormat("Version: {0}\n", this.Version);
-            builder.AppendFormat("OS: {0}\n", this.OperatingSystem);
-            builder.AppendFormat("Windows Phone: {0}\n", this.WindowsPhone);
-            builder.AppendFormat("Manufacturer: {0}\n", this.Manufacturer);
-            builder.AppendFormat("Model: {0}\n", this.Model);
+            if (!String.IsNullOrWhiteSpace(this.PackageName)){
+                builder.AppendFormat("Package: {0}\n", this.PackageName);
+            }
+            if (!String.IsNullOrWhiteSpace(this.Version))
+            {
+                builder.AppendFormat("Version: {0}\n", this.Version);
+            }
+            if (!String.IsNullOrWhiteSpace(this.OperatingSystem))
+            {
+                builder.AppendFormat("OS: {0}\n", this.OperatingSystem);
+            }
+            if (!String.IsNullOrWhiteSpace(this.WindowsPhone))
+            {
+                builder.AppendFormat("Windows Phone: {0}\n", this.WindowsPhone);
+            }
+            if (!String.IsNullOrWhiteSpace(this.Manufacturer))
+            {
+                builder.AppendFormat("Manufacturer: {0}\n", this.Manufacturer);
+            }
+            if (!String.IsNullOrWhiteSpace(this.Model))
+            {
+                builder.AppendFormat("Model: {0}\n", this.Model);
+            }
+            
             builder.AppendFormat("Date: {0}\n", DateTime.UtcNow.ToString("o"));
-            builder.AppendFormat("Product-ID: {0}\n", this.ProductID);
+
+            if (!String.IsNullOrWhiteSpace(this.ProductID))
+            {
+                builder.AppendFormat("Product-ID: {0}\n", this.ProductID);
+            }
             return builder.ToString();
         }
         

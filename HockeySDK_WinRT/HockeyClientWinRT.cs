@@ -68,7 +68,7 @@ namespace HockeyApp
         /// Sends all available crashes
         /// </summary>
         /// <returns>Task</returns>
-        public async Task SendCrashesNow() {await this._crashHandler.SendCrashesNow(); }
+        public async Task SendCrashesNow() {await this._crashHandler.SendCrashesNowAsync(); }
 
         public void DeleteAllCrashes()
         {

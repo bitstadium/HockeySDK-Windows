@@ -57,7 +57,7 @@ namespace HockeyApp.ViewModels
                             SwitchToMessageForm();
                         }
                     }
-                    catch (Exception e)
+                    catch (Exception)
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {

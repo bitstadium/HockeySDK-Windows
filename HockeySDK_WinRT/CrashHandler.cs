@@ -58,7 +58,6 @@ namespace HockeyApp
         private async void Current_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
-            e.Handled = true;
             await HandleException(e.Exception);            
         }
 
@@ -149,7 +148,7 @@ namespace HockeyApp
             }
         }
 
-        internal async Task SendCrashesNow()
+        internal async Task SendCrashesNowAsync()
         {
             bool deleteFlag = false; //necessary, because no await allowed in catch body
 
