@@ -76,7 +76,7 @@ Use the next line right after the call to HandleCrashes() to check for updates a
 * USERNAME and CONTACTINFO is for optional submitting an logged on username and contactinfo
 * DESCRIPTIONHANDLER is a lambda for submitting additional information like an event log
 * The default APIBASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
-3. After the sdk is configured, all non handled exceptions are catched by the sdk. Exception information are written to the filesystem (%APPDATA%)
+3. After the sdk is configured, all non handled exceptions are caught by the sdk. Exception information are written to the filesystem (%APPDATA%)
 4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNow();</pre>
 * The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWPF.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWPF.Instance.CrashesAvailableCount`
 * Crashed can be deleted using `HockeyApp.HockeyClientWPF.Instance.DeleteAllCrashes()`
@@ -95,7 +95,7 @@ Without using the WPF or WP-SDKs you can use the portable library directly - e.g
 
 1. First you have to configure the portable using `HockeyClient.Configure(YOURAPPID,YOURVERSION,APIBASE,USERNAME,USERCONTACTINFO,DESCRIPTION)` or
 `HockeyClient.ConfigureInternal(YOURAPPID,YOURVERSION,APIBASE,USERNAME,USERCONTACTINFO, USERAGENT, SDKNAME, SDKVERSION, DESCRIPTION);`
-2. Exception have to be catched in your own SDK. Using `HockeyClient.Instance.CreateCrashData(EXCEPTION,CRASHLOGINFO);` 
+2. Exception have to be caught in your own SDK. Using `HockeyClient.Instance.CreateCrashData(EXCEPTION,CRASHLOGINFO);` 
 you can serialize the CrashData using `ICrashData.Serialize(Stream outputstream);`
 3. When you want to post all crashes to the server, `HockeyClient.Deserialize(Stream inputStream)` offers you a deserializing functionality. 
 4. With the deserialized ICrashData you can post the crash information using `ICrashData.Task SendDataAsync();`
