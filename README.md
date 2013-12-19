@@ -26,6 +26,12 @@ Deprecated but still available (no Nuget package available -> use the source)
 
 * Crash reporting and Feedback (works for beta and store apps)
 
+### WinRT (Windows Store Apps)
+<pre>Nuget PM> Install-Package HockeySDK.WinRT</pre>
+
+* Automatic crash reporting
+* Using feedback and update functionality(see below)
+
 ### WPF
 <pre>Nuget PM> Install-Package HockeySDK.WPF</pre>
 
@@ -67,6 +73,9 @@ if you don't have access to NavigationService in your ViewModels (like when usin
 Use the next line right after the call to HandleCrashes() to check for updates and present them to the user automatically
 <pre>UpdateManager.RunUpdateCheck(Constants.HockeyAppAppId);</pre>
 
+## Getting started with WinRT
+See the WPF-Section for Details. The WinRT-Implementation is very similar to the WPF-Implementation.
+
 ## Getting started with WPF
 
 ### Configure the CrashHandler
@@ -77,7 +86,7 @@ Use the next line right after the call to HandleCrashes() to check for updates a
 * DESCRIPTIONHANDLER is a lambda for submitting additional information like an event log
 * The default APIBASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
 3. After the sdk is configured, all non handled exceptions are caught by the sdk. Exception information are written to the filesystem (%APPDATA%)
-4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNow();</pre>
+4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNowAsync();</pre>
 * The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWPF.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWPF.Instance.CrashesAvailableCount`
 * Crashed can be deleted using `HockeyApp.HockeyClientWPF.Instance.DeleteAllCrashes()`
 
@@ -116,5 +125,6 @@ All release notes can be found in the project directories
 * [Hockey-SDK Portable .Net4.5](./HockeySDK_Portable45/)
 * [HockeySDK WP8](./HockeySDK_WP8/)
 * [HockeySDK WP7.5](./HockeySDK_WP75/)
+* [HockeySDK WinRT](./HockeySDK_WinRT/)
 * [HockeySDK WPF](./HockeySDK_WPF/)
 * [HockeySDK WPF .Net4.5](./HockeySDK_WPF45/)
