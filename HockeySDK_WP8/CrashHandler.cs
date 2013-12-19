@@ -218,7 +218,7 @@ namespace HockeyApp
                         }
                     }
                 }
-                catch (Exception e)
+                catch 
                 {
                     // Ignore all exceptions
                 }
@@ -248,7 +248,7 @@ namespace HockeyApp
                             {
                                 store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                             }
-                            catch (Exception e) 
+                            catch 
                             {
                                 //TODO logging auf WP? 
                             }

@@ -112,6 +112,7 @@ namespace HockeyApp
         internal void HandleException(Exception e)
         {
             StringBuilder builder = new StringBuilder();
+            //TODO: Besser vorher machen
             builder.Append(CreateHeader());
             builder.AppendLine();
             builder.Append(CreateStackTrace(e));

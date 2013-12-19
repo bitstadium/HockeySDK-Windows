@@ -50,6 +50,7 @@ namespace HockeyApp.Model
         public void OnDeserializing(StreamingContext context)
         {
             this._hockeyClient = HockeyClient.Instance as HockeyClient;
+            _logger = HockeyLogManager.GetLog(typeof(CrashData));
         }
 
         [DataMember(Name = "log")]
@@ -97,8 +98,10 @@ namespace HockeyApp.Model
 
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this._hockeyClient.UserAgentString);
-
+            if (!String.IsNullOrWhiteSpace(this._hockeyClient.UserAgentString))
+            {
+                request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this._hockeyClient.UserAgentString);
+            }
             Stream stream = await request.GetRequestStreamAsync();
             byte[] byteArray = Encoding.UTF8.GetBytes(rawData);
             stream.Write(byteArray, 0, rawData.Length);
