@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
-    <id>HockeySDK.WP</id>
+    <id>HockeySDK.WINRT</id>
     <version>2.0.2-beta</version>
     <authors>Bit Stadium GmbH</authors>
 	<owners>Bit Stadium GmbH</owners>
@@ -9,27 +9,21 @@
     <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Use HockeyApp in your WindowsPhone apps. Collect crash reports, provide a feedback-functionality and enable automatic updates for beta versions.</description>
+    <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
     <language>en-US</language>
     <releaseNotes>Initial public beta release</releaseNotes>
     <copyright>Copyright (c) 2013 Bit Stadium GmbH</copyright>
-    <tags>crash reports reporting feedback WP8 windows phone hockeyapp</tags>
+    <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
 
     <dependencies>
-      <group targetFramework="wp71">
-      </group>
-
-      <group targetFramework="wp8">
-        <dependency id="HockeySDK.Core" version="[2.0.2-beta]" />
-      </group>
+       <dependency id="HockeySDK.Core" version="[2.0.2-beta]" />
     </dependencies>
   </metadata>
 
   <files>
-    <file src="..\bin\wp8\Release\HockeyApp.*" target="lib\wp8" />
-    <file src="..\bin\wp75\Release\HockeyApp.*" target="lib\wp71" />
+    <file src="..\bin\wpf\Release\HockeyApp.*" target="lib\net40" />
+    <file src="..\bin\wpf45\Release\HockeyApp.*" target="lib\net45" />
 
-    <file src="content\**" target="content" />
     <file src="tools\**" target="tools" />
   </files>
 </package>

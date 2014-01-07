@@ -21,7 +21,7 @@ If you want to use the nuget packages make sure you have prerelease filter activ
 * Feedback page (store and beta apps): Let your users send you feedback messages via HockeyApp 
 * Automatic updates (only beta apps): Either all beta users must have developer unlocked phones or you need to either use an Enterprise Certificate to sign your beta apps. See http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206943(v=vs.105).aspx
 
-### WP75
+### Windows Phone 7.5
 Deprecated but still available (no Nuget package available -> use the source)
 
 * Crash reporting and Feedback (works for beta and store apps)
@@ -38,7 +38,7 @@ Deprecated but still available (no Nuget package available -> use the source)
 * Automatic crash reporting
 * Using feedback and update functionality(see below)
 
-### Portable lib (supports SL5, Win8, Net >= 4.0) 
+### Portable lib (core component) 
 <pre>Nuget PM> Install-Package HockeySDK.Core</pre>
 A basic API wrapper for the HockeyApp API that supports
 
@@ -80,11 +80,11 @@ See the WPF-Section for Details. The WinRT-Implementation is very similar to the
 
 ### Configure the CrashHandler
 1. Open your App.xaml.cs and override the OnStartup-Method. If your are using frameworks like Caliburn.Micro use the caliburn-bootstrapper.
-2. Before calling any methods you have to configure the sdk via `HockeyApp.HockeyClientWPF.Instance.Configure(YOURAPPID, YOURAPPVERSION, USERNAME, CONTACTINFO, DESCRIPTIONHANDLER, APIBASE)`
-* YOURAPPID and YOURAPPVERSION are not optional
-* USERNAME and CONTACTINFO is for optional submitting an logged on username and contactinfo
-* DESCRIPTIONHANDLER is a lambda for submitting additional information like an event log
-* The default APIBASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
+2. Before calling any methods you have to configure the sdk via `HockeyApp.HockeyClientWPF.Instance.Configure(YOUR_APP_ID, YOUR_APP_VERSION, USERNAME, CONTACT_INFO, DESCRIPTION_HANDLER, API_BASE)`
+* YOUR_APP_ID and YOUR_APP_VERSION are not optional
+* USERNAME and CONTACT_INFO is for optional submitting an logged on username and contactinfo
+* DESCRIPTION_HANDLER is a lambda for submitting additional information like an event log
+* The default API_BASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
 3. After the sdk is configured, all non handled exceptions are caught by the sdk. Exception information are written to the filesystem (%APPDATA%)
 4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNowAsync();</pre>
 * The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWPF.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWPF.Instance.CrashesAvailableCount`
@@ -102,8 +102,8 @@ Creating a new Feedback:
 ## Using the PCL
 Without using the WPF or WP-SDKs you can use the portable library directly - e.g. when implementing an own SDK.
 
-1. First you have to configure the portable using `HockeyClient.Configure(YOURAPPID,YOURVERSION,APIBASE,USERNAME,USERCONTACTINFO,DESCRIPTION)` or
-`HockeyClient.ConfigureInternal(YOURAPPID,YOURVERSION,APIBASE,USERNAME,USERCONTACTINFO, USERAGENT, SDKNAME, SDKVERSION, DESCRIPTION);`
+1. First you have to configure the portable using `HockeyClient.Configure(YOUR_APP_ID,YOUR_VERSION,API_BASE,USERNAME,USER_CONTACT_INFO,DESCRIPTION)` or
+`HockeyClient.ConfigureInternal(YOUR_APP_ID,YOUR_VERSION,API_BASE,USERNAME,USER_CONTACT_INFO, USER_AGENT, SDK_NAME, SDK_VERSION, DESCRIPTION);`
 2. Exception have to be caught in your own SDK. Using `HockeyClient.Instance.CreateCrashData(EXCEPTION,CRASHLOGINFO);` 
 you can serialize the CrashData using `ICrashData.Serialize(Stream outputstream);`
 3. When you want to post all crashes to the server, `HockeyClient.Deserialize(Stream inputStream)` offers you a deserializing functionality. 

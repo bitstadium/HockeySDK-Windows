@@ -54,17 +54,7 @@ namespace HockeyApp
         private Application application = null;
         
         static CrashHandler() { }
-        private CrashHandler() {
-            this._crashLogInfo = new CrashLogInformation()
-            {
-                PackageName = application.GetType().Namespace,
-                ProductID = ManifestHelper.GetProductID(),
-                Version = ManifestHelper.GetAppVersion(),
-                WindowsPhone = Environment.OSVersion.Version.ToString(),
-                Manufacturer = GetDeviceManufacturer(),
-                Model = GetDeviceModel()
-            };
-        }
+        private CrashHandler() {}
 
         public static CrashHandler Instance
         {
@@ -96,6 +86,18 @@ namespace HockeyApp
         {
             if (this.application == null)
             {
+
+                this._crashLogInfo = new CrashLogInformation()
+                {
+                    PackageName = application.GetType().Namespace,
+                    ProductID = ManifestHelper.GetProductID(),
+                    Version = ManifestHelper.GetAppVersion(),
+                    WindowsPhone = Environment.OSVersion.Version.ToString(),
+                    Manufacturer = GetDeviceManufacturer(),
+                    Model = GetDeviceModel()
+                };
+               
+
                 this.application = application;
                 this.application.UnhandledException += OnUnhandledException;
                 HockeyClient.ConfigureInternal(identifier,

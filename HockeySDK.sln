@@ -13,6 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nuget", "Nuget", "{358E4146
 	ProjectSection(SolutionItems) = preProject
 		Nuget\create-packages.cmd = Nuget\create-packages.cmd
 		Nuget\HockeySDK.Core.nuspec = Nuget\HockeySDK.Core.nuspec
+		Nuget\HockeySDK.WINRT.nuspec = Nuget\HockeySDK.WINRT.nuspec
 		Nuget\HockeySDK.WP.nuspec = Nuget\HockeySDK.WP.nuspec
 		Nuget\HockeySDK.WPF.nuspec = Nuget\HockeySDK.WPF.nuspec
 		Nuget\nuspec.2010.7.xsd = Nuget\nuspec.2010.7.xsd
