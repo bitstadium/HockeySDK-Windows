@@ -1,14 +1,16 @@
 ## Authors
 
-Thomas Dohmke <thomas@dohmke.de>
+Thomas Dohmke
 Tomer Shamam
+Andreas Moosbrugger
+Holger Gubbels
 
 ## Licenses
 
 The Hockey SDK is provided under the following license:
 
 	The MIT License
-	Copyright (c) 2012 Codenauts UG (haftungsbeschränkt). All rights reserved.
+	Copyright (c) Bit Stadium GmbH. All rights reserved.
 
 	Permission is hereby granted, free of charge, to any person
 	obtaining a copy of this software and associated documentation
