@@ -30,13 +30,13 @@ Deprecated but still available (no Nuget package available -> use the source)
 <pre>Nuget PM> Install-Package HockeySDK.WinRT</pre>
 
 * Automatic crash reporting
-* Using feedback and update functionality(see below)
+* Sending feedback to the developers
 
 ### WPF
 <pre>Nuget PM> Install-Package HockeySDK.WPF</pre>
 
 * Automatic crash reporting
-* Using feedback and update functionality(see below)
+* Sending feedback to the developers
 
 ### Portable lib (core component) 
 <pre>Nuget PM> Install-Package HockeySDK.Core</pre>
