@@ -73,8 +73,28 @@ if you don't have access to NavigationService in your ViewModels (like when usin
 Use the next line right after the call to HandleCrashes() to check for updates and present them to the user automatically
 <pre>UpdateManager.RunUpdateCheck(Constants.HockeyAppAppId);</pre>
 
-## Getting started with WinRT
-See the WPF-Section for Details. The WinRT-Implementation is very similar to the WPF-Implementation.
+## Getting started with Windows 8.1 (Windows RT)
+1. Open your App.xaml.cs and add the following to the OnLaunched method before the `Window.Current.Activate();`.
+2. Before calling any methods you have to configure the sdk via `HockeyApp.HockeyClientWinRT.Instance.Configure(YOUR_APP_ID, YOUR_APP_VERSION)`
+3. You can also pass in a variety of other parameters such as: `HockeyApp.HockeyClientWinRT.Instance.Configure(YOUR_APP_ID, YOUR_APP_VERSION, USERNAME, CONTACT_INFO, DESCRIPTION_HANDLER, API_BASE)`
+4. The parameters provided to the configure method are:
+* YOUR_APP_ID and YOUR_APP_VERSION are not optional
+* USERNAME and CONTACT_INFO is for optional submitting an logged on username and contactinfo
+* DESCRIPTION_HANDLER is a lambda for submitting additional information like an event log
+* The default API_BASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
+3. After the sdk is configured, all non handled exceptions are caught by the sdk. 
+4. Crashdata is send using `HockeyApp.HockeyClientWinRT.Instance.SendCrashesNowAsync();`
+* The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWinRT.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWinRT.Instance.CrashesAvailableCount`
+* Crashed can be deleted using `HockeyApp.HockeyClientWinRT.Instance.DeleteAllCrashes()`
+
+### Use Feedback
+In the SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens
+must stored in the client application.
+Creating a new Feedback:
+
+1. `HockeyApp.HockeyClientWinRT.Instance.CreateFeedbackThread()` creates an new IFeedbackThread
+2. `feedbackThread.PostFeedbackMessageAsync(MESSAGE, EMAIL, SUBJECT, USERNAME);` submits a new feedback message on the selected feedback-thread.
+3. The FeedbackThread is created on the server with submitting the first feedback-message (keep that in mind when storing the feedback-token information)
 
 ## Getting started with WPF
 
