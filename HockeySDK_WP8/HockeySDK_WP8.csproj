@@ -150,13 +150,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HockeySDK_Portable\HockeySDK_Portable.csproj">
-      <Project>{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}</Project>
-      <Name>HockeySDK_Portable</Name>
-    </ProjectReference>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\HockeySDK_Portable45\HockeySDK_Portable45.csproj">
+      <Project>{643606BA-84A8-483F-A582-49E472B8701E}</Project>
+      <Name>HockeySDK_Portable45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
