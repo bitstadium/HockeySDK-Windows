@@ -181,7 +181,7 @@ namespace HockeyApp
                             Debugger.Log(0, "HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
                             if (sendAutomatically)
                             {
-                                SendCrashesAsync(store, filenames);
+                                var __ = SendCrashesAsync(store, filenames);
                             }
                             else
                             {
