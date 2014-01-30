@@ -11,21 +11,21 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
+using HockeyApp.Views;
 using HockeyApp.Tools;
 
 namespace HockeyApp.ViewModels
 {
-
-    public class FeedbackVM : VMBase
+    public class FeedbackPageVM : VMBase
     {
-
         public Task Initialization { get; private set; }
-        Action<bool> showFormAppBarAction;
+        Action<FeedbackViewState> switchViewStateAction;
 
-        public FeedbackVM(Action<bool> showFormAppBarAction)
+        public FeedbackPageVM(Action<FeedbackViewState> switchViewStateAction)
         {
             this.ThreadInfo = FeedbackManager.Instance.FeedbackPageTopTitle;
-            this.showFormAppBarAction = showFormAppBarAction;
+            this.switchViewStateAction = switchViewStateAction;
             Initialization = InitializeAsync(); //await this.Initialization to make shure its inititalized
         }
 
@@ -65,7 +65,10 @@ namespace HockeyApp.ViewModels
                 }
                 else //no internet connection
                 {
-                    //TODO warnung kein internet und zurückspringen (navigateback!?)
+                    Deployment.Current.Dispatcher.BeginInvoke(() =>
+                    {
+                        MessageBox.Show("No Internet connection available. Please try again later.");
+                    });
                 }
             }
             else
@@ -73,19 +76,7 @@ namespace HockeyApp.ViewModels
                 Deployment.Current.Dispatcher.BeginInvoke(() => IsThreadActive = false);
                 SwitchToMessageForm();
             }
-            SetFormFieldDefaults();
             HideOverlay();
-        }
-
-        internal void SetFormFieldDefaults()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                var persistedValues = FeedbackManager.Instance.ThreadMetaInfos;
-                this.Email = persistedValues.Email;
-                this.Username = persistedValues.Username;
-                this.Subject = persistedValues.Subject;
-            });
         }
 
         #region Properties
@@ -99,24 +90,6 @@ namespace HockeyApp.ViewModels
                 threadinfo = value;
                 NotifyOfPropertyChange("ThreadInfo");
             }
-        }
-
-
-        private Boolean isMessageListVisible = true;
-        public Boolean IsMessageListVisible
-        {
-            get { return isMessageListVisible; }
-            protected set
-            {
-                isMessageListVisible = value;
-                NotifyOfPropertyChange("IsMessageListVisible");
-                NotifyOfPropertyChange("IsMessageFormVisible");
-            }
-        }
-
-        public Boolean IsMessageFormVisible
-        {
-            get { return !IsMessageListVisible; }
         }
 
         private bool isShowOverlay = true;
@@ -139,52 +112,6 @@ namespace HockeyApp.ViewModels
                 NotifyOfPropertyChange("IsThreadActive");
             }
         }
-
-
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set
-            {
-                email = value;
-                NotifyOfPropertyChange("Email");
-            }
-        }
-
-        private string subject;
-        public string Subject
-        {
-            get { return subject; }
-            set
-            {
-                subject = value;
-                NotifyOfPropertyChange("Subject");
-            }
-        }
-
-        private string message;
-        public string Message
-        {
-            get { return message; }
-            set
-            {
-                message = value;
-                NotifyOfPropertyChange("Message");
-            }
-        }
-
-        private string username;
-        public string Username
-        {
-            get { return username; }
-            set
-            {
-                username = value;
-                NotifyOfPropertyChange("Username");
-            }
-        }
-
         #endregion
 
         ObservableCollection<FeedbackMessageVM> messages = new ObservableCollection<FeedbackMessageVM>();
@@ -197,20 +124,17 @@ namespace HockeyApp.ViewModels
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
-                this.IsMessageListVisible = true;
                 this.IsShowOverlay = false;
             });
-            showFormAppBarAction(false);
+            switchViewStateAction(FeedbackViewState.MessageList);
         }
 
         public void SwitchToMessageForm()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() => {
-                this.IsMessageListVisible = false;
                 this.IsShowOverlay = false;
             });
-            showFormAppBarAction(true);
-            
+            switchViewStateAction(FeedbackViewState.MessageForm);
         }
 
         public void ShowOverlay()
@@ -223,67 +147,25 @@ namespace HockeyApp.ViewModels
             Deployment.Current.Dispatcher.BeginInvoke(() => { this.IsShowOverlay = false; });
         }
 
-        protected bool ValidateInput()
+        private FeedbackImageVM iVM;
+        public FeedbackImageVM CurrentImageVM
         {
-            var errors = new List<string>();
-            if (!this.Email.IsValidEmail())
+            get { return iVM; }
+            set { iVM = value; }
+        }
+        
+        internal void SwitchToImageEditor(FeedbackImageVM imageVM)
+        {
+            CurrentImageVM = imageVM;
+            if (imageVM.IsEditable)
             {
-                errors.Add("Please enter a valid email."); //TODO i18n
+                switchViewStateAction(FeedbackViewState.ImageEdit);
             }
-
-            if (this.Subject.IsEmpty())
+            else
             {
-                errors.Add("Please enter a subject."); //TODO i18n
+                switchViewStateAction(FeedbackViewState.ImageShow);
             }
-
-            if (this.Username.IsEmpty())
-            {
-                errors.Add("Please enter a name."); //TODO i18n
-            }
-
-            if (this.Message.IsEmpty())
-            {
-                errors.Add("Please enter a message."); //TODO i18n
-            }
-
-            if (errors.Any())
-            {
-                MessageBox.Show(errors.Aggregate((a, b) => a + "\n" + b));
-                return false;
-            }
-            return true;
         }
 
-        public async Task<bool> SubmitForm()
-        {
-            if (ValidateInput())
-            {
-                ShowOverlay();
-
-                var returnedMsg = await FeedbackManager.Instance.SendFeedback(this.Message, this.Email, this.Subject, this.Username);
-                if (returnedMsg != null)
-                {
-                    this.Messages.Add(new FeedbackMessageVM(returnedMsg));
-                    this.ClearForm();
-                    SwitchToMessageList();
-                    return true;
-                }
-                else
-                {
-                    HideOverlay();
-                    MessageBox.Show("An error occcured. Please try again.");
-                }
-            }
-            return false;
-        }
-
-        private void ClearForm()
-        {
-            Deployment.Current.Dispatcher.BeginInvoke(() =>
-            {
-                this.IsThreadActive = true;
-                this.Message = "";
-            });
-        }
     }
 }

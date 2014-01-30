@@ -15,7 +15,7 @@ namespace HockeyApp.Model
     {
         
         private static ILog _logger = HockeyLogManager.GetLog(typeof(FeedbackThread));
-        public static FeedbackThread CreateInstance()
+        public static IFeedbackThread CreateInstance()
         {
             return new FeedbackThread() { Token = Guid.NewGuid().ToString(), IsNewThread = true, messages = new List<FeedbackMessage>() };
         }
@@ -109,8 +109,7 @@ namespace HockeyApp.Model
             return retVal;
         }
 
-
-        public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null)
+        public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackImage> images = null)
         {
             if (String.IsNullOrWhiteSpace(message))
             {
@@ -125,7 +124,7 @@ namespace HockeyApp.Model
             msg.Subject = subject;
 
             IHockeyClient client = HockeyClient.Instance;
-            WebRequest request = null;
+            HttpWebRequest request = null;
             if (this.IsNewThread)
             {
                 msg.Token = this.Token;
@@ -140,18 +139,54 @@ namespace HockeyApp.Model
             
             request.SetHeader(HttpRequestHeader.UserAgent.ToString(), client.UserAgentString);
 
+            byte[] dataStream;
 
-            string data = msg.SerializeToWwwForm();
+            if (images == null || !images.Any())
+            {
+                string data = msg.SerializeToWwwForm();
+                dataStream = Encoding.UTF8.GetBytes(data);
+                request.ContentType = "application/x-www-form-urlencoded";
+                request.SetHeader(HttpRequestHeader.ContentEncoding.ToString(), Encoding.UTF8.WebName.ToString());
 
-            byte[] dataStream = Encoding.UTF8.GetBytes(data);
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.SetHeader(HttpRequestHeader.ContentEncoding.ToString(), Encoding.UTF8.WebName.ToString());
-            Stream stream = await request.GetRequestStreamAsync();
-            stream.Write(dataStream, 0, dataStream.Length);
-            stream.Dispose();
+                Stream stream = await request.GetRequestStreamAsync();
+                stream.Write(dataStream, 0, dataStream.Length);
+                stream.Dispose();
+            }
+            else
+            {
+                string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
+                byte[] boundarybytes = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
+
+                request.ContentType = "multipart/form-data; boundary=" + boundary;
+                Stream stream = await request.GetRequestStreamAsync();
+                string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
+
+                //write form fields
+                foreach (var keyValue in msg.MessagePartsDict)
+                {
+                    stream.Write(boundarybytes, 0, boundarybytes.Length);
+                    string formitem = string.Format(formdataTemplate, keyValue.Key, keyValue.Value);
+                    byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                    stream.Write(formitembytes, 0, formitembytes.Length);
+                }
+                //write images
+                for (int index = 0; index < images.Count(); index++)
+                {
+                    var image = images.ElementAt(index);
+                    stream.Write(boundarybytes, 0, boundarybytes.Length);
+                    string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+                    string header = string.Format(headerTemplate, "attachment" + index, image.FileName, image.ContentType);
+                    byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+                    stream.Write(headerbytes, 0, headerbytes.Length);
+                    stream.Write(image.ImageBytes, 0, image.ImageBytes.Length);
+                }
+
+                byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                stream.Write(trailer, 0, trailer.Length);
+                stream.Dispose();
+            }
 
             var response = await request.GetResponseAsync();
-
             var fbResp = await TaskEx.Run<FeedbackResponseSingle>(() => FeedbackResponseSingle.FromJson(response.GetResponseStream()));
 
             if (!fbResp.Status.Equals("success"))

@@ -103,6 +103,7 @@ namespace HockeyApp
                 HockeyClient.ConfigureInternal(identifier,
                     ManifestHelper.GetAppVersion(),
                     userID: userId,
+                    apiBase: apiBase,
                     contactInformation: contactInformation, 
                     userAgentName: Constants.UserAgentString,
                     sdkName: Constants.SdkName, 

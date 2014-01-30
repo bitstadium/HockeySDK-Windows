@@ -33,22 +33,5 @@ namespace HockeyApp.Extensions
                 request.Headers[header] = value;
             }
         }
-
-        /// <summary>
-        /// Set form encoded postData on a webrequest.
-        /// </summary>
-        /// <param name="request">self</param>
-        /// <param name="postData">string with form encoded data</param>
-        /// <returns></returns>
-        public static async Task SetPostDataAsync(this WebRequest request, string postData)
-        {
-            byte[] dataStream = Encoding.UTF8.GetBytes(postData);
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.SetHeader(HttpRequestHeader.ContentEncoding.ToString(), Encoding.UTF8.WebName.ToString());
-            Stream stream = await request.GetRequestStreamAsync();
-            stream.Write(dataStream, 0, dataStream.Length);
-            stream.Dispose();
-        }
-
     }
 }

@@ -54,6 +54,9 @@
     <Compile Include="..\HockeySDK_Portable\ICrashData.cs">
       <Link>ICrashData.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_Portable\IFeedbackImage.cs">
+      <Link>IFeedbackImage.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_Portable\IFeedbackMessage.cs">
       <Link>IFeedbackMessage.cs</Link>
     </Compile>
@@ -74,6 +77,9 @@
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Model\CrashLogInformation.cs">
       <Link>Model\CrashLogInformation.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\Model\FeedbackImage.cs">
+      <Link>Model\FeedbackImage.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Model\FeedbackMessage.cs">
       <Link>Model\FeedbackMessage.cs</Link>

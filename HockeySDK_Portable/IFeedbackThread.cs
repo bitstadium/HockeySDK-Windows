@@ -1,7 +1,7 @@
-﻿using HockeyApp.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 namespace HockeyApp
 {
     public interface IFeedbackThread
@@ -15,6 +15,6 @@ namespace HockeyApp
         int Status { get; }
         string Token { get; }
 
-        Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null);
+        Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackImage> images = null);
     }
 }

@@ -13,7 +13,6 @@ namespace HockeyApp.ViewModels
     {
         IFeedbackMessage msg;
 
-
         public FeedbackMessageVM(IFeedbackMessage msg)
         {
             this.msg = msg;
@@ -27,7 +26,7 @@ namespace HockeyApp.ViewModels
         static SolidColorBrush Outgoing = new SolidColorBrush(Color.FromArgb(255, 120, 0, 120));
         public Brush BgColor { get { return IsIncoming ? Incoming : Outgoing; } }
          */
-
+        
         public Thickness Margin
         {
             get {
@@ -45,7 +44,6 @@ namespace HockeyApp.ViewModels
         {
             get { return msg.CleanText; }
         }
-
-        
+       
     }
 }

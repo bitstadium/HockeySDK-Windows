@@ -1,5 +1,4 @@
 ﻿using System.Windows.Navigation;
-using HockeyApp.Model;
 using HockeyApp.Tools;
 using System;
 using System.IO.IsolatedStorage;
@@ -7,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.Generic;
+using HockeyApp.Model;
 
 namespace HockeyApp
 {
@@ -153,21 +154,21 @@ namespace HockeyApp
 
         /// <summary>
         /// Send a feedback message to the server
-        /// (you should not need this is you use the provided feedpage page)
+        /// (you should not need this if you use the provided feedback page)
         /// </summary>
         /// <param name="message">message text</param>
         /// <param name="email">email address of sender</param>
         /// <param name="subject">subject of message</param>
         /// <param name="name">name of sender</param>
         /// <returns></returns>
-        public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name)
+        public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name, IEnumerable<IFeedbackImage> images)
         {
             var thread = await this.GetActiveThreadAsync() ?? FeedbackThread.CreateInstance();
 
             IFeedbackMessage msg;
             try
             {
-                msg = await thread.PostFeedbackMessageAsync(message, email, subject, name);
+                msg = await thread.PostFeedbackMessageAsync(message, email, subject, name, images);
                 PersistThreadMetaInfos(thread.Token, subject, name, email);
                 this.activeThread = thread;
             }
