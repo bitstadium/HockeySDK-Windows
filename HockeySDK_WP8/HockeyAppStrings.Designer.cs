@@ -61,11 +61,20 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Attachments.
+        ///   Looks up a localized string similar to Attach image.
         /// </summary>
-        public static string Attachements {
+        public static string AttachImg {
             get {
-                return ResourceManager.GetString("Attachements", resourceCulture);
+                return ResourceManager.GetString("AttachImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
             }
         }
         
@@ -102,6 +111,69 @@ namespace HockeyApp {
         public static string Email {
             get {
                 return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dd/MM/yyyy HH:mm.
+        /// </summary>
+        public static string FeedbackDateFormat {
+            get {
+                return ResourceManager.GetString("FeedbackDateFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There has been a connection problem with the server. Please try again later..
+        /// </summary>
+        public static string FeedbackFetchError {
+            get {
+                return ResourceManager.GetString("FeedbackFetchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No Internet connection available. Please try again later..
+        /// </summary>
+        public static string FeedbackNoInternet {
+            get {
+                return ResourceManager.GetString("FeedbackNoInternet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occcured. Please try again..
+        /// </summary>
+        public static string FeedbackSendError {
+            get {
+                return ResourceManager.GetString("FeedbackSendError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ImgDelete {
+            get {
+                return ResourceManager.GetString("ImgDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string ImgOk {
+            get {
+                return ResourceManager.GetString("ImgOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset.
+        /// </summary>
+        public static string ImgReset {
+            get {
+                return ResourceManager.GetString("ImgReset", resourceCulture);
             }
         }
         
@@ -156,6 +228,15 @@ namespace HockeyApp {
         public static string ReleaseNotes {
             get {
                 return ResourceManager.GetString("ReleaseNotes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply.
+        /// </summary>
+        public static string Reply {
+            get {
+                return ResourceManager.GetString("Reply", resourceCulture);
             }
         }
         

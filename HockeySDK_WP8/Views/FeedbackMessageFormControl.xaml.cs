@@ -45,7 +45,7 @@ namespace HockeyApp.Views
             return await VM.SubmitForm();
         }
 
-        internal async Task AttachButtonClicked()
+        internal void AttachButtonClicked()
         {
             PhotoChooserTask task = new PhotoChooserTask();
 
@@ -58,11 +58,6 @@ namespace HockeyApp.Views
                 }
             };
             task.Show();
-        }
-
-        private void AttachmentEdit_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("" + sender.ToString() + "\n" + e.OriginalSource.ToString()); //TODO
         }
     }
 }

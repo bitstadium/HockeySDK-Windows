@@ -117,8 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Attachements" xml:space="preserve">
-    <value>Attachments</value>
+  <data name="AttachImg" xml:space="preserve">
+    <value>Attach image</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="CrashData" xml:space="preserve">
     <value>Crash Data</value>
@@ -131,6 +134,27 @@
   </data>
   <data name="Email" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="FeedbackDateFormat" xml:space="preserve">
+    <value>dd/MM/yyyy HH:mm</value>
+  </data>
+  <data name="FeedbackFetchError" xml:space="preserve">
+    <value>There has been a connection problem with the server. Please try again later.</value>
+  </data>
+  <data name="FeedbackNoInternet" xml:space="preserve">
+    <value>No Internet connection available. Please try again later.</value>
+  </data>
+  <data name="FeedbackSendError" xml:space="preserve">
+    <value>An error occcured. Please try again.</value>
+  </data>
+  <data name="ImgDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ImgOk" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="ImgReset" xml:space="preserve">
+    <value>Reset</value>
   </data>
   <data name="Install" xml:space="preserve">
     <value>Install</value>
@@ -149,6 +173,9 @@
   </data>
   <data name="ReleaseNotes" xml:space="preserve">
     <value>Releasenotes</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
   </data>
   <data name="Send" xml:space="preserve">
     <value>Send</value>

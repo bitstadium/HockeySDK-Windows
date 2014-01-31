@@ -85,7 +85,7 @@ namespace HockeyApp.ViewModels
                 else
                 {
                     ParentVM.HideOverlay();
-                    MessageBox.Show("An error occcured. Please try again.");
+                    MessageBox.Show(LocalizedStrings.LocalizedResources.FeedbackSendError);
                 }
             }
             return null;

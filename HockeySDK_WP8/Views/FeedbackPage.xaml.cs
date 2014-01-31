@@ -117,21 +117,21 @@ namespace HockeyApp.Views
         private void initializeAppBarIcons()
         {
             sendButton.IconUri = new Uri("/HockeyAppContent/Send.png", UriKind.Relative);
-            sendButton.Text = "Send message";
+            sendButton.Text = LocalizedStrings.LocalizedResources.Send;
             sendButton.Click += async (sender, e) =>
             {
                 await this.formControl.SendButtonClicked();
             };
 
             answerButton.IconUri = new Uri("/HockeyAppContent/Reply.png", UriKind.Relative);
-            answerButton.Text = "Answer";
+            answerButton.Text = LocalizedStrings.LocalizedResources.Reply;
             answerButton.Click += (sender, e) =>
             {
                 VM.SwitchToMessageForm();
             };
 
             cancelButton.IconUri = new Uri("/HockeyAppContent/Cancel.png", UriKind.Relative);
-            cancelButton.Text = "Cancel";
+            cancelButton.Text = LocalizedStrings.LocalizedResources.Cancel;
             cancelButton.Click += (sender, e) =>
             {
                 this.formControl.VM.ClearForm();
@@ -139,25 +139,25 @@ namespace HockeyApp.Views
             };
 
             attachButton.IconUri = new Uri("/HockeyAppContent/Attach.png", UriKind.Relative);
-            attachButton.Text = "Attach";
-            attachButton.Click += async (sender, e) =>
+            attachButton.Text = LocalizedStrings.LocalizedResources.AttachImg;
+            attachButton.Click += (sender, e) =>
             {
-                await this.formControl.AttachButtonClicked();
+                this.formControl.AttachButtonClicked();
             };
 
-            menuItemOk.Text = "Ok";
+            menuItemOk.Text = LocalizedStrings.LocalizedResources.ImgOk;
             menuItemOk.Click += (sender, e) =>
             {
                 this.imageControl.OkButtonClicked();
             };
 
-            menuItemReset.Text = "Reset";
+            menuItemReset.Text = LocalizedStrings.LocalizedResources.ImgReset;
             menuItemReset.Click += (sender, e) =>
             {
                 this.imageControl.ResetButtonClicked();
             };
 
-            menuItemDelete.Text = "Delete";
+            menuItemDelete.Text = LocalizedStrings.LocalizedResources.ImgDelete;
             menuItemDelete.Click += (sender, e) =>
             {
                 this.imageControl.DeleteButtonClicked();

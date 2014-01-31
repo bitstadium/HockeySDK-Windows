@@ -60,7 +60,7 @@ namespace HockeyApp.ViewModels
                     {
                         Deployment.Current.Dispatcher.BeginInvoke(() =>
                         {
-                            MessageBox.Show("There has been a connection problem with the server. Please try again later.");
+                            MessageBox.Show(LocalizedStrings.LocalizedResources.FeedbackFetchError);
                         });
                         LeaveFeedbackPageViaBackButton();
                     }
@@ -69,7 +69,7 @@ namespace HockeyApp.ViewModels
                 {
                     Deployment.Current.Dispatcher.BeginInvoke(() =>
                     {
-                        MessageBox.Show("No Internet connection available. Please try again later.");
+                        MessageBox.Show(LocalizedStrings.LocalizedResources.FeedbackNoInternet);
                     });
                     LeaveFeedbackPageViaBackButton();
                 }

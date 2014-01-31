@@ -38,7 +38,7 @@ namespace HockeyApp.ViewModels
 
         public string Created
         {
-            get { return msg.Created.ToString("dd/MM/yyyy HH:mm"); }
+            get { return msg.Created.ToString(LocalizedStrings.LocalizedResources.FeedbackDateFormat); }
         }
         
         public string Text
