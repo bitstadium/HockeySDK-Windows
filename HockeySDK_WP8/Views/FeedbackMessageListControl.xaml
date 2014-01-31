@@ -41,7 +41,6 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-
                     <Grid Margin="{Binding Margin}" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -61,8 +60,9 @@
                             HorizontalAlignment="Left" />
                         <Grid Background="{StaticResource PhoneAccentBrush}" Grid.Row="1">
                             <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <TextBlock Grid.Row="0"
                                        Text="{Binding Text}" 
@@ -78,6 +78,22 @@
                                            HorizontalAlignment="Right"
                                            Style="{StaticResource PhoneTextSmallStyle}"
                                            Margin="0,3,4,4"/>
+                            <ListBox ItemsSource="{Binding Images}">
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal"/>
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding RemoteUrl}" Stretch="UniformToFill" Height="144" Width="96">
+                                            <!--<Image.Clip>
+                                                <RectangleGeometry Rect="0,0,80,80" />
+                                            </Image.Clip>-->
+                                        </Image>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Grid>
                         <Path 
                                 Grid.Row="2"

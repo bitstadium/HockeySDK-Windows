@@ -15,7 +15,7 @@ namespace HockeyApp.Views
 
     public enum FeedbackViewState
     {
-        MessageForm, MessageList, ImageEdit, ImageShow
+        MessageForm, MessageList, ImageEdit, ImageShow, Unknown
     }
 
     public partial class FeedbackPage : PhoneApplicationPage
@@ -26,13 +26,13 @@ namespace HockeyApp.Views
             private set { this.DataContext = value; }
         }
 
-        internal FeedbackViewState CurrentViewState;
+        internal FeedbackViewState CurrentViewState = FeedbackViewState.Unknown;
 
         internal FeedbackMessageFormControl formControl;
         internal FeedbackMessageListControl listControl;
         internal FeedbackImageControl imageControl;
 
-        internal FeedbackViewState lastActiveViewState = FeedbackViewState.MessageForm;
+        internal FeedbackViewState lastActiveViewState = FeedbackViewState.Unknown;
 
         public FeedbackPage()
         {
@@ -43,7 +43,6 @@ namespace HockeyApp.Views
             {
                 SwitchToViewState(newViewState);
             };
-            switchViewStateAction(FeedbackViewState.MessageList);
             this.VM = new FeedbackPageVM(switchViewStateAction);
 
             this.formControl = new FeedbackMessageFormControl(this);
@@ -79,6 +78,9 @@ namespace HockeyApp.Views
                         ShowDrawAppBar();
                         this.FeedbackPageContent.Content = imageControl;
                         break;
+                    case FeedbackViewState.Unknown:
+                        NavigationService.GoBack();
+                        break;
                     default:
                         break;
                 }
@@ -90,7 +92,14 @@ namespace HockeyApp.Views
 
         internal void NavigateBack()
         {
-            SwitchToViewState(lastActiveViewState);
+            if (FeedbackViewState.Unknown.Equals(lastActiveViewState))
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                SwitchToViewState(lastActiveViewState);
+            }
         }
 
         #region AppBar
@@ -121,14 +130,15 @@ namespace HockeyApp.Views
                 VM.SwitchToMessageForm();
             };
 
-            cancelButton.IconUri = new Uri("/HockeyAppContent/Reply.png", UriKind.Relative);
+            cancelButton.IconUri = new Uri("/HockeyAppContent/Cancel.png", UriKind.Relative);
             cancelButton.Text = "Cancel";
-            cancelButton.Click += async (sender, e) =>
+            cancelButton.Click += (sender, e) =>
             {
+                this.formControl.VM.ClearForm();
                 this.NavigateBack();
             };
 
-            attachButton.IconUri = new Uri("/HockeyAppContent/Reply.png", UriKind.Relative);
+            attachButton.IconUri = new Uri("/HockeyAppContent/Attach.png", UriKind.Relative);
             attachButton.Text = "Attach";
             attachButton.Click += async (sender, e) =>
             {
@@ -136,19 +146,19 @@ namespace HockeyApp.Views
             };
 
             menuItemOk.Text = "Ok";
-            menuItemOk.Click += async (sender, e) =>
+            menuItemOk.Click += (sender, e) =>
             {
                 this.imageControl.OkButtonClicked();
             };
 
             menuItemReset.Text = "Reset";
-            menuItemReset.Click += async (sender, e) =>
+            menuItemReset.Click += (sender, e) =>
             {
                 this.imageControl.ResetButtonClicked();
             };
 
             menuItemDelete.Text = "Delete";
-            menuItemDelete.Click += async (sender, e) =>
+            menuItemDelete.Click += (sender, e) =>
             {
                 this.imageControl.DeleteButtonClicked();
             };
@@ -201,10 +211,13 @@ namespace HockeyApp.Views
             if (!FeedbackViewState.MessageList.Equals(CurrentViewState))
             {
                 e.Cancel = true;
-                if (!FeedbackViewState.MessageForm.Equals(CurrentViewState) || (MessageBox.Show("Discard your message?", "Feedback", MessageBoxButton.OKCancel) == MessageBoxResult.Cancel))
+                NavigateBack();
+
+                /* immer glecih zurück
+                if (!FeedbackViewState.MessageForm.Equals(CurrentViewState) || (MessageBox.Show("Discard your message?", "Feedback", MessageBoxButton.OKCancel) == MessageBoxResult.OK))
                 {
-                    NavigateBack();
-                } 
+                    
+                } */
             }
             
             base.OnBackKeyPress(e);

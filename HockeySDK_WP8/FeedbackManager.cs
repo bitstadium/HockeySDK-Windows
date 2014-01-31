@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.Generic;
 using HockeyApp.Model;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace HockeyApp
 {
@@ -164,6 +166,24 @@ namespace HockeyApp
         public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name, IEnumerable<IFeedbackImage> images)
         {
             var thread = await this.GetActiveThreadAsync() ?? FeedbackThread.CreateInstance();
+
+            //convert all images to jpg for filesize
+            foreach (var img in images)
+            {
+                var bitimg = new BitmapImage();
+                bitimg.SetSource(new MemoryStream(img.ImageBytes));
+                var wb = new WriteableBitmap(bitimg);
+
+                using (var stream = new MemoryStream())
+                {
+                    wb.SaveJpeg(stream, bitimg.PixelWidth, bitimg.PixelHeight, 0, 70);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    var buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, (int)stream.Length);
+                    img.ImageBytes = buffer;
+                }
+                img.FileName = Path.GetFileNameWithoutExtension(img.FileName) + ".jpg";
+            }
 
             IFeedbackMessage msg;
             try

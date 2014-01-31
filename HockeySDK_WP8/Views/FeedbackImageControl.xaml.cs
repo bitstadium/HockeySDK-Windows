@@ -81,6 +81,7 @@ namespace HockeyApp.Views
         internal void DeleteButtonClicked()
         {
             this.parentControl.formControl.VM.RemoveAttachment(this.VM);
+            this.parentControl.NavigateBack();
         }
 
 

@@ -77,7 +77,8 @@ namespace HockeyApp.ViewModels
                 if (returnedMsg != null)
                 {
                     this.ClearFormAfterSubmit();
-                    ParentVM.Messages.Add(new FeedbackMessageVM(returnedMsg));
+                    var imgReadOnlyVM = new FeedbackMessageReadOnlyVM(returnedMsg, this.ParentVM);
+                    ParentVM.Messages.Add(imgReadOnlyVM);
                     ParentVM.SwitchToMessageList();
                     return returnedMsg;
                 }
@@ -88,6 +89,16 @@ namespace HockeyApp.ViewModels
                 }
             }
             return null;
+        }
+
+        internal void ClearForm()
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                SetFormFieldDefaults();
+                this.Message = "";
+                this.Attachments.Clear();
+            });
         }
 
         private void ClearFormAfterSubmit()

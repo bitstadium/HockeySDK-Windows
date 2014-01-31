@@ -42,12 +42,13 @@ namespace HockeyApp.ViewModels
                         {
                             foreach (var msg in (thread.Messages))
                             {
-                                this.Messages.Add(new FeedbackMessageVM(msg));
+                                this.Messages.Add(new FeedbackMessageReadOnlyVM(msg, this));
                             }
                             if (FeedbackManager.Instance.FeedbackPageTopTitle.IsEmpty() && !thread.Messages.First().Subject.IsEmpty())
                             {
                                 Deployment.Current.Dispatcher.BeginInvoke(() => this.ThreadInfo = thread.Messages.First().Subject);
                             }
+                            SwitchToMessageList();
                         }
                         else //thread has been deleted
                         {
@@ -61,6 +62,7 @@ namespace HockeyApp.ViewModels
                         {
                             MessageBox.Show("There has been a connection problem with the server. Please try again later.");
                         });
+                        LeaveFeedbackPageViaBackButton();
                     }
                 }
                 else //no internet connection
@@ -69,6 +71,7 @@ namespace HockeyApp.ViewModels
                     {
                         MessageBox.Show("No Internet connection available. Please try again later.");
                     });
+                    LeaveFeedbackPageViaBackButton();
                 }
             }
             else
@@ -114,8 +117,8 @@ namespace HockeyApp.ViewModels
         }
         #endregion
 
-        ObservableCollection<FeedbackMessageVM> messages = new ObservableCollection<FeedbackMessageVM>();
-        public ObservableCollection<FeedbackMessageVM> Messages
+        ObservableCollection<FeedbackMessageReadOnlyVM> messages = new ObservableCollection<FeedbackMessageReadOnlyVM>();
+        public ObservableCollection<FeedbackMessageReadOnlyVM> Messages
         {
             get { return messages; }
         }
@@ -153,7 +156,12 @@ namespace HockeyApp.ViewModels
             get { return iVM; }
             set { iVM = value; }
         }
-        
+
+        private void LeaveFeedbackPageViaBackButton()
+        {
+            switchViewStateAction(FeedbackViewState.Unknown);
+        }
+
         internal void SwitchToImageEditor(FeedbackImageVM imageVM)
         {
             CurrentImageVM = imageVM;

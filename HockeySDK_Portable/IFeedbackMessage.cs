@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace HockeyApp
 {
     public interface IFeedbackMessage
@@ -22,5 +23,6 @@ namespace HockeyApp
         string UserString { get; }
         int Via { get; }
         string ViaAsString { get; }
+        IEnumerable<IFeedbackImage> Images { get; }
     }
 }

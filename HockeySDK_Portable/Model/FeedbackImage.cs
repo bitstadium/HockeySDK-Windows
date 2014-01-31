@@ -7,7 +7,7 @@ namespace HockeyApp.Model
 {
     public class FeedbackImage : IFeedbackImage
     {
-        public FeedbackImage(string fileName, byte[] imageBytes, string contentType = "image/png")
+        public FeedbackImage(string fileName, byte[] imageBytes, string contentType = "image/jpeg")
         {
             this.FileName = fileName;
             this.ContentType = contentType;

@@ -114,7 +114,7 @@
     <Compile Include="Tools\DelegateCommand.cs" />
     <Compile Include="ViewModels\FeedbackImageVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageFormVM.cs" />
-    <Compile Include="ViewModels\FeedbackMessageVM.cs" />
+    <Compile Include="ViewModels\FeedbackMessageReadOnlyVM.cs" />
     <Compile Include="ViewModels\FeedbackPageVM.cs" />
     <Compile Include="Tools\NotificationAction.cs" />
     <Compile Include="Tools\NotificationTool.cs" />

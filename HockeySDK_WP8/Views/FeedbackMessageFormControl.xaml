@@ -194,25 +194,26 @@
 
             <Border Grid.Row="3" Padding="2" BorderThickness="0,0,0,0" 
                         BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
-                    <ListBox ItemsSource="{Binding Attachments}">
-                        <ListBox.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                        </ItemsPanelTemplate>
-                        </ListBox.ItemsPanel>
-                        <ListBox.ItemTemplate>
+                    <ItemsControl ItemsSource="{Binding Attachments}" >
+                        <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Border>
-                                    <StackPanel>
-                                    <TextBlock Text="{Binding Label}" Style="{StaticResource PhoneTextSmallStyle}"/>
-                                    <HyperlinkButton Command="{Binding EditCommand}" >
-                                        <TextBlock Style="{StaticResource PhoneTextSmallStyle}">edit</TextBlock>
-                                    </HyperlinkButton>
-                                </StackPanel>
-                                </Border>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                            <Button Command="{Binding EditCommand}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Grid Margin="2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="22"/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Source="/HockeyAppContent/Photo.png" Width="20" Stretch="Uniform" Grid.Column="0"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Label}" Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    </ItemsControl>
             </Border>
             <TextBox x:Name="MessageInput" 
                      VerticalAlignment="Stretch" 

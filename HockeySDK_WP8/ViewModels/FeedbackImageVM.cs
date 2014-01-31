@@ -45,6 +45,11 @@ namespace HockeyApp.ViewModels
             get { return this.FeedbackImage.FileName; }
         }
 
+        public Uri RemoteUrl
+        {
+            get { return new Uri(this.FeedbackImage.RemoteURL, UriKind.Absolute); }
+        }
+
         #endregion
 
         public DelegateCommand EditCommand { get; private set; }

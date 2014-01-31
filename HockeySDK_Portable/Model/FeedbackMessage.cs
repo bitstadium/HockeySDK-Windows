@@ -45,7 +45,12 @@ namespace HockeyApp.Model
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; protected set; }
 
-        public List<FeedbackImage> FeedbackImages { get; protected set; }
+        //TODO mapping der images beim import
+        private List<FeedbackImage> images = new List<FeedbackImage>();
+        public IEnumerable<IFeedbackImage> Images
+        {
+            get { return images ?? new List<FeedbackImage>(); }
+        }
 
         public DateTime Created
         {
@@ -78,7 +83,6 @@ namespace HockeyApp.Model
 
         [DataMember(Name = "app_verson_id")]
         public string AppVersionId { get; private set; }
-
 
         public string ViaAsString { get {
             String retVal = "";

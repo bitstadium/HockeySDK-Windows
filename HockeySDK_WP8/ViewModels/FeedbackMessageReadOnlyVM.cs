@@ -9,13 +9,14 @@ using System.Windows.Media;
 
 namespace HockeyApp.ViewModels
 {
-    public class FeedbackMessageVM: VMBase
+    public class FeedbackMessageReadOnlyVM: VMBase
     {
         IFeedbackMessage msg;
 
-        public FeedbackMessageVM(IFeedbackMessage msg)
+        public FeedbackMessageReadOnlyVM(IFeedbackMessage msg, FeedbackPageVM parentVM)
         {
             this.msg = msg;
+            this.images = this.msg.Images.Select(fbImg => new FeedbackImageVM(parentVM) { IsEditable = false, FeedbackImage = fbImg }).ToList();
         }
 
         public bool IsIncoming { get { return !IsOutgoing; } }
@@ -43,6 +44,12 @@ namespace HockeyApp.ViewModels
         public string Text
         {
             get { return msg.CleanText; }
+        }
+
+        private List<FeedbackImageVM> images;
+        public List<FeedbackImageVM> Images
+        {
+            get { return images; }
         }
        
     }
