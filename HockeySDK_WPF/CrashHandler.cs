@@ -18,13 +18,16 @@ namespace HockeyApp
         private IHockeyClient _hockeyClient = null;
         private  Func<Exception, string> _descriptionLoader = null;
 
-        internal CrashHandler(IHockeyClient hockeyClient, Func<Exception, string> descriptionLoader)
+        internal CrashHandler(IHockeyClient hockeyClient, Func<Exception, string> descriptionLoader, bool keepRunning)
         {
             this._hockeyClient = hockeyClient;
             this._descriptionLoader = descriptionLoader;
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            if (keepRunning)
+            {
+                Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            }
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
@@ -40,18 +43,21 @@ namespace HockeyApp
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Exception ex = e.ExceptionObject as Exception;
-
+            
             if (ex != null)
             {
                 logger.Info ("Caught unobserved exception from AppDomain! Type={0}, Message={1}", new object [] { ex.GetType ().Name, ex.Message });
                 HandleException(ex);
             }
+            
         }
 
+        
         private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Info ("Caught unobserved exception from Dispatcher! Type={0}, Message={1}", new object [] { e.Exception.GetType ().Name, e.Exception.Message });
             HandleException(e.Exception);
+            e.Handled = true;
         }
 
         private void HandleException(Exception e)

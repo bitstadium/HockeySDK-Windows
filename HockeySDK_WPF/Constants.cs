@@ -6,7 +6,7 @@ using System.Text;
 
 namespace HockeyApp
 {
-    public class Constants
+    internal class Constants
     {
 
         public static string GetPathToHockeyCrashes()

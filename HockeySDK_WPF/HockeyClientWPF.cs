@@ -22,6 +22,8 @@ namespace HockeyApp
         private static readonly HockeyClientWPF _instance = new HockeyClientWPF();
         public static HockeyClientWPF Instance { get { return _instance; } }
 
+        public string GetPathToHockeyCrashes { get { return Constants.GetPathToHockeyCrashes(); } }
+
         private CrashHandler _crashHandler = null;
 
         /// <summary>
@@ -33,13 +35,15 @@ namespace HockeyApp
         /// <param name="contactInformation">optional contact information like an email adress</param>
         /// <param name="descriptionLoader">optional delegate for attaching description information like event logs etc. Can be null.</param>
         /// <param name="apiBase">optional: apiBase - if not the standard is used</param>
+        /// <param name="keepRunning">optional: if an unhandled exception is thrown on the dispatcher thread, the system can be kept alive - default is false</param>
         public void Configure(string appIdentifier, 
                             string appVersionInformation,
                             string userID = null, 
                             string contactInformation = null,
                             Func<Exception, string> descriptionLoader = null,
                             string apiBase = "https://rink.hockeyapp.net/api/2/",
-                            string userAgentString = null)
+                            string userAgentString = null,
+                            bool keepRunning = false)
           
         {
             if (String.IsNullOrWhiteSpace(apiBase))
@@ -59,7 +63,7 @@ namespace HockeyApp
                 sdkName: Constants.SDKNAME,
                 sdkVersion: Constants.SDKVERSION);
 
-            this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader);
+            this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader, keepRunning);
         }
 
         #region Crashes
