@@ -107,10 +107,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HockeyAppStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="ToolStack\ToolStackCRCLib.cs" />
+    <Compile Include="ToolStack\ToolStackPNGWriterLib.cs" />
+    <Compile Include="ToolStack\ToolStackPNGWriterWBext.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ViewModels\FeedbackMessageVM.cs" />
-    <Compile Include="ViewModels\FeedbackVM.cs" />
-    <Compile Include="Tools\HttpExtensions.cs" />
+    <Compile Include="Tools\DelegateCommand.cs" />
+    <Compile Include="ViewModels\FeedbackImageVM.cs" />
+    <Compile Include="ViewModels\FeedbackMessageFormVM.cs" />
+    <Compile Include="ViewModels\FeedbackMessageReadOnlyVM.cs" />
+    <Compile Include="ViewModels\FeedbackPageVM.cs" />
     <Compile Include="Tools\NotificationAction.cs" />
     <Compile Include="Tools\NotificationTool.cs" />
     <Compile Include="Tools\UpdatePopupTool.cs" />
@@ -120,6 +125,15 @@
     <Compile Include="ViewModels\VMBase.cs" />
     <Compile Include="Views\AppUpdateControl.xaml.cs">
       <DependentUpon>AppUpdateControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackMessageListControl.xaml.cs">
+      <DependentUpon>FeedbackMessageListControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackImageControl.xaml.cs">
+      <DependentUpon>FeedbackImageControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackMessageFormControl.xaml.cs">
+      <DependentUpon>FeedbackMessageFormControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeedbackPage.xaml.cs">
       <DependentUpon>FeedbackPage.xaml</DependentUpon>
@@ -133,6 +147,18 @@
     <Page Include="Views\AppUpdateControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\FeedbackMessageListControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackImageControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackMessageFormControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FeedbackPage.xaml">
       <SubType>Designer</SubType>

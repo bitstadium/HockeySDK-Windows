@@ -9,14 +9,14 @@ using System.Windows.Media;
 
 namespace HockeyApp.ViewModels
 {
-    public class FeedbackMessageVM: VMBase
+    public class FeedbackMessageReadOnlyVM: VMBase
     {
         IFeedbackMessage msg;
 
-
-        public FeedbackMessageVM(IFeedbackMessage msg)
+        public FeedbackMessageReadOnlyVM(IFeedbackMessage msg, FeedbackPageVM parentVM)
         {
             this.msg = msg;
+            this.images = this.msg.Attachments.Select(fbImg => new FeedbackImageVM(parentVM) { IsEditable = false, FeedbackImage = fbImg }).ToList();
         }
 
         public bool IsIncoming { get { return !IsOutgoing; } }
@@ -27,7 +27,7 @@ namespace HockeyApp.ViewModels
         static SolidColorBrush Outgoing = new SolidColorBrush(Color.FromArgb(255, 120, 0, 120));
         public Brush BgColor { get { return IsIncoming ? Incoming : Outgoing; } }
          */
-
+        
         public Thickness Margin
         {
             get {
@@ -38,7 +38,7 @@ namespace HockeyApp.ViewModels
 
         public string Created
         {
-            get { return msg.Created.ToString("dd/MM/yyyy HH:mm"); }
+            get { return msg.Created.ToString(LocalizedStrings.LocalizedResources.FeedbackDateFormat); }
         }
         
         public string Text
@@ -46,6 +46,11 @@ namespace HockeyApp.ViewModels
             get { return msg.CleanText; }
         }
 
-        
+        private List<FeedbackImageVM> images;
+        public List<FeedbackImageVM> Images
+        {
+            get { return images; }
+        }
+       
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System.Windows.Navigation;
-using HockeyApp.Model;
 using HockeyApp.Tools;
 using System;
 using System.IO.IsolatedStorage;
@@ -7,6 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Collections.Generic;
+using HockeyApp.Model;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace HockeyApp
 {
@@ -153,21 +156,44 @@ namespace HockeyApp
 
         /// <summary>
         /// Send a feedback message to the server
-        /// (you should not need this is you use the provided feedpage page)
+        /// (you should not need this if you use the provided feedback page)
         /// </summary>
         /// <param name="message">message text</param>
         /// <param name="email">email address of sender</param>
         /// <param name="subject">subject of message</param>
         /// <param name="name">name of sender</param>
         /// <returns></returns>
-        public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name)
+        public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name, IEnumerable<IFeedbackAttachment> attachments)
         {
             var thread = await this.GetActiveThreadAsync() ?? FeedbackThread.CreateInstance();
+
+
+            foreach (var attachment in attachments)
+            {
+                //convert all images to jpg for filesize
+                if (Path.GetExtension(attachment.FileName).ToLower().EndsWith("png"))
+                {
+                    var bitimg = new BitmapImage();
+                    bitimg.SetSource(new MemoryStream(attachment.DataBytes));
+                    var wb = new WriteableBitmap(bitimg);
+
+                    using (var stream = new MemoryStream())
+                    {
+                        wb.SaveJpeg(stream, bitimg.PixelWidth, bitimg.PixelHeight, 0, 70);
+                        stream.Seek(0, System.IO.SeekOrigin.Begin);
+                        var buffer = new byte[stream.Length];
+                        stream.Read(buffer, 0, (int)stream.Length);
+                        attachment.DataBytes = buffer;
+                    }
+                    attachment.FileName = Path.GetFileNameWithoutExtension(attachment.FileName) + ".jpg";
+                    attachment.ContentType = "image/jpeg";
+                }
+            }
 
             IFeedbackMessage msg;
             try
             {
-                msg = await thread.PostFeedbackMessageAsync(message, email, subject, name);
+                msg = await thread.PostFeedbackMessageAsync(message, email, subject, name, attachments);
                 PersistThreadMetaInfos(thread.Token, subject, name, email);
                 this.activeThread = thread;
             }

@@ -12,94 +12,216 @@ using System.Windows.Input;
 
 namespace HockeyApp.Views
 {
-    public partial class FeedbackPage : PhoneApplicationPage
+
+    public enum FeedbackViewState
     {
+        MessageForm, MessageList, ImageEdit, ImageShow, Unknown
+    }
 
-        public FeedbackVM VM
+    public partial class FeedbackPage : PhoneApplicationPage
+   {
+        internal FeedbackPageVM VM
         {
-            get { return (this.DataContext as FeedbackVM); }
-            protected set { this.DataContext = value; }
+            get { return (this.DataContext as FeedbackPageVM); }
+            private set { this.DataContext = value; }
         }
 
-        ApplicationBarIconButton sendButton = new ApplicationBarIconButton();
-        ApplicationBarIconButton answerButton = new ApplicationBarIconButton();
+        internal FeedbackViewState CurrentViewState = FeedbackViewState.Unknown;
 
-        protected void ShowFormAppBar() {
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.Buttons.Add(sendButton);
-        }
+        internal FeedbackMessageFormControl formControl;
+        internal FeedbackMessageListControl listControl;
+        internal FeedbackImageControl imageControl;
 
-        protected void ShowListAppBar() {
-            ApplicationBar.Buttons.Clear();
-            ApplicationBar.Buttons.Add(answerButton);
-            if (VM.Messages.Any())
-            {
-                MessageList.UpdateLayout();
-                MessageList.ScrollIntoView(VM.Messages.Last());
-            }
-        }
-        
+        internal FeedbackViewState lastActiveViewState = FeedbackViewState.Unknown;
+
         public FeedbackPage()
         {
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Default;
 
+            Action<FeedbackViewState> switchViewStateAction = (newViewState) =>
+            {
+                SwitchToViewState(newViewState);
+            };
+            this.VM = new FeedbackPageVM(switchViewStateAction);
+
+            this.formControl = new FeedbackMessageFormControl(this);
+            this.listControl = new FeedbackMessageListControl(this);
+            this.imageControl = new FeedbackImageControl(this);
+
+            initializeAppBarIcons();
+            
+            InitializeComponent();
+        }
+
+        private void SwitchToViewState(FeedbackViewState newViewState)
+        {
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                switch (newViewState)
+                {
+                    case FeedbackViewState.MessageForm:
+                        ShowFormAppBar();
+                        this.FeedbackPageContent.Content = formControl;
+                        break;
+                    case FeedbackViewState.MessageList:
+                        ShowListAppBar();
+                        this.FeedbackPageContent.Content = listControl;
+                        break;
+                    case FeedbackViewState.ImageEdit:
+                        imageControl.VM = this.VM.CurrentImageVM;
+                        ShowDrawAppBar();
+                        this.FeedbackPageContent.Content = imageControl;
+                        break;
+                    case FeedbackViewState.ImageShow:
+                        imageControl.VM = this.VM.CurrentImageVM;
+                        ShowDrawAppBar();
+                        this.FeedbackPageContent.Content = imageControl;
+                        break;
+                    case FeedbackViewState.Unknown:
+                        NavigationService.GoBack();
+                        break;
+                    default:
+                        break;
+                }
+                lastActiveViewState = CurrentViewState;
+                CurrentViewState = newViewState;
+            });
+        }
+
+
+        internal void NavigateBack()
+        {
+            if (FeedbackViewState.Unknown.Equals(lastActiveViewState))
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                SwitchToViewState(lastActiveViewState);
+            }
+        }
+
+        #region AppBar
+
+        ApplicationBarIconButton sendButton = new ApplicationBarIconButton();
+        ApplicationBarIconButton attachButton = new ApplicationBarIconButton();
+        ApplicationBarIconButton cancelButton = new ApplicationBarIconButton();
+
+        ApplicationBarIconButton answerButton = new ApplicationBarIconButton();
+
+        ApplicationBarMenuItem menuItemOk = new ApplicationBarMenuItem();
+        ApplicationBarMenuItem menuItemReset = new ApplicationBarMenuItem();
+        ApplicationBarMenuItem menuItemDelete = new ApplicationBarMenuItem();
+
+        private void initializeAppBarIcons()
+        {
             sendButton.IconUri = new Uri("/HockeyAppContent/Send.png", UriKind.Relative);
-            sendButton.Text = "Send message";
+            sendButton.Text = LocalizedStrings.LocalizedResources.Send;
             sendButton.Click += async (sender, e) =>
             {
-                object focusObj = FocusManager.GetFocusedElement();
-                if (focusObj != null && focusObj is TextBox)
-                {
-                    var binding = (focusObj as TextBox).GetBindingExpression(TextBox.TextProperty);
-                    binding.UpdateSource();
-                }
-                await VM.SubmitForm();
+                await this.formControl.SendButtonClicked();
             };
 
             answerButton.IconUri = new Uri("/HockeyAppContent/Reply.png", UriKind.Relative);
-            answerButton.Text = "Answer";
+            answerButton.Text = LocalizedStrings.LocalizedResources.Reply;
             answerButton.Click += (sender, e) =>
             {
                 VM.SwitchToMessageForm();
             };
 
-            Action<bool> showFormAppBarAction = (switchToForm) =>
+            cancelButton.IconUri = new Uri("/HockeyAppContent/Cancel.png", UriKind.Relative);
+            cancelButton.Text = LocalizedStrings.LocalizedResources.Cancel;
+            cancelButton.Click += (sender, e) =>
             {
-                Deployment.Current.Dispatcher.BeginInvoke(() =>
-                {
-                    if (switchToForm)
-                    {
-                        ShowFormAppBar();
-                    }
-                    else
-                    {
-                        ShowListAppBar();
-                    }
-                });
+                this.formControl.VM.ClearForm();
+                this.NavigateBack();
             };
-            showFormAppBarAction(false);
 
-            this.VM = new FeedbackVM(showFormAppBarAction);
+            attachButton.IconUri = new Uri("/HockeyAppContent/Attach.png", UriKind.Relative);
+            attachButton.Text = LocalizedStrings.LocalizedResources.AttachImg;
+            attachButton.Click += (sender, e) =>
+            {
+                this.formControl.AttachButtonClicked();
+            };
 
-            InitializeComponent();
-            
-            /*
-            ApplicationBar.IsMenuEnabled = true;
-            ApplicationBarMenuItem menuItem1 = new ApplicationBarMenuItem();
-            menuItem1.Text = "menu item 1";
-            ApplicationBar.MenuItems.Add(menuItem1);
-             */
+            menuItemOk.Text = LocalizedStrings.LocalizedResources.ImgOk;
+            menuItemOk.Click += (sender, e) =>
+            {
+                this.imageControl.OkButtonClicked();
+            };
+
+            menuItemReset.Text = LocalizedStrings.LocalizedResources.ImgReset;
+            menuItemReset.Click += (sender, e) =>
+            {
+                this.imageControl.ResetButtonClicked();
+            };
+
+            menuItemDelete.Text = LocalizedStrings.LocalizedResources.ImgDelete;
+            menuItemDelete.Click += (sender, e) =>
+            {
+                this.imageControl.DeleteButtonClicked();
+            };
+
         }
+
+        protected void ShowDrawAppBar()
+        {
+            SystemTray.IsVisible = false;
+            ApplicationBar.Opacity = 0;
+            ApplicationBar.Buttons.Clear();
+            ApplicationBar.MenuItems.Clear();
+            ApplicationBar.MenuItems.Add(menuItemOk);
+            if(this.VM.CurrentImageVM.IsEditable) {
+                ApplicationBar.MenuItems.Add(menuItemReset);
+                ApplicationBar.MenuItems.Add(menuItemDelete);
+            }
+            ApplicationBar.IsMenuEnabled = true;
+        }
+
+        protected void ShowFormAppBar()
+        {
+            SystemTray.IsVisible = true;
+            ApplicationBar.Opacity = 1;
+            ApplicationBar.Buttons.Clear();
+            ApplicationBar.IsMenuEnabled = false;
+            ApplicationBar.Buttons.Add(sendButton);
+            ApplicationBar.Buttons.Add(attachButton);
+            ApplicationBar.Buttons.Add(cancelButton);
+        }
+
+        protected void ShowListAppBar()
+        {
+            SystemTray.IsVisible = true;
+            ApplicationBar.Opacity = 1;
+            ApplicationBar.Buttons.Clear();
+            ApplicationBar.IsMenuEnabled = false;
+            ApplicationBar.Buttons.Add(answerButton);
+            if (VM.Messages.Any())
+            {
+                listControl.MessageList.UpdateLayout();
+                listControl.MessageList.ScrollIntoView(VM.Messages.Last());
+            }
+        }
+
+        #endregion
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (!VM.IsMessageListVisible && VM.IsThreadActive)
+            if (!FeedbackViewState.MessageList.Equals(CurrentViewState))
             {
-                VM.SwitchToMessageList();
                 e.Cancel = true;
+                NavigateBack();
+
+                /* immer glecih zurück
+                if (!FeedbackViewState.MessageForm.Equals(CurrentViewState) || (MessageBox.Show("Discard your message?", "Feedback", MessageBoxButton.OKCancel) == MessageBoxResult.OK))
+                {
+                    
+                } */
             }
+            
             base.OnBackKeyPress(e);
         }
-    }
+
+   }
 }
