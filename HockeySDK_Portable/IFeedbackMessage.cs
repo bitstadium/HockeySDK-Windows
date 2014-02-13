@@ -23,6 +23,6 @@ namespace HockeyApp
         string UserString { get; }
         int Via { get; }
         string ViaAsString { get; }
-        IEnumerable<IFeedbackImage> Images { get; }
+        IEnumerable<IFeedbackAttachment> Attachments { get; }
     }
 }

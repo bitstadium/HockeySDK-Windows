@@ -10,9 +10,14 @@
     xmlns:tools="clr-namespace:HockeyApp.Tools"
     d:DesignHeight="720" d:DesignWidth="480">
 
+    <UserControl.Resources>
+        <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
+
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
 
         <InkPresenter Name="ImageArea"
+                      Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
                       MouseLeftButtonDown="ImageArea_MouseLeftButtonDown"
                       LostMouseCapture="ImageArea_LostMouseCapture"
                       MouseMove="ImageArea_MouseMove">
@@ -20,6 +25,10 @@
                 <ImageBrush x:Name="ImageBrush" />
             </InkPresenter.Background>
         </InkPresenter>
+        <Image Name="ShowArea" 
+               Stretch="UniformToFill"
+               Visibility="{Binding IsNotEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
+               Source="{Binding RemoteUrl}" />
 
     </Grid>
 </UserControl>

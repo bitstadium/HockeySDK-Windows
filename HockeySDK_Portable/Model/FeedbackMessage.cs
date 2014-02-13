@@ -45,13 +45,17 @@ namespace HockeyApp.Model
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; protected set; }
 
-        //TODO mapping der images beim import
-        private List<FeedbackImage> images = new List<FeedbackImage>();
-        public IEnumerable<IFeedbackImage> Images
-        {
-            get { return images ?? new List<FeedbackImage>(); }
-        }
+        [DataMember(Name = "attachments")]
+        internal List<FeedbackAttachment> attachments { get; set; }
 
+        public IEnumerable<IFeedbackAttachment> Attachments
+        {
+            get
+            {
+                return this.attachments != null ? this.attachments.Cast<IFeedbackAttachment>() : new List<IFeedbackAttachment>();
+            }
+        }
+        
         public DateTime Created
         {
             get

@@ -109,7 +109,7 @@ namespace HockeyApp.Model
             return retVal;
         }
 
-        public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackImage> images = null)
+        public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackAttachment> attachments = null)
         {
             if (String.IsNullOrWhiteSpace(message))
             {
@@ -141,7 +141,7 @@ namespace HockeyApp.Model
 
             byte[] dataStream;
 
-            if (images == null || !images.Any())
+            if (attachments == null || !attachments.Any())
             {
                 string data = msg.SerializeToWwwForm();
                 dataStream = Encoding.UTF8.GetBytes(data);
@@ -170,15 +170,15 @@ namespace HockeyApp.Model
                     stream.Write(formitembytes, 0, formitembytes.Length);
                 }
                 //write images
-                for (int index = 0; index < images.Count(); index++)
+                for (int index = 0; index < attachments.Count(); index++)
                 {
-                    var image = images.ElementAt(index);
+                    var attachment = attachments.ElementAt(index);
                     stream.Write(boundarybytes, 0, boundarybytes.Length);
                     string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
-                    string header = string.Format(headerTemplate, "attachment" + index, image.FileName, image.ContentType);
+                    string header = string.Format(headerTemplate, "attachment" + index, attachment.FileName, String.IsNullOrEmpty(attachment.ContentType) ? "application/octet-stream" : attachment.ContentType);
                     byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
                     stream.Write(headerbytes, 0, headerbytes.Length);
-                    stream.Write(image.ImageBytes, 0, image.ImageBytes.Length);
+                    stream.Write(attachment.DataBytes, 0, attachment.DataBytes.Length);
                 }
 
                 byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");

@@ -72,13 +72,7 @@
                                        TextWrapping="Wrap"
                                        Margin="4,4,3,3"
                                        Style="{StaticResource PhoneTextSmallStyle}"/>
-                            <TextBlock Grid.Row="1"
-                                           Text="{Binding Created}"
-                                           Foreground="{StaticResource PhoneForegroundBrush}"
-                                           HorizontalAlignment="Right"
-                                           Style="{StaticResource PhoneTextSmallStyle}"
-                                           Margin="0,3,4,4"/>
-                            <ListBox ItemsSource="{Binding Images}">
+                            <ListBox ItemsSource="{Binding Images}" Grid.Row="1" Margin="4,0,0,0">
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
                                         <StackPanel Orientation="Horizontal"/>
@@ -86,14 +80,39 @@
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Image Source="{Binding RemoteUrl}" Stretch="UniformToFill" Height="144" Width="96">
-                                            <!--<Image.Clip>
-                                                <RectangleGeometry Rect="0,0,80,80" />
-                                            </Image.Clip>-->
-                                        </Image>
+                                        <Button Command="{Binding ShowCommand}">
+                                            <Button.Template>
+                                                <ControlTemplate>
+                                                    <Grid Margin="1" Width="100">
+                                                        <Image Source="{Binding RemoteUrl}" Stretch="UniformToFill" Height="144" Width="96">
+                                                            <!--<Image.Clip>
+                                                            <RectangleGeometry Rect="0,0,80,80" />
+                                                            </Image.Clip>-->
+                                                        </Image>
+                                                        <TextBlock Text="{Binding Label}" 
+                                                                   Height="25"
+                                                                   Width="144"
+                                                                   Margin="0,0,-44,0"
+                                                                   VerticalAlignment="Bottom"
+                                                                   HorizontalAlignment="Left"
+                                                                   Style="{StaticResource PhoneTextSmallStyle}"  >
+                                                            <TextBlock.RenderTransform>
+                                                                <CompositeTransform Rotation="270" TranslateY="20"/>
+                                                            </TextBlock.RenderTransform>
+                                                        </TextBlock>
+                                                    </Grid>
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                        </Button>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
+                            <TextBlock Grid.Row="2"
+                                           Text="{Binding Created}"
+                                           Foreground="{StaticResource PhoneForegroundBrush}"
+                                           HorizontalAlignment="Right"
+                                           Style="{StaticResource PhoneTextSmallStyle}"
+                                           Margin="0,3,4,4"/>
                         </Grid>
                         <Path 
                                 Grid.Row="2"

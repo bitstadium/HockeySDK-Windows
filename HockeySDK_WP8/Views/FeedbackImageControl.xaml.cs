@@ -37,10 +37,10 @@ namespace HockeyApp.Views
 
         private void UpdateBgImage()
         {
-            if (this.VM != null && this.VM.FeedbackImage != null && this.VM.FeedbackImage.ImageBytes != null)
+            if (this.VM != null && this.VM.FeedbackImage != null && this.VM.FeedbackImage.DataBytes != null)
             {
                 BitmapImage image = new BitmapImage();
-                image.SetSource(new MemoryStream(this.VM.FeedbackImage.ImageBytes));
+                image.SetSource(new MemoryStream(this.VM.FeedbackImage.DataBytes));
                 ImageBrush.ImageSource = image;
             }
         }

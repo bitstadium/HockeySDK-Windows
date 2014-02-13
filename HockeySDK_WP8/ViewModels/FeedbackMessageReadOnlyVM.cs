@@ -16,7 +16,7 @@ namespace HockeyApp.ViewModels
         public FeedbackMessageReadOnlyVM(IFeedbackMessage msg, FeedbackPageVM parentVM)
         {
             this.msg = msg;
-            this.images = this.msg.Images.Select(fbImg => new FeedbackImageVM(parentVM) { IsEditable = false, FeedbackImage = fbImg }).ToList();
+            this.images = this.msg.Attachments.Select(fbImg => new FeedbackImageVM(parentVM) { IsEditable = false, FeedbackImage = fbImg }).ToList();
         }
 
         public bool IsIncoming { get { return !IsOutgoing; } }

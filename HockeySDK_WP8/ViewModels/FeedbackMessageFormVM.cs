@@ -196,7 +196,7 @@ namespace HockeyApp.ViewModels
                 imageBytes = new byte[result.ChosenPhoto.Length];
                 await result.ChosenPhoto.ReadAsync(imageBytes, 0, (int)result.ChosenPhoto.Length);
             }
-            imageVM.FeedbackImage = new FeedbackImage(Path.GetFileName(result.OriginalFileName), imageBytes);
+            imageVM.FeedbackImage = new FeedbackAttachment(Path.GetFileName(result.OriginalFileName), imageBytes, "image/jpeg");
             Attachments.Add(imageVM);
             this.ParentVM.SwitchToImageEditor(imageVM);
         }

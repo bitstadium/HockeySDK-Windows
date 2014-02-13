@@ -20,6 +20,7 @@ namespace HockeyApp.ViewModels
         {
             this.ParentVM = parentVM;
             EditCommand = new DelegateCommand((obj) => { this.ParentVM.SwitchToImageEditor(this); });
+            ShowCommand = new DelegateCommand((obj) => { this.ParentVM.SwitchToImageEditor(this); });
         }
 
         #region Properties 
@@ -32,9 +33,10 @@ namespace HockeyApp.ViewModels
                 isEditable = value; 
             }
         }
+        public bool IsNotEditable { get { return !isEditable; } }
 
-        private IFeedbackImage fbImage;
-        public IFeedbackImage FeedbackImage
+        private IFeedbackAttachment fbImage;
+        public IFeedbackAttachment FeedbackImage
         {
             get { return fbImage; }
             set { fbImage = value; }
@@ -47,12 +49,23 @@ namespace HockeyApp.ViewModels
 
         public Uri RemoteUrl
         {
-            get { return new Uri(this.FeedbackImage.RemoteURL, UriKind.Absolute); }
+            get
+            {
+                if (this.FeedbackImage == null || this.FeedbackImage.RemoteURL == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    return new Uri(this.FeedbackImage.RemoteURL, UriKind.Absolute);
+                }
+            }
         }
 
         #endregion
 
         public DelegateCommand EditCommand { get; private set; }
+        public DelegateCommand ShowCommand { get; private set; }
 
         internal void SaveChangesToImage(InkPresenter ImageArea)
         {
@@ -65,7 +78,7 @@ namespace HockeyApp.ViewModels
                     stream.Seek(0, System.IO.SeekOrigin.Begin);
                     byte[] imageBytes = new byte[stream.Length];
                     stream.Read(imageBytes, 0, (int)stream.Length);
-                    this.FeedbackImage.ImageBytes = imageBytes;
+                    this.FeedbackImage.DataBytes = imageBytes;
                 }
                 ImageArea.Strokes.Clear();
             }

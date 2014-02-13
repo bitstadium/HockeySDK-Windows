@@ -15,6 +15,6 @@ namespace HockeyApp
         int Status { get; }
         string Token { get; }
 
-        Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackImage> images = null);
+        Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackAttachment> images = null);
     }
 }
