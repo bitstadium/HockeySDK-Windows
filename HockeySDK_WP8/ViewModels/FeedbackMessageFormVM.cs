@@ -40,22 +40,22 @@ namespace HockeyApp.ViewModels
             var errors = new List<string>();
             if (!this.Email.IsValidEmail())
             {
-                errors.Add("Please enter a valid email."); //TODO i18n
+                errors.Add(LocalizedStrings.LocalizedResources.EmailEmptyWarning);
             }
 
             if (this.Subject.IsEmpty())
             {
-                errors.Add("Please enter a subject."); //TODO i18n
+                errors.Add(LocalizedStrings.LocalizedResources.SubjectEmptyWarning);
             }
 
             if (this.Username.IsEmpty())
             {
-                errors.Add("Please enter a name."); //TODO i18n
+                errors.Add(LocalizedStrings.LocalizedResources.UserEmptyWarning);
             }
 
             if (this.Message.IsEmpty())
             {
-                errors.Add("Please enter a message."); //TODO i18n
+                errors.Add(LocalizedStrings.LocalizedResources.MessageEmptyWarning);
             }
 
             if (errors.Any())

@@ -135,6 +135,9 @@
   <data name="Email" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="EmailEmptyWarning" xml:space="preserve">
+    <value>Please enter a valid email.</value>
+  </data>
   <data name="FeedbackDateFormat" xml:space="preserve">
     <value>dd/MM/yyyy HH:mm</value>
   </data>
@@ -165,6 +168,9 @@
   <data name="Message" xml:space="preserve">
     <value>Message</value>
   </data>
+  <data name="MessageEmptyWarning" xml:space="preserve">
+    <value />
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
   </data>
@@ -192,6 +198,9 @@
   <data name="Subject" xml:space="preserve">
     <value>Subject</value>
   </data>
+  <data name="SubjectEmptyWarning" xml:space="preserve">
+    <value>Please enter a subject.</value>
+  </data>
   <data name="UpdateAvailable" xml:space="preserve">
     <value>A new version of the app is available.</value>
   </data>
@@ -200,6 +209,9 @@
   </data>
   <data name="UpdateNotification" xml:space="preserve">
     <value>Update notification</value>
+  </data>
+  <data name="UserEmptyWarning" xml:space="preserve">
+    <value>Please enter a name.</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
