@@ -150,11 +150,14 @@
   <data name="FeedbackSendError" xml:space="preserve">
     <value>An error occcured. Please try again.</value>
   </data>
+  <data name="ImgClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="ImgDelete" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="ImgOk" xml:space="preserve">
-    <value>OK</value>
+    <value>Save</value>
   </data>
   <data name="ImgReset" xml:space="preserve">
     <value>Reset</value>
@@ -169,7 +172,7 @@
     <value>Message</value>
   </data>
   <data name="MessageEmptyWarning" xml:space="preserve">
-    <value />
+    <value>Please enter a message or add an image as attachment.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>

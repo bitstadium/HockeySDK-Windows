@@ -20,6 +20,7 @@ namespace HockeyApp.Views
 
     public partial class FeedbackPage : PhoneApplicationPage
    {
+
         internal FeedbackPageVM VM
         {
             get { return (this.DataContext as FeedbackPageVM); }
@@ -32,7 +33,7 @@ namespace HockeyApp.Views
         internal FeedbackMessageListControl listControl;
         internal FeedbackImageControl imageControl;
 
-        internal FeedbackViewState lastActiveViewState = FeedbackViewState.Unknown;
+        internal List<FeedbackViewState> lastActiveViewStates = new List<FeedbackViewState>();
 
         public FeedbackPage()
         {
@@ -54,7 +55,7 @@ namespace HockeyApp.Views
             InitializeComponent();
         }
 
-        private void SwitchToViewState(FeedbackViewState newViewState)
+        private void SwitchToViewState(FeedbackViewState newViewState, bool isBackOperation = false)
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
             {
@@ -84,21 +85,25 @@ namespace HockeyApp.Views
                     default:
                         break;
                 }
-                lastActiveViewState = CurrentViewState;
+                if (!isBackOperation)
+                {
+                    lastActiveViewStates.Add(CurrentViewState);
+                }
                 CurrentViewState = newViewState;
             });
         }
 
-
         internal void NavigateBack()
         {
-            if (FeedbackViewState.Unknown.Equals(lastActiveViewState))
+            if (!lastActiveViewStates.Any() ||FeedbackViewState.Unknown.Equals(lastActiveViewStates.Last()))
             {
                 NavigationService.GoBack();
             }
             else
             {
-                SwitchToViewState(lastActiveViewState);
+                var state = lastActiveViewStates.Last();
+                lastActiveViewStates.RemoveAt(lastActiveViewStates.Count - 1);
+                SwitchToViewState(state, true);
             }
         }
 
@@ -111,6 +116,7 @@ namespace HockeyApp.Views
         ApplicationBarIconButton answerButton = new ApplicationBarIconButton();
 
         ApplicationBarMenuItem menuItemOk = new ApplicationBarMenuItem();
+        ApplicationBarMenuItem menuItemClose = new ApplicationBarMenuItem();
         ApplicationBarMenuItem menuItemReset = new ApplicationBarMenuItem();
         ApplicationBarMenuItem menuItemDelete = new ApplicationBarMenuItem();
 
@@ -151,6 +157,12 @@ namespace HockeyApp.Views
                 this.imageControl.OkButtonClicked();
             };
 
+            menuItemClose.Text = LocalizedStrings.LocalizedResources.ImgClose;
+            menuItemClose.Click += (sender, e) =>
+            {
+                this.imageControl.OkButtonClicked();
+            };
+
             menuItemReset.Text = LocalizedStrings.LocalizedResources.ImgReset;
             menuItemReset.Click += (sender, e) =>
             {
@@ -171,10 +183,15 @@ namespace HockeyApp.Views
             ApplicationBar.Opacity = 0;
             ApplicationBar.Buttons.Clear();
             ApplicationBar.MenuItems.Clear();
-            ApplicationBar.MenuItems.Add(menuItemOk);
+            
             if(this.VM.CurrentImageVM.IsEditable) {
+                ApplicationBar.MenuItems.Add(menuItemOk);
                 ApplicationBar.MenuItems.Add(menuItemReset);
                 ApplicationBar.MenuItems.Add(menuItemDelete);
+            }
+            else
+            {
+                ApplicationBar.MenuItems.Add(menuItemClose);
             }
             ApplicationBar.IsMenuEnabled = true;
         }
@@ -205,6 +222,11 @@ namespace HockeyApp.Views
         }
 
         #endregion
+
+        protected override void OnOrientationChanged(OrientationChangedEventArgs e)
+        {
+            base.OnOrientationChanged(e);
+        }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {

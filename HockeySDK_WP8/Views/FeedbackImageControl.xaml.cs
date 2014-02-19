@@ -22,7 +22,7 @@ namespace HockeyApp.Views
         internal FeedbackImageVM VM
         {
             get { return (this.DataContext as FeedbackImageVM); }
-            set { 
+            set {
                 this.DataContext = value;
                 UpdateBgImage();
             }
@@ -41,6 +41,8 @@ namespace HockeyApp.Views
             {
                 BitmapImage image = new BitmapImage();
                 image.SetSource(new MemoryStream(this.VM.FeedbackImage.DataBytes));
+                ImageArea.Width = image.PixelWidth;
+                ImageArea.Height = image.PixelHeight;
                 ImageBrush.ImageSource = image;
             }
         }
@@ -55,7 +57,7 @@ namespace HockeyApp.Views
             _newStroke.DrawingAttributes.Color = Colors.Red; //TODO Farbe wählen lassen ?!
             ImageArea.Strokes.Add(_newStroke);
         }
-
+       
         private void ImageArea_MouseMove(object sender, MouseEventArgs e)
         {
             if (_newStroke != null)
@@ -83,8 +85,6 @@ namespace HockeyApp.Views
             this.parentControl.formControl.VM.RemoveAttachment(this.VM);
             this.parentControl.NavigateBack();
         }
-
-
 
         //http://stackoverflow.com/questions/16527990/windows-phone-serialize-save-inkpresenter-control
         /*

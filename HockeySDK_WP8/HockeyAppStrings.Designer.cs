@@ -160,6 +160,15 @@ namespace HockeyApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string ImgClose {
+            get {
+                return ResourceManager.GetString("ImgClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string ImgDelete {
@@ -169,7 +178,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK.
+        ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string ImgOk {
             get {
@@ -214,7 +223,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Please enter a message or add an image as attachment..
         /// </summary>
         public static string MessageEmptyWarning {
             get {

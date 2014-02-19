@@ -53,7 +53,7 @@ namespace HockeyApp.ViewModels
                 errors.Add(LocalizedStrings.LocalizedResources.UserEmptyWarning);
             }
 
-            if (this.Message.IsEmpty())
+            if (this.Message.IsEmpty() && !this.Attachments.Any())
             {
                 errors.Add(LocalizedStrings.LocalizedResources.MessageEmptyWarning);
             }
