@@ -15,20 +15,21 @@
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
-
-        <InkPresenter Name="ImageArea"
+        <Viewbox Name="WrapperBox" Stretch="Uniform" Margin="0">
+            <InkPresenter Name="ImageArea"
                       Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
                       MouseLeftButtonDown="ImageArea_MouseLeftButtonDown"
                       LostMouseCapture="ImageArea_LostMouseCapture"
                       MouseMove="ImageArea_MouseMove">
-            <InkPresenter.Background>
-                <ImageBrush x:Name="ImageBrush" />
-            </InkPresenter.Background>
-        </InkPresenter>
+                <InkPresenter.Background>
+                    <ImageBrush x:Name="ImageBrush" />
+                </InkPresenter.Background>
+            </InkPresenter>
+        </Viewbox>
+        
         <Image Name="ShowArea" 
-               Stretch="UniformToFill"
+               Stretch="Uniform"
                Visibility="{Binding IsNotEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
                Source="{Binding RemoteUrl}" />
-
     </Grid>
 </UserControl>

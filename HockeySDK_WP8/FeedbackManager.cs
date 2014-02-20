@@ -167,27 +167,23 @@ namespace HockeyApp
         {
             var thread = await this.GetActiveThreadAsync() ?? FeedbackThread.CreateInstance();
 
-
             foreach (var attachment in attachments)
             {
                 //convert all images to jpg for filesize
-                if (Path.GetExtension(attachment.FileName).ToLower().EndsWith("png"))
-                {
-                    var bitimg = new BitmapImage();
-                    bitimg.SetSource(new MemoryStream(attachment.DataBytes));
-                    var wb = new WriteableBitmap(bitimg);
+                var bitimg = new BitmapImage();
+                bitimg.SetSource(new MemoryStream(attachment.DataBytes));
+                var wb = new WriteableBitmap(bitimg);
 
-                    using (var stream = new MemoryStream())
-                    {
-                        wb.SaveJpeg(stream, bitimg.PixelWidth, bitimg.PixelHeight, 0, 70);
-                        stream.Seek(0, System.IO.SeekOrigin.Begin);
-                        var buffer = new byte[stream.Length];
-                        stream.Read(buffer, 0, (int)stream.Length);
-                        attachment.DataBytes = buffer;
-                    }
-                    attachment.FileName = Path.GetFileNameWithoutExtension(attachment.FileName) + ".jpg";
-                    attachment.ContentType = "image/jpeg";
+                using (var stream = new MemoryStream())
+                {
+                    wb.SaveJpeg(stream, bitimg.PixelWidth, bitimg.PixelHeight, 0, 70);
+                    stream.Seek(0, System.IO.SeekOrigin.Begin);
+                    var buffer = new byte[stream.Length];
+                    stream.Read(buffer, 0, (int)stream.Length);
+                    attachment.DataBytes = buffer;
                 }
+                attachment.FileName = Path.GetFileNameWithoutExtension(attachment.FileName) + ".jpg";
+                attachment.ContentType = "image/jpeg";
             }
 
             IFeedbackMessage msg;

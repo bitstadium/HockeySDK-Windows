@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using HockeyApp.Views;
 using HockeyApp.Tools;
+using Microsoft.Phone.Controls;
 
 namespace HockeyApp.ViewModels
 {

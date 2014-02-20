@@ -193,14 +193,22 @@
             </Border>
 
             <Border Grid.Row="3" Padding="2" BorderThickness="0,0,0,0" 
-                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="20,2,4,2">
                     <ItemsControl ItemsSource="{Binding Attachments}" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                             <Button Command="{Binding EditCommand}">
-                                <Button.Template>
-                                    <ControlTemplate>
-                                        <Grid Margin="2">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Style.Setters>
+                                            <Setter Property="Padding" Value="8" />
+                                            <Setter Property="Margin" Value="-26,-15,0,0" />
+                                            <Setter Property="HorizontalAlignment" Value="Left" />
+                                            <Setter Property="BorderThickness" Value="0" />
+                                        </Style.Setters>
+                                    </Style>
+                                </Button.Style>
+                                        <Grid Margin="0">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="22"/>
                                                 <ColumnDefinition/>
@@ -208,8 +216,6 @@
                                             <Image Source="/HockeyAppContent/Photo.png" Width="20" Stretch="Uniform" Grid.Column="0"/>
                                             <TextBlock Grid.Column="1" Text="{Binding Label}" Style="{StaticResource PhoneTextSmallStyle}"/>
                                         </Grid>
-                                    </ControlTemplate>
-                                </Button.Template>
                             </Button>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

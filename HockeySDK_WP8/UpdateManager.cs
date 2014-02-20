@@ -92,7 +92,6 @@ namespace HockeyApp
     {
 
         private static readonly UpdateManager instance = new UpdateManager();
-        private string identifier = null;
 
         static UpdateManager() { }
         private UpdateManager() { }
@@ -107,12 +106,19 @@ namespace HockeyApp
 
         /// <summary>
         /// Check for an update on the server
+        /// HockecCient needs to be configured before calling this method (normally done by configuring a crahshandler in the App() constructor)
         /// </summary>
-        /// <param name="identifier">public app identifier of your app</param>
         /// <param name="settings">[optional] custom settings</param>
+        public void RunUpdateCheck(UpdateCheckSettings settings = null)
+        {
+            UpdateVersionIfAvailable(settings ?? UpdateCheckSettings.DefaultStartupSettings);
+        }
+
+        /// <summary>
+        /// Obsolete. Use UpdateManager.Instance.RunUpdateCheck()
+        [Obsolete]
         public static void RunUpdateCheck(string identifier, UpdateCheckSettings settings = null)
         {
-            Instance.identifier = identifier;
             Instance.UpdateVersionIfAvailable(settings ?? UpdateCheckSettings.DefaultStartupSettings);
         }
 
@@ -187,8 +193,8 @@ namespace HockeyApp
 
         internal async void DoUpdate(IAppVersion availableUpdate)
         {
-            var aetxUri = new Uri(Constants.ApiBase + "apps/" + this.identifier + ".aetx", UriKind.Absolute);
-            var downloadUri = new Uri(Constants.ApiBase + "apps/" + this.identifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
+            var aetxUri = new Uri(Constants.ApiBase + "apps/" + HockeyClient.Instance.AppIdentifier + ".aetx", UriKind.Absolute);
+            var downloadUri = new Uri(Constants.ApiBase + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
             //it won't get the result anyway because this app-instance will get killed during the update
             await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);

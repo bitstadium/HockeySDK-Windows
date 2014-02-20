@@ -9,18 +9,15 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="PortraitOrLandscape" Orientation="Portrait"
+    SupportedOrientations="PortraitOrLandscape"
+    Orientation="Portrait"
     xmlns:tools="clr-namespace:HockeyApp.Tools"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
-
-    
     
     <phone:PhoneApplicationPage.Resources>
-
         <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-        
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
