@@ -185,9 +185,9 @@ namespace HockeyApp.Views
             ApplicationBar.MenuItems.Clear();
             
             if(this.VM.CurrentImageVM.IsEditable) {
-                ApplicationBar.MenuItems.Add(menuItemOk);
-                ApplicationBar.MenuItems.Add(menuItemReset);
                 ApplicationBar.MenuItems.Add(menuItemDelete);
+                ApplicationBar.MenuItems.Add(menuItemReset);
+                ApplicationBar.MenuItems.Add(menuItemOk);
             }
             else
             {

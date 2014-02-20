@@ -13,6 +13,9 @@ using System.Windows.Media;
 using System.IO;
 using System.Windows.Media.Imaging;
 using HockeyApp.ViewModels;
+using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using HockeyApp.Tools;
 
 namespace HockeyApp.Views
 {
@@ -24,6 +27,7 @@ namespace HockeyApp.Views
             get { return (this.DataContext as FeedbackImageVM); }
             set {
                 this.DataContext = value;
+                ImageArea.Strokes.Clear();
                 UpdateBgImage();
             }
         }
@@ -35,14 +39,45 @@ namespace HockeyApp.Views
             this.DataContext = new FeedbackImageVM(parent.VM);
         }
 
+        private Size ScreenResolution
+        {
+            get
+            {
+                var content = Application.Current.Host.Content;
+                double scale = (double)content.ScaleFactor / 100;
+                int h = (int)Math.Ceiling(content.ActualHeight * scale);
+                int w = (int)Math.Ceiling(content.ActualWidth * scale);
+                return new Size(w, h);
+            }
+        }
+
         private void UpdateBgImage()
         {
             if (this.VM != null && this.VM.FeedbackImage != null && this.VM.FeedbackImage.DataBytes != null)
             {
                 BitmapImage image = new BitmapImage();
-                image.SetSource(new MemoryStream(this.VM.FeedbackImage.DataBytes));
-                ImageArea.Width = image.PixelWidth;
-                ImageArea.Height = image.PixelHeight;
+                var imgStream = new MemoryStream(this.VM.FeedbackImage.DataBytes);
+                image.SetSource(imgStream);
+                double imgwidth, imgheight, width, height = 0;
+                width = imgwidth = image.PixelWidth;
+                height = imgheight = image.PixelHeight;
+
+                if (Math.Max(imgwidth, imgheight) > ScreenResolution.Height)
+                {
+                    if (imgwidth > imgheight)
+                    {
+                        width = ScreenResolution.Height;
+                        height = ScreenResolution.Height * (imgheight / imgwidth);
+                    }
+                    else
+                    {
+                        height = ScreenResolution.Height;
+                        width = ScreenResolution.Height * (imgwidth / imgheight);
+                    }
+                }
+                
+                ImageArea.Width = width;
+                ImageArea.Height = height;
                 ImageBrush.ImageSource = image;
             }
         }
