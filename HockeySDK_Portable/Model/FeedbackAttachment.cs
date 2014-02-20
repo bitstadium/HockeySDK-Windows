@@ -1,19 +1,23 @@
-﻿using System;
+﻿using System.IO;
+using HockeyApp.Extensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace HockeyApp.Model
 {
     [DataContract]
     public class FeedbackAttachment : IFeedbackAttachment
     {
-        public FeedbackAttachment(string fileName, byte[] imageBytes, string contentType)
+        public FeedbackAttachment(string fileName, byte[] dataBytes, string contentType)
         {
             this.FileName = fileName;
             this.ContentType = contentType;
-            this.DataBytes = imageBytes;
+            this.DataBytes = dataBytes;
         }
 
         [DataMember(Name = "url")]
@@ -30,5 +34,50 @@ namespace HockeyApp.Model
 
         public byte[] DataBytes { get; set; }
         public string ContentType { get; set; }
+
+        public async Task<bool> LoadAttachmentFromServer()
+        {
+            bool retVal = false;
+            if (String.IsNullOrWhiteSpace(this.RemoteURL))
+            {
+                throw new Exception("Attachment not found! Did you upload your attachment to the server?");
+            }
+
+            var request = WebRequest.CreateHttp(new Uri(this.RemoteURL, UriKind.Absolute));
+            request.Method = "Get";
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
+
+            try
+            {
+                var response = await request.GetResponseAsync();
+                var ms = new MemoryStream();
+                response.GetResponseStream().CopyTo(ms);
+                this.DataBytes = ms.ToArray();
+                retVal = true;
+            }
+            catch (Exception e)
+            {
+                var webex = e as WebException;
+                if (webex != null)
+                {
+                    if (String.IsNullOrWhiteSpace(webex.Response.ContentType))
+                    {
+                        //Connection error during call
+                        throw webex;
+                    }
+                    else
+                    {
+                        //404 Response from server => thread got deleted
+                        retVal = false;
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return retVal;
+
+        }
     }
 }

@@ -116,7 +116,7 @@ namespace HockeyApp.Model
                 throw new ArgumentException("Parameter message must not be empty!");
             }
 
-            FeedbackMessage msg = new FeedbackMessage();
+            var msg = new FeedbackMessage();
             msg.Name = HockeyClient.Instance.UserID;
             msg.Text = message;
             msg.Email = email;

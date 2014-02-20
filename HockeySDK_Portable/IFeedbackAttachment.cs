@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace HockeyApp
 {
@@ -10,5 +11,6 @@ namespace HockeyApp
         string FileName { get; set; }
         byte[] DataBytes { get; set; }
         string ContentType { get; set; }
+        Task<bool> LoadAttachmentFromServer();
     }
 }
