@@ -14,7 +14,7 @@
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneChromeBrush}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
         <Viewbox Name="WrapperBox" Stretch="Uniform" Margin="0">
             <InkPresenter Name="ImageArea"
                       Visibility="{Binding IsEditable, Converter={StaticResource BooleanToVisibilityConverter}}"
