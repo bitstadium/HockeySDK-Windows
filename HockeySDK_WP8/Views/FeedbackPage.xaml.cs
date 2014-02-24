@@ -8,7 +8,6 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HockeyApp.ViewModels;
-using System.Windows.Input;
 
 namespace HockeyApp.Views
 {
@@ -39,6 +38,20 @@ namespace HockeyApp.Views
         {
             ApplicationBar = new ApplicationBar();
             ApplicationBar.Mode = ApplicationBarMode.Default;
+            ApplicationBar.StateChanged += (sender, e) =>
+            {
+                var bar = (sender as ApplicationBar);
+                if (CurrentViewState.Equals(FeedbackViewState.ImageShow) || CurrentViewState.Equals(FeedbackViewState.ImageEdit)) {
+                    if (e.IsMenuVisible)
+                    {
+                        bar.Opacity = 1;
+                    }
+                    else
+                    {
+                        bar.Opacity = 0;
+                    }
+                } 
+            };
 
             Action<FeedbackViewState> switchViewStateAction = (newViewState) =>
             {
@@ -185,9 +198,9 @@ namespace HockeyApp.Views
             ApplicationBar.MenuItems.Clear();
             
             if(this.VM.CurrentImageVM.IsEditable) {
-                ApplicationBar.MenuItems.Add(menuItemOk);
-                ApplicationBar.MenuItems.Add(menuItemReset);
                 ApplicationBar.MenuItems.Add(menuItemDelete);
+                ApplicationBar.MenuItems.Add(menuItemReset);
+                ApplicationBar.MenuItems.Add(menuItemOk);
             }
             else
             {

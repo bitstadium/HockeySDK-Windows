@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 
 namespace HockeyApp
 {
@@ -26,7 +27,6 @@ namespace HockeyApp
             }
         }
 
-        // Idea based on http://bjorn.kuiper.nu/2011/10/01/wp7-notify-user-of-new-application-version/
         public static String GetAppVersion()
         {
             return Instance.GetValueFromManifest("Version");
@@ -41,20 +41,9 @@ namespace HockeyApp
         {
             try
             {
-                StreamReader reader = getManifestReader();
-                while (!reader.EndOfStream)
-                {
-                    string line = reader.ReadLine();
-                    int begin = line.IndexOf(" " + key + "=\"", StringComparison.InvariantCulture);
-                    if (begin >= 0)
-                    {
-                        int end = line.IndexOf("\"", begin + key.Length + 3, StringComparison.InvariantCulture);
-                        if (end >= 0)
-                        {
-                            return line.Substring(begin + key.Length + 3, end - begin - key.Length - 3);
-                        }
-                    }
-                }
+                XElement appxml = System.Xml.Linq.XElement.Load("WMAppManifest.xml");
+                var appElement = (from manifestData in appxml.Descendants("App") select manifestData).SingleOrDefault();
+                return appElement.Attribute(key).Value;
             }
             catch (Exception)
             {
@@ -63,21 +52,5 @@ namespace HockeyApp
 
             return "";
         }
-
-        internal static StreamReader getManifestReader()
-        {
-            Uri manifest = new Uri("WMAppManifest.xml", UriKind.Relative);
-            var stream = Application.GetResourceStream(manifest);
-            if (stream != null)
-            {
-                return new StreamReader(stream.Stream);
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
     }
 }

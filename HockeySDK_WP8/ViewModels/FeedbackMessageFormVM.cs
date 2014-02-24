@@ -181,8 +181,9 @@ namespace HockeyApp.ViewModels
             byte[] imageBytes = null;
             if (Path.GetExtension(result.OriginalFileName).ToLower().EndsWith("jpg"))
             {
-                var wbBitmap = new WriteableBitmap(100,100);
-                wbBitmap.LoadJpeg(result.ChosenPhoto);
+                BitmapImage img = new BitmapImage();
+                img.SetSource(result.ChosenPhoto);
+                var wbBitmap = new WriteableBitmap(img);
                 using (var stream = new MemoryStream())
                 {
                     wbBitmap.WritePNG(stream);
@@ -196,7 +197,7 @@ namespace HockeyApp.ViewModels
                 imageBytes = new byte[result.ChosenPhoto.Length];
                 await result.ChosenPhoto.ReadAsync(imageBytes, 0, (int)result.ChosenPhoto.Length);
             }
-            imageVM.FeedbackImage = new FeedbackAttachment(Path.GetFileName(result.OriginalFileName), imageBytes, "image/jpeg");
+            imageVM.FeedbackImage = new FeedbackAttachment(Path.GetFileName(result.OriginalFileName), imageBytes, null);
             Attachments.Add(imageVM);
             this.ParentVM.SwitchToImageEditor(imageVM);
         }
