@@ -10,16 +10,35 @@ using HockeyApp.Model;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
+using HockeyApp.Views;
 
 namespace HockeyApp.ViewModels
 {
     public class FeedbackMessageFormVM: VMBase
     {
 
-        public FeedbackMessageFormVM(FeedbackPageVM parentVM)
+        FeedbackMessageFormControl view;
+        bool isLightTheme;
+        Style darkTextBoxStyle;
+        Style lightTextBoxStyle;
+
+        public FeedbackMessageFormVM(FeedbackPageVM parentVM, FeedbackMessageFormControl view)
         {
             this.ParentVM = parentVM;
+            this.view = view;
+            isLightTheme = Visibility.Visible.Equals(Application.Current.Resources["PhoneLightThemeVisibility"]);
             SetFormFieldDefaults();
+            lightTextBoxStyle = view.Resources["inputDark"] as Style;
+            darkTextBoxStyle = view.Resources["inputLight"] as Style;
+        }
+
+
+        public Style TextBoxStyle
+        {
+            get
+            {
+                return isLightTheme ? lightTextBoxStyle : darkTextBoxStyle;
+            }
         }
 
         protected FeedbackPageVM ParentVM { get; set; }

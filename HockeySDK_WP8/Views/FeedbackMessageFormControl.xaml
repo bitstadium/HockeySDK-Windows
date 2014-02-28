@@ -13,9 +13,9 @@
     <UserControl.Resources>
         <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+
         
-        <Style x:Key="inputbox" TargetType="TextBox">
-            <Setter Property="CaretBrush" Value="White" />
+        <Style x:Key="inputbox"  TargetType="TextBox">
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
             <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}"/>
             <Setter Property="Background" Value="Transparent"/>
@@ -106,6 +106,14 @@
             </Setter>
         </Style>
 
+        <Style x:Key="inputLight" TargetType="TextBox" BasedOn="{StaticResource inputbox}" >
+            <Setter Property="CaretBrush" Value="White" />
+        </Style>
+
+        <Style x:Key="inputDark" TargetType="TextBox" BasedOn="{StaticResource inputbox}">
+            <Setter Property="CaretBrush" Value="Black" />
+        </Style>
+
         <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSmallStyle}">
             <Setter Property="VerticalAlignment" Value="Bottom"/>
             <Setter Property="Margin" Value="0,0,2,6"/>
@@ -141,7 +149,7 @@
                            Text="{Binding Path=LocalizedResources[Name], Source={StaticResource LocalizedStrings}}" />
                     <TextBox Grid.Column="1"
                          Text="{Binding Username, Mode=TwoWay}"
-                         Style="{StaticResource inputbox}"
+                         Style="{Binding TextBoxStyle}"
                          />
                 </Grid>
             </Border>
@@ -159,7 +167,7 @@
                     <TextBox Grid.Column="1"
                          InputScope="EmailUserName"
                          Text="{Binding Email, Mode=TwoWay}"
-                         Style="{StaticResource inputbox}"                 
+                         Style="{Binding TextBoxStyle}"                 
                          />
                 </Grid>
             </Border>
@@ -177,7 +185,7 @@
                     <TextBox Grid.Column="1"
                             InputScope="Text"
                             Text="{Binding Subject, Mode=TwoWay}"
-                            Style="{StaticResource inputbox}"
+                            Style="{Binding TextBoxStyle}"
                             IsReadOnly="{Binding IsThreadActive}"
                          />
                 </Grid>
@@ -219,7 +227,7 @@
             <TextBox x:Name="MessageInput" 
                      VerticalAlignment="Stretch" 
                      InputScope="Text"
-                     Style="{StaticResource inputbox}"
+                     Style="{Binding TextBoxStyle}"
                      Text="{Binding Message, Mode=TwoWay}"
                      FontSize="{StaticResource PhoneFontSizeNormal}"
                      Grid.Row="4"

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Threading.Tasks;
 using Microsoft.Phone.Tasks;
 using HockeyApp.Model;
+using System.Windows.Media;
 
 namespace HockeyApp.Views
 {
@@ -30,7 +31,7 @@ namespace HockeyApp.Views
         {
             InitializeComponent();
             this.ParentControl = parent;
-            this.DataContext = new FeedbackMessageFormVM(parent.VM);
+            this.DataContext = new FeedbackMessageFormVM(parent.VM, this);
         }
         
         internal async Task<IFeedbackMessage> SendButtonClicked()
