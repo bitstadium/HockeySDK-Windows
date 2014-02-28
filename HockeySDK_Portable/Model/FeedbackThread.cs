@@ -111,10 +111,6 @@ namespace HockeyApp.Model
 
         public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackAttachment> attachments = null)
         {
-            if (String.IsNullOrWhiteSpace(message))
-            {
-                throw new ArgumentException("Parameter message must not be empty!");
-            }
 
             var msg = new FeedbackMessage();
             msg.Name = HockeyClient.Instance.UserID;

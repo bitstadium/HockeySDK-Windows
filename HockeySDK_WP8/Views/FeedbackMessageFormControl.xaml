@@ -17,7 +17,7 @@
         <Style x:Key="inputbox" TargetType="TextBox">
             <Setter Property="CaretBrush" Value="White" />
             <Setter Property="FontFamily" Value="{StaticResource PhoneFontFamilyNormal}"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMediumLarge}"/>
+            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeSmall}"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="BorderBrush" Value="{StaticResource PhoneForegroundBrush}"/>
@@ -108,25 +108,16 @@
 
         <Style x:Key="label" TargetType="TextBlock" BasedOn="{StaticResource PhoneTextSmallStyle}">
             <Setter Property="VerticalAlignment" Value="Bottom"/>
-            <Setter Property="Margin" Value="0,0,6,6"/>
+            <Setter Property="Margin" Value="0,0,2,6"/>
+            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}" />
         </Style>
         
     </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="{StaticResource PhoneBackgroundBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
-        <!--TitlePanel contains the name of the application and page title-->
-        <StackPanel Grid.Row="0" Margin="12,27,0,28">
-            <TextBlock Text="{Binding ThreadInfo}" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="Feedback" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
         <!-- Message form -->
-        <Grid x:Name="MessageForm" Grid.Row="1">
+        <Border Padding="20,20,20,0">
+        <Grid x:Name="MessageForm" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -138,8 +129,8 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Border Grid.Row="0" Padding="0" BorderThickness="0,0,0,2" 
-                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+            <Border Grid.Row="0" Padding="0,8,0,2" BorderThickness="0,0,0,1" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -155,8 +146,8 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Row="1" Padding="0" BorderThickness="0,0,0,2" 
-                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                <Border Grid.Row="1" Padding="0,8,0,2" BorderThickness="0,0,0,1" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -173,8 +164,8 @@
                 </Grid>
             </Border>
 
-            <Border Grid.Row="2" Padding="0" BorderThickness="0,0,0,2" 
-                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="8,2,4,2">
+                <Border Grid.Row="2" Padding="0,8,0,2" BorderThickness="0,0,0,1" 
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -193,7 +184,7 @@
             </Border>
 
             <Border Grid.Row="3" Padding="2" BorderThickness="0,0,0,0" 
-                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="20,2,4,2">
+                        BorderBrush="{StaticResource PhoneForegroundBrush}" Margin="12,12,4,2">
                     <ItemsControl ItemsSource="{Binding Attachments}" >
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -201,11 +192,11 @@
                                 <Button.Style>
                                     <Style TargetType="Button">
                                         <Style.Setters>
-                                            <Setter Property="Padding" Value="8" />
+                                            <Setter Property="Padding" Value="0,4" />
                                             <Setter Property="Margin" Value="-26,-15,0,0" />
                                             <Setter Property="HorizontalAlignment" Value="Left" />
                                             <Setter Property="BorderThickness" Value="0" />
-                                        </Style.Setters>
+                                            </Style.Setters>
                                     </Style>
                                 </Button.Style>
                                         <Grid Margin="0">
@@ -213,8 +204,12 @@
                                                 <ColumnDefinition Width="22"/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <Image Source="/HockeyAppContent/Photo.png" Width="20" Stretch="Uniform" Grid.Column="0"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Label}" Style="{StaticResource PhoneTextSmallStyle}"/>
+                                        <Rectangle Fill="{StaticResource PhoneForegroundBrush}" Width="20" Height="22" Grid.Column="0">
+                                            <Rectangle.OpacityMask>
+                                                <ImageBrush ImageSource="/HockeyAppContent/Photo.png" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <TextBlock Grid.Column="1" Text="{Binding Label}" Style="{StaticResource PhoneTextSmallStyle}"/>
                                         </Grid>
                             </Button>
                         </DataTemplate>
@@ -229,9 +224,11 @@
                      FontSize="{StaticResource PhoneFontSizeNormal}"
                      Grid.Row="4"
                      AcceptsReturn="True"
-                     Margin="8,2,4,2"
+                     Margin="0,10,0,0"
                      />
         </Grid>
+        </Border>
     </Grid>
+    
 
 </UserControl>

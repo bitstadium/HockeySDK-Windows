@@ -133,7 +133,7 @@
     <value>Dismiss</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email</value>
+    <value>Email:</value>
   </data>
   <data name="EmailEmptyWarning" xml:space="preserve">
     <value>Please enter a valid email.</value>
@@ -175,7 +175,7 @@
     <value>Please enter a message or add an image as attachment.</value>
   </data>
   <data name="Name" xml:space="preserve">
-    <value>Name</value>
+    <value>Name:</value>
   </data>
   <data name="NoUpdateAvailable" xml:space="preserve">
     <value>There is currently no new version of the app available.</value>
@@ -199,7 +199,7 @@
     <value>Size</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject</value>
+    <value>Subject:</value>
   </data>
   <data name="SubjectEmptyWarning" xml:space="preserve">
     <value>Please enter a subject.</value>

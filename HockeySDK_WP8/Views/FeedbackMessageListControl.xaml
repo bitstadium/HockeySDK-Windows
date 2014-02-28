@@ -72,11 +72,17 @@
                                        TextWrapping="Wrap"
                                        Margin="4,4,3,3"
                                        Style="{StaticResource PhoneTextSmallStyle}"/>
-                            <ListBox ItemsSource="{Binding Images}" Grid.Row="1" Margin="4,0,0,0">
+                            <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Row="1" 
+                                    VerticalScrollBarVisibility="Disabled" Height="Auto" Margin="4,0,0,0">
+                            <ListBox ItemsSource="{Binding Images}" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
                                 <ListBox.ItemsPanel>
                                     <ItemsPanelTemplate>
-                                        <StackPanel Orientation="Horizontal"/>
-                                    </ItemsPanelTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel.RenderTransform>
+                                                    <TranslateTransform X="0" />
+                                                </StackPanel.RenderTransform>
+                                            </StackPanel>
+                                        </ItemsPanelTemplate>
                                 </ListBox.ItemsPanel>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -107,6 +113,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
+                                    </ScrollViewer>
                             <TextBlock Grid.Row="2"
                                            Text="{Binding Created}"
                                            Foreground="{StaticResource PhoneForegroundBrush}"

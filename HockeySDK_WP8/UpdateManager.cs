@@ -197,7 +197,9 @@ namespace HockeyApp
             var downloadUri = new Uri(Constants.ApiBase + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
             //it won't get the result anyway because this app-instance will get killed during the update
-            await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);
+            //TODO try catch to show message to the user?
+            var result = await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);
+
         }
     }
 }

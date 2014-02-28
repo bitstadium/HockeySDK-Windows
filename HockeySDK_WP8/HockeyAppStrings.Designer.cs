@@ -106,7 +106,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email.
+        ///   Looks up a localized string similar to Email:.
         /// </summary>
         public static string Email {
             get {
@@ -232,7 +232,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name.
+        ///   Looks up a localized string similar to Name:.
         /// </summary>
         public static string Name {
             get {
@@ -304,7 +304,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Subject.
+        ///   Looks up a localized string similar to Subject:.
         /// </summary>
         public static string Subject {
             get {

@@ -44,7 +44,7 @@ namespace HockeyApp.Views
                 if (CurrentViewState.Equals(FeedbackViewState.ImageShow) || CurrentViewState.Equals(FeedbackViewState.ImageEdit)) {
                     if (e.IsMenuVisible)
                     {
-                        bar.Opacity = 0.99;
+                        bar.Opacity = 0.75;
                     }
                     else
                     {
