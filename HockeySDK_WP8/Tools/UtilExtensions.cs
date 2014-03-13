@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HockeyApp.Model;
+using System;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -60,8 +61,6 @@ namespace HockeyApp.Tools
             }
             return null;
         }
-
-        
 
     }
 }

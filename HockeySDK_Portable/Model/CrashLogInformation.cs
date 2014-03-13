@@ -14,6 +14,7 @@ namespace HockeyApp.Model
         public string Model;
         public string ProductID;
         public string WindowsPhone;
+        public string Windows;
 
         public override string ToString()
         {
@@ -32,6 +33,10 @@ namespace HockeyApp.Model
             if (!String.IsNullOrWhiteSpace(this.WindowsPhone))
             {
                 builder.AppendFormat("Windows Phone: {0}\n", this.WindowsPhone);
+            }
+            if (!String.IsNullOrWhiteSpace(this.Windows))
+            {
+                builder.AppendFormat("Windows: {0}\n", this.Windows);
             }
             if (!String.IsNullOrWhiteSpace(this.Manufacturer))
             {

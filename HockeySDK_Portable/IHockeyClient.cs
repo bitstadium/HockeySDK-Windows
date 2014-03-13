@@ -7,10 +7,23 @@ namespace HockeyApp
 {
     public interface IHockeyClient
     {
+
         /// <summary>
         /// Base-URI of Hockey Server 
         /// </summary>
+        [Obsolete("Please use the api version specific ApiBase!")]
         string ApiBase { get; }
+
+        /// <summary>
+        /// Base-URI of Hockey Server API v2
+        /// </summary>
+        string ApiBaseVersion2 { get; }
+
+        /// <summary>
+        /// Base-URI of Hockey Server API v2
+        /// </summary>
+        string ApiBaseVersion3 { get; }
+                
         /// <summary>
         /// User-agent string used in server communication
         /// </summary>
@@ -34,14 +47,31 @@ namespace HockeyApp
         /// </summary>
         string VersionInfo { get; }
         /// <summary>
-        /// 
+        /// User Id to be sent with crash reports
         /// </summary>
         string UserID { get; set; }
         /// <summary>
-        /// 
+        /// Contact information to be sent with crash reports
         /// </summary>
         string ContactInformation { get; set; }
 
+        /// <summary>
+        /// Authenticate a user against hockeyapp.
+        /// The returned IAuthStatus can be serialized and saved to later check if the token is still valid.
+        /// </summary>
+        /// <param name="email">email of the user</param>
+        /// <param name="password">password of the user</param>
+        /// <returns>an IAuthStatus containing the auid-token (if login is valid)</returns>
+        Task<IAuthStatus> AuthorizeUser(string email, string password);
+
+        /// <summary>
+        /// Identify a user against hockeyapp.
+        /// The returned IAuthStatus can be serialized and saved to later check if the token is still valid.
+        /// </summary>
+        /// <param name="email">email of the user</param>
+        /// <param name="appSecret">appSecret of your app</param>
+        /// <returns>an IAuthStatus containing the auid-token (if login is valid)</returns>
+        Task<IAuthStatus> IdentifyUser(string email, string appSecret);
 
         /// <summary>
         /// Creates a new Feedback-Thread. The thread is stored on the server with the posting of the first message.

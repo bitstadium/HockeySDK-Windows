@@ -66,7 +66,7 @@ namespace HockeyApp.Model
             FeedbackThread retVal = null;
             _logger.Info("Try to get thread with ID={0}", new object[] { threadToken });
 
-            var request = WebRequest.CreateHttp(new Uri(client.ApiBase + "apps/" + client.AppIdentifier + "/feedback/" + threadToken + ".json", UriKind.Absolute));
+            var request = WebRequest.CreateHttp(new Uri(client.ApiBaseVersion2 + "apps/" + client.AppIdentifier + "/feedback/" + threadToken + ".json", UriKind.Absolute));
             request.Method = "Get";
             request.SetHeader(HttpRequestHeader.UserAgent.ToString(), client.UserAgentString);
 
@@ -124,12 +124,12 @@ namespace HockeyApp.Model
             if (this.IsNewThread)
             {
                 msg.Token = this.Token;
-                request = WebRequest.CreateHttp(new Uri(client.ApiBase + "apps/" + client.AppIdentifier + "/feedback", UriKind.Absolute));
+                request = WebRequest.CreateHttp(new Uri(client.ApiBaseVersion2 + "apps/" + client.AppIdentifier + "/feedback", UriKind.Absolute));
                 request.Method = "Post";
             }
             else
             {
-                request = WebRequest.CreateHttp(new Uri(client.ApiBase + "apps/" + client.AppIdentifier + "/feedback/" + this.Token + "/", UriKind.Absolute));
+                request = WebRequest.CreateHttp(new Uri(client.ApiBaseVersion2 + "apps/" + client.AppIdentifier + "/feedback/" + this.Token + "/", UriKind.Absolute));
                 request.Method = "Put";
             }
             

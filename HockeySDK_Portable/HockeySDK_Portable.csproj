@@ -42,11 +42,14 @@
   <ItemGroup>
     <Compile Include="Exceptions\WebTransferException.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\MD5.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
     <Compile Include="Extensions\WebRequestExtension.cs" />
+    <Compile Include="IAuthStatus.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Model\AppVersion.cs" />
+    <Compile Include="Model\AuthStatus.cs" />
     <Compile Include="Model\CrashData.cs" />
     <Compile Include="Model\FeedbackAttachment.cs" />
     <Compile Include="Model\FeedbackMessage.cs" />

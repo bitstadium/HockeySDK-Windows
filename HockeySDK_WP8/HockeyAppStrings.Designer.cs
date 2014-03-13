@@ -70,6 +70,24 @@ namespace HockeyApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The HockeySDK authorization secret has not been set. Please contact the developer of this app..
+        /// </summary>
+        public static string Authentication_AppSecretMissing {
+            get {
+                return ResourceManager.GetString("Authentication_AppSecretMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Authorize {
+            get {
+                return ResourceManager.GetString("Authorize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string Cancel {
@@ -156,6 +174,15 @@ namespace HockeyApp {
         public static string FeedbackSendError {
             get {
                 return ResourceManager.GetString("FeedbackSendError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string Identify {
+            get {
+                return ResourceManager.GetString("Identify", resourceCulture);
             }
         }
         
@@ -318,6 +345,15 @@ namespace HockeyApp {
         public static string SubjectEmptyWarning {
             get {
                 return ResourceManager.GetString("SubjectEmptyWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

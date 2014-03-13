@@ -22,6 +22,6 @@ namespace HockeyApp
 
         internal const string USER_AGENT_STRING = "Hockey/WinWPF";
         internal const string SDKNAME = "HockeySDKWinWPF";
-        internal const string SDKVERSION = "2.1.0-beta1";
+        internal const string SDKVERSION = "2.1.0-beta4";
     }
 }

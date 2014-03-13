@@ -94,7 +94,7 @@ namespace HockeyApp.Model
 
 
             //Exception should be handled by caller
-            HttpWebRequest request = WebRequest.CreateHttp(new Uri(this._hockeyClient.ApiBase + "apps/" + this._hockeyClient.AppIdentifier + "/crashes"));
+            HttpWebRequest request = WebRequest.CreateHttp(new Uri(this._hockeyClient.ApiBaseVersion2 + "apps/" + this._hockeyClient.AppIdentifier + "/crashes"));
 
             request.Method = "POST";
             request.ContentType = "application/x-www-form-urlencoded";

@@ -39,6 +39,9 @@
     <Compile Include="..\HockeySDK_Portable\Extensions\ExceptionExtension.cs">
       <Link>Extensions\ExceptionExtension.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_Portable\Extensions\MD5.cs">
+      <Link>Extensions\MD5.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_Portable\Extensions\UtilExtensions.cs">
       <Link>Extensions\UtilExtensions.cs</Link>
     </Compile>
@@ -50,6 +53,9 @@
     </Compile>
     <Compile Include="..\HockeySDK_Portable\IAppVersion.cs">
       <Link>IAppVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\IAuthStatus.cs">
+      <Link>IAuthStatus.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_Portable\ICrashData.cs">
       <Link>ICrashData.cs</Link>
@@ -71,6 +77,9 @@
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Model\AppVersion.cs">
       <Link>Model\AppVersion.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\Model\AuthStatus.cs">
+      <Link>Model\AuthStatus.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Model\CrashData.cs">
       <Link>Model\CrashData.cs</Link>

@@ -41,7 +41,7 @@ namespace HockeyApp
                             string userID = null, 
                             string contactInformation = null,
                             Func<Exception, string> descriptionLoader = null,
-                            string apiBase = "https://rink.hockeyapp.net/api/2/",
+                            string apiBase = "https://rink.hockeyapp.net",
                             string userAgentString = null,
                             bool keepRunning = false)
           
@@ -61,8 +61,9 @@ namespace HockeyApp
                 contactInformation: contactInformation,
                 userAgentName: Constants.USER_AGENT_STRING,
                 sdkName: Constants.SDKNAME,
-                sdkVersion: Constants.SDKVERSION);
-
+                sdkVersion: Constants.SDKVERSION,
+                os: Environment.OSVersion.Platform.ToString(),
+                osVersion: Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack);
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader, keepRunning);
         }
 

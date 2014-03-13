@@ -71,7 +71,8 @@ namespace HockeyApp
                 {
                     PackageName = Application.Current.GetType().Namespace,
                     Version = HockeyClient.Instance.VersionInfo,
-                    OperatingSystem = Environment.OSVersion.ToString(),
+                    OperatingSystem = Environment.OSVersion.Platform.ToString(),
+                    Windows = Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack,
                     Manufacturer = "",
                     Model = ""
                 };
