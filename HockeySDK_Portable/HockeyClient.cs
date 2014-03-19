@@ -195,26 +195,17 @@ namespace HockeyApp
             StringBuilder url = new StringBuilder(this.ApiBaseVersion2 + "apps/" + this.AppIdentifier + ".json");
 
             url.Append("?app_version=" + Uri.EscapeDataString(this.VersionInfo));
-            url.Append("&os=" + Uri.EscapeDataString(this.Os));
-            url.Append("&os_version=" + Uri.EscapeDataString(this.OsVersion));
-            url.Append("&device=" + Uri.EscapeDataString(this.Device));
-            url.Append("&=oem" + Uri.EscapeDataString(this.Oem));
-            url.Append("&=sdk" + Uri.EscapeDataString(this.SdkName));
-            url.Append("&=sdk_version" + Uri.EscapeDataString(this.SdkVersion));
-            url.Append("&=lang" + Uri.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
+            if (!String.IsNullOrEmpty(this.Os)) { url.Append("&os=" + Uri.EscapeDataString(this.Os)); }
+            if (!String.IsNullOrEmpty(this.OsVersion)) { url.Append("&os_version=" + Uri.EscapeDataString(this.OsVersion));}
+            if (!String.IsNullOrEmpty(this.Device)) { url.Append("&device=" + Uri.EscapeDataString(this.Device));}
+            if (!String.IsNullOrEmpty(this.Oem)) { url.Append("&oem=" + Uri.EscapeDataString(this.Oem));}
+            if (!String.IsNullOrEmpty(this.SdkName)) { url.Append("&sdk=" + Uri.EscapeDataString(this.SdkName));}
+            if (!String.IsNullOrEmpty(this.SdkVersion)) { url.Append("&sdk_version=" + Uri.EscapeDataString(this.SdkVersion));}
+            url.Append("&lang=" + Uri.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
-            if (!String.IsNullOrEmpty(this.Auid))
-            {
-                url.Append("&=lang" + Uri.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
-            }
-            else if (!String.IsNullOrEmpty(this.Iuid))
-            {
-                url.Append("&=auid" + Uri.EscapeDataString(this.Iuid));
-            }
-            else if (!String.IsNullOrEmpty(this.Uuid))
-            {
-                url.Append("&=duid" + Uri.EscapeDataString(this.Uuid));
-            }
+            if (!String.IsNullOrEmpty(this.Auid)) { url.Append("&=auid" + Uri.EscapeDataString(this.Auid)); }
+            else if (!String.IsNullOrEmpty(this.Iuid)) { url.Append("&=iuid" + Uri.EscapeDataString(this.Iuid)); }
+            else if (!String.IsNullOrEmpty(this.Uuid)) { url.Append("&=duid" + Uri.EscapeDataString(this.Uuid)); }
 
             var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion2 + "apps/" + this.AppIdentifier + ".json", UriKind.Absolute));
             request.Method = "Get";
@@ -264,7 +255,7 @@ namespace HockeyApp
             }
         }
 
-        public async Task<IAuthStatus> AuthorizeUser(string email, string password)
+        public async Task<IAuthStatus> AuthorizeUserAsync(string email, string password)
         {
             var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" +
                                                            HockeyClient.Instance.AppIdentifier + "/identity/authorize", UriKind.Absolute));
@@ -273,7 +264,7 @@ namespace HockeyApp
             byte[] credentialBuffer = new UTF8Encoding().GetBytes(email + ":" + password);
             request.SetHeader(HttpRequestHeader.Authorization.ToString(), "Basic " + Convert.ToBase64String(credentialBuffer));
             request.Method = "POST";
-            var status = await AuthStatus.DoAuthRequestHandleResponse(request);
+            var status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
             if (status.IsAuthorized)
             {
                 this.Auid = (status as AuthStatus).Auid;
@@ -282,7 +273,7 @@ namespace HockeyApp
             return status;
         }
 
-        public async Task<IAuthStatus> IdentifyUser(string email, string appSecret)
+        public async Task<IAuthStatus> IdentifyUserAsync(string email, string appSecret)
         {
             var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" +
                                                            HockeyClient.Instance.AppIdentifier + "/identity/check", UriKind.Absolute));
@@ -314,7 +305,7 @@ namespace HockeyApp
             byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
             stream.Write(trailer, 0, trailer.Length);
             stream.Dispose();
-            var status = await AuthStatus.DoAuthRequestHandleResponse(request);
+            var status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
             if (status.IsIdentified) {
                 this.Iuid = (status as AuthStatus).Iuid;
                 this.FillEmptyUserAndContactInfo(email); 

@@ -13,6 +13,9 @@ using System.IO;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Provides the methods to integrate HockeyApp Feedback in your app
+    /// </summary>
     public class FeedbackManager
     {
         #region singleton

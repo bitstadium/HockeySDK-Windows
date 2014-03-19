@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 using System.Resources;
 
 [assembly: AssemblyTitle("HockeySDK")]
-[assembly: AssemblyDescription("Windows Phone Class Library to do crash reporting with hockeyapp.net")]
+[assembly: AssemblyDescription("Windows Phone Class Library for hockeyapp.net")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Codenauts UG")]
+[assembly: AssemblyCompany("Bit Stadium GmbH")]
 [assembly: AssemblyProduct("HockeySDK")]
-[assembly: AssemblyCopyright("Copyright © Codenauts UG 2013")]
+[assembly: AssemblyCopyright("Copyright © Bit Stadium GmbH 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -16,6 +16,6 @@ using System.Resources;
 
 [assembly: Guid("555849f2-b863-42c1-b5b2-2c44fdd7b66b")]
 
-[assembly: AssemblyVersion("1.1.0.0")]
-[assembly: AssemblyFileVersion("1.1.0.0")]
-[assembly: NeutralResourcesLanguageAttribute("de-DE")]
+[assembly: AssemblyVersion("2.1.0")]
+[assembly: AssemblyFileVersion("2.1.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]

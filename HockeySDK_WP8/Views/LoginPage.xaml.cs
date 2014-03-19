@@ -11,6 +11,7 @@ using HockeyApp.ViewModels;
 using HockeyApp.Model;
 using System.Threading.Tasks;
 using Microsoft.Phone.Net.NetworkInformation;
+using HockeyApp.Exceptions;
 
 namespace HockeyApp.Views
 {
@@ -22,23 +23,51 @@ namespace HockeyApp.Views
             private set { this.DataContext = value; }
         }
 
-        protected async Task AuthenticateOnline()
+        protected async Task AuthenticateOnlineAsync()
         {
             SystemTray.ProgressIndicator.IsVisible = true;
             try
             {
-                if (await (this.VM.IsAuthorize ? this.VM.AuthorizeUser(this.Password.Password) : this.VM.IdentifyUser()))
+                IAuthStatus status = await (this.VM.IsAuthorize ? this.VM.AuthorizeUserAsync(this.Password.Password) : this.VM.IdentifyUserAsync());
+                if (status.IsIdentified)
                 {
                     NavigationService.Navigate(AuthManager.Instance.SuccessRedirect);
                     return;
                 }
                 else
                 {
-                    NavigationService.Navigate(AuthManager.Instance.FailRedirect);
+                    if (status.IsCredentialError)
+                    {
+                        this.Password.Password = String.Empty;
+                        MessageBox.Show(LocalizedStrings.LocalizedResources.AuthCredentialsError);
+                    }
+                    else if (status.IsPermissionError)
+                    {
+                        this.Password.Password = String.Empty;
+                        MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNoMemberError);
+                    }
+                    else
+                    {
+                        this.Password.Password = String.Empty;
+                        MessageBox.Show(LocalizedStrings.LocalizedResources.AuthUnknownError);
+                    }
                 }
-            } //TODO error handling
-            catch (Exception) { throw; }
-            finally { SystemTray.ProgressIndicator.IsVisible = false; }
+            }
+            catch (Exception e)
+            {
+                if (e is HockeyApp.Exceptions.WebTransferException)
+                {
+                    MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNetworkError);
+                }
+                else
+                {
+                    MessageBox.Show(LocalizedStrings.LocalizedResources.AuthUnknownError);
+                }
+            }
+            finally
+            {
+                SystemTray.ProgressIndicator.IsVisible = false;
+            }
         }
 
         public LoginPage()
@@ -47,7 +76,7 @@ namespace HockeyApp.Views
             InitializeComponent();
             Login.Click += async (sender, ev) =>
             {
-                await AuthenticateOnline();
+                await AuthenticateOnlineAsync();
             };
         }
 
@@ -65,27 +94,38 @@ namespace HockeyApp.Views
             if (NavigationContext.QueryString.TryGetValue("validationmode", out validationmode)) { authValidationMode = (AuthValidationMode)Enum.Parse(typeof(AuthValidationMode), validationmode); }
             base.OnNavigatedTo(e);
 
-            CheckForExistingLogin(authValidationMode);
+            CheckForExistingLoginAsync(authValidationMode, this.VM.AuthMode);
         }
 
-        protected async void CheckForExistingLogin(AuthValidationMode authValidationMode)
+        protected async void CheckForExistingLoginAsync(AuthValidationMode authValidationMode, AuthenticationMode authMode)
         {
             string serializedAuthStatus = AuthManager.Instance.RetrieveProtectedString(Constants.AuthStatusKey);
             if (!String.IsNullOrEmpty(serializedAuthStatus))
             {
                 var aS = AuthStatus.DeserializeFromString(serializedAuthStatus);
+                //consider that a change in Authmode is possible between versions of an app, so check if the saved token may be trusted
+                if (AuthenticationMode.Authorize.Equals(authMode) && !aS.IsAuthorized || AuthenticationMode.Identify.Equals(authMode) && aS.IsAuthorized)
+                {
+                    return;
+                }
+
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
+                    this.VM.IsShowOverlay = true;
                     try
                     {
                         SystemTray.ProgressIndicator.IsVisible = true;
-                        if (await aS.CheckIfStillValid())
+                        if (await aS.CheckIfStillValidAsync())
                         {
                             AuthManager.Instance.CurrentAuthStatus = aS;
                             NavigationService.Navigate(AuthManager.Instance.SuccessRedirect);
                         }
+                        else
+                        {
+                            Dispatcher.BeginInvoke(() => { MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNoMemberError); });
+                        }
                     }
-                    catch (Exception)
+                    catch (WebTransferException)
                     {
                         
                         if (AuthValidationMode.Graceful.Equals(authValidationMode))
@@ -94,12 +134,13 @@ namespace HockeyApp.Views
                         }
                         else
                         {
-                            throw;
+                            Dispatcher.BeginInvoke(() => { MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNetworkError); });
                         }
                     }
                     finally
                     {
                         SystemTray.ProgressIndicator.IsVisible = false;
+                        this.VM.IsShowOverlay = false;
                     }
                 }
                 else
@@ -108,7 +149,7 @@ namespace HockeyApp.Views
                     {
                         NavigationService.Navigate(AuthManager.Instance.SuccessRedirect);
                     }
-                   //TODO messagebox ?!?
+                    Dispatcher.BeginInvoke(() => { MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNetworkError); });
                 }
             }
         }

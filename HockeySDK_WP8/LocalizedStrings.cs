@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Dynamic;
 using System.Globalization;
@@ -16,18 +17,16 @@ namespace HockeyApp
         private static HockeyAppStrings _localizedResources = new HockeyAppStrings();
 
         private static dynamic customResourceWrapper = new ResourceWrapper(HockeyAppStrings.ResourceManager);
-        private static ResourceManager customResourceManager = null;
 
         public static ResourceManager CustomResourceManager
         {
             get
             {
-                return customResourceManager;
+                return customResourceWrapper.CustomResourceManager as ResourceManager;
             }
             set
             {
-                customResourceManager = value;
-                customResourceWrapper = new ResourceWrapper(value, HockeyAppStrings.ResourceManager);
+                customResourceWrapper.CustomResourceManager = value;
             }
         }
 
@@ -39,22 +38,26 @@ namespace HockeyApp
             }
         }
     }
-    
+
     public class ResourceWrapper : DynamicObject
     {
-        ResourceManager customResMan;
-        ResourceManager defaultResMan;
-
-        public ResourceWrapper(ResourceManager defaultResMan)
+        private ResourceManager customResMan;
+        public ResourceManager CustomResourceManager
         {
-            this.defaultResMan = defaultResMan;
-            this.customResMan = null;
+            get { return customResMan; }
+            set { customResMan = value; }
         }
 
-        public ResourceWrapper(ResourceManager customResMan, ResourceManager defaultResMan)
+        private ResourceManager internalResMan;
+        public ResourceManager InternalResourceManager
         {
-            this.defaultResMan = defaultResMan;
-            this.customResMan = customResMan;
+            get { return internalResMan; }
+            set { internalResMan = value; }
+        }
+
+        public ResourceWrapper(ResourceManager internalResMan)
+        {
+            this.internalResMan = internalResMan;
         }
 
         /// <summary>
@@ -66,14 +69,16 @@ namespace HockeyApp
         {
             get
             {
+                object value = null;
                 if (customResMan != null)
                 {
-                    return customResMan.GetString(index) ?? defaultResMan.GetString(index);
+                    value = customResMan.GetString(index);
                 }
-                else
+                if (value == null)
                 {
-                    return defaultResMan.GetString(index);
+                    value = internalResMan.GetString(index);
                 }
+                return value;
             }
         }
 

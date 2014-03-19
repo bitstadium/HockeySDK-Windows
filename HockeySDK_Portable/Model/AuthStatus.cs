@@ -14,6 +14,13 @@ namespace HockeyApp.Model
 {
     internal class AuthType
     {
+        internal const string STATUS_IDENTIFIED = "identified";
+        internal const string STATUS_AUTHORIZED = "authorized";
+        internal const string STATUS_VALIDATED = "validated";
+        internal const string STATUS_INVALID = "invalid";
+        internal const string STATUS_NOT_AUTHORIZED = "not authorized";
+        internal const string STATUS_NOT_FOUND = "not found";
+
         internal string StatusCode { get; private set; }
         internal string IdCode { get; private set; }
         internal bool IsAuthorized { get; private set; }
@@ -31,14 +38,14 @@ namespace HockeyApp.Model
             IdFunc = idFunc;
         }
 
-        internal static AuthType Identified = new AuthType(statusCode: "identified", idCode: "iuid", isAuthorized: false, isIdentified: true, isValid: true, idFunc: a => a.Iuid);
-        internal static AuthType Authorized = new AuthType(statusCode: "authorized", idCode: "auid", isAuthorized: true, isIdentified: true, isValid: true, idFunc: a => a.Iuid);
-        internal static AuthType Validated = new AuthType(statusCode: "validated", idCode: "", isAuthorized: false, isIdentified: true, isValid: true, idFunc: a => "");
-        internal static AuthType Invalid = new AuthType(statusCode: "invalid", idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
-        internal static AuthType NotAuthorized = new AuthType(statusCode: "not authorized", idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
-        internal static AuthType NotFound = new AuthType(statusCode: "not found", idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
-        
-        static internal IEnumerable<AuthType> AuthTypes { get { return new List<AuthType>() { Authorized, Identified, Invalid }; } }
+        internal static AuthType Identified = new AuthType(statusCode: STATUS_IDENTIFIED, idCode: "iuid", isAuthorized: false, isIdentified: true, isValid: true, idFunc: a => a.Iuid);
+        internal static AuthType Authorized = new AuthType(statusCode: STATUS_AUTHORIZED, idCode: "auid", isAuthorized: true, isIdentified: true, isValid: true, idFunc: a => a.Auid);
+        internal static AuthType Validated = new AuthType(statusCode: STATUS_VALIDATED, idCode: "", isAuthorized: false, isIdentified: true, isValid: true, idFunc: a => "");
+        internal static AuthType Invalid = new AuthType(statusCode: STATUS_INVALID, idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
+        internal static AuthType NotAuthorized = new AuthType(statusCode: STATUS_NOT_AUTHORIZED, idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
+        internal static AuthType NotFound = new AuthType(statusCode: STATUS_NOT_FOUND, idCode: "", isAuthorized: false, isIdentified: false, isValid: false, idFunc: a => "");
+
+        static internal IEnumerable<AuthType> AuthTypes { get { return new List<AuthType>() { Authorized, Identified, Validated, NotFound, NotAuthorized, Invalid }; } }
     }
 
     [DataContract]
@@ -54,11 +61,35 @@ namespace HockeyApp.Model
         private AuthStatus() { }
 
         [DataMember] private String status { get; set; }
-        [DataMember] internal String Iuid { get; private set; }
-        [DataMember] internal String Auid { get; private set; }
+        [DataMember(Name="iuid")] internal String Iuid { get; private set; }
+        [DataMember(Name="auid")] internal String Auid { get; private set; }
+        
+        /// <summary>
+        /// Indicates if this AuthCode was generated using the Authorize process (using email and password)
+        /// </summary>
+        public bool IsAuthorized { get { return this.AuthType.IsAuthorized; } }
+        /// <summary>
+        /// Indicates if this AuthCode was generated using the Identify process (using email and AppSecret)
+        /// </summary>
+        public bool IsIdentified { get { return this.AuthType.IsIdentified; } }
+
+        /// <summary>
+        /// For invalid AuthStatus indicates that the credentials where wrong
+        /// </summary>
+        public bool IsCredentialError { get { return this.AuthType.StatusCode.Equals(AuthType.STATUS_NOT_AUTHORIZED); } }
+        /// <summary>
+        /// For invalid AuthStatus indicates that the user has not the required permission
+        /// </summary>
+        public bool IsPermissionError { get { return this.AuthType.StatusCode.Equals(AuthType.STATUS_NOT_FOUND); } }
 
         internal static AuthStatus InvalidAuthStatus { get { return new AuthStatus() { AuthType = AuthType.Invalid }; } }
+        internal static AuthStatus NotAuthorizedAuthStatus { get { return new AuthStatus() { AuthType = AuthType.NotAuthorized }; } }
+        internal static AuthStatus NotFoundAuthStatus { get { return new AuthStatus() { AuthType = AuthType.NotFound }; } }
 
+        /// <summary>
+        /// Get a string represenation of this auth-status
+        /// </summary>
+        /// <returns></returns>
         public string SerializeToString()
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(AuthStatus));
@@ -70,6 +101,11 @@ namespace HockeyApp.Model
             }
         }
 
+        /// <summary>
+        /// Marshall from a string representation (which you got by SerializeToString())
+        /// </summary>
+        /// <param name="aSerializedAuthStatus"></param>
+        /// <returns></returns>
         public static IAuthStatus DeserializeFromString(String aSerializedAuthStatus)
         {
             return FromJson(new MemoryStream(Encoding.UTF8.GetBytes(aSerializedAuthStatus)));
@@ -88,17 +124,17 @@ namespace HockeyApp.Model
         /// 
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> CheckIfStillValid()
+        public async Task<bool> CheckIfStillValidAsync()
         {
-            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + 
+            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" + 
                                                             HockeyClient.Instance.AppIdentifier + "/identity/validate?" + 
                                                                 this.AuthType.IdCode + "=" + this.AuthType.IdFunc(this) , UriKind.Absolute));
             request.Method = "Get";
             request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
-            return (await DoAuthRequestHandleResponse(request)).IsIdentified;
+            return (await DoAuthRequestHandleResponseAsync(request)).IsIdentified;
         }
 
-        internal static async Task<IAuthStatus> DoAuthRequestHandleResponse(HttpWebRequest request)
+        internal static async Task<IAuthStatus> DoAuthRequestHandleResponseAsync(HttpWebRequest request)
         {
             WebResponse response = null;
             try
@@ -114,8 +150,20 @@ namespace HockeyApp.Model
                 }
                 else
                 {
-                    if ((e.Response as HttpWebResponse).StatusCode.Equals(HttpStatusCode.NotFound)
-                        || (e.Response as HttpWebResponse).StatusCode.Equals(HttpStatusCode.Unauthorized))
+                    if ((e.Response as HttpWebResponse).StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return AuthStatus.NotFoundAuthStatus;
+                    }
+                    else if ((e.Response as HttpWebResponse).StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        return AuthStatus.NotAuthorizedAuthStatus;
+                    }
+                        //sent if token is invalid
+                    else if ((int)(e.Response as HttpWebResponse).StatusCode == 422)
+                    {
+                        return AuthStatus.NotAuthorizedAuthStatus;
+                    }
+                    else
                     {
                         return AuthStatus.InvalidAuthStatus;
                     }
@@ -124,8 +172,6 @@ namespace HockeyApp.Model
             IAuthStatus checkedAuthStatus = await TaskEx.Run(() => AuthStatus.FromJson(response.GetResponseStream()));
             return checkedAuthStatus;
         }
-        public bool IsAuthorized { get { return this.AuthType.IsAuthorized; } }
-        public bool IsIdentified { get { return this.AuthType.IsIdentified; } }
     }
 
 }

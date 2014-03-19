@@ -118,147 +118,141 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AttachImg" xml:space="preserve">
-    <value>Attach image</value>
+    <value>Bild anhängen</value>
   </data>
   <data name="AuthAuthorizeButton" xml:space="preserve">
-    <value>Submit</value>
-    <comment>Login Popup</comment>
+    <value>Senden</value>
   </data>
   <data name="AuthAuthorizeNote" xml:space="preserve">
-    <value>Please enter your HockeyApp account's email address and password to authorize access to this app.</value>
+    <value>Geben Sie die E-Mail-Adresse und das Kennwort Ihres HockeyApp-Accounts ein, um Zugriff auf diese App zu erhalten.</value>
   </data>
   <data name="AuthCredentialsError" xml:space="preserve">
-    <value>You have entered an invalid email or password. Please check your input and try again.</value>
+    <value>E-Mail-Adresse oder Kennwort sind nicht korrekt. Bitte Eingaben prüfen und erneut versuchen.</value>
   </data>
   <data name="Authentication_AppSecretMissing" xml:space="preserve">
-    <value>The HockeySDK authorization secret has not been set. Please contact the developer of this app.</value>
+    <value>Das HockeyApp „Authorization Secret“ wurde nicht hinterlegt. Bitte wenden Sie sich an den Entwickler dieser App.</value>
   </data>
   <data name="AuthIdentifyButton" xml:space="preserve">
-    <value>Submit</value>
-    <comment>Login Popup</comment>
+    <value>Senden</value>
   </data>
   <data name="AuthIdentifyNote" xml:space="preserve">
-    <value>Please enter your HockeyApp account's email address to authorize access to this app.</value>
+    <value>Geben Sie die E-Mail-Adresse Ihres HockeyApp-Accounts ein, um Zugriff auf diese App zu erhalten.</value>
   </data>
   <data name="AuthNetworkError" xml:space="preserve">
-    <value>Failed to authorize because your device appears to be disconnected from the Internet. Please try again.</value>
+    <value>Die Autorisierung ist fehlgeschlagen, da Ihr Gerät anscheinend nicht mit dem Internet verbunden ist. Bitte erneut versuchen.</value>
   </data>
   <data name="AuthNoMemberError" xml:space="preserve">
-    <value>You are not authorized to use this app. Please contact the developer of this app.</value>
+    <value>Sie sind nicht berechtigt, diese App zu nutzen. Bitte wenden Sie sich an den Entwickler dieser App.</value>
   </data>
   <data name="AuthUnknownError" xml:space="preserve">
-    <value>Authorization error. Please contact the developer of this app.</value>
+    <value>Autorisierungsfehler. Bitte wenden Sie sich an den Entwickler dieser App.</value>
   </data>
   <data name="AuthWorking" xml:space="preserve">
-    <value>Working...</value>
+    <value>Bitte warten...</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="CrashData" xml:space="preserve">
-    <value>Crash Data</value>
+    <value>Abbrechen</value>
   </data>
   <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Löschen</value>
   </data>
   <data name="Dismiss" xml:space="preserve">
-    <value>Dismiss</value>
+    <value>Verwerfen</value>
   </data>
   <data name="Email" xml:space="preserve">
-    <value>Email:</value>
+    <value>E-Mail:</value>
   </data>
   <data name="EmailEmptyWarning" xml:space="preserve">
-    <value>Please enter a valid email.</value>
+    <value>Bitte geben Sie eine gültige E-Mail-Adresse an.</value>
   </data>
   <data name="FeedbackDateFormat" xml:space="preserve">
-    <value>dd/MM/yyyy HH:mm</value>
+    <value>dd.MM.yyyy HH:mm</value>
   </data>
   <data name="FeedbackDrawingColor" xml:space="preserve">
     <value>#FFFF0000</value>
   </data>
   <data name="FeedbackFetchError" xml:space="preserve">
-    <value>There has been a connection problem with the server. Please try again or contact the developer of this app.</value>
+    <value>Die Verbindung ist fehlgeschlagen. Bitte versuchen Sie es noch einmal oder kontaktieren Sie den Entwickler der App.</value>
   </data>
   <data name="FeedbackNoInternet" xml:space="preserve">
-    <value>Your device appears to be disconnected from the Internet. Please try again.</value>
+    <value>Ihr Gerät scheint nicht mit dem Internet verbunden zu sein. Bitte nochmal versuchen.</value>
   </data>
   <data name="FeedbackSendError" xml:space="preserve">
-    <value>Feedback error. Please try again or contact the developer of this app.</value>
+    <value>Die Verbindung ist fehlgeschlagen. Bitte versuchen Sie es noch einmal oder kontaktieren Sie den Entwickler der App.</value>
   </data>
   <data name="ImgClose" xml:space="preserve">
-    <value>Close</value>
+    <value>Schließen</value>
   </data>
   <data name="ImgDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>Löschen</value>
   </data>
   <data name="ImgOk" xml:space="preserve">
-    <value>Save</value>
+    <value>Speichern</value>
   </data>
   <data name="ImgReset" xml:space="preserve">
     <value>Reset</value>
   </data>
   <data name="Install" xml:space="preserve">
-    <value>Install</value>
+    <value>Installieren</value>
   </data>
   <data name="InstallProviderProfile" xml:space="preserve">
-    <value>Install Profile</value>
+    <value>Profil installieren</value>
   </data>
   <data name="Message" xml:space="preserve">
-    <value>Message</value>
+    <value>Nachricht</value>
   </data>
   <data name="MessageEmptyWarning" xml:space="preserve">
-    <value>Please enter a message or add an image as attachment.</value>
+    <value>Bitte geben Sie eine Nachricht ein oder hängen Sie ein Bild an.</value>
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name:</value>
   </data>
   <data name="NoUpdateAvailable" xml:space="preserve">
-    <value>There is currently no new version of the app available.</value>
+    <value>Aktuell ist keine neuere Version der App verfügbar.</value>
   </data>
   <data name="ReleaseNotes" xml:space="preserve">
     <value>Releasenotes</value>
   </data>
   <data name="Reply" xml:space="preserve">
-    <value>Reply</value>
+    <value>Antworten</value>
   </data>
   <data name="Send" xml:space="preserve">
-    <value>Send</value>
+    <value>Senden</value>
   </data>
   <data name="SendCrashQuestion" xml:space="preserve">
-    <value>The app quit unexpectedly. Would you like to send information about this to the developer?</value>
+    <value>Die Anwendung oder ein Hintergrundprozess ist abgestürzt, Möchten Sie einen Bericht senden, sodass wir das Problem beheben können?</value>
   </data>
   <data name="Show" xml:space="preserve">
-    <value>Show</value>
+    <value>Anzeigen</value>
   </data>
   <data name="Size" xml:space="preserve">
-    <value>Size</value>
+    <value>Größe</value>
   </data>
   <data name="Subject" xml:space="preserve">
-    <value>Subject:</value>
+    <value>Betreff:</value>
   </data>
   <data name="SubjectEmptyWarning" xml:space="preserve">
-    <value>Please enter a subject.</value>
+    <value>Bitte geben Sie einen Betreff ein.</value>
   </data>
   <data name="Update" xml:space="preserve">
     <value>Update</value>
-    <comment>Header for Update Popup</comment>
   </data>
   <data name="UpdateAvailable" xml:space="preserve">
-    <value>A new version of the app is available.</value>
+    <value>Eine neue Version der App ist verfügbar.</value>
   </data>
   <data name="UpdateInProgress" xml:space="preserve">
-    <value>Update in progress...</value>
+    <value>Update wird durchgeführt...</value>
   </data>
   <data name="UpdateNotification" xml:space="preserve">
-    <value>Update notification</value>
+    <value>Update Hinweis</value>
   </data>
   <data name="UserEmptyWarning" xml:space="preserve">
-    <value>Please enter a name.</value>
+    <value>Bitte geben Sie einen Namen ein.</value>
   </data>
   <data name="Version" xml:space="preserve">
     <value>Version</value>
   </data>
   <data name="Working" xml:space="preserve">
-    <value>Working...</value>
+    <value>Bitte warten...</value>
   </data>
 </root>

@@ -70,6 +70,33 @@ namespace HockeyApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit.
+        /// </summary>
+        public static string AuthAuthorizeButton {
+            get {
+                return ResourceManager.GetString("AuthAuthorizeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter your HockeyApp account&apos;s email address and password to authorize access to this app..
+        /// </summary>
+        public static string AuthAuthorizeNote {
+            get {
+                return ResourceManager.GetString("AuthAuthorizeNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You have entered an invalid email or password. Please check your input and try again..
+        /// </summary>
+        public static string AuthCredentialsError {
+            get {
+                return ResourceManager.GetString("AuthCredentialsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The HockeySDK authorization secret has not been set. Please contact the developer of this app..
         /// </summary>
         public static string Authentication_AppSecretMissing {
@@ -81,9 +108,54 @@ namespace HockeyApp {
         /// <summary>
         ///   Looks up a localized string similar to Submit.
         /// </summary>
-        public static string Authorize {
+        public static string AuthIdentifyButton {
             get {
-                return ResourceManager.GetString("Authorize", resourceCulture);
+                return ResourceManager.GetString("AuthIdentifyButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter your HockeyApp account&apos;s email address to authorize access to this app..
+        /// </summary>
+        public static string AuthIdentifyNote {
+            get {
+                return ResourceManager.GetString("AuthIdentifyNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to authorize because your device appears to be disconnected from the Internet. Please try again..
+        /// </summary>
+        public static string AuthNetworkError {
+            get {
+                return ResourceManager.GetString("AuthNetworkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not authorized to use this app. Please contact the developer of this app..
+        /// </summary>
+        public static string AuthNoMemberError {
+            get {
+                return ResourceManager.GetString("AuthNoMemberError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Authorization error. Please contact the developer of this app..
+        /// </summary>
+        public static string AuthUnknownError {
+            get {
+                return ResourceManager.GetString("AuthUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Working....
+        /// </summary>
+        public static string AuthWorking {
+            get {
+                return ResourceManager.GetString("AuthWorking", resourceCulture);
             }
         }
         
@@ -151,7 +223,16 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There has been a connection problem with the server. Please try again later..
+        ///   Looks up a localized string similar to #FFFF0000.
+        /// </summary>
+        public static string FeedbackDrawingColor {
+            get {
+                return ResourceManager.GetString("FeedbackDrawingColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There has been a connection problem with the server. Please try again or contact the developer of this app..
         /// </summary>
         public static string FeedbackFetchError {
             get {
@@ -160,7 +241,7 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No Internet connection available. Please try again later..
+        ///   Looks up a localized string similar to Your device appears to be disconnected from the Internet. Please try again..
         /// </summary>
         public static string FeedbackNoInternet {
             get {
@@ -169,20 +250,11 @@ namespace HockeyApp {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occcured. Please try again..
+        ///   Looks up a localized string similar to Feedback error. Please try again or contact the developer of this app..
         /// </summary>
         public static string FeedbackSendError {
             get {
                 return ResourceManager.GetString("FeedbackSendError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Submit.
-        /// </summary>
-        public static string Identify {
-            get {
-                return ResourceManager.GetString("Identify", resourceCulture);
             }
         }
         

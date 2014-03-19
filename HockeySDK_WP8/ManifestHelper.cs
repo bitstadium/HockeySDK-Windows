@@ -10,6 +10,9 @@ using System.Xml.Linq;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Helper class to reaed values from the WPManifest
+    /// </summary>
     public class ManifestHelper
     {
 

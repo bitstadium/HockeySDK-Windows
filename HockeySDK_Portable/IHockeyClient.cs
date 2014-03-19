@@ -7,7 +7,7 @@ namespace HockeyApp
 {
     public interface IHockeyClient
     {
-
+        #region Properties
         /// <summary>
         /// Base-URI of Hockey Server 
         /// </summary>
@@ -55,6 +55,9 @@ namespace HockeyApp
         /// </summary>
         string ContactInformation { get; set; }
 
+        #endregion
+
+        #region API calls
         /// <summary>
         /// Authenticate a user against hockeyapp.
         /// The returned IAuthStatus can be serialized and saved to later check if the token is still valid.
@@ -62,7 +65,7 @@ namespace HockeyApp
         /// <param name="email">email of the user</param>
         /// <param name="password">password of the user</param>
         /// <returns>an IAuthStatus containing the auid-token (if login is valid)</returns>
-        Task<IAuthStatus> AuthorizeUser(string email, string password);
+        Task<IAuthStatus> AuthorizeUserAsync(string email, string password);
 
         /// <summary>
         /// Identify a user against hockeyapp.
@@ -71,7 +74,7 @@ namespace HockeyApp
         /// <param name="email">email of the user</param>
         /// <param name="appSecret">appSecret of your app</param>
         /// <returns>an IAuthStatus containing the auid-token (if login is valid)</returns>
-        Task<IAuthStatus> IdentifyUser(string email, string appSecret);
+        Task<IAuthStatus> IdentifyUserAsync(string email, string appSecret);
 
         /// <summary>
         /// Creates a new Feedback-Thread. The thread is stored on the server with the posting of the first message.
@@ -91,7 +94,7 @@ namespace HockeyApp
         /// </summary>
         /// <returns>Metadata of the newest version of the app</returns>
         Task<IEnumerable<IAppVersion>> GetAppVersionsAsync();
-
+        
         /// <summary>
         /// Factory Method for ICrashData
         /// </summary>
@@ -99,12 +102,14 @@ namespace HockeyApp
         /// <param name="crashLogInfo"></param>
         /// <returns></returns>
         ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo);
-
+        
         /// <summary>
         /// Deserializes an ICrashData from stream information
         /// </summary>
         /// <param name="inputStream"></param>
         /// <returns></returns>
         ICrashData Deserialize(Stream inputStream);
+
+        #endregion
     }
 }

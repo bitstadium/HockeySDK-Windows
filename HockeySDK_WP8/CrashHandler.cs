@@ -46,6 +46,9 @@ namespace HockeyApp
         crash, user, contact, description
     }
 
+    /// <summary>
+    /// Providing Crash-Handling functionality with HockeyApp in your App
+    /// </summary>
     public sealed class CrashHandler
     {
         private static readonly CrashHandler instance = new CrashHandler();
@@ -108,7 +111,11 @@ namespace HockeyApp
                     userAgentName: Constants.UserAgentString,
                     sdkName: Constants.SdkName, 
                     sdkVersion: Constants.SdkVersion,
-                    descriptionLoader: descriptionLoader);
+                    descriptionLoader: descriptionLoader,
+                    os: Environment.OSVersion.Platform.ToString(),
+                    osVersion: Environment.OSVersion.Version.ToString(),
+                    device: GetDeviceModel(),
+                    oem: GetDeviceManufacturer());
                 if (rootFrame != null)
                 {
                     //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
@@ -198,6 +205,11 @@ namespace HockeyApp
             }
         }
 
+        /// <summary>
+        /// Handle saved crashes async. Checks if new error traces are available and notifies the user if he wants to send them.
+        /// </summary>
+        /// <param name="sendAutomatically">suppress the notification box and try to send crashes in the background.</param>
+        /// <returns>Awaitable Task. Result is true if crashes have been sent.</returns>
         public async Task<bool> HandleCrashesAsync(Boolean sendAutomatically = false)
         {
             if (NetworkInterface.GetIsNetworkAvailable())

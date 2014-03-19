@@ -33,7 +33,7 @@ namespace HockeyApp
     }
 
     /// <summary>
-    /// SEttings for update-checking
+    /// Settings for update-checking
     /// </summary>
     public class UpdateCheckSettings
     {
@@ -88,6 +88,9 @@ namespace HockeyApp
 
     }
 
+    /// <summary>
+    /// Provides automatic update functionality with HockeyApp
+    /// </summary>
     public class UpdateManager
     {
 
@@ -124,33 +127,37 @@ namespace HockeyApp
 
         internal void UpdateVersionIfAvailable(UpdateCheckSettings updateCheckSettings)
         {
+            //TODO manual mode and no network => show message
             if (CheckWithUpdateFrequency(updateCheckSettings.UpdateCheckFrequency) && NetworkInterface.GetIsNetworkAvailable())
             {
                 var task = HockeyClient.Instance.GetAppVersionsAsync();
                 task.ContinueWith((finishedTask) =>
                 {
-                    var appVersions = finishedTask.Result;
-                    var newestAvailableAppVersion = appVersions.FirstOrDefault();
-
-                    var currentVersion = new Version(ManifestHelper.GetAppVersion());
-                    if (appVersions.Any()
-                        && new Version(newestAvailableAppVersion.Version) > currentVersion
-                        && (updateCheckSettings.CustomDoShowUpdateFunc == null || updateCheckSettings.CustomDoShowUpdateFunc(newestAvailableAppVersion)))
+                    if (finishedTask.Exception == null)
                     {
-                        if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp) || (updateCheckSettings.EnforceUpdateIfMandatory && newestAvailableAppVersion.Mandatory))
+                        var appVersions = finishedTask.Result;
+                        var newestAvailableAppVersion = appVersions.FirstOrDefault();
+
+                        var currentVersion = new Version(ManifestHelper.GetAppVersion());
+                        if (appVersions.Any()
+                            && new Version(newestAvailableAppVersion.Version) > currentVersion
+                            && (updateCheckSettings.CustomDoShowUpdateFunc == null || updateCheckSettings.CustomDoShowUpdateFunc(newestAvailableAppVersion)))
                         {
-                            ShowVersionPopup(currentVersion, appVersions, updateCheckSettings);
+                            if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp) || (updateCheckSettings.EnforceUpdateIfMandatory && newestAvailableAppVersion.Mandatory))
+                            {
+                                ShowVersionPopup(currentVersion, appVersions, updateCheckSettings);
+                            }
+                            else
+                            {
+                                ShowUpdateNotification(currentVersion, appVersions, updateCheckSettings);
+                            }
                         }
                         else
                         {
-                            ShowUpdateNotification(currentVersion, appVersions, updateCheckSettings);
-                        }
-                    }
-                    else
-                    {
-                        if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp))
-                        {
-                            Scheduler.Dispatcher.Schedule(() => MessageBox.Show(LocalizedStrings.LocalizedResources.NoUpdateAvailable));
+                            if (updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp))
+                            {
+                                Scheduler.Dispatcher.Schedule(() => MessageBox.Show(LocalizedStrings.LocalizedResources.NoUpdateAvailable));
+                            }
                         }
                     }
                 });
@@ -186,7 +193,6 @@ namespace HockeyApp
         {
             Scheduler.Dispatcher.Schedule(() =>
             {
-                //TODO hooks for customizing
                 UpdatePopupTool.ShowPopup(currentVersion, appVersions, updateCheckSettings, DoUpdate);
             });
         }

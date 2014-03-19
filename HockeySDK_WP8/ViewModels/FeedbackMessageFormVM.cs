@@ -17,10 +17,16 @@ namespace HockeyApp.ViewModels
     public class FeedbackMessageFormVM: VMBase
     {
 
+        #region fields
+
         FeedbackMessageFormControl view;
         bool isLightTheme;
         Style darkTextBoxStyle;
         Style lightTextBoxStyle;
+
+        #endregion
+
+        #region ctor
 
         public FeedbackMessageFormVM(FeedbackPageVM parentVM, FeedbackMessageFormControl view)
         {
@@ -31,18 +37,6 @@ namespace HockeyApp.ViewModels
             lightTextBoxStyle = view.Resources["inputDark"] as Style;
             darkTextBoxStyle = view.Resources["inputLight"] as Style;
         }
-
-
-        public Style TextBoxStyle
-        {
-            get
-            {
-                return isLightTheme ? lightTextBoxStyle : darkTextBoxStyle;
-            }
-        }
-
-        protected FeedbackPageVM ParentVM { get; set; }
-
         internal void SetFormFieldDefaults()
         {
             Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -53,6 +47,82 @@ namespace HockeyApp.ViewModels
                 this.Subject = persistedValues.Subject;
             });
         }
+
+        #endregion
+
+        #region Properties
+
+        public Style TextBoxStyle
+        {
+            get
+            {
+                return isLightTheme ? lightTextBoxStyle : darkTextBoxStyle;
+            }
+        }
+        protected FeedbackPageVM ParentVM { get; set; }
+
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                NotifyOfPropertyChange("Email");
+            }
+        }
+
+        private string subject;
+        public string Subject
+        {
+            get { return subject; }
+            set
+            {
+                subject = value;
+                NotifyOfPropertyChange("Subject");
+            }
+        }
+
+        private string message;
+        public string Message
+        {
+            get { return message; }
+            set
+            {
+                message = value;
+                NotifyOfPropertyChange("Message");
+            }
+        }
+
+        private string username;
+        public string Username
+        {
+            get { return username; }
+            set
+            {
+                username = value;
+                NotifyOfPropertyChange("Username");
+            }
+        }
+
+        private ObservableCollection<FeedbackImageVM> attachments = new ObservableCollection<FeedbackImageVM>();
+        public ObservableCollection<FeedbackImageVM> Attachments
+        {
+            get { return attachments; }
+        }
+        public void AddAttachment(FeedbackImageVM attachment)
+        {
+            this.Attachments.Add(attachment);
+        }
+
+        public void RemoveAttachment(FeedbackImageVM attachment)
+        {
+            this.Attachments.Remove(attachment);
+        }
+
+        #endregion
+
+        #region Commandmethods
 
         protected bool ValidateInput()
         {
@@ -130,69 +200,6 @@ namespace HockeyApp.ViewModels
             });
         }
 
-        #region Properties
-
-        private string email;
-        public string Email
-        {
-            get { return email; }
-            set
-            {
-                email = value;
-                NotifyOfPropertyChange("Email");
-            }
-        }
-
-        private string subject;
-        public string Subject
-        {
-            get { return subject; }
-            set
-            {
-                subject = value;
-                NotifyOfPropertyChange("Subject");
-            }
-        }
-
-        private string message;
-        public string Message
-        {
-            get { return message; }
-            set
-            {
-                message = value;
-                NotifyOfPropertyChange("Message");
-            }
-        }
-
-        private string username;
-        public string Username
-        {
-            get { return username; }
-            set
-            {
-                username = value;
-                NotifyOfPropertyChange("Username");
-            }
-        }
-
-        private ObservableCollection<FeedbackImageVM> attachments = new ObservableCollection<FeedbackImageVM>();
-        public ObservableCollection<FeedbackImageVM> Attachments
-        {
-            get { return attachments; }
-        }
-        public void AddAttachment(FeedbackImageVM attachment)
-        {
-            this.Attachments.Add(attachment);
-        }
-
-        public void RemoveAttachment(FeedbackImageVM attachment)
-        {
-            this.Attachments.Remove(attachment);
-        }
-
-        #endregion
-
         internal async Task ShowPhotoResult(PhotoResult result)
         {
             var imageVM = new FeedbackImageVM(this.ParentVM);
@@ -220,5 +227,7 @@ namespace HockeyApp.ViewModels
             Attachments.Add(imageVM);
             this.ParentVM.SwitchToImageEditor(imageVM);
         }
+        #endregion
+
     }
 }

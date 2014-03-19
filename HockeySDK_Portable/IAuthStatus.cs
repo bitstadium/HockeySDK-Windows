@@ -8,9 +8,10 @@ namespace HockeyApp
 {
     public interface IAuthStatus
     {
-        Task<bool> CheckIfStillValid();
+        Task<bool> CheckIfStillValidAsync();
         bool IsAuthorized { get; }
         bool IsIdentified { get; }
-    
+        bool IsPermissionError { get; }
+        bool IsCredentialError { get; }
     }
 }

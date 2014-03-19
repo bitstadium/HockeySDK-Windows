@@ -23,6 +23,8 @@ namespace HockeyApp.ViewModels
         public Task Initialization { get; private set; }
         Action<FeedbackViewState> switchViewStateAction;
 
+        #region ctor
+
         public FeedbackPageVM(Action<FeedbackViewState> switchViewStateAction)
         {
             this.ThreadInfo = FeedbackManager.Instance.FeedbackPageTopTitle;
@@ -83,6 +85,8 @@ namespace HockeyApp.ViewModels
             HideOverlay();
         }
 
+        #endregion
+
         #region Properties
 
         private string threadinfo;
@@ -116,13 +120,15 @@ namespace HockeyApp.ViewModels
                 NotifyOfPropertyChange("IsThreadActive");
             }
         }
-        #endregion
 
         ObservableCollection<FeedbackMessageReadOnlyVM> messages = new ObservableCollection<FeedbackMessageReadOnlyVM>();
         public ObservableCollection<FeedbackMessageReadOnlyVM> Messages
         {
             get { return messages; }
         }
+        #endregion
+        
+        #region cmd-methods
 
         public void SwitchToMessageList()
         {
@@ -176,5 +182,6 @@ namespace HockeyApp.ViewModels
             }
         }
 
+        #endregion
     }
 }

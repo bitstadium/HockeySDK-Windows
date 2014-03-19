@@ -14,10 +14,26 @@ using HockeyApp.Tools;
 
 namespace HockeyApp
 {
-    public enum TokenValidationPolicy { Never, EveryLogin, OnNewVersion }
-    public enum AuthenticationMode { Authorize, Identify }
-    public enum AuthValidationMode { Strict, Graceful }
+    public enum TokenValidationPolicy
+    {
+        Never, 
+        EveryLogin, 
+        OnNewVersion
+    }
+    public enum AuthenticationMode
+    {
+        Authorize,
+        Identify
+    }
+    public enum AuthValidationMode
+    {
+        Strict,
+        Graceful
+    }
 
+    /// <summary>
+    /// Class for authentication of users with hockeyapp credentials
+    /// </summary>
     public class AuthManager
     {
         private static readonly AuthManager instance = new AuthManager();
@@ -37,7 +53,7 @@ namespace HockeyApp
         /// Store data encrypted in the isolatedStorage
         /// </summary>
         /// <param name="dataIdentifier">identifier for the data to write</param>
-        /// <param name="data"></param>
+        /// <param name="data">the data to store</param>
         public void StoreStringProtected(string dataIdentifier, string data)
         {
             byte[] protectedData = ProtectedData.Protect(Encoding.UTF8.GetBytes(data), Encoding.UTF8.GetBytes("hockeyAppIsCool"));
@@ -80,14 +96,6 @@ namespace HockeyApp
             return Encoding.UTF8.GetString(dataBytes, 0, dataBytes.Length);
         }
 
-        private Uri _failRedirect;
-        internal Uri FailRedirect
-        {
-            get { return _failRedirect; }
-            set { _failRedirect = value; }
-        }
-
-
         private Uri _successRedirect;
         internal Uri SuccessRedirect
         {
@@ -112,11 +120,18 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// Manage user login against hockeyapp service, will show a login popup if no valid token is available, or data is missing (email, pw)
-        /// HockeyClient needs to be configured before calling this method (normally done by configuring a crahshandler in the App() constructor)
+        /// Authenticate a user against the hockeyapp service. Will show a login popup if no valid token is available.
+        /// HockeyClient needs to be configured before calling this method, which is automatically done internally when you configure a CrashHandler in the App() constructor.
         /// </summary>
-        public void DoUserAuthentication(NavigationService navigationService, Uri successRedirect, Uri failRedirect, AuthenticationMode authMode = AuthenticationMode.Authorize,
-            TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin, AuthValidationMode authValidaationMode = AuthValidationMode.Graceful,
+        /// <param name="navigationService">the navigation service - needed to navigate to the login-page. Just use this.NavigationService from your view.</param>
+        /// <param name="successRedirect">The URI for the page to redirect to after successfull login</param>
+        /// <param name="authMode">[optional] (default: Authorize) AuthMode (Identify uses only the email-adresse, Authorize email and password)</param>
+        /// <param name="tokenValidationPolicy">[optional] (default: EveryLogin) Policy for revalidation (every login or only after updates)</param>
+        /// <param name="authValidationMode">[optional] (default: Graceful) Mode for token-Validation (Strict needs a network-connection on every login)</param>
+        /// <param name="email">[optional] inititalize email of the user</param>
+        /// <param name="appSecret">[optional] HockeyApp AppSecret of your App. only needed for AuthMode.Identify</param>
+        public void AuthenticateUser(NavigationService navigationService, Uri successRedirect, AuthenticationMode authMode = AuthenticationMode.Authorize,
+            TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin, AuthValidationMode authValidationMode = AuthValidationMode.Graceful,
             string email = null, string appSecret = null)
         {
             if (AuthenticationMode.Identify.Equals(authMode) && String.IsNullOrEmpty(appSecret))
@@ -124,13 +139,12 @@ namespace HockeyApp
                 throw new ApplicationException(LocalizedStrings.LocalizedResources.Authentication_AppSecretMissing);
             }
             this.SuccessRedirect = successRedirect;
-            this.FailRedirect = failRedirect;
 
             bool needsLogin = TokenValidationPolicy.EveryLogin.Equals(tokenValidationPolicy);
 
             if(!needsLogin && TokenValidationPolicy.OnNewVersion.Equals(tokenValidationPolicy)) {
                 string lastAuthorizedVersion = IsolatedStorageSettings.ApplicationSettings.GetValue(Constants.AuthLastAuthorizedVersionKey) as String;
-                needsLogin = (lastAuthorizedVersion == null) || (new Version(lastAuthorizedVersion) >= new Version(ManifestHelper.GetAppVersion()));
+                needsLogin = (lastAuthorizedVersion == null) || (new Version(lastAuthorizedVersion) < new Version(ManifestHelper.GetAppVersion()));
             }
 
             if (needsLogin)
@@ -138,7 +152,25 @@ namespace HockeyApp
                 navigationService.Navigate(new Uri("/HockeyApp;component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
                                                                 + "&appsecret=" + HttpUtility.UrlEncode(appSecret)
                                                                 + "&email=" + HttpUtility.UrlEncode(email ?? "")
-                                                                + "&validationmode=" + HttpUtility.UrlEncode(authValidaationMode.ToString() ?? ""), UriKind.Relative));
+                                                                + "&validationmode=" + HttpUtility.UrlEncode(authValidationMode.ToString() ?? ""), UriKind.Relative));
+            }
+            else
+            {
+                navigationService.Navigate(successRedirect);
+            }
+        }
+
+        /// <summary>
+        /// Removes the user token from the phone store, so on the next call to AuthenticateUser the Loginscreen is shown.
+        /// Effectively this serves as a logout from your app. In most cases you want to call AuthenticateUser() immediatley after RemoveUserToken
+        /// </summary>
+        public void RemoveUserToken()
+        {
+            IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication();
+            var filename = Constants.AuthStatusKey + ".crypt";
+            if (file.FileExists(filename))
+            {
+                file.DeleteFile(filename);
             }
         }
 
@@ -159,13 +191,7 @@ namespace HockeyApp
 
         public void HandleLoginURI(Uri uri)
         {
-            //TODO
-        }*/
-
-        /*
-         public override Uri MapUri(Uri uri)
-        {
-            tempUri = System.Net.HttpUtility.UrlDecode(uri.ToString());
+         tempUri = System.Net.HttpUtility.UrlDecode(uri.ToString());
 
             // URI association launch for contoso.
             if (tempUri.Contains("contoso:ShowProducts?CategoryID="))
@@ -180,9 +206,8 @@ namespace HockeyApp
 
             // Otherwise perform normal launch.
             return uri;
-            }
-        }
-        */
+         
+        }*/
 
     }
 }

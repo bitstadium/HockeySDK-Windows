@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HockeyApp.ViewModels
 {
     public class LoginPageVM : VMBase
     {
-        public string Email { get; set; }
+        private string email;
+        public string Email
+        {
+            get { return email; }
+            set
+            {
+                email = value;
+                NotifyOfPropertyChange("Email");
+            }
+        }
+
         public string AppSecret { get; set; }
-        public string Password { get; set; }
         public AuthenticationMode AuthMode { get; set; }
 
-        public bool IsAuthorize {get{ return AuthenticationMode.Authorize.Equals(this.AuthMode);}}
+        public bool IsAuthorize { get { return AuthenticationMode.Authorize.Equals(this.AuthMode); } }
         public bool IsIdentify { get { return AuthenticationMode.Identify.Equals(this.AuthMode); } }
 
         public string HeaderText
@@ -21,9 +31,8 @@ namespace HockeyApp.ViewModels
             get
             {
                 return AuthenticationMode.Authorize.Equals(this.AuthMode) ?
-                         LocalizedStrings.LocalizedResources.Authorize as String
-                         : LocalizedStrings.LocalizedResources.Identify as String;
-
+                         LocalizedStrings.LocalizedResources.AuthAuthorizeNote as String
+                         : LocalizedStrings.LocalizedResources.AuthIdentifyNote as String;
             }
         }
 
@@ -32,61 +41,59 @@ namespace HockeyApp.ViewModels
             get
             {
                 return AuthenticationMode.Authorize.Equals(this.AuthMode) ?
-                         LocalizedStrings.LocalizedResources.Authorize as String
-                         : LocalizedStrings.LocalizedResources.Identify as String;
+                         LocalizedStrings.LocalizedResources.AuthAuthorizeButton as String
+                         : LocalizedStrings.LocalizedResources.AuthIdentifyButton as String;
             }
         }
 
-        public bool IsShowOverlay { get; set; }
-
-        internal async Task<bool> IdentifyUser()
+        private bool isShowOverlay;
+        public bool IsShowOverlay
         {
+            get { return isShowOverlay; }
+            set
+            {
+                isShowOverlay = value;
+                NotifyOfPropertyChange("IsShowOverlay");
+            }
+        }
+        
+
+        internal async Task<IAuthStatus> IdentifyUserAsync()
+        {
+            IAuthStatus status = null;
             try
             {
                 IsShowOverlay = true;
-                IAuthStatus status = await HockeyClient.Instance.IdentifyUser(this.Email, this.AppSecret);
+                status = await HockeyClient.Instance.IdentifyUserAsync(this.Email, this.AppSecret);
                 if (status.IsIdentified)
                 {
                     AuthManager.Instance.CurrentAuthStatus = status;
-                    IsShowOverlay = false;
-                    return true;
-                }
-                else {
-                    IsShowOverlay = false;
-                    //TODO Fehler anzeigen!!
-                    return false; 
                 }
             }
-            catch (Exception)
+            finally
             {
                 IsShowOverlay = false;
-                throw;
             }
+            return status;
         }
 
-        internal async Task<bool> AuthorizeUser(string password)
+        internal async Task<IAuthStatus> AuthorizeUserAsync(string password)
         {
+            IAuthStatus status = null;
             try
             {
                 IsShowOverlay = true;
-                IAuthStatus status = await HockeyClient.Instance.AuthorizeUser(this.Email, password ?? "");
+                status = await HockeyClient.Instance.AuthorizeUserAsync(this.Email, password ?? "");
                 if (status.IsAuthorized)
                 {
                     AuthManager.Instance.CurrentAuthStatus = status;
-                    IsShowOverlay = false;
-                    return true;
                 }
-                else {
-                    IsShowOverlay = false;
-                    return false; }
             }
-            catch (Exception)
+            finally
             {
                 IsShowOverlay = false;
-                throw;
             }
+            return status;
         }
-
-        
     }
 }

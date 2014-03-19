@@ -89,7 +89,8 @@ namespace HockeyApp.Views
             var MyStylusPointCollection = new StylusPointCollection();
             MyStylusPointCollection.Add(e.StylusDevice.GetStylusPoints(ImageArea));
             _newStroke = new Stroke(MyStylusPointCollection);
-            _newStroke.DrawingAttributes.Color = Colors.Red; //TODO Farbe wählen lassen ?!
+            _newStroke.DrawingAttributes.Color = (LocalizedStrings.LocalizedResources.FeedbackDrawingColor as string).ConvertStringToColor(Colors.Red);
+                
             ImageArea.Strokes.Add(_newStroke);
         }
        
