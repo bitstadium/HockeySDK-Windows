@@ -142,6 +142,7 @@ namespace HockeyApp
             _instance.VersionInfo = versionInfo;
             _instance.UserID = userID;
             _instance.ContactInformation = contactInformation;
+            _instance._descriptionLoader = descriptionLoader;
             #pragma warning disable 618 // disable obsolete warning!
             _instance.ApiBase = apiBase ?? SDKConstants.PublicApiBase;
             #pragma warning disable 618
