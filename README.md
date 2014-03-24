@@ -85,7 +85,7 @@ Use the next line right after the call to HandleCrashes() to check for updates a
 3. After the sdk is configured, all non handled exceptions are caught by the sdk. 
 4. Crashdata is send using `HockeyApp.HockeyClientWinRT.Instance.SendCrashesNowAsync();`
 * The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWinRT.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWinRT.Instance.CrashesAvailableCount`
-* Crashed can be deleted using `HockeyApp.HockeyClientWinRT.Instance.DeleteAllCrashes()`
+* Crashed can be deleted using `HockeyApp.HockeyClientWinRT.Instance.DeleteAllCrashes()`. This function is for debugging purposes. Crashes do not have to be deleted. Crashes are deleted by SendCrashesNowAsync() when they are submitted to HockeyApp. Crashes are not deleted, if a web exception occurs. If the files are cirrupt (e.g. formatting), the crashes are deleted anyway.
 
 ### Use Feedback
 In the SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens
@@ -108,7 +108,7 @@ Creating a new Feedback:
 3. After the sdk is configured, all non handled exceptions are caught by the sdk. Exception information are written to the filesystem (%APPDATA%)
 4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNowAsync();</pre>
 * The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWPF.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWPF.Instance.CrashesAvailableCount`
-* Crashed can be deleted using `HockeyApp.HockeyClientWPF.Instance.DeleteAllCrashes()`
+* Crashed can be deleted using `HockeyApp.HockeyClientWPF.Instance.DeleteAllCrashes()`. This function is for debugging purposes. Crashes do not have to be deleted. Crashes are deleted by SendCrashesNowAsync() when they are submitted to HockeyApp. Crashes are not deleted, if a web exception occurs. If the files are cirrupt (e.g. formatting), the crashes are deleted anyway.
 
 ### Use Feedback
 In the WPF SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens
