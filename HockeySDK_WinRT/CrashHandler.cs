@@ -69,19 +69,20 @@ namespace HockeyApp
                 StorageFolder crashFolder = null;
                 try
                 {
-                    crashFolder = await localFolder.GetFolderAsync(Constants.CRASHPATHNAME);
+                    crashFolder = localFolder.GetFolderAsync(Constants.CRASHPATHNAME).AsTask().Result;
                 }
-                catch { 
+                catch
+                {
                 }
                 if (crashFolder == null)
                 {
-                    crashFolder = await localFolder.CreateFolderAsync(Constants.CRASHPATHNAME);
+                    crashFolder = localFolder.CreateFolderAsync(Constants.CRASHPATHNAME).AsTask().Result;
                 }
                 string crashID = Guid.NewGuid().ToString();
-                StorageFile crashFile = await crashFolder.CreateFileAsync(String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID));
+                StorageFile crashFile = crashFolder.CreateFileAsync(String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID)).AsTask().Result;
                 ICrashData crash = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
 
-                Stream stream = await crashFile.OpenStreamForWriteAsync();
+                Stream stream = crashFile.OpenStreamForWriteAsync().Result;
                 crash.Serialize(stream);
                 stream.Dispose();
             }
