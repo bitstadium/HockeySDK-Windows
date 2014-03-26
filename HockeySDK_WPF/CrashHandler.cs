@@ -117,6 +117,9 @@ namespace HockeyApp
 
         internal async Task SendCrashesNowAsync()
         {
+
+            //System Semaphore would be another possibility. But the worst thing that can happen now, is
+            //that a crash is send twice.
             if (!System.Threading.Monitor.TryEnter(this))
             {
                 logger.Warn("Sending crashes was called multiple times!");
@@ -133,21 +136,17 @@ namespace HockeyApp
                         logger.Info("Crashfile found: {0}", crashFileName);
                         try
                         {
-                            FileStream fs = File.OpenRead(crashFileName);
+                            FileStream fs = File.Open(crashFileName, FileMode.Open, FileAccess.ReadWrite);
                             ICrashData cd = HockeyClient.Instance.Deserialize(fs);
-                            fs.Close();
                             await cd.SendDataAsync();
+                            fs.Close();
+                            //if the process switch occurs between those lines the worst that can happen is that a crash is sent twice.
                             File.Delete(crashFileName);
                             logger.Info("Crashfile sent and deleted: {0}", crashFileName);
-                        }
-                        catch (WebTransferException ex)
-                        {
-                            this.logger.Error(ex);
                         }
                         catch (Exception ex)
                         {
                             this.logger.Error(ex);
-                            File.Delete(crashFileName);
                         }
                     }
                 }

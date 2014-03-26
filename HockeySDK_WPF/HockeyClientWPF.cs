@@ -30,14 +30,14 @@ namespace HockeyApp
         /// Configures the HockeyAppSDK
         /// </summary>
         /// <param name="appIdentifier">Identifier of the app</param>
-        /// <param name="appVersionInformation">version of the app</param>
+        /// <param name="appVersionInformation">optional version of the app. If null the executing assembly version is used</param>
         /// <param name="userID">optional user id - e.g. the logged in user</param>
         /// <param name="contactInformation">optional contact information like an email adress</param>
         /// <param name="descriptionLoader">optional delegate for attaching description information like event logs etc. Can be null.</param>
         /// <param name="apiBase">optional: apiBase - if not the standard is used</param>
         /// <param name="keepRunning">optional: if an unhandled exception is thrown on the dispatcher thread, the system can be kept alive - default is false</param>
         public void Configure(string appIdentifier, 
-                            string appVersionInformation,
+                            string appVersionInformation = null,
                             string userID = null, 
                             string contactInformation = null,
                             Func<Exception, string> descriptionLoader = null,
@@ -54,8 +54,12 @@ namespace HockeyApp
             logger.Info("Configure HockeyClientWPF with appIdentifier={0}, userID={1}, contactInformation={2}, descriptionLoader available{3}, sendCrashesAutomatically={4}, apiBase={5}",
                 new object[] { appIdentifier, userID, contactInformation, (descriptionLoader != null).ToString(),apiBase });
 
+            string  myAppVersion= string.IsNullOrEmpty(appVersionInformation)?
+                Assembly.GetCallingAssembly().GetName().Version.ToString()
+                :appVersionInformation;
+
             HockeyClient.ConfigureInternal(appIdentifier,
-                appVersionInformation,
+                myAppVersion,
                 apiBase: apiBase,
                 userID: userID,
                 contactInformation: contactInformation,
@@ -111,6 +115,20 @@ namespace HockeyApp
             return await HockeyClient.Instance.OpenFeedbackThreadAsync(feedbackToken);
         }
 
+        #endregion
+
+        #region Update
+        private IUpdateManager _updateManager = null;
+        public IUpdateManager UpdateManager {
+            get
+            {
+                if (this._updateManager == null)
+                {
+                    this._updateManager = new UpdateManager();
+                }
+                return this._updateManager;
+            }
+        }
         #endregion
     }
 }

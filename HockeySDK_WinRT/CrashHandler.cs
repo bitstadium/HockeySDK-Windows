@@ -31,9 +31,9 @@ namespace HockeyApp
             XElement identityElement = xml.Element(XName.Get("Identity", ns));
 
             this._logInfo.PackageName = Application.Current.GetType().Namespace;
-            this._logInfo.Version = identityElement.Attribute("Version").ToString();
+            this._logInfo.Version = identityElement.Attribute("Version").Value.ToString();
             this._logInfo.OperatingSystem = "WinRT";
-            this._logInfo.ProductID = identityElement.Attribute("Name").ToString();
+            this._logInfo.ProductID = identityElement.Attribute("Name").Value.ToString();
         }
 
 
