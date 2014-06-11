@@ -63,28 +63,20 @@ namespace HockeyApp
 
         private async Task HandleException(Exception e)
         {
+            var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
+            var crashId = Guid.NewGuid();
+
             try
             {
-                StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-                StorageFolder crashFolder = null;
-                try
-                {
-                    crashFolder = localFolder.GetFolderAsync(Constants.CRASHPATHNAME).AsTask().Result;
-                }
-                catch
-                {
-                }
-                if (crashFolder == null)
-                {
-                    crashFolder = localFolder.CreateFolderAsync(Constants.CRASHPATHNAME).AsTask().Result;
-                }
-                string crashID = Guid.NewGuid().ToString();
-                StorageFile crashFile = crashFolder.CreateFileAsync(String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID)).AsTask().Result;
-                ICrashData crash = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
+                var store = ApplicationData.Current.LocalFolder;
+                var folder = await store.CreateFolderAsync(Constants.CRASHPATHNAME, CreationCollisionOption.OpenIfExists);
 
-                Stream stream = crashFile.OpenStreamForWriteAsync().Result;
-                crash.Serialize(stream);
-                stream.Dispose();
+                var filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
+                var file = await folder.CreateFileAsync(filename);
+                using (var stream = await file.OpenStreamForWriteAsync())
+                {
+                    crashData.Serialize(stream);
+                }
             }
             catch (Exception ex)
             {
@@ -98,7 +90,7 @@ namespace HockeyApp
         internal async Task<List<StorageFile>> GetCrashFiles()
         {
             List<StorageFile> retVal = new List<StorageFile>();
-            StorageFolder localFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            StorageFolder localFolder = ApplicationData.Current.LocalFolder;
             StorageFolder crashFolder = null;
             try
             {
@@ -117,7 +109,7 @@ namespace HockeyApp
             return retVal;
         }
 
-        internal async void DeleteAllCrashes()
+        internal async Task DeleteAllCrashesAsync()
         {
             foreach (StorageFile file in await GetCrashFiles())
             {
