@@ -70,9 +70,9 @@ namespace HockeyApp
         /// <returns>Task</returns>
         public async Task SendCrashesNow() {await this._crashHandler.SendCrashesNowAsync(); }
 
-        public void DeleteAllCrashes()
+        public Task DeleteAllCrashesAsync()
         {
-            this._crashHandler.DeleteAllCrashes();
+            return this._crashHandler.DeleteAllCrashesAsync();
         }
 
         #endregion
