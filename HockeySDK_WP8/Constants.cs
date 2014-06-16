@@ -11,7 +11,7 @@ namespace HockeyApp
         internal const string CrashDirectoryName = "CrashLogs";
         internal const string CrashFilePrefix = "crashinfo_";
         internal const string SdkName = "HockeySDKWP8";
-        internal const string SdkVersion = "2.1.0-beta4";
+        internal const string SdkVersion = "2.1.0-beta6";
         internal const string ApiBase = "https://rink.hockeyapp.net";
         internal const string UserAgentString = "Hockey/WP8";
 
