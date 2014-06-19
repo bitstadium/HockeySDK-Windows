@@ -38,8 +38,8 @@ namespace HockeyApp
                 throw new Exception("ApiBase must not be empty!");
             }
 
-            logger.Info("Configure HockeyClientWPF with appIdentifier={0}, userID={1}, contactInformation={2}, descriptionLoader available{3}, sendCrashesAutomatically={4}, apiBase={5}",
-                new object[] { appIdentifier, userID, contactInformation, (descriptionLoader != null).ToString(),apiBase });
+            logger.Info("Configure HockeyClientWPF with appIdentifier={0}, userID={1}, contactInformation={2}, descriptionLoader available{3}, apiBase={4}",
+                appIdentifier, userID, contactInformation, (descriptionLoader != null).ToString(), apiBase);
 
             HockeyClient.ConfigureInternal(appIdentifier,
                 appVersionInformation,
