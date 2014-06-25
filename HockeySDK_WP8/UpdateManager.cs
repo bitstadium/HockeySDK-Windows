@@ -199,8 +199,8 @@ namespace HockeyApp
 
         internal async void DoUpdate(IAppVersion availableUpdate)
         {
-            var aetxUri = new Uri(Constants.ApiBase + "apps/" + HockeyClient.Instance.AppIdentifier + ".aetx", UriKind.Absolute);
-            var downloadUri = new Uri(Constants.ApiBase + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
+            var aetxUri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + HockeyClient.Instance.AppIdentifier + ".aetx", UriKind.Absolute);
+            var downloadUri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
             //it won't get the result anyway because this app-instance will get killed during the update
             //TODO try catch to show message to the user?

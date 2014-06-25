@@ -49,7 +49,7 @@
                            Height="96">
                 </Image>
                 <StackPanel>
-                    <TextBlock Text="{Binding NewestVersion.title}" Style="{StaticResource PhoneTextLargeStyle}"
+                    <TextBlock Text="{Binding NewestVersion.Title}" Style="{StaticResource PhoneTextLargeStyle}"
                                    TextWrapping="NoWrap"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Path=LocalizedResources[Version], Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextSmallStyle}"/>
