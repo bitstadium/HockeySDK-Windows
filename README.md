@@ -20,6 +20,7 @@ If you want to use the nuget packages make sure you have prerelease filter activ
 * Automatic crash reporting (store and beta apps)
 * Feedback page (store and beta apps): Let your users send you feedback messages via HockeyApp 
 * Automatic updates (only beta apps): Either all beta users must have developer unlocked phones or you need to either use an Enterprise Certificate to sign your beta apps. See http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206943(v=vs.105).aspx
+* Authorization using HockeyApp logins
 
 ### Windows Phone 7.5
 Deprecated but still available (no Nuget package available -> use the source)
@@ -72,6 +73,26 @@ if you don't have access to NavigationService in your ViewModels (like when usin
 ### Use automatic updates
 Use the next line right after the call to HandleCrashes() to check for updates and present them to the user automatically
 <pre>UpdateManager.RunUpdateCheck(Constants.HockeyAppAppId);</pre>
+
+### Use HockeyApp Authentication
+You can require the user to either identify a user by their email address or let the user authorize himself with email and password.
+
+* Authorization
+<pre>
+AuthManager.Instance.AuthenticateUser(NavigationService, 
+                        new Uri("/RedirectToThisPageOnSuccess.xaml", UriKind.Relative), 
+                        tokenValidationPolicy: TokenValidationPolicy.EveryLogin);
+</pre>
+* Identification
+<pre>
+AuthManager.Instance.AuthenticateUser(NavigationService, 
+                        new Uri("/RedirectToThisPageOnSuccess.xaml", UriKind.Relative),
+                        tokenValidationPolicy: TokenValidationPolicy.OnNewVersion,
+                        authMode: AuthenticationMode.Identify,
+                        appSecret: "yourAppSecretFromHockeyApp");
+</pre>
+* Logout the user
+<pre>AuthManager.Instance.RemoveUserToken(); </pre>
 
 ## Getting started with Windows 8.1 (Windows RT)
 1. Open your App.xaml.cs and add the following to the OnLaunched method before the `Window.Current.Activate();`.
