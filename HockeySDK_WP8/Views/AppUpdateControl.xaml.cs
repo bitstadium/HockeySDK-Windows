@@ -35,7 +35,13 @@ namespace HockeyApp.Views
             this.ReleaseNotesBrowser.Opacity = 0;
             this.ReleaseNotesBrowser.Navigated += (sender, e) => { (this.ReleaseNotesBrowser.Resources["fadeIn"] as Storyboard).Begin(); };
             this.ReleaseNotesBrowser.NavigateToString(WebBrowserHelper.WrapContent(NewestVersion.Notes));
-
+            this.ReleaseNotesBrowser.Navigating += (sender, e) =>
+            {
+                e.Cancel = true;
+                WebBrowserTask browserTask = new WebBrowserTask();
+                browserTask.Uri = e.Uri;
+                browserTask.Show();
+            };
             this.InstallAETX.Click += (sender, e) =>
             {
                 WebBrowserTask webBrowserTask = new WebBrowserTask();
