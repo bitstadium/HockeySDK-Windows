@@ -3,11 +3,8 @@ using HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml;
@@ -49,31 +46,32 @@ namespace HockeyApp
         #endregion
 
         #region Exception Handler
-        private async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             logger.Info("Catched unobserved exception from TaskScheduler! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
-            await HandleException(e.Exception);
+            HandleException(e.Exception);
         }
 
-        private async void Current_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        private void Current_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
-            await HandleException(e.Exception);            
+            HandleException(e.Exception);
         }
 
-        private async Task HandleException(Exception e)
+        // This method can't be async, otherwise the exception event handlers will not wait until we are done storing the crash data.
+        // That's the reason for the blocking calls (.AsTask().Result) on async methods below.
+        private void HandleException(Exception e)
         {
-            var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
-            var crashId = Guid.NewGuid();
-
             try
             {
-                var store = ApplicationData.Current.LocalFolder;
-                var folder = await store.CreateFolderAsync(Constants.CRASHPATHNAME, CreationCollisionOption.OpenIfExists);
+                var crashFolder = ApplicationData.Current.LocalFolder
+                    .CreateFolderAsync(Constants.CRASHPATHNAME, CreationCollisionOption.OpenIfExists).AsTask().Result;
+                
+                string crashID = Guid.NewGuid().ToString();
+                var crashFile = crashFolder.CreateFileAsync(String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID)).AsTask().Result;
+                var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
 
-                var filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
-                var file = await folder.CreateFileAsync(filename);
-                using (var stream = await file.OpenStreamForWriteAsync())
+                using (var stream = crashFile.OpenStreamForWriteAsync().Result)
                 {
                     crashData.Serialize(stream);
                 }
