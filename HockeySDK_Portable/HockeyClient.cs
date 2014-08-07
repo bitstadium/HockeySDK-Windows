@@ -4,14 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using HockeyApp.Extensions;
-using HockeyApp.Exceptions;
 using System.IO;
+using System.Threading.Tasks;
+using HockeyApp.Exceptions;
+using HockeyApp.Extensions;
+using HockeyApp.Internal;
 
 namespace HockeyApp
 {
-    public class HockeyClient : HockeyApp.IHockeyClient
+    public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
         
         #region fields
@@ -40,7 +41,17 @@ namespace HockeyApp
             }
         }
 
-        internal String ApiDomain { get; private set; }
+        private string _apiDomain = SDKConstants.PublicApiBase + "/";
+        public string ApiDomain
+        {
+            get { return _apiDomain; }
+            set {
+                if (value != null)
+                {
+                    _apiDomain = value.EndsWith("/") ? value : value + "/";
+                }
+            }
+        }
 
         public string ApiBaseVersion2
         {
@@ -53,38 +64,111 @@ namespace HockeyApp
         }
 
         //User agent string (set by platform-specific SDK)
-        public string UserAgentString { get; set; }
+        private string _userAgentString;
+        public string UserAgentString
+        {
+            get { return _userAgentString; }
+            set { _userAgentString = value; }
+        }
 
         //SDK info (set by platform-specific SDK if used)
-        public string SdkName { get; private set; }
+        private string _sdkName = SDKConstants.SdkName;
+        public string SdkName
+        {
+            get { return _sdkName; }
+            set { _sdkName = value; }
+        }
+        
         //SDK Version (set by platform-specific SDK if used)
-        public string SdkVersion { get; private set; }
+        private string _sdkVersion = SDKConstants.SdkVersion;
+        public string SdkVersion
+        {
+            get { return _sdkVersion; }
+            set { _sdkVersion = value; }
+        }
 
         //App info
-        public string AppIdentifier { get; private set; }
+        private string _appIdentifier;
+        public string AppIdentifier
+        {
+            get { return _appIdentifier; }
+            set {
+                if (!String.IsNullOrEmpty(_appIdentifier))
+                {
+                    throw new Exception("Repeated initialization of HockeyClient! Please make sure to call the Configure(..) method only once!");
+                }
+                _appIdentifier = value; }
+        }
+
         //Current Version of the app as string
-        public string VersionInfo { get; private set; }
+        public string VersionInfo { get; set; }
         //UserID of current user
         public string UserID { get; set; }
         //Contact information for current user
         public string ContactInformation { get; set; }
         //Operating system (set by platform-specific SDK if used)
-        public string Os { get; set; }
+        private string _os;
+        public string Os
+        {
+            get {
+                if (_os == null && this.PlatformHelper != null)
+                {
+                    this._os = this.PlatformHelper.OSPlatform;
+                }
+                return _os; }
+            set { _os = value; }
+        }
+        
         //Operating system version (set by platform-specific SDK if used)
-        public string OsVersion { get; set; }
+        private string _osVersion;
+        public string OsVersion
+        {
+            get
+            {
+                if (_osVersion == null && this.PlatformHelper != null)
+                {
+                    this._osVersion = this.PlatformHelper.OSVersion;
+                }
+                return _osVersion;
+            }
+            set { _osVersion = value; }
+        }
+        
         //Device (set by platform-specific SDK if used)
-        public string Device { get; set; }
+        private string _device;
+        public string Device
+        {
+            get {
+                if (_device == null && this.PlatformHelper != null)
+                {
+                    this._device = this.PlatformHelper.Model;
+                }
+                return _device; }
+            set { _device = value; }
+        }
+       
         //Oem of Device (set by platform-specific SDK if used)
-        public string Oem { get; set; }
+        private string _oem;
+        public string Oem
+        {
+            get {
+                if (_oem == null && this.PlatformHelper != null)
+                {
+                    this._oem = this.PlatformHelper.Manufacturer;
+                }
+                return _oem; }
+            set { _oem = value; }
+        }
+
         //uniques user id provided by platform (set by platform-specific SDK if used)
         public string Uuid { get; set; }
         //Authorized user id (set during login process)
         public string Auid { get; internal set; }
         //Identified user id (set during login process)
         public string Iuid { get; internal set; }
-        
+
         //Delegate which can be set to add a description to a stacktrace when app crashes
-        public Func<Exception, string> _descriptionLoader = null;
+        public Func<Exception, string> DescriptionLoader { get; set; }
 
         #endregion
 
@@ -101,6 +185,7 @@ namespace HockeyApp
         /// <param name="apiBase">[optional] the base url of the hockeyapp server. Only needed if used with a private HockeyApp installation.</param>
         /// <param name="userID">[optional] ID of the current user using your app, sent with crash-reports, can also be set via property.</param>
         /// <param name="contactInformation">[optional] contact info of the current user using your app, sent with crash-reports, can also be set via property.</param>
+        [Obsolete("Use HockeyClient.Current.Configure(...)")]
         public static void Configure(string appIdentifier,
                                         string versionInfo,
                                         string apiBase = null,
@@ -108,6 +193,7 @@ namespace HockeyApp
                                         string contactInformation = null,
                                         Func<Exception, string> descriptionLoader = null)
         {
+            #pragma warning disable 618 // disable obsolete warning!
             ConfigureInternal(appIdentifier, versionInfo, apiBase, userID, contactInformation, null, null, null ,descriptionLoader);
         }
 
@@ -122,6 +208,7 @@ namespace HockeyApp
         /// <param name="userAgentName">[optional] useragent string to be used in communication with the HockeyApp server</param>
         /// <param name="sdkName">[optional] name of the calling sdk</param>
         /// <param name="sdkVersion">[optional] version of the calling sdk </param>
+        [Obsolete("Use HockeyClient.Current.Configure(...)")]
         public static void ConfigureInternal(string appIdentifier,
                                         string versionInfo,
                                         string apiBase = null,
@@ -142,10 +229,10 @@ namespace HockeyApp
             _instance.VersionInfo = versionInfo;
             _instance.UserID = userID;
             _instance.ContactInformation = contactInformation;
-            _instance._descriptionLoader = descriptionLoader;
+            _instance.DescriptionLoader = descriptionLoader;
             #pragma warning disable 618 // disable obsolete warning!
             _instance.ApiBase = apiBase ?? SDKConstants.PublicApiBase;
-            #pragma warning disable 618
+            #pragma warning restore 618
             _instance.UserAgentString = userAgentName ?? SDKConstants.UserAgentString;
             _instance.SdkName = sdkName ?? SDKConstants.SdkName;
             _instance.SdkVersion = sdkVersion ?? SDKConstants.SdkVersion;
@@ -159,6 +246,7 @@ namespace HockeyApp
         /// <summary>
         /// The current configured instance of HockeyClient
         /// </summary>
+        [Obsolete("Use the more idiomatic Method IHockeyClient.Current")]
         public static IHockeyClient Instance
         {
             get
@@ -170,13 +258,42 @@ namespace HockeyApp
                 return _instance;
             }
         }
+
+        /// <summary>
+        /// The current configured instance of HockeyClient
+        /// </summary>
+        public static IHockeyClient Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new HockeyClient();
+                }
+                return _instance;
+            }
+        }
+
         private HockeyClient(){}
 
         #endregion
 
+        public void CheckForInitialization()
+        {
+            if (String.IsNullOrEmpty(_appIdentifier))
+            {
+                throw new Exception("HockeyClient not initialized! Please make sure to call the Configure(..) method first!");
+            }
+        }
+
         #region API functions
 
         #region Crashes
+
+        public ICrashData CreateCrashData(Exception ex)
+        {
+            return new CrashData(this, ex, this.PrefilledCrashLogInfo);
+        }
 
         public ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo)
         {
@@ -258,10 +375,10 @@ namespace HockeyApp
 
         public async Task<IAuthStatus> AuthorizeUserAsync(string email, string password)
         {
-            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" +
-                                                           HockeyClient.Instance.AppIdentifier + "/identity/authorize", UriKind.Absolute));
+            var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion3 + "apps/" +
+                                                           this.AppIdentifier + "/identity/authorize", UriKind.Absolute));
             
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this.UserAgentString);
             byte[] credentialBuffer = new UTF8Encoding().GetBytes(email + ":" + password);
             request.SetHeader(HttpRequestHeader.Authorization.ToString(), "Basic " + Convert.ToBase64String(credentialBuffer));
             request.Method = "POST";
@@ -276,9 +393,9 @@ namespace HockeyApp
 
         public async Task<IAuthStatus> IdentifyUserAsync(string email, string appSecret)
         {
-            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" +
-                                                           HockeyClient.Instance.AppIdentifier + "/identity/check", UriKind.Absolute));
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
+            var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion3 + "apps/" +
+                                                           this.AppIdentifier + "/identity/check", UriKind.Absolute));
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this.UserAgentString);
             request.Method = "POST";
 
             string boundary = "---------------------------" + DateTime.Now.Ticks.ToString("x");
@@ -315,7 +432,36 @@ namespace HockeyApp
         }
 
         #endregion
+        #endregion
+
+        #region PlatformHelper
+
+        public IHockeyPlatformHelper PlatformHelper { get; set; }
+
+        CrashLogInformation? _crashLogInfo = null;
+        public CrashLogInformation PrefilledCrashLogInfo
+        {
+            get {
+                if (!_crashLogInfo.HasValue)
+                {
+                    this.CheckForInitialization();
+                    if(PlatformHelper == null) { throw new Exception("HockeyClient PlatformHelper is null!");}
+                    _crashLogInfo = new CrashLogInformation()
+                    {
+                        OperatingSystem = this.PlatformHelper.OSPlatform,
+                        Windows = this.PlatformHelper.GetWindowsVersionString(),
+                        WindowsPhone = this.PlatformHelper.GetWindowsPhoneVersionString(),
+                        Manufacturer = this.PlatformHelper.Manufacturer,
+                        Model = this.PlatformHelper.Model,
+                        ProductID = this.PlatformHelper.ProductID,
+                        Version = this.PlatformHelper.AppVersion
+                    };
+                }
+                return _crashLogInfo.Value;
+            }
+        }
 
         #endregion
+
     }
 }

@@ -3,11 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Globalization;
+using System.Text.RegularExpressions;
+using HockeyApp.Internal;
 
-namespace HockeyApp.Extensions
+namespace HockeyApp
 {
     public static class UtilExtensions
     {
+
+        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
+        {
+            return (IHockeyClientInternal)@this;
+        }
+
+        internal static IHockeyClientInternal AsInternal(this IHockeyClientConfigurable @this)
+        {
+            return (IHockeyClientInternal)@this;
+        }
+
+
+        /// <summary>
+        /// Checks valid format of an email address
+        /// </summary>
+        /// <param name="str">string to check</param>
+        /// <returns>true if email has correct format</returns>
+        public static bool IsValidEmail(this string str)
+        {
+            if (str == null) { return false; }
+            const String pattern =
+                @"^([0-9a-zA-Z]" + //Start with a digit or alphabate
+                @"([\+\-_\.][0-9a-zA-Z]+)*" + // No continues or ending +-_. chars in email
+                @")+" +
+                @"@(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]*\.)+[a-zA-Z0-9]{2,17})$";
+
+            return Regex.IsMatch(str, pattern);
+        }
+
         /// <summary>
         /// Convert a unix epoch-timestamp to a DateTime
         /// </summary>

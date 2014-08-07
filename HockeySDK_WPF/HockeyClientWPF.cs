@@ -14,7 +14,7 @@ using System.Windows;
 namespace HockeyApp
 {
 
-
+    [Obsolete("Use HockeyClient.Current instead of HockeyClientWPF. All functions are available as Extension Methods on IHockeyClient")]
     public class HockeyClientWPF
     {
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClientWPF));
@@ -102,7 +102,7 @@ namespace HockeyApp
         /// <returns></returns>
         public IFeedbackThread CreateFeedbackThread()
         {
-            return HockeyClient.Instance.CreateNewFeedbackThread();
+            return HockeyClient.Current.AsInternal().CreateNewFeedbackThread();
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace HockeyApp
         /// <returns>The Feedback-Thread or, if not found or delete, null.</returns>
         public async Task<IFeedbackThread> OpenFeedbackThreadAsync(string feedbackToken)
         {
-            return await HockeyClient.Instance.OpenFeedbackThreadAsync(feedbackToken);
+            return await HockeyClient.Current.AsInternal().OpenFeedbackThreadAsync(feedbackToken);
         }
 
         #endregion

@@ -37,6 +37,9 @@
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
     <None Include="app.config" />
+    <None Include="HockeyAppAPI.cd">
+      <CustomToolNamespace>HockeyAppX</CustomToolNamespace>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -45,8 +48,12 @@
     <Compile Include="Extensions\MD5.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
     <Compile Include="Extensions\WebRequestExtension.cs" />
+    <Compile Include="HockeyClientPCLExtensions.cs" />
+    <Compile Include="HockeyClientConfiguration.cs" />
     <Compile Include="IAuthStatus.cs" />
     <Compile Include="IHockeyClient.cs" />
+    <Compile Include="IHockeyClientInternal.cs" />
+    <Compile Include="IHockeyPlatformHelper.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Model\AppVersion.cs" />
     <Compile Include="Model\AuthStatus.cs" />

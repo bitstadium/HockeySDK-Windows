@@ -26,6 +26,7 @@ namespace HockeyApp
 
         private Func<bool> _shutdownActions;
 
+        [Obsolete("Use CheckForUpdatesAsync and wait in an appropriate manner in your code.")]
         public void CheckForUpdates(bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             Task t = CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
@@ -63,8 +64,9 @@ namespace HockeyApp
 
         private async Task<IAppVersion> CheckForUpdates()
         {
-            if(System.Version.TryParse(HockeyClient.Instance.VersionInfo, out this._localVersion)){
-                var appVersions = await HockeyClient.Instance.GetAppVersionsAsync();
+            if (System.Version.TryParse(HockeyClient.Current.AsInternal().VersionInfo, out this._localVersion))
+            {
+                var appVersions = await HockeyClient.Current.AsInternal().GetAppVersionsAsync();
                 IAppVersion newest = appVersions.FirstOrDefault();
                 if (newest != null)
                 {
@@ -92,7 +94,7 @@ namespace HockeyApp
                     this._logger.Warn("No remote version found!");
                 }
             }else{
-                this._logger.Warn("Local version cannot be formatted to System.Version. CheckForUpdates canceled. Local version: " + HockeyClient.Instance.VersionInfo);
+                this._logger.Warn("Local version cannot be formatted to System.Version. CheckForUpdates canceled. Local version: " + HockeyClient.Current.AsInternal().VersionInfo);
             }
             return null;
         }

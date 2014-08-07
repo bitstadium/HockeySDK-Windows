@@ -38,6 +38,7 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using HockeyApp.Exceptions;
 using HockeyApp.Model;
+using HockeyApp.Internal;
 
 namespace HockeyApp
 {
@@ -49,25 +50,33 @@ namespace HockeyApp
     /// <summary>
     /// Providing Crash-Handling functionality with HockeyApp in your App
     /// </summary>
-    public sealed class CrashHandler
+    public class CrashHandler
     {
-        private static readonly CrashHandler instance = new CrashHandler();
+        private static readonly CrashHandler _instance = new CrashHandler();
 
         private CrashLogInformation _crashLogInfo;
-        private Application application = null;
+        private Application _application = null;
         
         static CrashHandler() { }
         private CrashHandler() {}
 
+        [Obsolete]
         public static CrashHandler Instance
         {
             get
             {
-                return instance;
+                return _instance;
             }
         }
 
-        internal Application Application { get { return this.application; } }
+        internal static CrashHandler Current { get { return _instance; } }
+
+        internal Application Application
+        {
+            get { return this._application; }
+            set { this._application = value; }
+        }
+
 
         /// <summary>
         /// Configures the hockey crashhandler
@@ -79,6 +88,7 @@ namespace HockeyApp
         /// <param name="apiBase">[optional] base URL of HockeyApp server. Only needed for private HockeyApp installations.</param>
         /// <param name="userId">[optional] Id/Name of current user of your app. Sent with crash information. Can also be set later with AddUserInfo(..)</param>
         /// <param name="contactInformation">[optional] Contact info of current user of your app. Sent with crash information. Can also be set later with AddUserInfo(..)</param>
+        [Obsolete("Use HockeyClient.Configure()...")]
         public void Configure(Application application, 
             string identifier, 
             Frame rootFrame = null, 
@@ -87,7 +97,7 @@ namespace HockeyApp
             string userId = null, 
             string contactInformation = null)
         {
-            if (this.application == null)
+            if (this._application == null)
             {
 
                 this._crashLogInfo = new CrashLogInformation()
@@ -101,8 +111,8 @@ namespace HockeyApp
                 };
                
 
-                this.application = application;
-                this.application.UnhandledException += OnUnhandledException;
+                this._application = application;
+                this._application.UnhandledException += OnUnhandledException;
                 HockeyClient.ConfigureInternal(identifier,
                     ManifestHelper.GetAppVersion(),
                     userID: userId,
@@ -133,12 +143,14 @@ namespace HockeyApp
         /// </summary>
         /// <param name="userid">id of the user</param>
         /// <param name="contactInfo">contact info like an email adress</param>
+        [Obsolete("Use HockeyClient.AddContactInfo(..)")]
         public void AddUserInfo(String userid, String contactInfo)
         {
-            HockeyClient.Instance.UserID = userid;
-            HockeyClient.Instance.ContactInformation = contactInfo;
+            HockeyClient.Current.AsInternal().UserID = userid;
+            HockeyClient.Current.AsInternal().ContactInformation = contactInfo;
         }
 
+        [Obsolete]
         private void OnUnhandledException(object sender, ApplicationUnhandledExceptionEventArgs args)
         {
             HandleException(args.ExceptionObject);
@@ -146,8 +158,9 @@ namespace HockeyApp
 
         internal void HandleException(Exception e)
         {
-            
-            ICrashData cd = HockeyClient.Instance.CreateCrashData(e, this._crashLogInfo);
+            //TODO refactor for use with platformhelper
+            CrashLogInformation crashInfo = this._crashLogInfo;
+            ICrashData cd = HockeyClient.Current.AsInternal().CreateCrashData(e, this._crashLogInfo);
 
             var crashId = Guid.NewGuid();
             try
@@ -212,6 +225,7 @@ namespace HockeyApp
         /// <returns>Awaitable Task. Result is true if crashes have been sent.</returns>
         public async Task<bool> HandleCrashesAsync(Boolean sendAutomatically = false)
         {
+            //TODO refactor for use with platformhelper
             if (NetworkInterface.GetIsNetworkAvailable())
             {
                 try
@@ -285,7 +299,7 @@ namespace HockeyApp
                     if (store.FileExists(Path.Combine(Constants.CrashDirectoryName, filename)))
                     {
                         Stream fileStream = store.OpenFile(Path.Combine(Constants.CrashDirectoryName, filename), FileMode.Open);
-                        ICrashData cd = HockeyClient.Instance.Deserialize(fileStream);
+                        ICrashData cd = HockeyClient.Current.AsInternal().Deserialize(fileStream);
                         fileStream.Close();
                         await cd.SendDataAsync();
                         store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
@@ -302,6 +316,7 @@ namespace HockeyApp
             }
         }
 
+        [Obsolete]
         public static String GetDeviceManufacturer()
         {
             object manufacturer;
@@ -315,6 +330,7 @@ namespace HockeyApp
             }
         }
 
+        [Obsolete]
         public static String GetDeviceModel()
         {
             object model;

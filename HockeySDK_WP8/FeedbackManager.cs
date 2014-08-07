@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.Generic;
 using HockeyApp.Model;
-using System.Windows.Media.Imaging;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace HockeyApp
 {
@@ -97,7 +97,7 @@ namespace HockeyApp
         {
             if (this.activeThread != null && !forceReload) { return activeThread; }
             if (this.ThreadToken == null) { return null; }
-            var thread = await HockeyClient.Instance.OpenFeedbackThreadAsync(this.ThreadToken);
+            var thread = await HockeyClient.Current.AsInternal().OpenFeedbackThreadAsync(this.ThreadToken);
             if (thread == null)
             {
                 //thread got deleted
@@ -120,8 +120,8 @@ namespace HockeyApp
                 IsolatedStorageSettings settings = IsolatedStorageSettings.ApplicationSettings;
                 return new FeedbackThreadMetaInfos(
                     settings.GetValue(Constants.FeedbackThreadSubjectKey) as string,
-                    settings.GetValue(Constants.FeedbackUsernameKey) as string ?? this.usernameInitial ?? HockeyClient.Instance.UserID,
-                    settings.GetValue(Constants.FeedbackEmailKey) as string ?? this.emailInitial ?? HockeyClient.Instance.ContactInformation,
+                    settings.GetValue(Constants.FeedbackUsernameKey) as string ?? this.usernameInitial ?? HockeyClient.Current.AsInternal().UserID,
+                    settings.GetValue(Constants.FeedbackEmailKey) as string ?? this.emailInitial ?? HockeyClient.Current.AsInternal().ContactInformation,
                     settings.GetValue(Constants.FeedbackThreadKey) as string);
             }
         }

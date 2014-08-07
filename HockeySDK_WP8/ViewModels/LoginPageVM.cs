@@ -64,7 +64,7 @@ namespace HockeyApp.ViewModels
             try
             {
                 IsShowOverlay = true;
-                status = await HockeyClient.Instance.IdentifyUserAsync(this.Email, this.AppSecret);
+                status = await HockeyClient.Current.AsInternal().IdentifyUserAsync(this.Email, this.AppSecret);
                 if (status.IsIdentified)
                 {
                     AuthManager.Instance.CurrentAuthStatus = status;
@@ -83,7 +83,7 @@ namespace HockeyApp.ViewModels
             try
             {
                 IsShowOverlay = true;
-                status = await HockeyClient.Instance.AuthorizeUserAsync(this.Email, password ?? "");
+                status = await HockeyClient.Current.AsInternal().AuthorizeUserAsync(this.Email, password ?? "");
                 if (status.IsAuthorized)
                 {
                     AuthManager.Instance.CurrentAuthStatus = status;

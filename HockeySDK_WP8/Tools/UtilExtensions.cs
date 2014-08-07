@@ -13,6 +13,15 @@ namespace HockeyApp.Tools
     public static class UtilExtensions
     {
 
+        public static Regex RegexForLikeMatching(this string @this, string globPattern)
+        {
+            string regexPattern = Regex.Escape(globPattern).
+                Replace(@"\*", ".+?").
+                Replace(@"\?", ".");
+            return new Regex(regexPattern, RegexOptions.IgnoreCase);
+        }
+
+
         public static bool IsValidEmail(this string str)
         {
             if (str == null) { return false; }

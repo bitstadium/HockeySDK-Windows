@@ -31,7 +31,7 @@ namespace HockeyApp
             File.Move(tmpFilenameWithPath, msiFilenameWithPath);
 
 
-            var uri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + @this.Id + ".msi");
+            var uri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + HockeyClient.Current.AsInternal().AppIdentifier + "/app_versions/" + @this.Id + ".msi");
             WebClient wc = new WebClient();
 
             if (progress != null)

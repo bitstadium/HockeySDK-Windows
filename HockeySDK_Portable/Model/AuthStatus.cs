@@ -126,11 +126,11 @@ namespace HockeyApp.Model
         /// <returns></returns>
         public async Task<bool> CheckIfStillValidAsync()
         {
-            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Instance.ApiBaseVersion3 + "apps/" + 
-                                                            HockeyClient.Instance.AppIdentifier + "/identity/validate?" + 
+            var request = WebRequest.CreateHttp(new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion3 + "apps/" +
+                                                            HockeyClient.Current.AsInternal().AppIdentifier + "/identity/validate?" + 
                                                                 this.AuthType.IdCode + "=" + this.AuthType.IdFunc(this) , UriKind.Absolute));
             request.Method = "Get";
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Current.AsInternal().UserAgentString);
             return (await DoAuthRequestHandleResponseAsync(request)).IsIdentified;
         }
 
