@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace HockeyApp
 {
+    [Obsolete("Please use HockeyClient.Current and applicable Extension methods")]
     public class HockeyClientWinRT
     {
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClientWinRT));

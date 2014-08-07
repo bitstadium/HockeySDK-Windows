@@ -130,7 +130,7 @@ namespace HockeyApp
             //TODO manual mode and no network => show message
             if (CheckWithUpdateFrequency(updateCheckSettings.UpdateCheckFrequency) && NetworkInterface.GetIsNetworkAvailable())
             {
-                var task = HockeyClient.Instance.GetAppVersionsAsync();
+                var task = HockeyClient.Current.AsInternal().GetAppVersionsAsync();
                 task.ContinueWith((finishedTask) =>
                 {
                     if (finishedTask.Exception == null)
@@ -199,8 +199,8 @@ namespace HockeyApp
 
         internal async void DoUpdate(IAppVersion availableUpdate)
         {
-            var aetxUri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + HockeyClient.Instance.AppIdentifier + ".aetx", UriKind.Absolute);
-            var downloadUri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + HockeyClient.Instance.AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
+            var aetxUri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + HockeyClient.Current.AsInternal().AppIdentifier + ".aetx", UriKind.Absolute);
+            var downloadUri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + HockeyClient.Current.AsInternal().AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
             //it won't get the result anyway because this app-instance will get killed during the update
             //TODO try catch to show message to the user?

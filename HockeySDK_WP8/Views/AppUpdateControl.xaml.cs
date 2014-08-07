@@ -30,16 +30,23 @@ namespace HockeyApp.Views
             InitializeComponent();
 
             this.AppIconImage.ImageFailed += (sender, e) => { this.AppIconImage.Source = new BitmapImage(new Uri("/Assets/windows_phone.png", UriKind.RelativeOrAbsolute)); };
-            this.AppIconImage.Source = new BitmapImage(new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + NewestVersion.PublicIdentifier + ".png"));
+            this.AppIconImage.Source = new BitmapImage(new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + NewestVersion.PublicIdentifier + ".png"));
 
             this.ReleaseNotesBrowser.Opacity = 0;
             this.ReleaseNotesBrowser.Navigated += (sender, e) => { (this.ReleaseNotesBrowser.Resources["fadeIn"] as Storyboard).Begin(); };
             this.ReleaseNotesBrowser.NavigateToString(WebBrowserHelper.WrapContent(NewestVersion.Notes));
+            this.ReleaseNotesBrowser.Navigating += (sender, e) =>
+            {
+                e.Cancel = true;
+                WebBrowserTask browserTask = new WebBrowserTask();
+                browserTask.Uri = e.Uri;
+                browserTask.Show();
+            };
 
             this.InstallAETX.Click += (sender, e) =>
             {
                 WebBrowserTask webBrowserTask = new WebBrowserTask();
-                webBrowserTask.Uri = new Uri(HockeyClient.Instance.ApiBaseVersion2 + "apps/" + NewestVersion.PublicIdentifier + ".aetx", UriKind.Absolute);
+                webBrowserTask.Uri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + NewestVersion.PublicIdentifier + ".aetx", UriKind.Absolute);
                 webBrowserTask.Show();
             };
             this.InstallOverApi.Click += (sender, e) => {

@@ -58,6 +58,12 @@
     <Compile Include="..\HockeySDK_WPF\HockeyClientWPF.cs">
       <Link>HockeyClientWPF.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_WPF\HockeyClientWPFExtensions.cs">
+      <Link>HockeyClientWPFExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_WPF\HockeyPlatformHelperWPF.cs">
+      <Link>HockeyPlatformHelperWPF.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_WPF\IAppVersionExtensions.cs">
       <Link>IAppVersionExtensions.cs</Link>
     </Compile>

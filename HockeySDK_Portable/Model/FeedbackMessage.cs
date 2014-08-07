@@ -122,7 +122,7 @@ namespace HockeyApp.Model
                 if (!String.IsNullOrWhiteSpace(OSVersion)) { partsDict.Add("os_version", this.OSVersion); }
 
                 //not used for feedback. if (HockeyClient.Instance.AppIdentifier != null) { partsDict.Add("bundle_identifier", HockeyClient.Instance.AppIdentifier); }
-                if (!String.IsNullOrWhiteSpace(HockeyClient.Instance.VersionInfo)) { partsDict.Add("bundle_version", HockeyClient.Instance.VersionInfo); }
+                if (!String.IsNullOrWhiteSpace(HockeyClient.Current.AsInternal().VersionInfo)) { partsDict.Add("bundle_version", HockeyClient.Current.AsInternal().VersionInfo); }
                 return partsDict;
             }
         }

@@ -51,6 +51,12 @@
     <Compile Include="..\HockeySDK_Portable\HockeyClient.cs">
       <Link>HockeyClient.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_Portable\HockeyClientConfiguration.cs">
+      <Link>HockeyClientConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\HockeyClientPCLExtensions.cs">
+      <Link>HockeyClientPCLExtensions.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_Portable\IAppVersion.cs">
       <Link>IAppVersion.cs</Link>
     </Compile>
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="..\HockeySDK_Portable\IHockeyClient.cs">
       <Link>IHockeyClient.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\IHockeyClientInternal.cs">
+      <Link>IHockeyClientInternal.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\IHockeyPlatformHelper.cs">
+      <Link>IHockeyPlatformHelper.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Logging.cs">
       <Link>Logging.cs</Link>

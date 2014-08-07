@@ -70,14 +70,14 @@ namespace HockeyApp
                 CrashLogInformation logInfo = new CrashLogInformation()
                 {
                     PackageName = Application.Current.GetType().Namespace,
-                    Version = HockeyClient.Instance.VersionInfo,
+                    Version = HockeyClient.Current.AsInternal().VersionInfo,
                     OperatingSystem = Environment.OSVersion.Platform.ToString(),
                     Windows = Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack,
                     Manufacturer = "",
                     Model = ""
                 };
 
-                ICrashData crash = HockeyClient.Instance.CreateCrashData(e,logInfo);
+                ICrashData crash = HockeyClient.Current.AsInternal().CreateCrashData(e, logInfo);
                 FileStream stream = File.Create(Path.Combine(Constants.GetPathToHockeyCrashes(), filename));
                 crash.Serialize(stream);
                 stream.Flush();
@@ -137,7 +137,7 @@ namespace HockeyApp
                         try
                         {
                             FileStream fs = File.Open(crashFileName, FileMode.Open, FileAccess.ReadWrite);
-                            ICrashData cd = HockeyClient.Instance.Deserialize(fs);
+                            ICrashData cd = HockeyClient.Current.AsInternal().Deserialize(fs);
                             await cd.SendDataAsync();
                             fs.Close();
                             //if the process switch occurs between those lines the worst that can happen is that a crash is sent twice.

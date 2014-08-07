@@ -45,7 +45,7 @@ namespace HockeyApp.Model
 
             var request = WebRequest.CreateHttp(new Uri(this.RemoteURL, UriKind.Absolute));
             request.Method = "Get";
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Instance.UserAgentString);
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), HockeyClient.Current.AsInternal().UserAgentString);
 
             try
             {

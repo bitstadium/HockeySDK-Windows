@@ -36,11 +36,11 @@ namespace HockeyApp.Model
             this.Contact = this._hockeyClient.ContactInformation;
             this.SDKName = this._hockeyClient.SdkName;
             this.SDKVersion = this._hockeyClient.SdkVersion;
-            if (this._hockeyClient._descriptionLoader != null)
+            if (this._hockeyClient.DescriptionLoader != null)
             {
                 try
                 {
-                    this.Description = this._hockeyClient._descriptionLoader(ex);
+                    this.Description = this._hockeyClient.DescriptionLoader(ex);
                 }
                 catch (Exception) { }
             }
@@ -49,7 +49,7 @@ namespace HockeyApp.Model
         [OnDeserializing]
         public void OnDeserializing(StreamingContext context)
         {
-            this._hockeyClient = HockeyClient.Instance as HockeyClient;
+            this._hockeyClient = HockeyClient.Current as HockeyClient;
             _logger = HockeyLogManager.GetLog(typeof(CrashData));
         }
 

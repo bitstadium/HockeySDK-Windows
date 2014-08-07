@@ -73,7 +73,9 @@
     <Compile Include="Gui\UpdateWindow.xaml.cs">
       <DependentUpon>UpdateWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="HockeyClientWPFExtensions.cs" />
     <Compile Include="HockeyClientWPF.cs" />
+    <Compile Include="HockeyPlatformHelperWPF.cs" />
     <Compile Include="IAppVersionExtensions.cs" />
     <Compile Include="IUpdateManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

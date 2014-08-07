@@ -104,6 +104,8 @@
     <Compile Include="Controls\NotificationBox\NotificationBoxItem.cs" />
     <Compile Include="CrashHandler.cs" />
     <Compile Include="FeedbackManager.cs" />
+    <Compile Include="HockeyClientWP8SLExtension.cs" />
+    <Compile Include="HockeyPlatformHelperWP8SL.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="ManifestHelper.cs" />
     <Compile Include="Model\ThreadMetaInfos.cs" />

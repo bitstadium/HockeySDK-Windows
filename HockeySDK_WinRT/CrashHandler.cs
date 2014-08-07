@@ -63,7 +63,7 @@ namespace HockeyApp
 
         private async Task HandleException(Exception e)
         {
-            var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
+            var crashData = HockeyClient.Current.CreateCrashData(e, this._logInfo);
             var crashId = Guid.NewGuid();
 
             try

@@ -18,6 +18,7 @@ namespace HockeyApp
 
         private static dynamic customResourceWrapper = new ResourceWrapper(HockeyAppStrings.ResourceManager);
 
+        [Obsolete("Use FluentConfiguration HockeyClient.Current.Configure(..).UseCustomResourceManager(..)")]
         public static ResourceManager CustomResourceManager
         {
             get
@@ -69,14 +70,18 @@ namespace HockeyApp
         {
             get
             {
-                object value = null;
+                string value = null;
                 if (customResMan != null)
                 {
                     value = customResMan.GetString(index);
                 }
-                if (value == null)
+                if (String.IsNullOrEmpty(value))
                 {
                     value = internalResMan.GetString(index);
+                }
+                if (String.IsNullOrEmpty(value))
+                {
+                    value = index + "_i18n";
                 }
                 return value;
             }

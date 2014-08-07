@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using HockeyApp.Extensions;
 using System.IO;
+using HockeyApp.Internal;
 
 namespace HockeyApp.Model
 {
@@ -111,15 +112,15 @@ namespace HockeyApp.Model
 
         public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackAttachment> attachments = null)
         {
+            IHockeyClientInternal client = HockeyClient.Current.AsInternal();
 
             var msg = new FeedbackMessage();
-            msg.Name = HockeyClient.Instance.UserID;
+            msg.Name = client.UserID;
             msg.Text = message;
             msg.Email = email;
             msg.Name = name;
             msg.Subject = subject;
-
-            IHockeyClient client = HockeyClient.Instance;
+            
             HttpWebRequest request = null;
             if (this.IsNewThread)
             {
