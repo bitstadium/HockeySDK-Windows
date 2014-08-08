@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HockeyApp.Internal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -85,7 +86,7 @@ namespace HockeyApp
         /// <returns></returns>
         public IFeedbackThread CreateFeedbackThread()
         {
-            return HockeyClient.Instance.CreateNewFeedbackThread();
+            return ((IHockeyClientInternal)HockeyClient.Current).CreateNewFeedbackThread();
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace HockeyApp
         /// <returns>The Feedback-Thread or, if not found or delete, null.</returns>
         public async Task<IFeedbackThread> OpenFeedbackThreadAsync(string feedbackToken)
         {
-            return await HockeyClient.Instance.OpenFeedbackThreadAsync(feedbackToken);
+            return await ((IHockeyClientInternal)HockeyClient.Current).OpenFeedbackThreadAsync(feedbackToken);
         }
 
         #endregion

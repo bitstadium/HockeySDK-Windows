@@ -1,4 +1,5 @@
 ﻿using HockeyApp.Exceptions;
+using HockeyApp.Internal;
 using HockeyApp.Model;
 using System;
 using System.Collections.Generic;
@@ -63,7 +64,7 @@ namespace HockeyApp
 
         private async Task HandleException(Exception e)
         {
-            var crashData = HockeyClient.Current.CreateCrashData(e, this._logInfo);
+            var crashData = ((IHockeyClientInternal)HockeyClient.Current).CreateCrashData(e, this._logInfo);
             var crashId = Guid.NewGuid();
 
             try
@@ -156,7 +157,7 @@ namespace HockeyApp
                     try
                     {
                         Stream fs = await crashFile.OpenStreamForReadAsync();
-                        ICrashData cd = HockeyClient.Instance.Deserialize(fs);
+                        ICrashData cd = ((IHockeyClientInternal)HockeyClient.Current).Deserialize(fs);
                         fs.Dispose();
                         await cd.SendDataAsync();
                         await crashFile.DeleteAsync();

@@ -11,5 +11,9 @@ namespace HockeyApp
         internal const string SdkVersion = "2.1.0-beta6";
         internal const string PublicApiBase = "https://rink.hockeyapp.net";
         internal const string UserAgentString = "Hockey/WinPCL";
+
+        internal const string CrashDirectoryName = "HockeyCrashes";
+        internal const string CrashFilePrefix = "crashinfo_";
+        
     }
 }

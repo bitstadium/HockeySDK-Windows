@@ -106,6 +106,10 @@ namespace HockeyApp.Internal
         /// </summary>
         /// <returns>Metadata of the newest version of the app</returns>
         Task<IEnumerable<IAppVersion>> GetAppVersionsAsync();
+        #endregion
+
+
+        #region Crash handling
 
         /// <summary>
         /// Factory method for ICrashData
@@ -129,7 +133,47 @@ namespace HockeyApp.Internal
         /// <returns></returns>
         ICrashData Deserialize(Stream inputStream);
 
+        //TODO docu
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<IEnumerable<string>> GetCrashFileNamesAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task DeleteAllCrashesAsync();
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> AnyCrashesAvailableAsync();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task DeleteCrashesAsync();
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="markAsHandled"></param>
+        /// <returns></returns>
+        Task HandleExceptionAsync(Exception ex);
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        Task<bool> SendCrashesAndDeleteAfterwardsAsync();
+
         #endregion
+
 
     }
 }

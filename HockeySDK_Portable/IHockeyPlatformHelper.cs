@@ -20,7 +20,6 @@ namespace HockeyApp
         string GetSettingValue(String key);
         void RemoveSettingValue(String key);
 
-        //TODO store/retrieve secure settings
         #endregion
 
         #region File-Access

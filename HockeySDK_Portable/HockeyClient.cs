@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 using HockeyApp.Exceptions;
 using HockeyApp.Extensions;
 using HockeyApp.Internal;
+using System.Net.NetworkInformation;
+using System.Threading;
 
 namespace HockeyApp
 {
     public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
-        
+        private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClient));
+
         #region fields
 
         //Platform and communication info
@@ -172,7 +175,6 @@ namespace HockeyApp
 
         #endregion
 
-
         #region ctor
         private ILog _logger = HockeyLogManager.GetLog(typeof(HockeyClient));
         private static HockeyClient _instance=null;
@@ -304,6 +306,108 @@ namespace HockeyApp
         {
             return CrashData.Deserialize(inputStream);
         }
+        
+        public async Task<IEnumerable<string>> GetCrashFileNamesAsync()
+        {
+            return await this.PlatformHelper.GetFileNamesAsync(SDKConstants.CrashDirectoryName, SDKConstants.CrashFilePrefix + "*.log");
+        }
+
+        public async Task DeleteAllCrashesAsync()
+        {
+            foreach (string filename in await this.GetCrashFileNamesAsync())
+            {
+                try
+                {
+                    await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                }
+            }
+        }
+
+        public async Task<bool> AnyCrashesAvailableAsync() { return (await GetCrashFileNamesAsync()).Any(); }
+
+        public async Task DeleteCrashesAsync()
+        {
+            var helper = HockeyClient.Current.AsInternal().PlatformHelper;
+            foreach (String filename in await this.GetCrashFileNamesAsync())
+            {
+                try
+                {
+                    await helper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
+                }
+                catch (Exception) { }
+            }
+        }
+        
+        public async Task HandleExceptionAsync(Exception ex)
+        {
+            ICrashData cd = this.CreateCrashData(ex);
+
+            var crashId = Guid.NewGuid();
+            try
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    cd.Serialize(stream);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    await this.PlatformHelper.WriteStreamToFileAsync(stream, string.Format("{0}{1}.log", SDKConstants.CrashFilePrefix, crashId), SDKConstants.CrashDirectoryName);
+                }
+            }
+            catch
+            {
+                // Ignore all exceptions
+            }
+        }
+
+        public async Task<bool> SendCrashesAndDeleteAfterwardsAsync()
+        {
+            bool atLeatOneCrashSent = false;
+            //System Semaphore would be another possibility. But the worst thing that can happen now, is
+            //that a crash is send twice.
+            if (!Monitor.TryEnter(this))
+            {
+                logger.Warn("Sending crashes was called multiple times!");
+                throw new Exception("Hockey is already sending crashes to server!");
+            }
+            else
+            {
+                logger.Info("Start send crashes to platform.");
+
+                if (NetworkInterface.GetIsNetworkAvailable())
+                {
+                    try
+                    {
+                        foreach (string filename in await this.GetCrashFileNamesAsync())
+                        {
+                            logger.Info("Crashfile found: {0}", filename);
+                            try
+                            {
+                                using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
+                                {
+                                    ICrashData cd = this.Deserialize(stream);
+                                    await cd.SendDataAsync();
+                                }
+                                await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
+                                atLeatOneCrashSent = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error(ex);
+                            }
+                        }
+                    }
+                    catch (WebTransferException) { }
+                    catch (Exception e) { this.logger.Error(e); }
+                }
+            }
+            Monitor.Exit(this);
+            return atLeatOneCrashSent;
+        }
+
+
         #endregion
 
         #region Update
@@ -462,6 +566,7 @@ namespace HockeyApp
         }
 
         #endregion
+
 
     }
 }

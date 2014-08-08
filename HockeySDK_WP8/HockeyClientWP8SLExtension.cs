@@ -20,6 +20,14 @@ namespace HockeyApp
         }
 
         #region Configuration
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="application"></param>
+        /// <param name="appId"></param>
+        /// <param name="rootFrame"></param>
+        /// <returns></returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, Application application, string appId, Frame rootFrame = null)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
@@ -37,10 +45,16 @@ namespace HockeyApp
             return @this as IHockeyClientConfigurable;
         }
 
-        public static IHockeyClientConfigurable RegisterForAsyncExceptions(this IHockeyClientConfigurable @this, Frame rootFrame)
+        public static IHockeyClientConfigurable UseCustomResourceManager(this IHockeyClientConfigurable @this, ResourceManager manager)
         {
+            //TODO make LocalizedStrings.CustomResourceManager internal in next major version
+            #pragma warning disable 0618
+            LocalizedStrings.CustomResourceManager = manager;
+            #pragma warning restore 0618
             return @this;
         }
+
+
         #endregion
 
         #region Wrappers for functions

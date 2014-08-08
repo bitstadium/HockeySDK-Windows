@@ -18,6 +18,7 @@ namespace HockeyApp
         private IHockeyClient _hockeyClient = null;
         private  Func<Exception, string> _descriptionLoader = null;
 
+
         internal CrashHandler(IHockeyClient hockeyClient, Func<Exception, string> descriptionLoader, bool keepRunning)
         {
             this._hockeyClient = hockeyClient;
