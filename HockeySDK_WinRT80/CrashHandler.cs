@@ -57,8 +57,12 @@ namespace HockeyApp
 
         private async void Current_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            e.Handled = true;
+
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
             await HandleException(e.Exception);
+            
+            Application.Current.Exit();
         }
 
         private async Task HandleException(Exception e)
@@ -72,6 +76,9 @@ namespace HockeyApp
                 var folder = await store.CreateFolderAsync(Constants.CRASHPATHNAME, CreationCollisionOption.OpenIfExists);
 
                 var filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
+
+                
+
                 var file = await folder.CreateFileAsync(filename);
                 using (var stream = await file.OpenStreamForWriteAsync())
                 {
