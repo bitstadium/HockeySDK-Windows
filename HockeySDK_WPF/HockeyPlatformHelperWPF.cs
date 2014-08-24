@@ -71,6 +71,11 @@ namespace HockeyApp
 
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
+            // Ensure crashes folder exists
+            if (!isoStore.DirectoryExists(folderName)) {
+                isoStore.CreateDirectory(folderName);
+            }
+
             using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
                 await dataStream.CopyToAsync(fileStream);
             }
@@ -78,7 +83,11 @@ namespace HockeyApp
 
         public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
         {
-            return isoStore.GetFileNames((folderName ?? "") + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+            try {
+                return isoStore.GetFileNames((folderName ?? "") + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+            } catch (DirectoryNotFoundException) {
+                return new string[0];
+            }
         }
 
         #endregion
