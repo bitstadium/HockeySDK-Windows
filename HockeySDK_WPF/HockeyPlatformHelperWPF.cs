@@ -51,9 +51,9 @@ namespace HockeyApp
 
         public async Task<bool> DeleteFileAsync(string fileName, string folderName = null)
         {
-            if (isoStore.FileExists(folderName ?? "" + Path.DirectorySeparatorChar + fileName))
+            if (isoStore.FileExists((folderName ?? "") + Path.DirectorySeparatorChar + fileName))
             {
-                isoStore.DeleteFile(folderName ?? "" + Path.DirectorySeparatorChar + fileName);
+                isoStore.DeleteFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName);
                 return true;
             }
             return false;
@@ -61,24 +61,33 @@ namespace HockeyApp
 
         public async Task<bool> FileExistsAsync(string fileName, string folderName = null)
         {
-            return isoStore.FileExists(folderName ?? "" + Path.DirectorySeparatorChar + fileName);
+            return isoStore.FileExists((folderName ?? "") + Path.DirectorySeparatorChar + fileName);
         }
 
         public async Task<Stream> GetStreamAsync(string fileName, string folderName = null)
         {
-            return isoStore.OpenFile(folderName ?? "" + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
+            return isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
         }
 
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
-            using (var fileStream = isoStore.OpenFile(folderName ?? "" + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
+            // Ensure crashes folder exists
+            if (!isoStore.DirectoryExists(folderName)) {
+                isoStore.CreateDirectory(folderName);
+            }
+
+            using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
                 await dataStream.CopyToAsync(fileStream);
             }
         }
 
         public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
         {
-            return isoStore.GetFileNames(folderName ?? "" + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+            try {
+                return isoStore.GetFileNames((folderName ?? "") + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+            } catch (DirectoryNotFoundException) {
+                return new string[0];
+            }
         }
 
         #endregion
