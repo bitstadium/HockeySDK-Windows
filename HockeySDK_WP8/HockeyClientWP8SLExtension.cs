@@ -28,11 +28,11 @@ namespace HockeyApp
         /// <param name="appId"></param>
         /// <param name="rootFrame"></param>
         /// <returns></returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, Application application, string appId, Frame rootFrame = null)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, Frame rootFrame = null)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
-            CrashHandler.Current.Application = application;
+            CrashHandler.Current.Application = Application.Current;
             CrashHandler.Current.Application.UnhandledException += (sender, args) => { CrashHandler.Current.HandleException(args.ExceptionObject); };
 
             if (rootFrame != null)

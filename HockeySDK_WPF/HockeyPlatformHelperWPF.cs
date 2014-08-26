@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace HockeyApp
 {
@@ -92,6 +93,23 @@ namespace HockeyApp
 
         #endregion
 
+
+        string _appPackageName = null;
+        public string AppPackageName
+        {
+            get
+            {
+                if(_appPackageName == null) {
+                    _appPackageName = Application.Current.GetType().Namespace;
+                }
+                return _appPackageName;
+            }
+            set
+            {
+                _appPackageName = value;
+            }
+        }
+
         string _appVersion = null;
         public string AppVersion
         {
@@ -106,7 +124,7 @@ namespace HockeyApp
                         _appVersion = version.ToString();
                     } catch (Exception e) { }
                 //Excecuting Assembly
-                    _appVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    _appVersion = Assembly.GetCallingAssembly().GetName().Version.ToString();
                 }
                 return _appVersion ?? "0.0.0-unknown";
             }

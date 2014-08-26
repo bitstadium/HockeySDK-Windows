@@ -552,6 +552,7 @@ namespace HockeyApp
                     if(PlatformHelper == null) { throw new Exception("HockeyClient PlatformHelper is null!");}
                     _crashLogInfo = new CrashLogInformation()
                     {
+                        PackageName = this.PlatformHelper.AppPackageName,
                         OperatingSystem = this.PlatformHelper.OSPlatform,
                         Windows = this.PlatformHelper.GetWindowsVersionString(),
                         WindowsPhone = this.PlatformHelper.GetWindowsPhoneVersionString(),

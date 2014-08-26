@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
 using HockeyApp.Tools;
+using System.Windows;
 
 namespace HockeyApp
 {
@@ -152,6 +153,23 @@ namespace HockeyApp
         public string AppVersion
         {
             get { return ManifestHelper.GetAppVersion(); }
+        }
+
+        string _appPackageName = null;
+        public string AppPackageName
+        {
+            get
+            {
+                if (_appPackageName == null)
+                {
+                    _appPackageName = Application.Current.GetType().Namespace;
+                }
+                return _appPackageName;
+            }
+            set
+            {
+                _appPackageName = value;
+            }
         }
 
         public string OSVersion

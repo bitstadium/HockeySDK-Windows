@@ -36,6 +36,10 @@ namespace HockeyApp
         /// </summary>
         string AppVersion { get;}
         /// <summary>
+        ///  PackageName of your app - the namespace oft the App class
+        /// </summary>
+        string AppPackageName { get;}
+        /// <summary>
         /// Operating system version
         /// </summary>
         string OSVersion { get; }
