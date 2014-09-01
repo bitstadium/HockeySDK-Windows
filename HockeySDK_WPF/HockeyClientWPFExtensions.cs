@@ -20,9 +20,6 @@ namespace HockeyApp
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWPF();
             @this.AsInternal().AppIdentifier = identifier;
-            @this.AsInternal().SdkName = Constants.SDKNAME;
-            @this.AsInternal().SdkVersion = Constants.SDKVERSION;
-            @this.AsInternal().UserAgentString = Constants.USER_AGENT_STRING;
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             if (keepRunningAfterException)

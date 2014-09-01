@@ -27,7 +27,7 @@ namespace HockeyApp
             get { return ApiBaseVersion2; }
             private set
             {
-                if (!String.IsNullOrEmpty(value) )
+                if (!String.IsNullOrEmpty(value))
                 {
                     string domain = value;
                     //needed for backwards compatibility
@@ -48,7 +48,8 @@ namespace HockeyApp
         public string ApiDomain
         {
             get { return _apiDomain; }
-            set {
+            set
+            {
                 if (value != null)
                 {
                     _apiDomain = value.EndsWith("/") ? value : value + "/";
@@ -70,23 +71,50 @@ namespace HockeyApp
         private string _userAgentString;
         public string UserAgentString
         {
-            get { return _userAgentString; }
+            get {
+                if (_userAgentString == null)
+                {
+                    this._userAgentString = SDKConstants.UserAgentString;
+                    if (this.PlatformHelper != null)
+                    {
+                        this._userAgentString = this.PlatformHelper.UserAgentString;
+                    }
+                }
+                return _userAgentString; }
             set { _userAgentString = value; }
         }
 
         //SDK info (set by platform-specific SDK if used)
-        private string _sdkName = SDKConstants.SdkName;
+        private string _sdkName;
         public string SdkName
         {
-            get { return _sdkName; }
+            get {
+                if (_sdkName == null)
+                {
+                    this._sdkName = SDKConstants.SdkName;
+                    if (this.PlatformHelper != null)
+                    {
+                        this._sdkName = this.PlatformHelper.SDKName;
+                    }
+                }
+                return _sdkName; }
             set { _sdkName = value; }
         }
-        
+
         //SDK Version (set by platform-specific SDK if used)
-        private string _sdkVersion = SDKConstants.SdkVersion;
+        private string _sdkVersion;
         public string SdkVersion
         {
-            get { return _sdkVersion; }
+            get {
+                if (_sdkVersion == null)
+                {
+                    this._sdkName = SDKConstants.SdkVersion;
+                    if (this.PlatformHelper != null)
+                    {
+                        this._sdkVersion = this.PlatformHelper.SDKVersion;
+                    }
+                }
+                return _sdkVersion; }
             set { _sdkVersion = value; }
         }
 
@@ -95,16 +123,30 @@ namespace HockeyApp
         public string AppIdentifier
         {
             get { return _appIdentifier; }
-            set {
+            set
+            {
                 if (!String.IsNullOrEmpty(_appIdentifier))
                 {
                     throw new Exception("Repeated initialization of HockeyClient! Please make sure to call the Configure(..) method only once!");
                 }
-                _appIdentifier = value; }
+                _appIdentifier = value;
+            }
         }
 
         //Current Version of the app as string
-        public string VersionInfo { get; set; }
+        private string _versionInfo;
+        public string VersionInfo
+        {
+            get
+            {
+                if (_versionInfo == null && this.PlatformHelper != null)
+                {
+                    this._versionInfo = this.PlatformHelper.AppVersion;
+                }
+                return _versionInfo;
+            }
+            set { _versionInfo = value; }
+        }
         //UserID of current user
         public string UserID { get; set; }
         //Contact information for current user
@@ -113,15 +155,17 @@ namespace HockeyApp
         private string _os;
         public string Os
         {
-            get {
+            get
+            {
                 if (_os == null && this.PlatformHelper != null)
                 {
                     this._os = this.PlatformHelper.OSPlatform;
                 }
-                return _os; }
+                return _os;
+            }
             set { _os = value; }
         }
-        
+
         //Operating system version (set by platform-specific SDK if used)
         private string _osVersion;
         public string OsVersion
@@ -136,30 +180,34 @@ namespace HockeyApp
             }
             set { _osVersion = value; }
         }
-        
+
         //Device (set by platform-specific SDK if used)
         private string _device;
         public string Device
         {
-            get {
+            get
+            {
                 if (_device == null && this.PlatformHelper != null)
                 {
                     this._device = this.PlatformHelper.Model;
                 }
-                return _device; }
+                return _device;
+            }
             set { _device = value; }
         }
-       
+
         //Oem of Device (set by platform-specific SDK if used)
         private string _oem;
         public string Oem
         {
-            get {
+            get
+            {
                 if (_oem == null && this.PlatformHelper != null)
                 {
                     this._oem = this.PlatformHelper.Manufacturer;
                 }
-                return _oem; }
+                return _oem;
+            }
             set { _oem = value; }
         }
 
@@ -177,7 +225,7 @@ namespace HockeyApp
 
         #region ctor
         private ILog _logger = HockeyLogManager.GetLog(typeof(HockeyClient));
-        private static HockeyClient _instance=null;
+        private static HockeyClient _instance = null;
 
         /// <summary>
         /// Configures the HockeyClient with your app specific information
@@ -195,8 +243,8 @@ namespace HockeyApp
                                         string contactInformation = null,
                                         Func<Exception, string> descriptionLoader = null)
         {
-            #pragma warning disable 618 // disable obsolete warning!
-            ConfigureInternal(appIdentifier, versionInfo, apiBase, userID, contactInformation, null, null, null ,descriptionLoader);
+#pragma warning disable 618 // disable obsolete warning!
+            ConfigureInternal(appIdentifier, versionInfo, apiBase, userID, contactInformation, null, null, null, descriptionLoader);
         }
 
         /// <summary>
@@ -232,9 +280,9 @@ namespace HockeyApp
             _instance.UserID = userID;
             _instance.ContactInformation = contactInformation;
             _instance.DescriptionLoader = descriptionLoader;
-            #pragma warning disable 618 // disable obsolete warning!
+#pragma warning disable 618 // disable obsolete warning!
             _instance.ApiBase = apiBase ?? SDKConstants.PublicApiBase;
-            #pragma warning restore 618
+#pragma warning restore 618
             _instance.UserAgentString = userAgentName ?? SDKConstants.UserAgentString;
             _instance.SdkName = sdkName ?? SDKConstants.SdkName;
             _instance.SdkVersion = sdkVersion ?? SDKConstants.SdkVersion;
@@ -276,7 +324,7 @@ namespace HockeyApp
             }
         }
 
-        private HockeyClient(){}
+        private HockeyClient() { }
 
         #endregion
 
@@ -306,7 +354,7 @@ namespace HockeyApp
         {
             return CrashData.Deserialize(inputStream);
         }
-        
+
         public async Task<IEnumerable<string>> GetCrashFileNamesAsync()
         {
             return await this.PlatformHelper.GetFileNamesAsync(SDKConstants.CrashDirectoryName, SDKConstants.CrashFilePrefix + "*.log");
@@ -341,7 +389,7 @@ namespace HockeyApp
                 catch (Exception) { }
             }
         }
-        
+
         public async Task HandleExceptionAsync(Exception ex)
         {
             ICrashData cd = this.CreateCrashData(ex);
@@ -418,11 +466,11 @@ namespace HockeyApp
 
             url.Append("?app_version=" + Uri.EscapeDataString(this.VersionInfo));
             if (!String.IsNullOrEmpty(this.Os)) { url.Append("&os=" + Uri.EscapeDataString(this.Os)); }
-            if (!String.IsNullOrEmpty(this.OsVersion)) { url.Append("&os_version=" + Uri.EscapeDataString(this.OsVersion));}
-            if (!String.IsNullOrEmpty(this.Device)) { url.Append("&device=" + Uri.EscapeDataString(this.Device));}
-            if (!String.IsNullOrEmpty(this.Oem)) { url.Append("&oem=" + Uri.EscapeDataString(this.Oem));}
-            if (!String.IsNullOrEmpty(this.SdkName)) { url.Append("&sdk=" + Uri.EscapeDataString(this.SdkName));}
-            if (!String.IsNullOrEmpty(this.SdkVersion)) { url.Append("&sdk_version=" + Uri.EscapeDataString(this.SdkVersion));}
+            if (!String.IsNullOrEmpty(this.OsVersion)) { url.Append("&os_version=" + Uri.EscapeDataString(this.OsVersion)); }
+            if (!String.IsNullOrEmpty(this.Device)) { url.Append("&device=" + Uri.EscapeDataString(this.Device)); }
+            if (!String.IsNullOrEmpty(this.Oem)) { url.Append("&oem=" + Uri.EscapeDataString(this.Oem)); }
+            if (!String.IsNullOrEmpty(this.SdkName)) { url.Append("&sdk=" + Uri.EscapeDataString(this.SdkName)); }
+            if (!String.IsNullOrEmpty(this.SdkVersion)) { url.Append("&sdk_version=" + Uri.EscapeDataString(this.SdkVersion)); }
             url.Append("&lang=" + Uri.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
             if (!String.IsNullOrEmpty(this.Auid)) { url.Append("&=auid" + Uri.EscapeDataString(this.Auid)); }
@@ -481,10 +529,10 @@ namespace HockeyApp
         {
             var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion3 + "apps/" +
                                                            this.AppIdentifier + "/identity/authorize", UriKind.Absolute));
-            
-            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this.UserAgentString);
+
             byte[] credentialBuffer = new UTF8Encoding().GetBytes(email + ":" + password);
             request.SetHeader(HttpRequestHeader.Authorization.ToString(), "Basic " + Convert.ToBase64String(credentialBuffer));
+            request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this.UserAgentString);
             request.Method = "POST";
             var status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
             if (status.IsAuthorized)
@@ -509,7 +557,7 @@ namespace HockeyApp
 
             fields.Add("authcode", Encoding.UTF8.GetBytes((appSecret + email).GetMD5HexDigest()));
             fields.Add("email", Encoding.UTF8.GetBytes(email));
-            
+
             request.ContentType = "multipart/form-data; boundary=" + boundary;
             Stream stream = await request.GetRequestStreamAsync();
             string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n";
@@ -528,9 +576,10 @@ namespace HockeyApp
             stream.Write(trailer, 0, trailer.Length);
             stream.Dispose();
             var status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
-            if (status.IsIdentified) {
+            if (status.IsIdentified)
+            {
                 this.Iuid = (status as AuthStatus).Iuid;
-                this.FillEmptyUserAndContactInfo(email); 
+                this.FillEmptyUserAndContactInfo(email);
             }
             return status;
         }
@@ -545,11 +594,12 @@ namespace HockeyApp
         CrashLogInformation? _crashLogInfo = null;
         public CrashLogInformation PrefilledCrashLogInfo
         {
-            get {
+            get
+            {
                 if (!_crashLogInfo.HasValue)
                 {
                     this.CheckForInitialization();
-                    if(PlatformHelper == null) { throw new Exception("HockeyClient PlatformHelper is null!");}
+                    if (PlatformHelper == null) { throw new Exception("HockeyClient PlatformHelper is null!"); }
                     _crashLogInfo = new CrashLogInformation()
                     {
                         PackageName = this.PlatformHelper.AppPackageName,

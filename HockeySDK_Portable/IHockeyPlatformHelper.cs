@@ -52,6 +52,18 @@ namespace HockeyApp
         /// </summary>
         string ProductID { get; }
         /// <summary>
+        /// Version of the HockeyApp SDK (which implements this PlatformHelper)
+        /// </summary>
+        string SDKVersion { get; }
+        /// <summary>
+        /// Name of the HockeyApp SDK (which implements this PlatformHelper)
+        /// </summary>
+        string SDKName { get; }
+        /// <summary>
+        /// UserAgent Header to be sent to HockeyApp
+        /// </summary>
+        string UserAgentString { get; }
+        /// <summary>
         /// Manufacturer of the device
         /// </summary>
         string Manufacturer { get; }
@@ -60,6 +72,7 @@ namespace HockeyApp
         /// </summary>
         string Model { get; }
         #endregion
+       
     }
 
     internal static class PlatformHelperExtensions

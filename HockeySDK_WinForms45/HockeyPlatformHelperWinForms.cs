@@ -17,7 +17,6 @@ namespace HockeyApp
         private const string FILE_PREFIX = "HA__SETTING_";
         IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
-        
         public void SetSettingValue(string key, string value)
         {
             using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key,FileMode.Create, FileAccess.Write)){
@@ -100,7 +99,7 @@ namespace HockeyApp
             get
             {
                 if(_appPackageName == null) {
-                    _appPackageName = Application.Current.GetType().Namespace;
+                    _appPackageName = Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace;
                 }
                 return _appPackageName;
             }

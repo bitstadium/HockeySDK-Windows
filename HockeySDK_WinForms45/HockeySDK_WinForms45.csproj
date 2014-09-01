@@ -40,11 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\HockeySDK_WPF\HockeyPlatformHelperWPF.cs">
-      <Link>HockeyPlatformHelperWPF.cs</Link>
-    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="HockeyClientWinFormsExtensions.cs" />
+    <Compile Include="HockeyPlatformHelperWinForms.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

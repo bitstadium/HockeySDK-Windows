@@ -24,8 +24,15 @@ namespace HockeyApp.Extensions
             // Check if the property is available.
             if (PropertyInfo != null)
             {
-                // Set the value of the header.
-                PropertyInfo.SetValue(request, value, null);
+                try
+                {
+                    // Set the value of the header.
+                    PropertyInfo.SetValue(request, value, null);
+                }
+                catch (Exception)
+                {
+                    request.Headers[header] = value;
+                }
             }
             else
             {

@@ -187,6 +187,21 @@ namespace HockeyApp
             get { return ManifestHelper.GetProductID(); }
         }
 
+        public string SDKVersion
+        {
+            get { return Constants.SdkVersion; }
+        }
+
+        public string SDKName
+        {
+            get { return Constants.SdkName; }
+        }
+
+        public string UserAgentString
+        {
+            get { return Constants.UserAgentString; }
+        }
+
         public string Manufacturer
         {
             get
@@ -220,8 +235,5 @@ namespace HockeyApp
         }
         #endregion
 
-
-
-        
     }
 }
