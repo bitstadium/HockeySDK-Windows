@@ -1,0 +1,84 @@
+﻿<SettingsFlyout
+    x:Class="HockeyApp.Views.FeedbackFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:HockeyApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:common="using:HockeyApp.Common"
+    xmlns:loc="using:HockeyApp"
+    xmlns:tools="using:HockeyApp.Tools" 
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="{Binding FlyoutTitle}"
+    MinWidth="{Binding MinWidth}" 
+    d:DesignWidth="1000"
+    HorizontalContentAlignment="Stretch"
+    VerticalContentAlignment="Stretch"
+    BackClick="SettingsFlyout_BackClick"
+    Padding="0" 
+    RequestedTheme="Dark" 
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <SettingsFlyout.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <loc:LocalizedStrings x:Key="LocalizedStrings" />
+                    <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </SettingsFlyout.Resources>
+
+    <Grid >
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" MinWidth="230"/>
+                    <ColumnDefinition Width="7*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Text="Threads" Grid.Column="0" Grid.Row="0" 
+                   FontSize="22" Foreground="White" 
+                   HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,3,0,0"/>
+
+            <StackPanel Grid.Column="0" Grid.Row="0" HorizontalAlignment="Right" Background="Transparent" Orientation="Horizontal" VerticalAlignment="Center">
+                <AppBarButton Icon="Add" Command="{Binding AddThreadCommand}" AutomationProperties.Name="Test" RenderTransformOrigin="0.5,0.5" IsCompact="True" Margin="-10">
+                    <AppBarButton.RenderTransform>
+                        <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
+                    </AppBarButton.RenderTransform>
+                </AppBarButton>
+
+                <AppBarButton Icon="Clear" Command="{Binding CloseThreadCommand}" IsCompact="True" RenderTransformOrigin="0.5,0.5" Margin="-10">
+                    <AppBarButton.RenderTransform>
+                        <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
+                    </AppBarButton.RenderTransform>
+                </AppBarButton>
+                <AppBarButton Icon="Refresh" Command="{Binding RefreshCommand}" IsCompact="True" RenderTransformOrigin="0.5,0.5" Margin="-10,-10,0,-10">
+                    <AppBarButton.RenderTransform>
+                        <CompositeTransform ScaleX="0.75" ScaleY="0.75"/>
+                    </AppBarButton.RenderTransform>
+                </AppBarButton>
+            </StackPanel>
+            <ListBox ItemsSource="{Binding FeedbackThreadList}"
+                 SelectedItem="{Binding SelectedFeedbackThread}"
+                 Grid.Column="0" Grid.Row="1"
+                 Background="Transparent">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Subject}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <local:FeedbackThreadView  DataContext="{Binding SelectedFeedbackThread}" Grid.Row="1" Grid.Column="1" 
+                                       VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+            </Grid>
+        <Grid Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.2">
+            <ProgressRing IsActive="True" />
+        </Grid>
+    </Grid>
+   
+</SettingsFlyout>

@@ -27,11 +27,13 @@ Deprecated but still available (no Nuget package available -> use the source)
 
 * Crash reporting and Feedback (works for beta and store apps)
 
-### WinRT (Windows Store Apps)
+### WinRT (Windows 8.1 Store Apps and Windows Phone 8.1 Store Apps)
 <pre>Nuget PM> Install-Package HockeySDK.WinRT</pre>
 
 * Automatic crash reporting
-* Sending feedback to the developers
+* Automatic updates (only for Windows Phone 8.1)
+* Sending feedback to the developers (only for Windows Phone 8.1, Windows 8.1 coming soon)
+* Authorization using HockeyApp logins
 
 ### WPF
 <pre>Nuget PM> Install-Package HockeySDK.WPF</pre>

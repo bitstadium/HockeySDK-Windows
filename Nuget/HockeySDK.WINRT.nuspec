@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HockeySDK.WINRT</id>
-    <version>2.1.0-beta6</version>
+    <version>2.2.0-beta1</version>
     <authors>Bit Stadium GmbH</authors>
   <owners>Bit Stadium GmbH</owners>
     <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
@@ -11,17 +11,28 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
     <language>en-US</language>
-    <releaseNotes>Optimizations / windows Phone 8.1 Support</releaseNotes>
+    <releaseNotes>Complete new Windows 8.1 Universal support</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
-    <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
+    <tags>crash reports reporting feedback windows hockeyapp</tags>
 
     <dependencies>
-       <dependency id="HockeySDK.Core" version="[2.1.0-beta6]" />
+       <dependency id="HockeySDK.Core" version="[2.2.0-beta1]" />
     </dependencies>
   </metadata>
 
   <files>
-    <file src="..\bin\winrt\Release\HockeyApp.*" target="lib\portable-win81+wpa81" />
+    <file src="..\bin\win81\Release\HockeyApp.dll" target="lib\portable-win81" />
+    <file src="..\bin\win81\Release\HockeyApp.pri" target="lib\portable-win81" />
+    <file src="..\bin\win81\Release\HockeyApp.pdb" target="lib\portable-win81" />
+    <file src="..\bin\win81\Release\HockeyApp.xr.xml" target="lib\portable-win81\HockeyApp" />
+    <file src="..\bin\win81\Release\Views\*.xbf" target="lib\portable-win81\HockeyApp\Views" />
+    <file src="..\HockeySDK_Win81\Assets\*.*" target="lib\portable-win81\HockeyApp\Assets" />
+    <file src="..\bin\wpa81\Release\HockeyApp.dll" target="lib\portable-wpa81" />
+    <file src="..\bin\wpa81\Release\HockeyApp.pri" target="lib\portable-wpa81" />
+    <file src="..\bin\wpa81\Release\HockeyApp.pdb" target="lib\portable-wpa81" />
+    <file src="..\bin\wpa81\Release\HockeyApp.xr.xml" target="lib\portable-wpa81\HockeyApp" />
+    <file src="..\bin\wpa81\Release\Views\*.xbf" target="lib\portable-wpa81\HockeyApp\Views" />
+    <file src="..\HockeySDK_WP81\Assets\*.*" target="lib\portable-wpa81\HockeyApp\Assets" />
     <file src="tools\**" target="tools" />
   </files>
 </package>

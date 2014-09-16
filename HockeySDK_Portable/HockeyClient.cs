@@ -377,19 +377,6 @@ namespace HockeyApp
 
         public async Task<bool> AnyCrashesAvailableAsync() { return (await GetCrashFileNamesAsync()).Any(); }
 
-        public async Task DeleteCrashesAsync()
-        {
-            var helper = HockeyClient.Current.AsInternal().PlatformHelper;
-            foreach (String filename in await this.GetCrashFileNamesAsync())
-            {
-                try
-                {
-                    await helper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
-                }
-                catch (Exception) { }
-            }
-        }
-
         public async Task HandleExceptionAsync(Exception ex)
         {
             ICrashData cd = this.CreateCrashData(ex);

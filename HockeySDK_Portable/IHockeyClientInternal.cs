@@ -133,33 +133,27 @@ namespace HockeyApp.Internal
         /// <returns></returns>
         ICrashData Deserialize(Stream inputStream);
 
-        //TODO docu
+        
         /// <summary>
-        /// 
+        /// Returns filenames of current existing Crashlogs
         /// </summary>
         /// <returns></returns>
         Task<IEnumerable<string>> GetCrashFileNamesAsync();
 
         /// <summary>
-        /// 
+        /// Delete all existing Crash-logs
         /// </summary>
         /// <returns></returns>
         Task DeleteAllCrashesAsync();
         
         /// <summary>
-        /// 
+        /// Indicates if any crash-logs are available in storage
         /// </summary>
         /// <returns></returns>
         Task<bool> AnyCrashesAvailableAsync();
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        Task DeleteCrashesAsync();
-        
-        /// <summary>
-        /// 
+        /// Handle Exception 
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="markAsHandled"></param>

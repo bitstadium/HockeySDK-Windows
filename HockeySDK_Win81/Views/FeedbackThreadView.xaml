@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="HockeyApp.Views.FeedbackThreadView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:HockeyApp.ViewModels"
+             xmlns:loc="using:HockeyApp"
+             xmlns:tools="using:HockeyApp.Tools" >
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <loc:LocalizedStrings x:Key="LocalizedStrings" />
+                    <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
+                    <Style TargetType="HyperlinkButton">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate>
+                                    <TextBlock>
+                        <Run Text="{Binding Path=Content, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}" />
+                                    </TextBlock>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+
+
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="10,0,0,0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="4,0,0,0" Text="{Binding Subject}" Grid.Row="0" FontSize="24" Foreground="White" 
+                   Visibility="{Binding IsNewThreadNot, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <TextBox Margin="0" 
+                 PlaceholderText="{Binding Path=LocalizedResources[Subject], Source={StaticResource LocalizedStrings}}"
+                 HorizontalAlignment="Stretch"
+                 Text="{Binding Subject, Mode=TwoWay}" 
+                 Grid.Row="0" FontSize="22"  
+                 Visibility="{Binding IsNewThread, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+        <Grid  Margin="0,10,0,0" Grid.Row="1"  MinHeight="80" MaxHeight="600" DataContext="{Binding NewMessage}" VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="{Binding Gravatar}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" 
+                                       HorizontalAlignment="Left" Width="58" Height="58" Margin="1,0,0,0"/>
+
+            <Grid Grid.Column="1" Grid.Row="0" Margin="5,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox Margin="0,4"
+                                             PlaceholderText="{Binding Path=LocalizedResources[Username], Source={StaticResource LocalizedStrings}}"
+                                             HorizontalAlignment="Left" Grid.Row="0" Text="{Binding Username, Mode=TwoWay}" MinWidth="300" VerticalAlignment="Center"/>
+
+                <TextBox PlaceholderText="{Binding Path=LocalizedResources[Email], Source={StaticResource LocalizedStrings}}"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Left" Grid.Row="1" Text="{Binding Email, Mode=TwoWay}" MinWidth="300" Margin="0,4"/>
+                <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Margin="10,0,0,0" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.RowSpan="2" >
+                        <ItemsControl ItemsSource="{Binding Attachments}" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button >
+                                            <!-- Todo Flyout für Delete, Edit ...-->
+                                            <Button.ContentTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <BitmapIcon  />
+                                                        <TextBlock Margin="0,0,5,0" Text="{Binding Name}" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </Button.ContentTemplate>
+                                            <Button.Flyout>
+                                                <Flyout>
+                                                    <StackPanel>
+                                                        <Button Content="Remove" Command="{Binding RemoveAttachmentCommand}" CommandParameter="{Binding}" />
+                                                    </StackPanel>
+                                                </Flyout>
+                                            </Button.Flyout>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                    <AppBarButton Icon="Attach" Grid.Column="1" Command="{Binding AddAttachmentCommand}"  VerticalAlignment="Center" 
+                                                  RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
+                        <AppBarButton.RenderTransform>
+                            <ScaleTransform  ScaleX="0.75" ScaleY="0.75" />
+                        </AppBarButton.RenderTransform>
+                    </AppBarButton>
+                </Grid>
+            </Grid>
+            <TextBox PlaceholderText="{Binding Path=LocalizedResources[YourMessage], Source={StaticResource LocalizedStrings}}"
+                                         Text="{Binding Message, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" AcceptsReturn="True"
+                                         MinHeight="80" TextWrapping="Wrap"  Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="0,5,0,0"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,1,0,-1">
+                <Button Content="Submit" Command="{Binding SendMessageCommand}"  />
+                <Button Content="Cancel" Command="{Binding CancelMessageCommand}" />
+            </StackPanel>
+        </Grid>
+        <ItemsControl x:Name="itemsControl" ItemsSource="{Binding Messages}" HorizontalContentAlignment="Stretch" Grid.Row="2">
+            <ItemsControl.Template>
+                <ControlTemplate>
+                    <ScrollViewer x:Name="ScrollViewer" Padding="{TemplateBinding Padding}">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </ControlTemplate>
+            </ItemsControl.Template>
+            <ItemsControl.ItemsPanel >
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#333d3f" BorderThickness="0,0,0,1" MinHeight="80" Grid.Column="2" Grid.Row="1" Padding="10">
+                        <Grid Margin="0,10,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Source="{Binding Gravatar}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="58" Height="58"/>
+                            <Grid Grid.Column="1" Grid.Row="0" Margin="5,0,0,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="34"/>
+                                    <RowDefinition Height="13"/>
+                                    <RowDefinition Height="13"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Foreground="White" Grid.Row="0" Text="{Binding Username}" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <TextBlock Foreground="White" FontSize="11" Grid.Row="1" Text="{Binding Created}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                                <TextBlock Foreground="DarkGray"  FontSize="11" Grid.Row="2" Text="{Binding Via}" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Margin="10,0,0,0">
+                                    <ItemsControl ItemsSource="{Binding Attachments}" >
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <!-- was für ien link ist das ?-->
+                                                <HyperlinkButton 
+                                                    Content="{Binding Path=myContent, Mode=OneWay}"
+                                                    Command="{Binding myCommand}"
+                                                    CommandParameter="{Binding Path=myContent, Mode=OneWay}" />
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Grid>
+                            <TextBlock Foreground="White" Text="{Binding Message}" Margin="0,10,0,0"
+                                           Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" VerticalAlignment="Top" TextWrapping="Wrap" MinHeight="60"  />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</UserControl>
