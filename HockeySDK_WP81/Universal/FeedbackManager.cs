@@ -61,6 +61,10 @@ namespace HockeyApp
             get { return _openthreadVMs; }
         }
 
+        internal void AddFeedbackThread(FeedbackThreadVM fbThreadVM)
+        {
+            this._openthreadVMs.Add(fbThreadVM);
+        }
 
         internal async Task<IEnumerable<FeedbackThreadVM>> LoadFeedbackThreadsAsync()
         {

@@ -61,13 +61,15 @@ namespace HockeyApp.ViewModels
         {
             await FeedbackManager.Current.RefreshFeedbackThreadVMAsync(this.FeedbackThreadVM);
 
+#if WINDOWS_PHONE_APP
             foreach (var attachment in attachments)
             {
                 //convert all images to jpg for filesize
-                attachment.FeedbackAttachment.DataBytes = await ConvertImageBufferToJpegBytes(attachment.ImageBuffer);  
+                attachment.FeedbackAttachment.DataBytes = await ConvertImageBufferToJpegBytes(attachment.ImageBuffer);
                 attachment.FeedbackAttachment.FileName = Path.GetFileNameWithoutExtension(attachment.FeedbackAttachment.FileName) + ".jpg";
                 attachment.FeedbackAttachment.ContentType = "image/jpeg";
             }
+#endif
 
             IFeedbackMessage msg;
             msg = await this.FeedbackThreadVM.PostMessageAsync(this);
@@ -133,11 +135,22 @@ namespace HockeyApp.ViewModels
 
         #region properties
 
+        public string Via { get { return "via " + this.FeedbackMessage.ViaAsString; } }
+
         public string Email
         {
-            get { return  this.FeedbackMessage.Email ?? this.FeedbackThreadVM.Email ?? FeedbackManager.Current.InitialEmail; }
+            get { return  this.FeedbackMessage.Email 
+                    ?? ((this.FeedbackThreadVM != null) ? this.FeedbackThreadVM.Email : null) 
+                    ?? FeedbackManager.Current.InitialEmail; }
             set
             {
+#if WINDOWS_PHONE_APP
+#else
+                if (!String.IsNullOrEmpty(value) && value != this.FeedbackMessage.Email)
+                {
+                    Task t = ReLoadGravatar();
+                }
+#endif
                 this.FeedbackMessage.Email = value;
                 NotifyOfPropertyChange("Email");
             }
@@ -155,7 +168,7 @@ namespace HockeyApp.ViewModels
 
         public string Message
         {
-            get { return this.FeedbackMessage.Text; }
+            get { return this.FeedbackMessage.CleanText ?? this.FeedbackMessage.Text; }
             set
             {
                 this.FeedbackMessage.Text = value;
@@ -176,6 +189,11 @@ namespace HockeyApp.ViewModels
         public bool IsThreadActive
         {
             get { return this.FeedbackThreadVM.Messages.Any(); }
+        }
+
+        public bool IsThreadNotActive
+        {
+            get { return !this.IsThreadActive; }
         }
 
 

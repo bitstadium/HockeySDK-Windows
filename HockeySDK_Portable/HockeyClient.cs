@@ -310,7 +310,9 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// The current configured instance of HockeyClient
+        /// The current singleton instance of HockeyClient. Use the extension methods in the HockeyApp namespace 
+        /// to work with the instance:
+        /// HockeyClient.Current.Configure(..) must be called first to initialize the client!
         /// </summary>
         public static IHockeyClient Current
         {

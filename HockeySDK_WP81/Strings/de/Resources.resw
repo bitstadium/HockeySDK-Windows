@@ -273,4 +273,22 @@
   <data name="YourMessage" xml:space="preserve">
     <value>Ihre Nachricht ...</value>
   </data>
+  <data name="OpenAttachment" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Entfernen</value>
+  </data>
+  <data name="CloseActiveThreadQuestion" xml:space="preserve">
+    <value>Der aktuelle Thread wird geschlossen und kann innerhalb der App nicht wieder geöffnet werden. Sind Sie sicher?</value>
+  </data>
+  <data name="CloseNewThreadQuestion" xml:space="preserve">
+    <value>Wollen Sie Ihre Nachricht verwerfen?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Ja</value>
+  </data>
 </root>

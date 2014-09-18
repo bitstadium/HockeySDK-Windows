@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HockeyApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,13 +15,37 @@ namespace HockeyApp.ViewModels
         public FeedbackMessageVM NewMessage
         {
             get { return _newMsgVM; }
-            set { _newMsgVM = value; }
+            set { 
+                _newMsgVM = value;
+                NotifyOfPropertyChange("NewMessage");
+            }
+        }
+
+        internal void HandleSentMessage(IFeedbackMessage sentMsg)
+        {
+            if (!this.Messages.Any(msgVM => msgVM.FeedbackMessage.Id == sentMsg.Id))
+            {
+                this.Messages.Add(new FeedbackMessageVM(sentMsg as FeedbackMessage));
+            }
+            this.NewMessage = new FeedbackMessageVM() { FeedbackThreadVM = this };
         }
 
         private void SetCommands()
         {
             _newMsgVM.FeedbackThreadVM = this;
+            Task t = _newMsgVM.ReLoadGravatar();
         }
+
+        public bool IsThreadActive
+        {
+            get { return this.Messages.Any(); }
+        }
+
+        public bool IsThreadNotActive
+        {
+            get { return !this.IsThreadActive; }
+        }
+
 
         #region commands
 

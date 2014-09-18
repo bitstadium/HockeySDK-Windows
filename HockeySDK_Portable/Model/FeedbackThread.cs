@@ -91,7 +91,7 @@ namespace HockeyApp.Model
                 var webex = e as WebException;
                 if (webex != null)
                 {
-                    if (String.IsNullOrWhiteSpace(webex.Response.ContentType))
+                    if (webex.Response == null || String.IsNullOrWhiteSpace(webex.Response.ContentType))
                     {
                         //Connection error during call
                         throw webex;

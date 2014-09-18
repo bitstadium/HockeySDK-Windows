@@ -18,6 +18,5 @@ namespace HockeyApp
             set { _currentFBVM = value; }
         }
 
-
     }
 }

@@ -81,14 +81,11 @@ namespace HockeyApp.ViewModels
             get { return _messages; }
         }
 
-        private bool _isNewThread = true;
+        
         public bool IsNewThread
         {
-            get { return _isNewThread; }
-            set { _isNewThread = value; }
+            get { return this.FeedbackThread.IsNewThread; }
         }
-
-        public bool IsNewThreadNot { get { return !IsNewThread; } }
 
         #endregion
 

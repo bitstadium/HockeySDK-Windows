@@ -52,14 +52,14 @@ namespace HockeyApp
         /// <param name="initialEmail">[Optional] Email to prefill the email field</param>
         public static void ShowFeedbackPopup(this IHockeyClient @this, string initialEMail = null, string initialUserName = null)
         {
-            throw new NotImplementedException("Coming Soon! - Not yet implemented.");
+            //throw new NotImplementedException("Coming Soon! - Not yet implemented.");
             //TODO Feedback for Windows 81
-            /*
+            
             var flyout = new FeedbackFlyout();
             FeedbackManager.Current.InitialEmail = initialEMail;
             FeedbackManager.Current.InitialUsername = initialUserName;
             flyout.ShowIndependent();
-            */
+            
         }
 
         /// <summary>

@@ -1,8 +1,10 @@
 ﻿using HockeyApp.Common;
 using HockeyApp.Model;
+using HockeyApp.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -13,6 +15,8 @@ namespace HockeyApp.ViewModels
 {
     public class FeedbackFlyoutVM : VMBase
     {
+
+        private ILog logger = HockeyLogManager.GetLog(typeof(FeedbackFlyoutVM));
 
         public string FlyoutTitle { get { return LocalizedStrings.LocalizedResources.FeedbackPageTitle; } }
 
@@ -42,15 +46,28 @@ namespace HockeyApp.ViewModels
             if (!_initialized)
             {
                 this.IsBusy = true;
-                var threads = (await FeedbackManager.Current.LoadFeedbackThreadsAsync()).ToList();
-                this.FeedbackThreadList.Clear();
-                foreach (var thread in threads.ToList())
+                if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    this.FeedbackThreadList.Add(thread);
+                    try
+                    {
+                        var threads = (await FeedbackManager.Current.LoadFeedbackThreadsAsync()).ToList();
+                        this.FeedbackThreadList.Clear();
+                        foreach (var thread in threads.ToList())
+                        {
+                            this.FeedbackThreadList.Add(thread);
+                        }
+                        this.SelectedFeedbackThread = this.FeedbackThreadList.First();
+                    }
+                    catch (Exception e)
+                    {
+                        logger.Error(e);
+                    }
+                    _initialized = true;
                 }
-                this.SelectedFeedbackThread = this.FeedbackThreadList.FirstOrDefault();
-                //logger.Error(e);
-                _initialized = true;
+                if (!_initialized)
+                {
+                    await new MessageDialog(LocalizedStrings.LocalizedResources.FeedbackNoInternet).ShowAsync();
+                }
                 this.IsBusy = false;
             }
         }
@@ -70,25 +87,31 @@ namespace HockeyApp.ViewModels
             {
                 var threadVM = new FeedbackThreadVM();
                 this.FeedbackThreadList.Add(threadVM);
+                FeedbackManager.Current.AddFeedbackThread(threadVM);
                 this.SelectedFeedbackThread = threadVM;
             });
 
             CloseThreadCommand = new RelayCommand(async () =>
             {
-                var dialog = new MessageDialog(LocalizedStrings.LocalizedResources.CloseThreadQuestion);
+                var msg = this.SelectedFeedbackThread.IsNewThread ? 
+                    LocalizedStrings.LocalizedResources.CloseNewThreadQuestion
+                    : LocalizedStrings.LocalizedResources.CloseActiveThreadQuestion;
+                var dialog = new MessageDialog(msg);
                 dialog.Commands.Add(new UICommand() { Id = true, Label = LocalizedStrings.LocalizedResources.Yes });
                 dialog.Commands.Add(new UICommand() { Id = false, Label = LocalizedStrings.LocalizedResources.No });
                 var result = await dialog.ShowAsync();
-                if((bool) result.Id) {
+                FeedbackFlyoutVM.ShowFlyout();
+                if ((bool)result.Id)
+                {
+                    if (this.SelectedFeedbackThread.IsNewThread) { FeedbackManager.Current.SaveFeedbackThreadTokens(); }
                     this.FeedbackThreadList.Remove(this.SelectedFeedbackThread);
-                    if(!this.FeedbackThreadList.Any()) {
+                    if (!this.FeedbackThreadList.Any())
+                    {
                         this.FeedbackThreadList.Add(new FeedbackThreadVM());
                     }
                     this.SelectedFeedbackThread = this.FeedbackThreadList.First();
-                    FeedbackManager.Current.SaveFeedbackThreadTokens();
                 }
-                
-            }, () => { return !SelectedFeedbackThread.FeedbackThread.IsNewThread; });
+            });
         }
 
         #region Commands
@@ -100,8 +123,19 @@ namespace HockeyApp.ViewModels
 
         #endregion
 
-        internal void CalledFromNewFlyout(Views.FeedbackFlyout feedbackFlyout)
+        protected static FeedbackFlyout CurrentFlyout {get; set;}
+
+        internal static void ShowFlyout()
         {
+            if (CurrentFlyout != null)
+            {
+                CurrentFlyout.ShowIndependent();
+            }
+        }
+
+        internal void CalledFromNewFlyout(FeedbackFlyout feedbackFlyout)
+        {
+            CurrentFlyout = feedbackFlyout;
             if (!this.FeedbackThreadList.Any())
             {
                 this.FeedbackThreadList.Add(new FeedbackThreadVM());
