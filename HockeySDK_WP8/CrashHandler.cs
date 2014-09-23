@@ -158,8 +158,9 @@ namespace HockeyApp
 
         internal void HandleException(Exception e)
         {
-            //TODO refactor for use with platformhelper
             CrashLogInformation crashInfo = this._crashLogInfo;
+            //TODO refactor in next version
+            if (this._crashLogInfo.PackageName == null) { this._crashLogInfo = HockeyClient.Current.AsInternal().PrefilledCrashLogInfo; }
             ICrashData cd = HockeyClient.Current.AsInternal().CreateCrashData(e, this._crashLogInfo);
 
             var crashId = Guid.NewGuid();

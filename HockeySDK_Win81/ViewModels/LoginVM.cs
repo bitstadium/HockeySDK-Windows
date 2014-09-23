@@ -64,12 +64,6 @@ namespace HockeyApp.ViewModels
             return false;
         }
 
-
-        public string FlyoutTitle
-        {
-            get { return LocalizedStrings.LocalizedResources.AuthFlyoutTitle; }
-        }
-
         private string email;
         public string Email
         {

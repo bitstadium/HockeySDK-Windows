@@ -80,12 +80,15 @@
                             Content="{Binding Path=LocalizedResources[Install], Source={StaticResource LocalizedStrings}}" 
                             Grid.Column="0"
                             VerticalAlignment="Center"
+                            HorizontalAlignment="Stretch"
+                            Margin="0,0,10,0"
                             Click="InstallOverApi_Click"
                             />
                     <Button x:Name="InstallAETX" 
                             Content="{Binding Path=LocalizedResources[InstallProviderProfile], Source={StaticResource LocalizedStrings}}" 
                             Grid.Column="1"
-                            HorizontalAlignment="Right"
+                            Margin="10,0,0,0"
+                            HorizontalAlignment="Stretch"
                             VerticalAlignment="Center"
                             Click="InstallAETX_Click"/>
                 </Grid>

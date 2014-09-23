@@ -11,20 +11,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
 using HockeyApp.Tools;
+using Microsoft.Phone.Controls;
+using System.Windows;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Policy if an exisitng locally saved token should be revalidated
+    /// </summary>
     public enum TokenValidationPolicy
     {
         Never, 
         EveryLogin, 
         OnNewVersion
     }
+
+    /// <summary>
+    /// Authorize means with full credentials, identify only validates the email address
+    /// </summary>
     public enum AuthenticationMode
     {
         Authorize,
         Identify
     }
+
+    /// <summary>
+    /// If an existing token is availabe and validation is not possible (no network) deny (strict) or allow (graceful) access
+    /// </summary>
     public enum AuthValidationMode
     {
         Strict,
@@ -130,6 +143,7 @@ namespace HockeyApp
         /// <param name="authValidationMode">[optional] (default: Graceful) Mode for token-Validation (Strict needs a network-connection on every login)</param>
         /// <param name="email">[optional] inititalize email of the user</param>
         /// <param name="appSecret">[optional] HockeyApp AppSecret of your App. only needed for AuthMode.Identify</param>
+        [Obsolete("Use HockeyClient.Current.AuthorizeUser() or HockeyClient.Current.IdentifyUser()")]
         public void AuthenticateUser(NavigationService navigationService, Uri successRedirect, AuthenticationMode authMode = AuthenticationMode.Authorize,
             TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin, AuthValidationMode authValidationMode = AuthValidationMode.Graceful,
             string email = null, string appSecret = null)
@@ -157,6 +171,37 @@ namespace HockeyApp
             else
             {
                 navigationService.Navigate(successRedirect);
+            }
+        }
+
+        internal void AuthenticateUser(Uri successRedirect, AuthenticationMode authMode = AuthenticationMode.Authorize,
+            TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin, AuthValidationMode authValidationMode = AuthValidationMode.Graceful,
+            string email = null, string appSecret = null)
+        {
+            if (AuthenticationMode.Identify.Equals(authMode) && String.IsNullOrEmpty(appSecret))
+            {
+                throw new ApplicationException(LocalizedStrings.LocalizedResources.Authentication_AppSecretMissing);
+            }
+            this.SuccessRedirect = successRedirect;
+
+            bool needsLogin = TokenValidationPolicy.EveryLogin.Equals(tokenValidationPolicy);
+
+            if (!needsLogin && TokenValidationPolicy.OnNewVersion.Equals(tokenValidationPolicy))
+            {
+                string lastAuthorizedVersion = IsolatedStorageSettings.ApplicationSettings.GetValue(Constants.AuthLastAuthorizedVersionKey) as String;
+                needsLogin = (lastAuthorizedVersion == null) || (new Version(lastAuthorizedVersion) < new Version(ManifestHelper.GetAppVersion()));
+            }
+
+            if (needsLogin)
+            {
+                ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/HockeyApp;component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
+                                                                + "&appsecret=" + HttpUtility.UrlEncode(appSecret)
+                                                                + "&email=" + HttpUtility.UrlEncode(email ?? "")
+                                                                + "&validationmode=" + HttpUtility.UrlEncode(authValidationMode.ToString() ?? ""), UriKind.Relative));
+            }
+            else
+            {
+                ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(successRedirect);
             }
         }
 

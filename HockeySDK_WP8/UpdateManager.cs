@@ -16,6 +16,7 @@ using Windows.Management.Deployment;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Phone.Tasks;
 
 namespace HockeyApp
 {
@@ -202,10 +203,22 @@ namespace HockeyApp
             var aetxUri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + HockeyClient.Current.AsInternal().AppIdentifier + ".aetx", UriKind.Absolute);
             var downloadUri = new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + HockeyClient.Current.AsInternal().AppIdentifier + "/app_versions/" + availableUpdate.Id + ".xap", UriKind.Absolute);
 
-            //it won't get the result anyway because this app-instance will get killed during the update
-            //TODO try catch to show message to the user?
-            var result = await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);
-
+            Exception installError = null;
+            try
+            {
+                var result = await InstallationManager.AddPackageAsync(availableUpdate.Title, downloadUri);
+            }
+            catch (Exception e)
+            {
+                installError = e;
+            }
+            if (installError != null)
+            {
+                MessageBox.Show(String.Format(LocalizedStrings.LocalizedResources.UpdateAPIError, installError.Message));
+                WebBrowserTask webBrowserTask = new WebBrowserTask();
+                webBrowserTask.Uri = downloadUri;
+                webBrowserTask.Show();
+            }
         }
     }
 }

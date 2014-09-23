@@ -255,4 +255,8 @@
   <data name="Working" xml:space="preserve">
     <value>Bitte warten...</value>
   </data>
+  <data name="UpdateAPIError" xml:space="preserve">
+    <value>Die Installation scheiterte mit folgendem Fehler: {0]
+Der Download über den Browser wird versucht.</value>
+  </data>
 </root>

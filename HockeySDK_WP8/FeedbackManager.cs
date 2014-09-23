@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using HockeyApp.Model;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Controls;
+using Microsoft.Phone.Controls;
 
 namespace HockeyApp
 {
@@ -56,9 +58,9 @@ namespace HockeyApp
         /// Navigates to the feedback page
         /// </summary>
         /// <param name="navigationService"></param>
-        public void NavigateToFeedbackUI(NavigationService navigationService)
+        public void NavigateToFeedbackUI(NavigationService navigationService = null)
         {
-            navigationService.Navigate(new Uri("/HockeyApp;component/Views/FeedbackPage.xaml", UriKind.Relative));
+            ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/HockeyApp;component/Views/FeedbackPage.xaml", UriKind.Relative));
         }
         
         /// <summary>

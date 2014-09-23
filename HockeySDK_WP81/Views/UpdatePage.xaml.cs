@@ -124,10 +124,12 @@ namespace HockeyApp.Views
 
             this.VM.NewestVersion = appVersions.First();
 
-            this.AppIconImage.ImageFailed += (sender, ex) => { this.AppIconImage.Source = new BitmapImage(new Uri("ms-appx:///HockeyApp/Assets/windows_phone.png", UriKind.RelativeOrAbsolute)); };
+            this.AppIconImage.ImageFailed += (sender, ex) => { 
+                this.AppIconImage.Source = new BitmapImage(new Uri("ms-appx:///HockeyApp/Assets/windows_phone.png", UriKind.RelativeOrAbsolute)); 
+            };
             this.AppIconImage.Source = new BitmapImage(new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + this.VM.NewestVersion.PublicIdentifier + ".png"));
 
-            this.ReleaseNotesBrowser.NavigateToString(await WebBrowserHelper.WrapContentAsync(this.VM.NewestVersion.Notes + " <p><a href='http://www.google.com'>testlink</a> </p>"));
+            this.ReleaseNotesBrowser.NavigateToString(await WebBrowserHelper.WrapContentAsync(this.VM.NewestVersion.Notes));
             this.ReleaseNotesBrowser.NavigationStarting += async (sender, navEventArgs) => {
                 
                 if (navEventArgs.Uri != null)

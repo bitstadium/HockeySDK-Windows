@@ -30,7 +30,7 @@ namespace HockeyApp
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelper81();
             @this.AsInternal().AppIdentifier = appIdentifier;
 
-            Application.Current.Resuming += HandleAppResuming;
+            //Application.Current.Resuming += HandleAppResuming;
             Application.Current.Suspending += HandleAppSuspending;
 
             Application.Current.UnhandledException += async (sender, e) => { 
@@ -83,7 +83,7 @@ namespace HockeyApp
         /// <param name="this"></param>
         /// <param name="initialUsername">[Optional] Username to prefill the name field</param>
         /// <param name="initialEmail">[Optional] Email to prefill the email field</param>
-        public static void NavigateToFeedbackPage(this IHockeyClient @this, string initialUsername = null, string initialEmail = null)
+        public static void ShowFeedback(this IHockeyClient @this, string initialUsername = null, string initialEmail = null)
         {
             HockeyClient.Current.AsInternal().CheckForInitialization();
 
@@ -93,6 +93,12 @@ namespace HockeyApp
             FeedbackManager.Current.InitialUsername = initialUsername;
             var frame = Window.Current.Content as Frame;
             frame.Navigate(typeof(FeedbackMainPage), pars);
+        }
+
+        [Obsolete("Use ShowFeedback() instead.")]
+        public static void NavigateToFeedbackPage(this IHockeyClient @this, string initialUsername = null, string initialEmail = null)
+        {
+            @this.ShowFeedback(initialUsername, initialEmail);
         }
 
         /// <summary>

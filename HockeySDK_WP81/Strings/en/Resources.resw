@@ -297,4 +297,8 @@
   <data name="AuthIdentifyHeader" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="UpdateAPIError" xml:space="preserve">
+    <value>The Installation of the update failed with the error: {0}. 
+Update via web will be tried.</value>
+  </data>
 </root>

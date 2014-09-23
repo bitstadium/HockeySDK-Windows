@@ -44,17 +44,14 @@ namespace HockeyApp
         #region Feedback
 
         /// <summary>
-        /// -- COMING SOON ! NOT IMPLEMENTED YET --
         /// Invoke this method to open the feedback UI where a user can send you a message including image attachments over the HockeyApp feedback system.
         /// </summary>
         /// <param name="this"></param>
         /// <param name="initialUsername">[Optional] Username to prefill the name field</param>
         /// <param name="initialEmail">[Optional] Email to prefill the email field</param>
-        public static void ShowFeedbackPopup(this IHockeyClient @this, string initialEMail = null, string initialUserName = null)
+        public static void ShowFeedback(this IHockeyClient @this, string initialUserName = null, string initialEMail = null)
         {
-            //throw new NotImplementedException("Coming Soon! - Not yet implemented.");
-            //TODO Feedback for Windows 81
-            
+            @this.AsInternal().CheckForInitialization();
             var flyout = new FeedbackFlyout();
             FeedbackManager.Current.InitialEmail = initialEMail;
             FeedbackManager.Current.InitialUsername = initialUserName;

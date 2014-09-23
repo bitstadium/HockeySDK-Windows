@@ -108,7 +108,7 @@ namespace HockeyApp
             get {
                 if (_sdkVersion == null)
                 {
-                    this._sdkName = SDKConstants.SdkVersion;
+                    this._sdkVersion = SDKConstants.SdkVersion;
                     if (this.PlatformHelper != null)
                     {
                         this._sdkVersion = this.PlatformHelper.SDKVersion;

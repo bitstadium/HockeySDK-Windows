@@ -132,9 +132,6 @@
   <data name="Authentication_AppSecretMissing" xml:space="preserve">
     <value>Das HockeyApp „Authorization Secret“ wurde nicht hinterlegt. Bitte wenden Sie sich an den Entwickler dieser App.</value>
   </data>
-  <data name="AuthFlyoutTitle" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
   <data name="AuthIdentifyButton" xml:space="preserve">
     <value>Senden</value>
   </data>
@@ -264,7 +261,7 @@
   <data name="UpdateUnknownError" xml:space="preserve">
     <value>Unbekannter Fehler bei der Suche nach App-Updates. Sind Sie mit dem Internet verbunden?</value>
   </data>
-  <data name="FeebackPageTitle" xml:space="preserve">
+  <data name="FeedbackPageTitle" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="Reload" xml:space="preserve">
@@ -296,5 +293,9 @@
   </data>
   <data name="AuthIdentifyHeader" xml:space="preserve">
     <value>Login</value>
+  </data>
+  <data name="UpdateAPIError" xml:space="preserve">
+    <value>Die Installation scheiterte mit folgendem Fehler: {0]
+Der Download über den Browser wird versucht.</value>
   </data>
 </root>

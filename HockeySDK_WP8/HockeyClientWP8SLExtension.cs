@@ -33,7 +33,9 @@ namespace HockeyApp
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
-            CrashHandler.Current.Application.UnhandledException += (sender, args) => { CrashHandler.Current.HandleException(args.ExceptionObject); };
+            CrashHandler.Current.Application.UnhandledException += (sender, args) => { 
+                CrashHandler.Current.HandleException(args.ExceptionObject); 
+            };
 
             if (rootFrame != null)
             {
@@ -61,36 +63,69 @@ namespace HockeyApp
 
         #region CrashHandling
 
+        [Obsolete("Please use SendCrashesAsync() instead")]
         public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this, Boolean sendAutomatically = false)
         {
             @this.AsInternal().CheckForInitialization();
             return await CrashHandler.Current.HandleCrashesAsync(sendAutomatically).ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Send any collected crashes to the HockeyApp server. You should normally call this during startup of your app. 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="sendWithoutAsking">configures if available crashes are sent immediately or if the user should be asked if the crashes should be sent or discarded</param>
+        /// <returns>true if crashes where sent successfully</returns>
+        public static async Task<bool> SendCrashesAsync(this IHockeyClient @this, bool sendWithoutAsking = false)
+        {
+            @this.AsInternal().CheckForInitialization();
+            return await CrashHandler.Current.HandleCrashesAsync(sendWithoutAsking).ConfigureAwait(false);
+        }
+
         #endregion
 
         #region Authentication
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="successRedirect">Page-URI to redirect to after successful login</param>
+        /// <param name="navigationService">obsolete</param>
+        /// <param name="eMail">[Optional] initial email</param>
+        /// <param name="tokenValidationPolicy"><see cref="TokenValidationPolicy"/></param>
+        /// <param name="authValidationMode"><see cref="AuthValidationMode"/></param>
         public static void AuthorizeUser(this IHockeyClient @this, 
-            Uri successRedirect, NavigationService navigationService,
+            Uri successRedirect, NavigationService navigationService = null,
             string eMail = null,
             TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin,
             AuthValidationMode authValidationMode = AuthValidationMode.Graceful)
 
         {
             @this.AsInternal().CheckForInitialization();
-            AuthManager.Instance.AuthenticateUser(navigationService,successRedirect, AuthenticationMode.Authorize, 
+            AuthManager.Instance.AuthenticateUser(successRedirect, AuthenticationMode.Authorize, 
                 tokenValidationPolicy, authValidationMode, eMail, null);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="appSecret">Your app's app secret (see HockeyApp app page)</param>
+        /// <param name="successRedirect">Page-URI to redirect to after successful login</param>
+        /// <param name="navigationService">obsolete</param>
+        /// <param name="eMail">[Optional] initial email</param>
+        /// <param name="tokenValidationPolicy"><see cref="TokenValidationPolicy"/></param>
+        /// <param name="authValidationMode"><see cref="AuthValidationMode"/></param>
         public static void IdentifyUser(this IHockeyClient @this, string appSecret,
-            Uri successRedirect, NavigationService navigationService,
+            Uri successRedirect, NavigationService navigationService = null,
             string eMail = null,
             TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin,
             AuthValidationMode authValidationMode = AuthValidationMode.Graceful)
 
         {
             @this.AsInternal().CheckForInitialization();
-            AuthManager.Instance.AuthenticateUser(navigationService,successRedirect, AuthenticationMode.Authorize, 
+            AuthManager.Instance.AuthenticateUser(successRedirect, AuthenticationMode.Authorize, 
                 tokenValidationPolicy, authValidationMode, eMail, appSecret);
         }
 
@@ -102,16 +137,33 @@ namespace HockeyApp
         #endregion
 
         #region Feedback
+
+        [Obsolete("Use ShowFeedback() instead")]
         public static void ShowFeedbackUI(this IHockeyClient @this, NavigationService navigationService)
         {
             @this.AsInternal().CheckForInitialization();
             FeedbackManager.Instance.NavigateToFeedbackUI(navigationService);
         }
 
+        /// <summary>
+        /// Open the feedback UI
+        /// </summary>
+        /// <param name="this"></param>
+        public static void ShowFeedback(this IHockeyClient @this)
+        {
+            @this.AsInternal().CheckForInitialization();
+            FeedbackManager.Instance.NavigateToFeedbackUI();
+        }
+
         #endregion
 
         #region Updates
 
+        /// <summary>
+        /// Check for available updates
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="settings"><see cref="UpdateCheckSettings"/></param>
         public static void CheckForUpdates(this IHockeyClient @this, UpdateCheckSettings settings = null)
         {
             @this.AsInternal().CheckForInitialization();
