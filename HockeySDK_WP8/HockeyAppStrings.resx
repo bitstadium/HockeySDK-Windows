@@ -265,4 +265,7 @@
     <value>The Installation of the update failed with the error: {0}. 
 Update via web will be tried.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
 </root>

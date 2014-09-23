@@ -259,4 +259,7 @@
     <value>Die Installation scheiterte mit folgendem Fehler: {0]
 Der Download über den Browser wird versucht.</value>
   </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
 </root>

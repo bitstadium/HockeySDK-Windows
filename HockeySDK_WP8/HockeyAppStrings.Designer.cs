@@ -349,6 +349,15 @@ namespace HockeyApp {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Password.
+        /// </summary>
+        public static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Releasenotes.
         /// </summary>
         public static string ReleaseNotes {

@@ -16,11 +16,8 @@
     <tags>crash reports reporting feedback WP8 windows phone hockeyapp</tags>
 
     <dependencies>
-      <group targetFramework="wp71">
-      </group>
-
       <group targetFramework="wp8">
-        <dependency id="HockeySDK.Core" version="[2.1.0-beta6]" />
+        <dependency id="HockeySDK.Core" version="[2.2.0-beta2]" />
       </group>
     </dependencies>
   </metadata>
@@ -29,7 +26,6 @@
     <file src="..\bin\wp8\Release\HockeyApp.*" target="lib\wp8" />
     <file src="..\bin\wp8\Release\de\HockeyApp.*" target="lib\wp8\de" />
     <file src="..\bin\wp8\Release\HockeyApp.*" target="lib\wp8" />
-    <file src="..\bin\wp75\Release\HockeyApp.*" target="lib\wp71" />
 
     <file src="content\**" target="content" />
     <file src="tools\**" target="tools" />

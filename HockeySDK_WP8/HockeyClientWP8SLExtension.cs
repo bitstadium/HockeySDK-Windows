@@ -125,7 +125,7 @@ namespace HockeyApp
 
         {
             @this.AsInternal().CheckForInitialization();
-            AuthManager.Instance.AuthenticateUser(successRedirect, AuthenticationMode.Authorize, 
+            AuthManager.Instance.AuthenticateUser(successRedirect, AuthenticationMode.Identify, 
                 tokenValidationPolicy, authValidationMode, eMail, appSecret);
         }
 
