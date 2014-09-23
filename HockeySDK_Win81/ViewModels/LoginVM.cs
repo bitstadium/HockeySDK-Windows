@@ -9,9 +9,9 @@ using Windows.UI.Popups;
 
 namespace HockeyApp.ViewModels
 {
-    public class LoginFlyoutVM : VMBase
+    public class LoginVM : VMBase
     {
-        private ILog logger = HockeyLogManager.GetLog(typeof(LoginFlyoutVM));
+        private ILog logger = HockeyLogManager.GetLog(typeof(LoginVM));
 
         internal async Task<bool> AuthorizeOnline(string password = null)
         {

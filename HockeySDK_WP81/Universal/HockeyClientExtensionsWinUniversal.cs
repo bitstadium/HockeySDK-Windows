@@ -52,6 +52,27 @@ namespace HockeyApp
         }
 
         /// <summary>
+        /// Inititate user identification and define a action to perform when authorization is successfull
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="successAction">Action to perform when login is successfull</param>
+        /// <param name="eMail">[Optional] E-Mail adress to prefill form</param>
+        /// <param name="tokenValidationPolicy">[Optional] Default is EveryLogin</param>
+        /// <param name="authValidationMode">[Optional] Default is Graceful</param>
+        public static void IdentifyUser(this IHockeyClient @this, string appSecret,
+            Action successAction, string eMail = null,
+            TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin,
+            AuthValidationMode authValidationMode = AuthValidationMode.Graceful)
+        {
+            @this.AsInternal().CheckForInitialization();
+            var authMan = AuthManager.Current;
+            authMan.SuccessAction = successAction;
+            authMan.AuthenticateUser(AuthenticationMode.Identify,
+                tokenValidationPolicy, authValidationMode, eMail, appSecret);
+        }
+
+
+        /// <summary>
         /// Inititate user authorization and define a page navigate to when authorization is successfull
         /// </summary>
         /// <param name="this"></param>
@@ -72,7 +93,7 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// Inititate user authorization and define a page to navigate to when authorization is successfull
+        /// Inititate user identification and define a page to navigate to when authorization is successfull
         /// </summary>
         /// <param name="this"></param>
         /// <param name="appSecret">your app secret from HockeyApp</param>

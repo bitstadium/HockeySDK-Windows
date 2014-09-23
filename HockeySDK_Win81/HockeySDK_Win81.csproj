@@ -108,15 +108,15 @@
     <Compile Include="ViewModels\FeedbackMessageVM.cs" />
     <Compile Include="ViewModels\FeedbackThreadVM.cs" />
     <Compile Include="ViewModels\FeedbackFlyoutVM.cs" />
-    <Compile Include="ViewModels\LoginFlyoutVM.cs" />
+    <Compile Include="ViewModels\LoginVM.cs" />
     <Compile Include="Views\FeedbackFlyout.xaml.cs">
       <DependentUpon>FeedbackFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\FeedbackThreadView.xaml.cs">
       <DependentUpon>FeedbackThreadView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LoginFlyout.xaml.cs">
-      <DependentUpon>LoginFlyout.xaml</DependentUpon>
+    <Compile Include="Views\LoginDialog.xaml.cs">
+      <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -129,7 +129,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LoginFlyout.xaml">
+    <Page Include="Views\LoginDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

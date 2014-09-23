@@ -291,4 +291,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="AuthAuthorizeHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="AuthIdentifyHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
 </root>
