@@ -29,7 +29,7 @@ namespace HockeyApp
                             string userID = null,
                             string contactInformation = null,
                             Func<Exception, string> descriptionLoader = null,
-                            string apiBase = "https://rink.hockeyapp.net",
+                            string apiBase = "https://rink.hockeyapp.net/api/2/",
                             string userAgentString = null)
         {
             if (String.IsNullOrWhiteSpace(apiBase))

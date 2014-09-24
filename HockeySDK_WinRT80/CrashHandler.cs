@@ -60,7 +60,7 @@ namespace HockeyApp
             e.Handled = true;
 
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
-            await HandleException(e.Exception);
+            await HandleUnhandledException(e);
             
             Application.Current.Exit();
         }
@@ -68,6 +68,38 @@ namespace HockeyApp
         private async Task HandleException(Exception e)
         {
             var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
+            var crashId = Guid.NewGuid();
+
+            try
+            {
+                var store = ApplicationData.Current.LocalFolder;
+                var folder = await store.CreateFolderAsync(Constants.CRASHPATHNAME, CreationCollisionOption.OpenIfExists);
+
+                var filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
+
+
+
+                var file = await folder.CreateFileAsync(filename);
+                using (var stream = await file.OpenStreamForWriteAsync())
+                {
+                    crashData.Serialize(stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+            }
+        }
+
+        private async Task HandleUnhandledException(UnhandledExceptionEventArgs eArgs)
+        {
+            var crashData = HockeyClient.Instance.CreateCrashData(eArgs.Exception, this._logInfo);
+            //stacktrace might be null http://stackoverflow.com/a/25433989
+            if (eArgs.Exception.StackTrace == null)
+            {
+                var newLog = crashData.Log.Remove(crashData.Log.LastIndexOf("\n") - 1);
+                crashData.Log = newLog + eArgs.Message.Substring(eArgs.Message.IndexOf(Environment.NewLine));
+            }
             var crashId = Guid.NewGuid();
 
             try

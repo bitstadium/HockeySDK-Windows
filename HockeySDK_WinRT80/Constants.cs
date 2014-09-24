@@ -15,6 +15,6 @@ namespace HockeyApp
 
         internal const string USER_AGENT_STRING = "Hockey/WinRT80";
         internal const string SDKNAME = "HockeySDKWinRT80";
-        internal const string SDKVERSION = "2.0.4";
+        internal const string SDKVERSION = "2.0.5";
     }
 }
