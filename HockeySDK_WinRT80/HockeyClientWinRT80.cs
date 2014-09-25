@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace HockeyApp
 {
@@ -23,14 +24,14 @@ namespace HockeyApp
         /// <param name="userID">optional user id - e.g. the logged in user</param>
         /// <param name="contactInformation">optional contact information like an email adress</param>
         /// <param name="descriptionLoader">optional delegate for attaching description information like event logs etc. Can be null.</param>
-        /// <param name="apiBase">optional: apiBase - if not the standard is used</param>
+        /// <param name="rootFrame">optional: rootFrame - if the rootframe is provided async void exception handling is improved</param>
         public void Configure(string appIdentifier,
                             string appVersionInformation,
                             string userID = null,
                             string contactInformation = null,
                             Func<Exception, string> descriptionLoader = null,
                             string apiBase = "https://rink.hockeyapp.net/api/2/",
-                            string userAgentString = null)
+                            Frame rootFrame = null)
         {
             if (String.IsNullOrWhiteSpace(apiBase))
             {
@@ -50,6 +51,12 @@ namespace HockeyApp
                 sdkVersion: Constants.SDKVERSION);
 
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader);
+
+            if (rootFrame != null)
+            {
+                //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
+                AsyncSynchronizationContext.RegisterForFrame(rootFrame, this._crashHandler);
+            }
         }
 
         #region Crashes

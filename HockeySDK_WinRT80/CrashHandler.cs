@@ -65,7 +65,7 @@ namespace HockeyApp
             Application.Current.Exit();
         }
 
-        private async Task HandleException(Exception e)
+        internal async Task HandleException(Exception e)
         {
             var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
             var crashId = Guid.NewGuid();

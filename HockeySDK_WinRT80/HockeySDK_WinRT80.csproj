@@ -99,6 +99,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AsyncSynchronizationContext.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CrashHandler.cs" />
     <Compile Include="HockeyClientWinRT80.cs" />
