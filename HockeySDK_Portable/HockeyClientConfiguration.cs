@@ -37,7 +37,19 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// Set the user Id and emal/contact information of the current user if known. This is sent to HockeyApp with crashes.
+        /// The provided func is called in case of an exception and the returned string is added as additional description of the exception.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="descriptionLoader"></param>
+        /// <returns></returns>
+        public static IHockeyClient UpdateExceptionDescriptionLoader(this IHockeyClient @this, Func<Exception, string> descriptionLoader)
+        {
+            @this.AsInternal().DescriptionLoader = descriptionLoader;
+            return @this;
+        }
+
+        /// <summary>
+        /// Set the user Id and email/contact information of the current user if known. This is sent to HockeyApp with crashes.
         /// </summary>
         /// <param name="this"></param>
         /// <param name="user"></param>
@@ -51,7 +63,7 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// Set the user Id and emal/contact information of the current user if known. This is sent to HockeyApp with crashes.
+        /// Set the user Id and email/contact information of the current user if known. This is sent to HockeyApp with crashes.
         /// </summary>
         /// <param name="this"></param>
         /// <param name="user"></param>
@@ -61,6 +73,21 @@ namespace HockeyApp
         {
             @this.AsInternal().UserID = user;
             @this.AsInternal().ContactInformation = email;
+            return @this;
+        }
+
+        /// <summary>
+        /// Enqueue exception and extra description to be sent to HockeyApp. Useful for debugging handled exception.
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="ex"></param>
+        /// <param name="extraDescription">[optional] Override the description provided by Exception Description Loader</param>
+        /// <param name="descriptionCombine">[optional] Resolve the conflict when both <paramref name="extraDescription"/> and Exception Description Loader are set.</param>
+        /// <returns></returns>
+        public static async Task<IHockeyClient> SendExceptionAsync(this IHockeyClient @this, Exception ex, string extraDescription = null, 
+            Func<string, string, string> descriptionCombine = null)
+        {
+            await @this.AsInternal().HandleExceptionAsync(ex, extraDescription, descriptionCombine);
             return @this;
         }
     }
