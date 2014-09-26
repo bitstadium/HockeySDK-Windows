@@ -102,14 +102,17 @@ namespace HockeyApp.Model
             {
                 request.SetHeader(HttpRequestHeader.UserAgent.ToString(), this._hockeyClient.UserAgentString);
             }
-            Stream stream = await request.GetRequestStreamAsync();
-            byte[] byteArray = Encoding.UTF8.GetBytes(rawData);
-            stream.Write(byteArray, 0, rawData.Length);
-            stream.Dispose();
+            using (Stream stream = await request.GetRequestStreamAsync())
+            {
+                byte[] byteArray = Encoding.UTF8.GetBytes(rawData);
+                stream.Write(byteArray, 0, rawData.Length);
+            }
 
             try
             {
-                WebResponse response = await request.GetResponseAsync();
+                using (WebResponse response = await request.GetResponseAsync())
+                {
+                }
             }
             catch (WebException e)
             {
