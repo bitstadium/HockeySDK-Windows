@@ -352,6 +352,31 @@ namespace HockeyApp
             return new CrashData(this, ex, crashLogInfo);
         }
 
+        public ICrashData CreateCrashData(Exception ex, string extraDescription, Func<string, string, string> descriptionCombine)
+        {
+
+            var cd = CreateCrashData(ex);
+            if (!String.IsNullOrWhiteSpace(extraDescription))
+            {
+                if (descriptionCombine == null)
+                {
+                    cd.Description = extraDescription;
+                }
+                else
+                {
+                    if (String.IsNullOrWhiteSpace(cd.Description))
+                    {
+                        cd.Description = extraDescription;
+                    }
+                    else
+                    {
+                        cd.Description = descriptionCombine(cd.Description, extraDescription);
+                    }
+                }
+            }
+            return cd;
+        }
+
         public ICrashData Deserialize(Stream inputStream)
         {
             return CrashData.Deserialize(inputStream);
@@ -379,9 +404,9 @@ namespace HockeyApp
 
         public async Task<bool> AnyCrashesAvailableAsync() { return (await GetCrashFileNamesAsync()).Any(); }
 
-        public async Task HandleExceptionAsync(Exception ex)
+        public async Task HandleExceptionAsync(Exception ex, string extraDescription = null, Func<string, string, string> descriptionCombine = null)
         {
-            ICrashData cd = this.CreateCrashData(ex);
+            ICrashData cd = this.CreateCrashData(ex, extraDescription, descriptionCombine);
 
             var crashId = Guid.NewGuid();
             try

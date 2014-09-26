@@ -115,6 +115,15 @@ namespace HockeyApp.Internal
         /// Factory method for ICrashData
         /// </summary>
         /// <param name="ex">Exception for which crashData is created</param>
+        /// <param name="extraDescription">[optional] Override the description provided by Exception Description Loader</param>
+        /// <param name="descriptionCombine">[optional] Resolve the conflict when both <paramref name="extraDescription"/> and Exception Description Loader are set.</param>
+        /// <returns></returns>
+        ICrashData CreateCrashData(Exception ex, string extraDescription, Func<string, string, string> descriptionCombine);
+
+        /// <summary>
+        /// Factory method for ICrashData
+        /// </summary>
+        /// <param name="ex">Exception for which crashData is created</param>
         /// <param name="crashLogInfo">Meta infos for crash</param>
         /// <returns></returns>
         ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo);
@@ -156,9 +165,10 @@ namespace HockeyApp.Internal
         /// Handle Exception 
         /// </summary>
         /// <param name="ex"></param>
-        /// <param name="markAsHandled"></param>
+        /// <param name="extraDescription">[optional] Override the description provided by Exception Description Loader</param>
+        /// <param name="descriptionCombine">[optional] Resolve the conflict when both <paramref name="extraDescription"/> and Exception Description Loader are set.</param>
         /// <returns></returns>
-        Task HandleExceptionAsync(Exception ex);
+        Task HandleExceptionAsync(Exception ex, string extraDescription = null, Func<string, string, string> descriptionCombine = null);
         
         /// <summary>
         /// 
