@@ -147,6 +147,29 @@ namespace HockeyApp
             }
         }
 
+        public bool PlatformSupportsSyncWrite
+        {
+            get { return true; }
+        }
+
+        public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
+        {
+            string filepath = fileName;
+            //for windows phone 8 this is the same as ApplicationData.Current.LocalFolder
+            IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+            if (folderName != null){
+                filepath = Path.Combine(folderName, fileName);
+                if(!store.DirectoryExists(folderName))
+            {
+                store.CreateDirectory(folderName);
+            }
+            } 
+            using (FileStream stream = store.CreateFile(filepath))
+            {
+                dataStream.CopyTo(stream);
+            }
+        }
+
         #endregion
 
         #region infos
@@ -234,6 +257,8 @@ namespace HockeyApp
             }
         }
         #endregion
+
+
 
     }
 }

@@ -91,6 +91,25 @@ namespace HockeyApp
             }
         }
 
+        public bool PlatformSupportsSyncWrite
+        {
+            get { return true; }
+        }
+
+        public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
+        {
+            // Ensure crashes folder exists
+            if (!isoStore.DirectoryExists(folderName))
+            {
+                isoStore.CreateDirectory(folderName);
+            }
+
+            using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+            {
+                dataStream.CopyTo(fileStream);
+            }
+        }
+
         #endregion
 
 
@@ -114,19 +133,22 @@ namespace HockeyApp
         public string AppVersion
         {
             get { 
-
                 if(_appVersion == null) {
                 //ClickOnce
-                    try {
+                    try
+                    {
                         var type = Type.GetType("System.Deployment.Application.ApplicationDeployment");
-                        object deployment = type.GetMethod("CurrentDeployment").Invoke(null,null);
+                        object deployment = type.GetMethod("CurrentDeployment").Invoke(null, null);
                         Version version = type.GetMethod("CurrentVersion").Invoke(deployment, null) as Version;
                         _appVersion = version.ToString();
-                    } catch (Exception e) { }
-                //Excecuting Assembly
-                    _appVersion = Assembly.GetCallingAssembly().GetName().Version.ToString();
+                    }
+                    catch (Exception)
+                    {
+                        //Entry Assembly
+                        _appVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
+                    }
                 }
-                return _appVersion ?? "0.0.0-unknown";
+                return _appVersion ?? "0.0.0.1";
             }
             set {
                 _appVersion = value;
@@ -193,6 +215,6 @@ namespace HockeyApp
                 return null;
             }
         }
-        
+
     }
 }

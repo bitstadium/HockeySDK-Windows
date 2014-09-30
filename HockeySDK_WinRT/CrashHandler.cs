@@ -156,9 +156,11 @@ namespace HockeyApp
                     deleteFlag = false;
                     try
                     {
-                        Stream fs = await crashFile.OpenStreamForReadAsync();
-                        ICrashData cd = ((IHockeyClientInternal)HockeyClient.Current).Deserialize(fs);
-                        fs.Dispose();
+                        ICrashData cd;
+                        using (Stream fs = await crashFile.OpenStreamForReadAsync())
+                        {
+                            cd = ((IHockeyClientInternal)HockeyClient.Current).Deserialize(fs);
+                        }
                         await cd.SendDataAsync();
                         await crashFile.DeleteAsync();
                         logger.Info("Crashfile deleted: {0}", crashFile.Name);

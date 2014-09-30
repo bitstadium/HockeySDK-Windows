@@ -72,12 +72,13 @@ namespace HockeyApp
             byte[] protectedData = ProtectedData.Protect(Encoding.UTF8.GetBytes(data), Encoding.UTF8.GetBytes("hockeyAppIsCool"));
 
             IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication();
-            IsolatedStorageFileStream writestream = new IsolatedStorageFileStream(dataIdentifier + ".crypt", FileMode.Create, FileAccess.Write, file);
-
-            Stream writer = new StreamWriter(writestream).BaseStream;
-            writer.Write(protectedData, 0, protectedData.Length);
-            writer.Close();
-            writestream.Close();
+            using (IsolatedStorageFileStream writestream = new IsolatedStorageFileStream(dataIdentifier + ".crypt", FileMode.Create, FileAccess.Write, file))
+            {
+                using (Stream writer = new StreamWriter(writestream).BaseStream)
+                {
+                    writer.Write(protectedData, 0, protectedData.Length);
+                }
+            }
         }
 
         /// <summary>
@@ -88,22 +89,23 @@ namespace HockeyApp
         public string RetrieveProtectedString(string dataIdentifier)
         {
             IsolatedStorageFile file = IsolatedStorageFile.GetUserStoreForApplication();
-            IsolatedStorageFileStream readstream = null;
+            byte[] protectedData;
             try
             {
-                readstream = new IsolatedStorageFileStream(dataIdentifier + ".crypt", FileMode.Open, FileAccess.Read, file);
+                using (IsolatedStorageFileStream readstream = new IsolatedStorageFileStream(dataIdentifier + ".crypt", FileMode.Open, FileAccess.Read, file))
+                {
+                    using (Stream reader = new StreamReader(readstream).BaseStream)
+                    {
+                        protectedData = new byte[reader.Length];
+                        reader.Read(protectedData, 0, protectedData.Length);
+                    }
+                }
+
             }
             catch (IsolatedStorageException)
             {
                 return null;
             }
-
-            Stream reader = new StreamReader(readstream).BaseStream;
-            byte[] protectedData = new byte[reader.Length];
-
-            reader.Read(protectedData, 0, protectedData.Length);
-            reader.Close();
-            readstream.Close();
 
             byte[] dataBytes = ProtectedData.Unprotect(protectedData, Encoding.UTF8.GetBytes("hockeyAppIsCool"));
             return Encoding.UTF8.GetString(dataBytes, 0, dataBytes.Length);

@@ -31,14 +31,34 @@ namespace HockeyApp
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelper81();
             @this.AsInternal().AppIdentifier = appIdentifier;
 
-            Application.Current.UnhandledException += async (sender, e) => { 
-                e.Handled = true; 
+            TaskScheduler.UnobservedTaskException += async (sender, e) =>
+            {
+                e.SetObserved();
                 await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
-                Application.Current.Exit();
+                if (customUnobservedTaskExceptionFunc == null || customUnobservedTaskExceptionFunc(e))
+                {
+                    Application.Current.Exit();
+                }
             };
+
+            Application.Current.UnhandledException += async (sender, e) =>
+            {
+                e.Handled = true;
+                await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
+                if (customUnhandledExceptionFunc == null || customUnhandledExceptionFunc(e))
+                {
+                    Application.Current.Exit();
+                }
+            };
+
             
             return @this as IHockeyClientConfigurable;
         }
+
+        private static Func<UnhandledExceptionEventArgs, bool> customUnhandledExceptionFunc;
+
+        private static Func<UnobservedTaskExceptionEventArgs, bool> customUnobservedTaskExceptionFunc;
+
         #endregion
 
         #region Feedback

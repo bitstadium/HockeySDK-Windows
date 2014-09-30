@@ -8,10 +8,11 @@ namespace HockeyApp
 {
     internal class Constants
     {
-        internal const string CrashDirectoryName = "CrashLogs";
+        internal const string CrashDirectoryName = "HockeyCrashes";
+        internal const string OldCrashDirectoryName = "CrashLogs";
         internal const string CrashFilePrefix = "crashinfo_";
         internal const string SdkName = "HockeySDKWP8";
-        internal const string SdkVersion = "2.2.0-beta2";
+        internal const string SdkVersion = "2.2.0-beta3";
         internal const string UserAgentString = "Hockey/WP8";
 
         internal const string FeedbackThreadKey = "HockeyAppFeedback_ThreadId";

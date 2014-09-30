@@ -158,7 +158,7 @@ namespace HockeyApp.Model
                     {
                         return AuthStatus.NotAuthorizedAuthStatus;
                     }
-                        //sent if token is invalid
+                    //sent if token is invalid
                     else if ((int)(e.Response as HttpWebResponse).StatusCode == 422)
                     {
                         return AuthStatus.NotAuthorizedAuthStatus;

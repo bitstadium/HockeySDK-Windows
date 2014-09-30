@@ -37,7 +37,7 @@ namespace HockeyApp
         }
 
         /// <summary>
-        /// Set the user Id and emal/contact information of the current user if known. This is sent to HockeyApp with crashes.
+        /// Set the user Id and email/contact information of the current user if known. This is sent to HockeyApp with crashes.
         /// </summary>
         /// <param name="this"></param>
         /// <param name="user"></param>

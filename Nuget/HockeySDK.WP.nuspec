@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HockeySDK.WP</id>
-    <version>2.2.0-beta2</version>
+    <version>2.2.0-beta3</version>
     <authors>Bit Stadium GmbH</authors>
   <owners>Bit Stadium GmbH</owners>
     <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
@@ -13,11 +13,11 @@
     <language>en-US</language>
     <releaseNotes>Fixed Bug In-App-Updater</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
-    <tags>crash reports reporting feedback WP8 windows phone hockeyapp</tags>
+    <tags>crash reports reporting feedback WP8 WP81SL windows phone hockeyapp</tags>
 
     <dependencies>
       <group targetFramework="wp8">
-        <dependency id="HockeySDK.Core" version="[2.2.0-beta2]" />
+        <dependency id="HockeySDK.Core" version="[2.2.0-beta3]" />
       </group>
     </dependencies>
   </metadata>

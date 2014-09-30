@@ -223,7 +223,14 @@ namespace HockeyApp.Tools
         {
             get
             {
-                return Application.Current.RootVisual as PhoneApplicationFrame;
+                try
+                {
+                    return Application.Current.RootVisual as PhoneApplicationFrame;
+                }
+                catch
+                {
+                    return null;
+                }
             }
         }
 

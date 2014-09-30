@@ -90,7 +90,7 @@ namespace HockeyApp
         /// <returns></returns>
         public IFeedbackThread CreateFeedbackThread()
         {
-            return HockeyClient.Instance.CreateNewFeedbackThread();
+            return ((HockeyClient)HockeyClient.Current).CreateNewFeedbackThread();
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace HockeyApp
         /// <returns>The Feedback-Thread or, if not found or delete, null.</returns>
         public async Task<IFeedbackThread> OpenFeedbackThreadAsync(string feedbackToken)
         {
-            return await HockeyClient.Instance.OpenFeedbackThreadAsync(feedbackToken);
+            return await ((HockeyClient)HockeyClient.Current).OpenFeedbackThreadAsync(feedbackToken);
         }
 
         #endregion

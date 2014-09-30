@@ -22,7 +22,7 @@ namespace HockeyApp
 
         internal const string USER_AGENT_STRING = "Hockey/WinForms";
         internal const string SDKNAME = "HockeySDKWinForms";
-        internal const string SDKVERSION = "2.1.0-beta6";
+        internal const string SDKVERSION = "2.2.0-beta3";
 
         internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
     }

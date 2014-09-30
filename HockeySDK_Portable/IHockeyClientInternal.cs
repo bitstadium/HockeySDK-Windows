@@ -127,6 +127,14 @@ namespace HockeyApp.Internal
         ICrashData CreateCrashData(Exception ex);
 
         /// <summary>
+        /// Factory method for ICrashData (for unity-sdk)
+        /// </summary>
+        /// <param name="ex">Exception for which crashData is created</param>
+        /// <returns></returns>
+        ICrashData CreateCrashData(String logString, String stackTrace);
+
+
+        /// <summary>
         /// Deserializes an ICrashData from stream information
         /// </summary>
         /// <param name="inputStream"></param>
@@ -153,13 +161,20 @@ namespace HockeyApp.Internal
         Task<bool> AnyCrashesAvailableAsync();
 
         /// <summary>
-        /// Handle Exception 
+        /// Handle Exception async
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
+        Task HandleExceptionAsync(Exception ex);
+
+        /// <summary>
+        /// Handle Exception sync (only on platforms that support sync file access)
         /// </summary>
         /// <param name="ex"></param>
         /// <param name="markAsHandled"></param>
         /// <returns></returns>
-        Task HandleExceptionAsync(Exception ex);
-        
+        void HandleException(Exception ex);
+
         /// <summary>
         /// 
         /// </summary>

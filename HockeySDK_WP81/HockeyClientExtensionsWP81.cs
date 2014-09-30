@@ -33,13 +33,56 @@ namespace HockeyApp
             //Application.Current.Resuming += HandleAppResuming;
             Application.Current.Suspending += HandleAppSuspending;
 
+            TaskScheduler.UnobservedTaskException += async (sender, e) => {
+                e.SetObserved();
+                await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
+                if (customUnobservedTaskExceptionFunc == null || customUnobservedTaskExceptionFunc(e))
+                {
+                    Application.Current.Exit();
+                }
+            };
+
             Application.Current.UnhandledException += async (sender, e) => { 
                 e.Handled = true;
                 await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
-                Application.Current.Exit();
+                if (customUnhandledExceptionFunc == null || customUnhandledExceptionFunc(e))
+                {
+                    Application.Current.Exit();
+                }
             };
             return @this as IHockeyClientConfigurable;
         }
+
+        private static Func<UnhandledExceptionEventArgs,bool> customUnhandledExceptionFunc;
+
+        private static Func<UnobservedTaskExceptionEventArgs, bool> customUnobservedTaskExceptionFunc;
+
+        /// <summary>
+        /// The func you set will be called after HockeyApp has written the crash-log and allows you to continue
+        /// If the func returns false the app will not terminate but keep running
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="customAction"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Func<UnhandledExceptionEventArgs, bool> customFunc)
+        {
+            customUnhandledExceptionFunc = customFunc;
+            return @this;
+        }
+
+        /// <summary>
+        /// The func you set will be called after HockeyApp has written the crash-log and allows you to continue
+        /// If the func returns false the app will not terminate but keep running
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="customAction"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterCustomUnobserveredTaskExceptionLogic(this IHockeyClientConfigurable @this, Func<UnobservedTaskExceptionEventArgs, bool> customFunc)
+        {
+            customUnobservedTaskExceptionFunc = customFunc;
+            return @this;
+        }
+
 
         static async void HandleAppSuspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {

@@ -110,7 +110,7 @@ namespace HockeyApp.ViewModels
             }
         }
 
-        private bool isThreadActive = true;
+        private bool isThreadActive = false;
         public bool IsThreadActive
         {
             get { return isThreadActive; }

@@ -54,6 +54,8 @@ namespace HockeyApp
     {
         private static readonly CrashHandler _instance = new CrashHandler();
 
+        private ILog logger = HockeyLogManager.GetLog(typeof(CrashHandler));
+
         private CrashLogInformation _crashLogInfo;
         private Application _application = null;
         
@@ -173,13 +175,14 @@ namespace HockeyApp
                 }
 
                 String filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
-                FileStream stream = store.CreateFile(Path.Combine(Constants.CrashDirectoryName, filename));
-                cd.Serialize(stream);
-                stream.Close();
+                using (FileStream stream = store.CreateFile(Path.Combine(Constants.CrashDirectoryName, filename)))
+                {
+                    cd.Serialize(stream);
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                // Ignore all exceptions
+                logger.Error(ex);
             }
         }
 
@@ -195,6 +198,8 @@ namespace HockeyApp
                 try
                 {
                     IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication();
+                    //TODO remove in next major version
+                    MoveOldCrashlogsIfNeeded(store);
                     if (store.DirectoryExists(Constants.CrashDirectoryName))
                     {
                         string[] filenames = store.GetFileNames(Path.Combine(Constants.CrashDirectoryName, Constants.CrashFilePrefix + "*.log"));
@@ -212,10 +217,40 @@ namespace HockeyApp
                         }
                     }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-                    // Ignore all exceptions
+                    logger.Error(e);
                 }
+            }
+        }
+
+        public void MoveOldCrashlogsIfNeeded(IsolatedStorageFile store)
+        {
+            try
+            {
+                if (store.DirectoryExists(Constants.OldCrashDirectoryName))
+                {
+                    var files = store.GetFileNames(Path.Combine(Constants.OldCrashDirectoryName, Constants.CrashFilePrefix + "*.log"));
+                    if (files.Length > 0)
+                    {
+                        if (!store.DirectoryExists(Constants.CrashDirectoryName))
+                        {
+                            store.CreateDirectory(Constants.CrashDirectoryName);
+                        }
+                        foreach (var fileName in files)
+                        {
+                            store.MoveFile(Path.Combine(Constants.OldCrashDirectoryName, Path.GetFileName(fileName)), Path.Combine(Constants.CrashDirectoryName, Path.GetFileName(fileName)));
+                        }
+                        if (store.GetFileNames(Path.Combine(Constants.OldCrashDirectoryName, Constants.CrashFilePrefix + "*.*")).Length == 0)
+                        {
+                            store.DeleteDirectory(Constants.OldCrashDirectoryName);
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
             }
         }
 
@@ -250,9 +285,9 @@ namespace HockeyApp
                         }
                     }
                 }
-                catch 
+                catch (Exception e)
                 {
-                    // Ignore all exceptions
+                    logger.Error(e);
                 }
             }
             return false;
@@ -280,9 +315,9 @@ namespace HockeyApp
                             {
                                 store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                             }
-                            catch 
+                            catch (Exception e)
                             {
-                                //TODO logging auf WP? 
+                                logger.Error(e);
                             }
                         }
                     }))
@@ -299,20 +334,22 @@ namespace HockeyApp
                 {
                     if (store.FileExists(Path.Combine(Constants.CrashDirectoryName, filename)))
                     {
-                        Stream fileStream = store.OpenFile(Path.Combine(Constants.CrashDirectoryName, filename), FileMode.Open);
-                        ICrashData cd = HockeyClient.Current.AsInternal().Deserialize(fileStream);
-                        fileStream.Close();
+                        ICrashData cd;
+                        using (Stream fileStream = store.OpenFile(Path.Combine(Constants.CrashDirectoryName, filename), FileMode.Open))
+                        {
+                            cd = HockeyClient.Current.AsInternal().Deserialize(fileStream);
+                        }
                         await cd.SendDataAsync();
                         store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                     }
                 }
-                catch (WebTransferException)
+                catch (WebTransferException wte)
                 {
-
+                    logger.Error(wte);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
-
+                    logger.Error(e);
                 }
             }
         }

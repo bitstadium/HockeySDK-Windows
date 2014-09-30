@@ -90,6 +90,26 @@ namespace HockeyApp
             }
         }
 
+        public bool PlatformSupportsSyncWrite
+        {
+            get { return true; }
+        }
+
+        public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
+        {
+            // Ensure crashes folder exists
+            if (!isoStore.DirectoryExists(folderName))
+            {
+                isoStore.CreateDirectory(folderName);
+            }
+
+            using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+            {
+                dataStream.CopyTo(fileStream);
+            }
+        }
+
+
         #endregion
 
 

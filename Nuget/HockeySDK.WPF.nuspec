@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HockeySDK.WPF</id>
-    <version>2.1.0-beta6</version>
+    <version>2.2.0-beta3</version>
     <authors>Bit Stadium GmbH</authors>
   <owners>Bit Stadium GmbH</owners>
     <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
@@ -16,7 +16,7 @@
     <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
 
     <dependencies>
-       <dependency id="HockeySDK.Core" version="[2.1.0-beta6]" />
+       <dependency id="HockeySDK.Core" version="[2.2.0-beta3]" />
     </dependencies>
   </metadata>
 

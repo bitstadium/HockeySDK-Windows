@@ -61,6 +61,8 @@ namespace HockeyApp.ViewModels
         }
         protected FeedbackPageVM ParentVM { get; set; }
 
+        public bool IsThreadActive {get { return this.ParentVM.IsThreadActive; }}
+
         private string email;
         public string Email
         {

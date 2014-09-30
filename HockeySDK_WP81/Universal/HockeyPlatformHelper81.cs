@@ -106,6 +106,20 @@ namespace HockeyApp
             return null;
         }
 
+        public bool PlatformSupportsSyncWrite
+        {
+            get { return false; }
+        }
+
+        public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+
+
         public string AppVersion
         {
             get { return AppxManifest.Current.Package.Identity.Version; }
@@ -154,8 +168,5 @@ namespace HockeyApp
             await w.InvokeScriptAsync("execScript", new[] { "window.external.notify(navigator.appVersion); " });
             this.OSVersion = t.Task.Result;
         }
-
-
-        
     }
 }

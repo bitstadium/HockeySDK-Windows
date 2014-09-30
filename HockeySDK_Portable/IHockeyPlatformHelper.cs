@@ -24,6 +24,8 @@ namespace HockeyApp
 
         #region File-Access
         Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null);
+        bool PlatformSupportsSyncWrite { get; }
+        void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null);
         Task<IEnumerable<String>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null);
         Task<Stream> GetStreamAsync(string fileName, string folderName = null);
         Task<bool> DeleteFileAsync(string fileName, string folderName = null);

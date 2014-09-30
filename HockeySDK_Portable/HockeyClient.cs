@@ -221,6 +221,8 @@ namespace HockeyApp
         //Delegate which can be set to add a description to a stacktrace when app crashes
         public Func<Exception, string> DescriptionLoader { get; set; }
 
+        public bool KeepRunningAfterException { get; set; }
+
         #endregion
 
         #region ctor
@@ -352,6 +354,11 @@ namespace HockeyApp
             return new CrashData(this, ex, crashLogInfo);
         }
 
+        public ICrashData CreateCrashData(string logString, string stackTrace)
+        {
+            return new CrashData(this, logString, stackTrace, this.PrefilledCrashLogInfo);
+        }
+        
         public ICrashData Deserialize(Stream inputStream)
         {
             return CrashData.Deserialize(inputStream);
@@ -393,54 +400,93 @@ namespace HockeyApp
                     await this.PlatformHelper.WriteStreamToFileAsync(stream, string.Format("{0}{1}.log", SDKConstants.CrashFilePrefix, crashId), SDKConstants.CrashDirectoryName);
                 }
             }
-            catch
+            catch (Exception e)
             {
-                // Ignore all exceptions
+                logger.Error(e);
             }
         }
+        public void HandleException(Exception ex)
+        {
+            if (!this.PlatformHelper.PlatformSupportsSyncWrite)
+            {
+                throw new Exception("PlatformHelper implementation error.");
+            }
+            ICrashData cd = this.CreateCrashData(ex);
+            var crashId = Guid.NewGuid();
+            try
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    cd.Serialize(stream);
+                    stream.Seek(0, SeekOrigin.Begin);
+                    this.PlatformHelper.WriteStreamToFileSync(stream, string.Format("{0}{1}.log", SDKConstants.CrashFilePrefix, crashId), SDKConstants.CrashDirectoryName);
+                }
+            }
+            catch (Exception e)
+            {
+                logger.Error(e);
+            }
+        }
+
+#if NET_4_5
+        private readonly AsyncLock lck = new AsyncLock();
+#endif
 
         public async Task<bool> SendCrashesAndDeleteAfterwardsAsync()
         {
             bool atLeatOneCrashSent = false;
-            //System Semaphore would be another possibility. But the worst thing that can happen now, is
-            //that a crash is send twice.
-            if (!Monitor.TryEnter(this))
+#if NET_4_5
+            using(var releaser = await lck.LockAsync()) { 
+#else
+            if (Monitor.TryEnter(this))
             {
-                logger.Warn("Sending crashes was called multiple times!");
-                throw new Exception("Hockey is already sending crashes to server!");
-            }
-            else
-            {
-                logger.Info("Start send crashes to platform.");
-
-                if (NetworkInterface.GetIsNetworkAvailable())
+                try
+                {
+#endif
+                    logger.Info("Start send crashes to platform.");
+                    if (NetworkInterface.GetIsNetworkAvailable())
+                    {
+                        try
+                        {
+                            foreach (string filename in await this.GetCrashFileNamesAsync())
+                            {
+                                logger.Info("Crashfile found: {0}", filename);
+                                try
+                                {
+                                    using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
+                                    {
+                                        ICrashData cd = this.Deserialize(stream);
+                                        await cd.SendDataAsync();
+                                    }
+                                    await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
+                                    atLeatOneCrashSent = true;
+                                }
+                                catch (Exception ex)
+                                {
+                                    logger.Error(ex);
+                                }
+                            }
+                        }
+                        catch (WebTransferException te) { logger.Error(te); }
+                        catch (Exception e)
+                        {
+                            this.logger.Error(e);
+                        }
+                    }
+                }
+#if !NET_4_5
+                finally
                 {
                     try
                     {
-                        foreach (string filename in await this.GetCrashFileNamesAsync())
-                        {
-                            logger.Info("Crashfile found: {0}", filename);
-                            try
-                            {
-                                using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
-                                {
-                                    ICrashData cd = this.Deserialize(stream);
-                                    await cd.SendDataAsync();
-                                }
-                                await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
-                                atLeatOneCrashSent = true;
-                            }
-                            catch (Exception ex)
-                            {
-                                logger.Error(ex);
-                            }
-                        }
+                        Monitor.Exit(this);
                     }
-                    catch (WebTransferException) { }
-                    catch (Exception e) { this.logger.Error(e); }
+                    catch (Exception)
+                    { //ignore on next start it will work again.
+                    }
                 }
             }
-            Monitor.Exit(this);
+#endif
             return atLeatOneCrashSent;
         }
 
@@ -548,23 +594,26 @@ namespace HockeyApp
             fields.Add("email", Encoding.UTF8.GetBytes(email));
 
             request.ContentType = "multipart/form-data; boundary=" + boundary;
-            Stream stream = await request.GetRequestStreamAsync();
-            string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n";
-
-            //write form fields
-            foreach (var keyValue in fields)
+            IAuthStatus status;
+            using (Stream stream = await request.GetRequestStreamAsync())
             {
-                stream.Write(boundarybytes, 0, boundarybytes.Length);
-                string formitem = string.Format(formdataTemplate, keyValue.Key);
-                byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
-                stream.Write(formitembytes, 0, formitembytes.Length);
-                stream.Write(keyValue.Value, 0, keyValue.Value.Length);
-            }
+                string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n";
 
-            byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
-            stream.Write(trailer, 0, trailer.Length);
-            stream.Dispose();
-            var status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
+                //write form fields
+                foreach (var keyValue in fields)
+                {
+                    stream.Write(boundarybytes, 0, boundarybytes.Length);
+                    string formitem = string.Format(formdataTemplate, keyValue.Key);
+                    byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                    stream.Write(formitembytes, 0, formitembytes.Length);
+                    stream.Write(keyValue.Value, 0, keyValue.Value.Length);
+                }
+
+                byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                stream.Write(trailer, 0, trailer.Length);
+                stream.Flush(); 
+            }
+                status = await AuthStatus.DoAuthRequestHandleResponseAsync(request);
             if (status.IsIdentified)
             {
                 this.Iuid = (status as AuthStatus).Iuid;
@@ -606,7 +655,6 @@ namespace HockeyApp
         }
 
         #endregion
-
 
     }
 }

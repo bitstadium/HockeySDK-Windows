@@ -79,10 +79,11 @@ namespace HockeyApp
                 };
 
                 ICrashData crash = HockeyClient.Current.AsInternal().CreateCrashData(e, logInfo);
-                FileStream stream = File.Create(Path.Combine(Constants.GetPathToHockeyCrashes(), filename));
-                crash.Serialize(stream);
-                stream.Flush();
-                stream.Close();
+                using (FileStream stream = File.Create(Path.Combine(Constants.GetPathToHockeyCrashes(), filename)))
+                {
+                    crash.Serialize(stream);
+                    stream.Flush();
+                }
             }
             catch (Exception ex)
             {
@@ -137,10 +138,11 @@ namespace HockeyApp
                         logger.Info("Crashfile found: {0}", crashFileName);
                         try
                         {
-                            FileStream fs = File.Open(crashFileName, FileMode.Open, FileAccess.ReadWrite);
-                            ICrashData cd = HockeyClient.Current.AsInternal().Deserialize(fs);
-                            await cd.SendDataAsync();
-                            fs.Close();
+                            using (FileStream fs = File.Open(crashFileName, FileMode.Open, FileAccess.ReadWrite))
+                            {
+                                ICrashData cd = HockeyClient.Current.AsInternal().Deserialize(fs);
+                                await cd.SendDataAsync();
+                            }
                             //if the process switch occurs between those lines the worst that can happen is that a crash is sent twice.
                             File.Delete(crashFileName);
                             logger.Info("Crashfile sent and deleted: {0}", crashFileName);

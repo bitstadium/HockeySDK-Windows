@@ -42,8 +42,29 @@ namespace HockeyApp.Model
                 {
                     this.Description = this._hockeyClient.DescriptionLoader(ex);
                 }
-                catch (Exception) { }
+                catch (Exception e) { 
+                    _logger.Error(e);
+                }
             }
+        }
+
+        //needed for crashes from unity-log
+        internal CrashData(HockeyClient hockeyClient, string logString, string stackTrace, CrashLogInformation crashLogInfo)
+        {
+            this._hockeyClient = hockeyClient;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(crashLogInfo.ToString());
+            builder.AppendLine();
+            builder.Append(logString);
+            builder.AppendLine();
+            builder.AppendLine(string.IsNullOrEmpty(stackTrace) ? "  at unknown location" : stackTrace);
+            this.Log = builder.ToString();
+
+            this.UserID = this._hockeyClient.UserID;
+            this.Contact = this._hockeyClient.ContactInformation;
+            this.SDKName = this._hockeyClient.SdkName;
+            this.SDKVersion = this._hockeyClient.SdkVersion;
+            //we don't support DescriptionLoader from unity at the moment
         }
 
         [OnDeserializing]
@@ -106,13 +127,12 @@ namespace HockeyApp.Model
             {
                 byte[] byteArray = Encoding.UTF8.GetBytes(rawData);
                 stream.Write(byteArray, 0, rawData.Length);
+                stream.Flush();
             }
 
             try
             {
-                using (WebResponse response = await request.GetResponseAsync())
-                {
-                }
+                using (WebResponse response = await request.GetResponseAsync()) { }
             }
             catch (WebException e)
             {
@@ -124,6 +144,7 @@ namespace HockeyApp.Model
                     throw new WebTransferException("Transfer of Crashdata to server failed", e);
                 }
             }
+
         }
 
         public void Serialize(Stream outputStream)
@@ -138,8 +159,6 @@ namespace HockeyApp.Model
             CrashData cd = serializer.ReadObject(inputStream) as CrashData;
             return cd;
         }
-
-
        
     }
 }

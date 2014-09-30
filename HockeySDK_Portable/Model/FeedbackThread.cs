@@ -145,9 +145,11 @@ namespace HockeyApp.Model
                 request.ContentType = "application/x-www-form-urlencoded";
                 request.SetHeader(HttpRequestHeader.ContentEncoding.ToString(), Encoding.UTF8.WebName.ToString());
 
-                Stream stream = await request.GetRequestStreamAsync();
-                stream.Write(dataStream, 0, dataStream.Length);
-                stream.Dispose();
+                using (Stream stream = await request.GetRequestStreamAsync())
+                {
+                    stream.Write(dataStream, 0, dataStream.Length);
+                    stream.Flush(); 
+                }
             }
             else
             {
@@ -155,32 +157,34 @@ namespace HockeyApp.Model
                 byte[] boundarybytes = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "\r\n");
 
                 request.ContentType = "multipart/form-data; boundary=" + boundary;
-                Stream stream = await request.GetRequestStreamAsync();
-                string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
-
-                //write form fields
-                foreach (var keyValue in msg.MessagePartsDict)
+                using (Stream stream = await request.GetRequestStreamAsync())
                 {
-                    stream.Write(boundarybytes, 0, boundarybytes.Length);
-                    string formitem = string.Format(formdataTemplate, keyValue.Key, keyValue.Value);
-                    byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
-                    stream.Write(formitembytes, 0, formitembytes.Length);
-                }
-                //write images
-                for (int index = 0; index < attachments.Count(); index++)
-                {
-                    var attachment = attachments.ElementAt(index);
-                    stream.Write(boundarybytes, 0, boundarybytes.Length);
-                    string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
-                    string header = string.Format(headerTemplate, "attachment" + index, attachment.FileName, String.IsNullOrEmpty(attachment.ContentType) ? "application/octet-stream" : attachment.ContentType);
-                    byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
-                    stream.Write(headerbytes, 0, headerbytes.Length);
-                    stream.Write(attachment.DataBytes, 0, attachment.DataBytes.Length);
-                }
+                    string formdataTemplate = "Content-Disposition: form-data; name=\"{0}\"\r\n\r\n{1}";
 
-                byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
-                stream.Write(trailer, 0, trailer.Length);
-                stream.Dispose();
+                    //write form fields
+                    foreach (var keyValue in msg.MessagePartsDict)
+                    {
+                        stream.Write(boundarybytes, 0, boundarybytes.Length);
+                        string formitem = string.Format(formdataTemplate, keyValue.Key, keyValue.Value);
+                        byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(formitem);
+                        stream.Write(formitembytes, 0, formitembytes.Length);
+                    }
+                    //write images
+                    for (int index = 0; index < attachments.Count(); index++)
+                    {
+                        var attachment = attachments.ElementAt(index);
+                        stream.Write(boundarybytes, 0, boundarybytes.Length);
+                        string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
+                        string header = string.Format(headerTemplate, "attachment" + index, attachment.FileName, String.IsNullOrEmpty(attachment.ContentType) ? "application/octet-stream" : attachment.ContentType);
+                        byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
+                        stream.Write(headerbytes, 0, headerbytes.Length);
+                        stream.Write(attachment.DataBytes, 0, attachment.DataBytes.Length);
+                    }
+
+                    byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");
+                    stream.Write(trailer, 0, trailer.Length);
+                    stream.Flush(); 
+                }
             }
 
             var response = await request.GetResponseAsync();

@@ -103,7 +103,7 @@ namespace HockeyApp
         private void StartUi(IAppVersion newVersion)
         {
             UpdateWindow window = new UpdateWindow(newVersion, this._localVersion);
-            window.Show();
+            Dispatcher.CurrentDispatcher.Invoke((Action) (() => { window.Show(); }) );
         }
         
     }

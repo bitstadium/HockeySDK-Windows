@@ -61,13 +61,13 @@ namespace HockeyApp
 
             logger.Info("Catched unobserved exception from Dispatcher! Type={0}, Message={1}", new object[] { e.Exception.GetType().Name, e.Exception.Message });
             await HandleUnhandledException(e);
-            
+
             Application.Current.Exit();
         }
 
         internal async Task HandleException(Exception e)
         {
-            var crashData = HockeyClient.Instance.CreateCrashData(e, this._logInfo);
+            var crashData = ((HockeyClient)HockeyClient.Current).CreateCrashData(e, this._logInfo);
             var crashId = Guid.NewGuid();
 
             try
@@ -93,7 +93,7 @@ namespace HockeyApp
 
         private async Task HandleUnhandledException(UnhandledExceptionEventArgs eArgs)
         {
-            var crashData = HockeyClient.Instance.CreateCrashData(eArgs.Exception, this._logInfo);
+            var crashData = ((HockeyClient)HockeyClient.Current).CreateCrashData(eArgs.Exception, this._logInfo);
             //stacktrace might be null http://stackoverflow.com/a/25433989
             if (eArgs.Exception.StackTrace == null)
             {
@@ -196,7 +196,7 @@ namespace HockeyApp
                     try
                     {
                         Stream fs = await crashFile.OpenStreamForReadAsync();
-                        ICrashData cd = HockeyClient.Instance.Deserialize(fs);
+                        ICrashData cd = ((HockeyClient)HockeyClient.Current).Deserialize(fs);
                         fs.Dispose();
                         await cd.SendDataAsync();
                         await crashFile.DeleteAsync();
