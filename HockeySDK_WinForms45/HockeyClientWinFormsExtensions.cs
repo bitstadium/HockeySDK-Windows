@@ -60,10 +60,11 @@ namespace HockeyApp
         /// <param name="this"></param>
         /// <param name="sendAutomatically"></param>
         /// <returns></returns>
-        public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this, Boolean sendAutomatically = false)
+        public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this)
         {
             @this.AsInternal().CheckForInitialization();
-            return await @this.AsInternal().SendCrashesAndDeleteAfterwardsAsync().ConfigureAwait(false);
+            bool result = await @this.AsInternal().SendCrashesAndDeleteAfterwardsAsync().ConfigureAwait(false);
+            return result;
         }
 
         #endregion

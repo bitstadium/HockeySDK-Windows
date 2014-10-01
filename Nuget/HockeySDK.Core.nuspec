@@ -11,15 +11,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows and WindowsPhone apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
     <language>en-US</language>
-    <releaseNotes> </releaseNotes>
+    <releaseNotes>Optimizations for crash-sending</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
     <tags>crash reports reporting feedback WPF WP8 SL5 windows phone hockeyapp</tags>
 
     <dependencies>
       <group targetFramework="portable-net40+sl5">
-        <dependency id="Microsoft.Bcl" version="1.0.19" />
-        <dependency id="Microsoft.Bcl.Async" version="1.0.16" />
-        <dependency id="Microsoft.Bcl.Build" version="1.0.10" />
+        <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
       </group>
       <group targetFramework="portable-net45+win8+wp8+wpa81">
         

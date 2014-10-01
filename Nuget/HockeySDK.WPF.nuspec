@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates. Includes a CrashReporter for WPF projects.</description>
     <language>en-US</language>
-    <releaseNotes>Optimizations for Feedback</releaseNotes>
+    <releaseNotes>Optimizations and Bugfixes</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
     <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
 

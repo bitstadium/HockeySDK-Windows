@@ -11,12 +11,12 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
     <language>en-US</language>
-    <releaseNotes>Complete new Windows 8.1 Universal support</releaseNotes>
+    <releaseNotes>Optimizations and bugfixes</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
     <tags>crash reports reporting feedback windows hockeyapp</tags>
 
     <dependencies>
-       <dependency id="HockeySDK.Core" version="[2.2.0-beta2]" />
+       <dependency id="HockeySDK.Core" version="[2.2.0-beta3]" />
     </dependencies>
   </metadata>
 

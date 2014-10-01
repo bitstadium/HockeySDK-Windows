@@ -11,7 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use HockeyApp in your WindowsPhone apps. Collect crash reports, provide a feedback-functionality and enable automatic updates for beta versions.</description>
     <language>en-US</language>
-    <releaseNotes>Fixed Bug In-App-Updater</releaseNotes>
+    <releaseNotes>Optimizations and bugfixes for crash-sending</releaseNotes>
     <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
     <tags>crash reports reporting feedback WP8 WP81SL windows phone hockeyapp</tags>
 
