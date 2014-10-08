@@ -12,6 +12,7 @@ using HockeyApp.Tools;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
 using Windows.Security.ExchangeActiveSyncProvisioning;
+using Windows.UI.Core;
 
 namespace HockeyApp
 {
@@ -21,7 +22,6 @@ namespace HockeyApp
         {
             AppxManifest.InitializeManifest();
             clientDeviceInfo = new EasClientDeviceInformation();
-            Task x = SetOSVersionAsync();
         }
 
         private EasClientDeviceInformation clientDeviceInfo;
@@ -141,32 +141,13 @@ namespace HockeyApp
         }
 
 
-        public string OSVersion { get; set; }
-
-        
-        // Workaround to get Windows Version http://stackoverflow.com/a/18893609
-        private async Task SetOSVersionAsync()
+        private string osVersion = "8.1"; 
+        // there is sadly currently no way to get the correct Windows Version Number
+        //http://stackoverflow.com/questions/24122013/getting-windows-phone-version-and-device-name-in-windows-phone-8-1-xaml
+        public string OSVersion
         {
-            var t = new TaskCompletionSource<string>();
-            var w = new WebView();
-            w.NavigateToString("<html />");
-            NotifyEventHandler h = null;
-            h = (s, e) =>
-            {
-                try
-                {
-                    var match = Regex.Match(e.Value, @"Windows\s+NT\s+\d+(\.\d+)?");
-                    if (match.Success)
-                        t.SetResult(match.Value);
-                    else
-                        t.SetResult("Unknown");
-                }
-                catch (Exception ex) { t.SetException(ex); }
-                finally { /* release */ w.ScriptNotify -= h; }
-            };
-            w.ScriptNotify += h;
-            await w.InvokeScriptAsync("execScript", new[] { "window.external.notify(navigator.appVersion); " });
-            this.OSVersion = t.Task.Result;
+            get { return osVersion; }
+            set { osVersion = value; }
         }
     }
 }
