@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net;
 using System.Net.NetworkInformation;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -50,9 +51,9 @@ namespace HockeyApp.ViewModels
                         await FeedbackManager.Current.ClearMessageCacheAsync();
                         await AfterSendActionAsync(sentMessage);
                     }
-                    catch (Exception e)
+                    catch (WebException e)
                     {
-                        logger.Error(e);
+                        HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                         success = false;
                     }
                     finally

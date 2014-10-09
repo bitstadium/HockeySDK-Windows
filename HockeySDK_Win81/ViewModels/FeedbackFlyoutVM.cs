@@ -48,20 +48,13 @@ namespace HockeyApp.ViewModels
                 this.IsBusy = true;
                 if (NetworkInterface.GetIsNetworkAvailable())
                 {
-                    try
+                    var threads = (await FeedbackManager.Current.LoadFeedbackThreadsAsync()).ToList();
+                    this.FeedbackThreadList.Clear();
+                    foreach (var thread in threads.ToList())
                     {
-                        var threads = (await FeedbackManager.Current.LoadFeedbackThreadsAsync()).ToList();
-                        this.FeedbackThreadList.Clear();
-                        foreach (var thread in threads.ToList())
-                        {
-                            this.FeedbackThreadList.Add(thread);
-                        }
-                        this.SelectedFeedbackThread = this.FeedbackThreadList.First();
+                        this.FeedbackThreadList.Add(thread);
                     }
-                    catch (Exception e)
-                    {
-                        logger.Error(e);
-                    }
+                    this.SelectedFeedbackThread = this.FeedbackThreadList.First();
                     _initialized = true;
                 }
                 if (!_initialized)

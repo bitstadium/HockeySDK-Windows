@@ -71,34 +71,27 @@ namespace HockeyApp
 
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-                try
+                if (await HockeyClient.Current.AsInternal().AnyCrashesAvailableAsync())
                 {
-                    if (await HockeyClient.Current.AsInternal().AnyCrashesAvailableAsync())
-                    {
 
-                        if (sendAutomatically)
+                    if (sendAutomatically)
+                    {
+                        await HockeyClient.Current.AsInternal().SendCrashesAndDeleteAfterwardsAsync();
+                        return true;
+                    }
+                    else
+                    {
+                        if (await AskUserForAgreementAsync())
                         {
                             await HockeyClient.Current.AsInternal().SendCrashesAndDeleteAfterwardsAsync();
                             return true;
                         }
                         else
                         {
-                            if (await AskUserForAgreementAsync())
-                            {
-                                await HockeyClient.Current.AsInternal().SendCrashesAndDeleteAfterwardsAsync();
-                                return true;
-                            }
-                            else
-                            {
-                                await HockeyClient.Current.AsInternal().DeleteAllCrashesAsync();
-                                return false;
-                            };
-                        }
+                            await HockeyClient.Current.AsInternal().DeleteAllCrashesAsync();
+                            return false;
+                        };
                     }
-                }
-                catch (Exception e)
-                {
-                    logger.Error(e);
                 }
             }
             return false;

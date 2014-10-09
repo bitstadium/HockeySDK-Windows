@@ -141,30 +141,33 @@ namespace HockeyApp.Model
             {
                 response = await request.GetResponseAsync();
             }
-            catch (WebException e)
+            catch (WebException webEx)
             {
-                if ((e.Status == WebExceptionStatus.ConnectFailure) ||
-                    (e.Status == WebExceptionStatus.SendFailure))
+                if ((webEx.Status == WebExceptionStatus.ConnectFailure) ||
+                    (webEx.Status == WebExceptionStatus.SendFailure) ||
+                    (webEx.Response == null || String.IsNullOrWhiteSpace(webEx.Response.ContentType)))
                 {
-                    throw new WebTransferException("Could not connect to server.", e);
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(webEx);
+                    throw new WebTransferException("Could not connect to server.", webEx);
                 }
                 else
                 {
-                    if ((e.Response as HttpWebResponse).StatusCode == HttpStatusCode.NotFound)
+                    if ((webEx.Response as HttpWebResponse).StatusCode == HttpStatusCode.NotFound)
                     {
                         return AuthStatus.NotFoundAuthStatus;
                     }
-                    else if ((e.Response as HttpWebResponse).StatusCode == HttpStatusCode.Unauthorized)
+                    else if ((webEx.Response as HttpWebResponse).StatusCode == HttpStatusCode.Unauthorized)
                     {
                         return AuthStatus.NotAuthorizedAuthStatus;
                     }
                     //sent if token is invalid
-                    else if ((int)(e.Response as HttpWebResponse).StatusCode == 422)
+                    else if ((int)(webEx.Response as HttpWebResponse).StatusCode == 422)
                     {
                         return AuthStatus.NotAuthorizedAuthStatus;
                     }
                     else
                     {
+                        HockeyClient.Current.AsInternal().HandleInternalUnhandledException(webEx);
                         return AuthStatus.InvalidAuthStatus;
                     }
                 }

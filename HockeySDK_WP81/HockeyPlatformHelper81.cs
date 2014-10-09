@@ -11,7 +11,7 @@ namespace HockeyApp
     {
 
         internal const string Name = "HockeySDKWP81";
-        internal const string Version = "2.2.0-beta2";
+        internal const string Version = "2.2.0-beta4";
         internal const string UserAgent = "Hockey/WP81";
 
         public string OSPlatform

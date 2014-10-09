@@ -31,6 +31,7 @@
     <DefineConstants>TRACE;NET_4_5</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\help\pcl\HockeyAppPCL.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\HockeySDK_Portable\Exceptions\WebTransferException.cs">
@@ -83,6 +84,9 @@
     </Compile>
     <Compile Include="..\HockeySDK_Portable\IHockeyPlatformHelper.cs">
       <Link>IHockeyPlatformHelper.cs</Link>
+    </Compile>
+    <Compile Include="..\HockeySDK_Portable\InternalUnhandledExceptionEventArgs.cs">
+      <Link>InternalUnhandledExceptionEventArgs.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_Portable\Logging.cs">
       <Link>Logging.cs</Link>

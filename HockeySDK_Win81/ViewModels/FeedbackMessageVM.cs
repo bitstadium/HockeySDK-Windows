@@ -98,7 +98,7 @@ namespace HockeyApp.ViewModels
                         }
                         catch (Exception e)
                         {
-                            logger.Error(e);
+                            HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                             success = false;
                         }
                         finally

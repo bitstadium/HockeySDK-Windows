@@ -55,6 +55,7 @@
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="IHockeyClientInternal.cs" />
     <Compile Include="IHockeyPlatformHelper.cs" />
+    <Compile Include="InternalUnhandledExceptionEventArgs.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="Model\AppVersion.cs" />
     <Compile Include="Model\AuthStatus.cs" />

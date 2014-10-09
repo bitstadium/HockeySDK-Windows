@@ -1,4 +1,5 @@
-﻿using HockeyApp.Tools;
+﻿using HockeyApp.Exceptions;
+using HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace HockeyApp.ViewModels
             }
             catch (Exception e)
             {
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 thrownException = e;
             }
             finally
@@ -58,7 +60,6 @@ namespace HockeyApp.ViewModels
                 else
                 {
                     await new MessageDialog(LocalizedStrings.LocalizedResources.AuthUnknownError).ShowAsync();
-                    logger.Error(thrownException);
                 }
             }
             return false;
@@ -81,26 +82,48 @@ namespace HockeyApp.ViewModels
         public bool IsAuthorize { get { return AuthenticationMode.Authorize.Equals(this.AuthMode); } }
         public bool IsIdentify { get { return AuthenticationMode.Identify.Equals(this.AuthMode); } }
 
+        internal async Task HandleNetworkError(WebTransferException wte)
+        {
+            await new MessageDialog(LocalizedStrings.LocalizedResources.AuthNoInternet).ShowAsync();
+        }
 
         internal async Task<IAuthStatus> IdentifyUserAsync()
         {
             IAuthStatus status = null;
-            status = await HockeyClient.Current.AsInternal().IdentifyUserAsync(this.Email, this.AppSecret);
-            if (status.IsIdentified)
+            WebTransferException webEx = null;
+            try
             {
-                await AuthManager.Current.UpdateAuthStatusAsync(status);
+                status = await HockeyClient.Current.AsInternal().IdentifyUserAsync(this.Email, this.AppSecret);
+                if (status.IsIdentified)
+                {
+                    await AuthManager.Current.UpdateAuthStatusAsync(status);
+                }
             }
+            catch (WebTransferException wte)
+            {
+                webEx = wte;
+            }
+            if (webEx != null) { await HandleNetworkError(webEx); }
             return status;
         }
 
         internal async Task<IAuthStatus> AuthorizeUserAsync(string password)
         {
             IAuthStatus status = null;
-            status = await HockeyClient.Current.AsInternal().AuthorizeUserAsync(this.Email, password ?? "");
-            if (status.IsAuthorized)
+            WebTransferException webEx = null;
+            try
             {
-                await AuthManager.Current.UpdateAuthStatusAsync(status);
+                status = await HockeyClient.Current.AsInternal().AuthorizeUserAsync(this.Email, password ?? "");
+                if (status.IsAuthorized)
+                {
+                    await AuthManager.Current.UpdateAuthStatusAsync(status);
+                }
             }
+            catch (WebTransferException wte)
+            {
+                webEx = wte;
+            }
+            if (webEx != null) { await HandleNetworkError(webEx); }
             return status;
         }
 

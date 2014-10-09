@@ -33,6 +33,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\help\win81\HockeyApp.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\HockeySDK_WP81\Common\RelayCommand.cs">

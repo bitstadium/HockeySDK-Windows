@@ -24,6 +24,8 @@ namespace HockeyApp.Model
         private ILog _logger = HockeyLogManager.GetLog(typeof(CrashData));
         private HockeyClient _hockeyClient = null;
         internal CrashData(HockeyClient hockeyClient, Exception ex, CrashLogInformation crashLogInfo){
+            if (hockeyClient == null) { throw new ArgumentNullException("hockeyClient"); }
+            
             this._hockeyClient = hockeyClient;
 
             StringBuilder builder = new StringBuilder();
@@ -42,8 +44,8 @@ namespace HockeyApp.Model
                 {
                     this.Description = this._hockeyClient.DescriptionLoader(ex);
                 }
-                catch (Exception e) { 
-                    _logger.Error(e);
+                catch (Exception e) {
+                    hockeyClient.HandleInternalUnhandledException(e);
                 }
             }
         }

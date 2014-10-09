@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HockeyApp.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,12 +71,22 @@ namespace HockeyApp.ViewModels
                     AuthManager.Instance.CurrentAuthStatus = status;
                 }
             }
+            catch (WebTransferException wte)
+            {
+                HandleNetworkError(wte);
+            }
             finally
             {
                 IsShowOverlay = false;
             }
             return status;
         }
+
+        internal void HandleNetworkError(WebTransferException wte)
+        {
+            MessageBox.Show(LocalizedStrings.LocalizedResources.AuthNoInternet);
+        }
+
 
         internal async Task<IAuthStatus> AuthorizeUserAsync(string password)
         {
@@ -88,6 +99,10 @@ namespace HockeyApp.ViewModels
                 {
                     AuthManager.Instance.CurrentAuthStatus = status;
                 }
+            }
+            catch (WebTransferException wte)
+            {
+                HandleNetworkError(wte);
             }
             finally
             {

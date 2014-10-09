@@ -301,4 +301,7 @@
     <value>The Installation of the update failed with the error: {0}. 
 Update via web will be tried.</value>
   </data>
+  <data name="AuthNoInternet" xml:space="preserve">
+    <value>Your device appears to be disconnected from the Internet. Please try again.</value>
+  </data>
 </root>

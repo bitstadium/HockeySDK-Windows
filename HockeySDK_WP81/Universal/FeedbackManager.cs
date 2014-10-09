@@ -97,18 +97,8 @@ namespace HockeyApp
         {
             if (!threadVM.FeedbackThread.IsNewThread)
             {
-                try
-                {
-                    threadVM.FeedbackThread = (await HockeyClient.Current.AsInternal().OpenFeedbackThreadAsync(threadVM.FeedbackThread.Token)) ?? FeedbackThread.CreateInstance();
-                }
-                catch (Exception e)
-                {
-                    logger.Error(e);
-                }
+                threadVM.FeedbackThread = (await HockeyClient.Current.AsInternal().OpenFeedbackThreadAsync(threadVM.FeedbackThread.Token)) ?? FeedbackThread.CreateInstance();
             }
-           
         }
-
-
     }
 }

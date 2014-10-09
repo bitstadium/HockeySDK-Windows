@@ -87,7 +87,7 @@ namespace HockeyApp
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
             }
         }
         #endregion
@@ -109,7 +109,7 @@ namespace HockeyApp
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex);
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
                 }
             }
         }
@@ -149,7 +149,7 @@ namespace HockeyApp
                         }
                         catch (Exception ex)
                         {
-                            this.logger.Error(ex);
+                            HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
                         }
                     }
                 }

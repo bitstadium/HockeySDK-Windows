@@ -33,6 +33,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\bin\help\wpa81\HockeyApp.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AuthManager.cs" />

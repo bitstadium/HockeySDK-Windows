@@ -39,6 +39,9 @@ _ReSharper*/
 # Project files
 [Bb]uild/
 
+#SandCasteHelpFileBuilder
+Help/
+
 # Office Temp Files
 ~$*
 

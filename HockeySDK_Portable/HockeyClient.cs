@@ -14,13 +14,18 @@ using System.Threading;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Implements the HockeyClient singleton
+    /// </summary>
     public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClient));
 
         #region fields
 
-        //Platform and communication info
+        /// <summary>
+        /// ApiBase of HockeyApp server
+        /// </summary>
         [Obsolete("Use Version-specific ApiBase!")]
         public string ApiBase
         {
@@ -44,7 +49,10 @@ namespace HockeyApp
             }
         }
 
-        private string _apiDomain = SDKConstants.PublicApiBase + "/";
+        private string _apiDomain = SDKConstants.PublicApiDomain + "/";
+        /// <summary>
+        /// Base URL (prototcol+domainname) of HockeyApp server
+        /// </summary>
         public string ApiDomain
         {
             get { return _apiDomain; }
@@ -57,18 +65,27 @@ namespace HockeyApp
             }
         }
 
+        /// <summary>
+        /// API endpoint for API v2
+        /// </summary>
         public string ApiBaseVersion2
         {
             get { return ApiDomain + "api/2/"; }
         }
 
+        /// <summary>
+        /// API endpoint for API v3
+        /// </summary>
         public string ApiBaseVersion3
         {
             get { return ApiDomain + "api/3/"; }
         }
 
-        //User agent string (set by platform-specific SDK)
+        
         private string _userAgentString;
+        /// <summary>
+        /// User agent string
+        /// </summary>
         public string UserAgentString
         {
             get {
@@ -84,8 +101,11 @@ namespace HockeyApp
             set { _userAgentString = value; }
         }
 
-        //SDK info (set by platform-specific SDK if used)
+        
         private string _sdkName;
+        /// <summary>
+        /// SDK info
+        /// </summary>
         public string SdkName
         {
             get {
@@ -101,8 +121,11 @@ namespace HockeyApp
             set { _sdkName = value; }
         }
 
-        //SDK Version (set by platform-specific SDK if used)
+        
         private string _sdkVersion;
+        /// <summary>
+        /// SDK Version
+        /// </summary>
         public string SdkVersion
         {
             get {
@@ -133,8 +156,10 @@ namespace HockeyApp
             }
         }
 
-        //Current Version of the app as string
         private string _versionInfo;
+        /// <summary>
+        /// Version of the app as string. Normally set automatically by platform-specific SDK
+        /// </summary>
         public string VersionInfo
         {
             get
@@ -147,12 +172,20 @@ namespace HockeyApp
             }
             set { _versionInfo = value; }
         }
-        //UserID of current user
+        
+        /// <summary>
+        /// UserID of current app user (if provided)
+        /// </summary>
         public string UserID { get; set; }
-        //Contact information for current user
+        /// <summary>
+        /// Contact information for current user
+        /// </summary>
         public string ContactInformation { get; set; }
         //Operating system (set by platform-specific SDK if used)
         private string _os;
+        /// <summary>
+        /// Name of platform OS
+        /// </summary>
         public string Os
         {
             get
@@ -166,8 +199,11 @@ namespace HockeyApp
             set { _os = value; }
         }
 
-        //Operating system version (set by platform-specific SDK if used)
+        
         private string _osVersion;
+        /// <summary>
+        /// Operating system version (set by platform-specific SDK if used)
+        /// </summary>
         public string OsVersion
         {
             get
@@ -181,8 +217,10 @@ namespace HockeyApp
             set { _osVersion = value; }
         }
 
-        //Device (set by platform-specific SDK if used)
         private string _device;
+        /// <summary>
+        /// Device (set by platform-specific SDK if used)
+        /// </summary>
         public string Device
         {
             get
@@ -196,8 +234,10 @@ namespace HockeyApp
             set { _device = value; }
         }
 
-        //Oem of Device (set by platform-specific SDK if used)
         private string _oem;
+        /// <summary>
+        /// Oem of Device (set by platform-specific SDK if used)
+        /// </summary>
         public string Oem
         {
             get
@@ -211,17 +251,23 @@ namespace HockeyApp
             set { _oem = value; }
         }
 
-        //uniques user id provided by platform (set by platform-specific SDK if used)
+        /// <summary>
+        /// unique user id provided by platform (set by platform-specific SDK if used)
+        /// </summary>
         public string Uuid { get; set; }
-        //Authorized user id (set during login process)
+        /// <summary>
+        /// Authorized user id (set during login process)
+        /// </summary>
         public string Auid { get; internal set; }
-        //Identified user id (set during login process)
+        /// <summary>
+        /// Identified user id (set during login process)
+        /// </summary>
         public string Iuid { get; internal set; }
 
-        //Delegate which can be set to add a description to a stacktrace when app crashes
+        /// <summary>
+        /// Delegate which can be set to add a description to a stacktrace when app crashes
+        /// </summary>
         public Func<Exception, string> DescriptionLoader { get; set; }
-
-        public bool KeepRunningAfterException { get; set; }
 
         #endregion
 
@@ -260,6 +306,12 @@ namespace HockeyApp
         /// <param name="userAgentName">[optional] useragent string to be used in communication with the HockeyApp server</param>
         /// <param name="sdkName">[optional] name of the calling sdk</param>
         /// <param name="sdkVersion">[optional] version of the calling sdk </param>
+        /// <param name="descriptionLoader">[optional] </param>
+        /// <param name="os">[optional] </param>
+        /// <param name="osVersion">[optional] </param>
+        /// <param name="device">[optional] </param>
+        /// <param name="oem">[optional] </param>
+        /// <param name="uuid">[optional] </param>
         [Obsolete("Use HockeyClient.Current.Configure(...)")]
         public static void ConfigureInternal(string appIdentifier,
                                         string versionInfo,
@@ -283,7 +335,7 @@ namespace HockeyApp
             _instance.ContactInformation = contactInformation;
             _instance.DescriptionLoader = descriptionLoader;
 #pragma warning disable 618 // disable obsolete warning!
-            _instance.ApiBase = apiBase ?? SDKConstants.PublicApiBase;
+            _instance.ApiBase = apiBase ?? SDKConstants.PublicApiDomain;
 #pragma warning restore 618
             _instance.UserAgentString = userAgentName ?? SDKConstants.UserAgentString;
             _instance.SdkName = sdkName ?? SDKConstants.SdkName;
@@ -298,7 +350,7 @@ namespace HockeyApp
         /// <summary>
         /// The current configured instance of HockeyClient
         /// </summary>
-        [Obsolete("Use the more idiomatic Method IHockeyClient.Current")]
+        [Obsolete("Use IHockeyClient.Current if you utilize the new extensions method HockeyClient.Current.Configure(...)")]
         public static IHockeyClient Instance
         {
             get
@@ -330,8 +382,9 @@ namespace HockeyApp
 
         private HockeyClient() { }
 
-        #endregion
-
+        /// <summary>
+        /// Check if this HockeyClient has already been initialized (used internally by platform SDKs)
+        /// </summary>
         public void CheckForInitialization()
         {
             if (String.IsNullOrEmpty(_appIdentifier))
@@ -340,35 +393,90 @@ namespace HockeyApp
             }
         }
 
+        #endregion
+
+        #region events
+        
+        /// <summary>
+        /// Subscribe to this event to get all exceptions that are swallowed by HockeySDK.
+        /// Useful for debugging. Be sure to know what to do if you use this in production code.
+        /// </summary>
+        public event EventHandler<InternalUnhandledExceptionEventArgs> OnHockeySDKInternalException;
+
+        /// <summary>
+        /// Handle Exceptions that are swallowed because we don't want our SDK crash other apps
+        /// For internal use by platform SDKs
+        /// </summary>
+        /// <param name="unhandledException">the exception to propagate</param>
+        public void HandleInternalUnhandledException(Exception unhandledException) {
+            logger.Error(unhandledException);
+            var args = new InternalUnhandledExceptionEventArgs() { Exception = unhandledException };
+            var handler = OnHockeySDKInternalException;
+            if (handler != null)
+                handler(this, args);
+        }
+
+        #endregion
+
         #region API functions
 
         #region Crashes
 
+        /// <summary>
+        /// Create a CrashData object from an Exception with the default CrashLogInformation
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <returns></returns>
         public ICrashData CreateCrashData(Exception ex)
         {
             return new CrashData(this, ex, this.PrefilledCrashLogInfo);
         }
 
+        /// <summary>
+        /// Create a CrashData object from an Exception and a given CrashLogInformation
+        /// </summary>
+        /// <param name="ex"></param>
+        /// <param name="crashLogInfo"></param>
+        /// <returns></returns>
         public ICrashData CreateCrashData(Exception ex, CrashLogInformation crashLogInfo)
         {
             return new CrashData(this, ex, crashLogInfo);
         }
 
+        /// <summary>
+        /// create a CrashData object from a logString and stacktrace (used for Unity crashes)
+        /// </summary>
+        /// <param name="logString"></param>
+        /// <param name="stackTrace"></param>
+        /// <returns></returns>
         public ICrashData CreateCrashData(string logString, string stackTrace)
         {
             return new CrashData(this, logString, stackTrace, this.PrefilledCrashLogInfo);
         }
         
+        /// <summary>
+        /// Get an ICrashData object from crashlog-stream
+        /// </summary>
+        /// <param name="inputStream">stream from crashlog</param>
+        /// <returns>deserialized CrashData object</returns>
         public ICrashData Deserialize(Stream inputStream)
         {
             return CrashData.Deserialize(inputStream);
         }
 
+        /// <summary>
+        /// Retrieve filenames of crashlog files from storage
+        /// </summary>
+        /// <returns>crashlog-filenames (only name without folder)</returns>
         public async Task<IEnumerable<string>> GetCrashFileNamesAsync()
         {
             return await this.PlatformHelper.GetFileNamesAsync(SDKConstants.CrashDirectoryName, SDKConstants.CrashFilePrefix + "*.log");
         }
 
+        /// <summary>
+        /// Delete all crash-logs from storage
+        /// </summary>
+        /// <returns></returns>
         public async Task DeleteAllCrashesAsync()
         {
             foreach (string filename in await this.GetCrashFileNamesAsync())
@@ -379,13 +487,21 @@ namespace HockeyApp
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex);
+                    HandleInternalUnhandledException(ex);
                 }
             }
         }
 
+        /// <summary>
+        /// Check for available crash-logs in storage
+        /// </summary>
+        /// <returns>true if saved crashlogs are available</returns>
         public async Task<bool> AnyCrashesAvailableAsync() { return (await GetCrashFileNamesAsync()).Any(); }
 
+        /// <summary>
+        /// Handle exception asyncronously
+        /// </summary>
+        /// <param name="ex">the exception that should be saved to a crashlog</param>
         public async Task HandleExceptionAsync(Exception ex)
         {
             ICrashData cd = this.CreateCrashData(ex);
@@ -402,9 +518,13 @@ namespace HockeyApp
             }
             catch (Exception e)
             {
-                logger.Error(e);
+                HandleInternalUnhandledException(e);
             }
         }
+        /// <summary>
+        /// Handle exception syncronously (only for platforms that support sync write to storage
+        /// </summary>
+        /// <param name="ex">the exception that should be saved to a crashlog</param>
         public void HandleException(Exception ex)
         {
             if (!this.PlatformHelper.PlatformSupportsSyncWrite)
@@ -424,14 +544,17 @@ namespace HockeyApp
             }
             catch (Exception e)
             {
-                logger.Error(e);
+                HandleInternalUnhandledException(e);
             }
         }
 
 #if NET_4_5
         private readonly AsyncLock lck = new AsyncLock();
 #endif
-
+        /// <summary>
+        /// Send crash-logs from storage and deletes the if they could be sent
+        /// </summary>
+        /// <returns>true if at least one Crashlog was transmitted to the server</returns>
         public async Task<bool> SendCrashesAndDeleteAfterwardsAsync()
         {
             bool atLeatOneCrashSent = false;
@@ -446,31 +569,40 @@ namespace HockeyApp
                     logger.Info("Start send crashes to platform.");
                     if (NetworkInterface.GetIsNetworkAvailable())
                     {
-                        try
+                        foreach (string filename in await this.GetCrashFileNamesAsync())
                         {
-                            foreach (string filename in await this.GetCrashFileNamesAsync())
+                            logger.Info("Crashfile found: {0}", filename);
+                            Exception error = null;
+                            try //don't stop if one file fails
                             {
-                                logger.Info("Crashfile found: {0}", filename);
+                                using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
+                                {
+                                    ICrashData cd = this.Deserialize(stream);
+                                    await cd.SendDataAsync();
+                                }
+
+                                atLeatOneCrashSent = true;
+                            }
+                            catch (IOException ex)
+                            {
+                                HandleInternalUnhandledException(ex);
+                                error = ex;
+                            }
+                            if (error != null && error is WebTransferException)
+                            {
+                                //will retry on next start
+                            }
+                            else
+                            {
+                                //either no error or the file seems corrupt => try to delete it
                                 try
                                 {
-                                    using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
-                                    {
-                                        ICrashData cd = this.Deserialize(stream);
-                                        await cd.SendDataAsync();
-                                    }
                                     await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
-                                    atLeatOneCrashSent = true;
                                 }
-                                catch (Exception ex)
-                                {
-                                    logger.Error(ex);
+                                catch (Exception ex) {
+                                    HandleInternalUnhandledException(ex);
                                 }
                             }
-                        }
-                        catch (WebTransferException te) { logger.Error(te); }
-                        catch (Exception e)
-                        {
-                            this.logger.Error(e);
                         }
                     }
                 }
@@ -481,8 +613,9 @@ namespace HockeyApp
                     {
                         Monitor.Exit(this);
                     }
-                    catch (Exception)
-                    { //ignore on next start it will work again.
+                    catch (Exception ex)
+                    { //ignore. on next start it will try again.
+                        HandleInternalUnhandledException(ex);
                     }
                 }
             }
@@ -495,6 +628,10 @@ namespace HockeyApp
 
         #region Update
 
+        /// <summary>
+        /// Get available app versions from the server
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<IAppVersion>> GetAppVersionsAsync()
         {
             StringBuilder url = new StringBuilder(this.ApiBaseVersion2 + "apps/" + this.AppIdentifier + ".json");
@@ -528,11 +665,20 @@ namespace HockeyApp
 
         #region Feedback
 
+        /// <summary>
+        /// Create a feedback thread to post messages on
+        /// </summary>
+        /// <returns>an empty IFeedbackThread</returns>
         public IFeedbackThread CreateNewFeedbackThread()
         {
             return FeedbackThread.CreateInstance();
         }
 
+        /// <summary>
+        /// Try to open an existng Feedbackthread
+        /// </summary>
+        /// <param name="threadToken">thread token for this thread</param>
+        /// <returns>a populated feedback thread, null if the token is invalid or the thread closed.</returns>
         public async Task<IFeedbackThread> OpenFeedbackThreadAsync(string threadToken)
         {
             if (String.IsNullOrWhiteSpace(threadToken))
@@ -540,7 +686,14 @@ namespace HockeyApp
                 throw new ArgumentException("Token must not be empty!");
             }
             FeedbackThread fbThread = null;
-            fbThread = await FeedbackThread.OpenFeedbackThreadAsync(this, threadToken);
+            try
+            {
+                fbThread = await FeedbackThread.OpenFeedbackThreadAsync(this, threadToken);
+            }
+            catch (Exception e)
+            {
+                HandleInternalUnhandledException(e);
+            }
             return fbThread;
         }
 
@@ -560,6 +713,12 @@ namespace HockeyApp
             }
         }
 
+        /// <summary>
+        /// try to authorize a (hockeayapp) user by email and password
+        /// </summary>
+        /// <param name="email">email (hockeyapp user id)</param>
+        /// <param name="password">password of the user</param>
+        /// <returns>IAuthStatus. If successfull will contain authid and IsAuthorized will be true</returns>
         public async Task<IAuthStatus> AuthorizeUserAsync(string email, string password)
         {
             var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion3 + "apps/" +
@@ -578,6 +737,12 @@ namespace HockeyApp
             return status;
         }
 
+        /// <summary>
+        /// Identify a user by his email-adress (hockeyapp id)
+        /// </summary>
+        /// <param name="email">email (hockeyapp user id)</param>
+        /// <param name="appSecret">app secret of the app</param>
+        /// <returns>IAuthStatus. If sucessful (hockeyapp user exists) IsIdentified is true.</returns>
         public async Task<IAuthStatus> IdentifyUserAsync(string email, string appSecret)
         {
             var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion3 + "apps/" +
@@ -627,9 +792,15 @@ namespace HockeyApp
 
         #region PlatformHelper
 
+        /// <summary>
+        /// Platform helper for internal use
+        /// </summary>
         public IHockeyPlatformHelper PlatformHelper { get; set; }
 
         CrashLogInformation? _crashLogInfo = null;
+        /// <summary>
+        /// A filled CrashLogInformation object
+        /// </summary>
         public CrashLogInformation PrefilledCrashLogInfo
         {
             get

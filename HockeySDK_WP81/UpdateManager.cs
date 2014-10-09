@@ -150,7 +150,7 @@ namespace HockeyApp
                 catch (Exception e)
                 {
                     thrownException = e;
-                    logger.Error(e);
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 }
                 //Don't show errors durgin update-check on startup
                 if (thrownException != null && updateCheckSettings.UpdateMode.Equals(UpdateMode.InApp))

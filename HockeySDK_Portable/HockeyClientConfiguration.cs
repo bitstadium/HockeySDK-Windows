@@ -7,8 +7,14 @@ using System.Threading.Tasks;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Interface used during initial fluent configuration of HockeyClient
+    /// </summary>
     public interface IHockeyClientConfigurable { }
 
+    /// <summary>
+    /// Extensions for fluent configuration
+    /// </summary>
     public static class HockeyClientConfigurationExtensions
     {
 
@@ -16,7 +22,7 @@ namespace HockeyApp
         /// Use this if you're using an on-premise version of HockeyApp. Default is: https://rink.hockeyapp.net
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="anApiDomain"></param>
+        /// <param name="hockeyApiDomain"></param>
         /// <returns></returns>
         public static IHockeyClientConfigurable SetApiDomain(this IHockeyClientConfigurable @this, string hockeyApiDomain)
         {

@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Internal
 {
+    /// <summary>
+    /// Full interface of Hockeyclient. Used by platform-specific SDKs
+    /// </summary>
     public interface IHockeyClientInternal : IHockeyClient
     {
         #region Properties
@@ -56,17 +59,36 @@ namespace HockeyApp.Internal
         /// </summary>
         string ContactInformation { get; set; }
 
+        /// <summary>
+        /// DescriptionLoader Func which is called for unhandled exceptions. the returned string is added to the crashlog as description.
+        /// </summary>
         Func<Exception, string> DescriptionLoader { get; set; }
 
         #endregion
 
+         /// <summary>
+        /// Handle Exceptions that are swallowed because we don't want our SDK crash other apps
+        /// For internal use by platform SDKs
+        /// </summary>
+        /// <param name="e"></param>
+        void HandleInternalUnhandledException(Exception e);
+
         #region PlatformHelper
 
+        /// <summary>
+        /// Platformhelper implemented by platform-specific SDKs
+        /// </summary>
         IHockeyPlatformHelper PlatformHelper { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
         CrashLogInformation PrefilledCrashLogInfo { get; }
 
         #endregion
 
+        /// <summary>
+        /// Check if this IHockeyClient has already been initialized. throws exception if not initialized.
+        /// </summary>
         void CheckForInitialization();
 
         #region API calls

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using HockeyApp.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Windows.UI.Popups;
 
 namespace HockeyApp.ViewModels
 {
@@ -49,6 +51,7 @@ namespace HockeyApp.ViewModels
         public async Task<IAuthStatus> IdentifyUserAsync()
         {
             IAuthStatus status = null;
+            WebTransferException webEx = null;
             try
             {
                 IsBusy = true;
@@ -58,16 +61,26 @@ namespace HockeyApp.ViewModels
                     await AuthManager.Current.UpdateAuthStatusAsync(status);
                 }
             }
+            catch (WebTransferException wte)
+            {
+                webEx = wte;
+            }
             finally
             {
                 IsBusy = false;
             }
+            if (webEx != null) { await HandleNetworkError(webEx); }
             return status;
+        }
+
+        internal async Task HandleNetworkError(WebTransferException wte) {
+            await new MessageDialog(LocalizedStrings.LocalizedResources.AuthNoInternet).ShowAsync();
         }
 
         public async Task<IAuthStatus> AuthorizeUserAsync(string password)
         {
             IAuthStatus status = null;
+            WebTransferException webEx = null;
             try
             {
                 IsBusy = true;
@@ -77,10 +90,16 @@ namespace HockeyApp.ViewModels
                     await AuthManager.Current.UpdateAuthStatusAsync(status);
                 }
             }
+            catch (WebTransferException wte)
+            {
+                webEx = wte;
+            }
+
             finally
             {
                 IsBusy = false;
             }
+            if (webEx != null) { await HandleNetworkError(webEx); }
             return status;
         }
     }

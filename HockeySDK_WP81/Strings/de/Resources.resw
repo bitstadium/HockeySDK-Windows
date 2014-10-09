@@ -298,4 +298,7 @@
     <value>Die Installation scheiterte mit folgendem Fehler: {0]
 Der Download über den Browser wird versucht.</value>
   </data>
+  <data name="AuthNoInternet" xml:space="preserve">
+    <value>Ihr Gerät scheint nicht mit dem Internet verbunden zu sein. Bitte nochmal versuchen.</value>
+  </data>
 </root>

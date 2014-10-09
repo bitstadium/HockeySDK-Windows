@@ -61,9 +61,9 @@ namespace HockeyApp
                 this.CurrentFeedbackThreadVM = threadVM; 
                 return this.CurrentFeedbackThreadVM;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                logger.Error(e);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
                 return null;
             }
         }

@@ -9,7 +9,7 @@ namespace HockeyApp
     {
         internal const string SdkName = "HockeySDKWinPCL";
         internal const string SdkVersion = "2.2.0-beta3";
-        internal const string PublicApiBase = "https://rink.hockeyapp.net";
+        internal const string PublicApiDomain = "https://rink.hockeyapp.net";
         internal const string UserAgentString = "Hockey/WinPCL";
 
         internal const string CrashDirectoryName = "HockeyCrashes";

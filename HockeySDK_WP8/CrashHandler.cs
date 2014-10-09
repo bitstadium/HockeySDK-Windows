@@ -158,12 +158,12 @@ namespace HockeyApp
             HandleException(args.ExceptionObject);
         }
 
-        internal void HandleException(Exception e)
+        internal void HandleException(Exception unhandledException)
         {
             CrashLogInformation crashInfo = this._crashLogInfo;
             //TODO refactor in next version
             if (this._crashLogInfo.PackageName == null) { this._crashLogInfo = HockeyClient.Current.AsInternal().PrefilledCrashLogInfo; }
-            ICrashData cd = HockeyClient.Current.AsInternal().CreateCrashData(e, this._crashLogInfo);
+            ICrashData cd = HockeyClient.Current.AsInternal().CreateCrashData(unhandledException, this._crashLogInfo);
 
             var crashId = Guid.NewGuid();
             try
@@ -182,7 +182,7 @@ namespace HockeyApp
             }
             catch (Exception ex)
             {
-                logger.Error(ex);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
             }
         }
 
@@ -219,7 +219,7 @@ namespace HockeyApp
                 }
                 catch (Exception e)
                 {
-                    logger.Error(e);
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 }
             }
         }
@@ -250,7 +250,7 @@ namespace HockeyApp
             }
             catch (Exception e)
             {
-                logger.Error(e);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
             }
         }
 
@@ -287,7 +287,7 @@ namespace HockeyApp
                 }
                 catch (Exception e)
                 {
-                    logger.Error(e);
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 }
             }
             return false;
@@ -317,7 +317,7 @@ namespace HockeyApp
                             }
                             catch (Exception e)
                             {
-                                logger.Error(e);
+                                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                             }
                         }
                     }))
@@ -330,26 +330,24 @@ namespace HockeyApp
         {
             foreach (String filename in filenames)
             {
-                try
+                if (store.FileExists(Path.Combine(Constants.CrashDirectoryName, filename)))
                 {
-                    if (store.FileExists(Path.Combine(Constants.CrashDirectoryName, filename)))
+                    ICrashData cd;
+                    try
                     {
-                        ICrashData cd;
                         using (Stream fileStream = store.OpenFile(Path.Combine(Constants.CrashDirectoryName, filename), FileMode.Open))
                         {
                             cd = HockeyClient.Current.AsInternal().Deserialize(fileStream);
                         }
                         await cd.SendDataAsync();
-                        store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                     }
-                }
-                catch (WebTransferException wte)
-                {
-                    logger.Error(wte);
-                }
-                catch (Exception e)
-                {
-                    logger.Error(e);
+                    catch (WebTransferException e)
+                    {
+                        //try again on next run
+                        HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
+                        return;
+                    }
+                    store.DeleteFile(Path.Combine(Constants.CrashDirectoryName, filename));
                 }
             }
         }
