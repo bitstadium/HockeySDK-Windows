@@ -7,17 +7,27 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Extensions
 {
-
+    /// <summary>
+    /// Hlper class to implement async locking
+    /// </summary>
     public sealed class AsyncLock
     {
         private readonly SemaphoreSlim m_semaphore = new SemaphoreSlim(1, 1);
         private readonly Task<IDisposable> m_releaser;
 
+        /// <summary>
+        /// constructor for a lock
+        /// </summary>
         public AsyncLock()
         {
             m_releaser = Task.FromResult((IDisposable)new Releaser(this));
         }
 
+        /// <summary>
+        /// Get the lock.
+        /// Usage: using(var lck = await myAsyncLock.LockAsync()) { ... }
+        /// </summary>
+        /// <returns>awaitable task</returns>
         public Task<IDisposable> LockAsync()
         {
             var wait = m_semaphore.WaitAsync();

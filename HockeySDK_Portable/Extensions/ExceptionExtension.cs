@@ -5,9 +5,19 @@ using System.Text;
 
 namespace HockeyApp.Extensions
 {
-    public static class ExceptionExtension
+    internal class NamespaceDoc { }
+
+    /// <summary>
+    /// static extension class for extensions on exception
+    /// </summary>
+    internal static class ExceptionExtension
     {
-        public static String StackTraceToString(this Exception @this)
+        /// <summary>
+        /// build a formatted string from the stacktrace of an exception
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        internal static String StackTraceToString(this Exception @this)
         {
             StringBuilder builder = new StringBuilder();
             builder.Append(@this.GetType().ToString() + ": ");

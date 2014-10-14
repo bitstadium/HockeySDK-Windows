@@ -5,6 +5,9 @@ using System.Text;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Universal log interface
+    /// </summary>
     public interface ILog
     {
         /// <summary>

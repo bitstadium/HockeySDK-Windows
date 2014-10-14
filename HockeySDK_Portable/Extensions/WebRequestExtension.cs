@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Extensions
 {
-    public static class WebRequestExtension
+    /// <summary>
+    /// static extension class
+    /// </summary>
+    internal static class WebRequestExtension
     {
         /// <summary>
         /// Set a http header on a Web-Request. Either by setting the property or by adding to the Headers dict.
@@ -17,7 +20,7 @@ namespace HockeyApp.Extensions
         /// <param name="request">self</param>
         /// <param name="header">header key</param>
         /// <param name="value">header value</param>
-        public static void SetHeader(this WebRequest request, string header, string value)
+        internal static void SetHeader(this WebRequest request, string header, string value)
         {
             // Retrieve the property through reflection.
             PropertyInfo PropertyInfo = request.GetType().GetProperty(header.Replace("-", string.Empty));

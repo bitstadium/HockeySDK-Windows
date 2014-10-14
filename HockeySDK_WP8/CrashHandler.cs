@@ -43,12 +43,8 @@ using HockeyApp.Internal;
 namespace HockeyApp
 {
 
-    public enum CrashInfoType {
-        crash, user, contact, description
-    }
-
     /// <summary>
-    /// Providing Crash-Handling functionality with HockeyApp in your App
+    /// Providing Crash-Handling functionality with HockeyApp in your app.  Don't use directly. Use HockeyClient.Current - extension methods
     /// </summary>
     public class CrashHandler
     {
@@ -62,6 +58,9 @@ namespace HockeyApp
         static CrashHandler() { }
         private CrashHandler() {}
 
+        /// <summary>
+        /// Gets the singleton instance.
+        /// </summary>
         [Obsolete]
         public static CrashHandler Instance
         {

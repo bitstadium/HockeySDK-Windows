@@ -5,17 +5,48 @@ using System.Text;
 
 namespace HockeyApp.Model
 {
+    /// <summary>
+    /// representing additional meta info to a crashlog
+    /// </summary>
     public struct CrashLogInformation
     {
+        /// <summary>
+        /// name of app package
+        /// </summary>
         public string PackageName;
+        /// <summary>
+        /// version of app
+        /// </summary>
         public string Version;
+        /// <summary>
+        /// os
+        /// </summary>
         public string OperatingSystem;
+        /// <summary>
+        /// device manufacturer
+        /// </summary>
         public string Manufacturer;
+        /// <summary>
+        /// device model
+        /// </summary>
         public string Model;
+        /// <summary>
+        /// product id of app
+        /// </summary>
         public string ProductID;
+        /// <summary>
+        /// windows phone version
+        /// </summary>
         public string WindowsPhone;
+        /// <summary>
+        /// windows version
+        /// </summary>
         public string Windows;
 
+        /// <summary>
+        /// concatenate info to key-value string 
+        /// </summary>
+        /// <returns>data as string</returns>
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();

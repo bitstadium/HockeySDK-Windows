@@ -9,9 +9,17 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Extensions
 {
+    /// <summary>
+    /// static extension class for mix extensions on pcl lib
+    /// </summary>
     public static class PortableExtensions45
     {
 
+        /// <summary>
+        /// extension method to get web response async
+        /// </summary>
+        /// <param name="request">the webrequest to send</param>
+        /// <returns>the response</returns>
         public static Task<HttpWebResponse> GetResponseAsync(this WebRequest request)
         {
             var taskComplete = new TaskCompletionSource<HttpWebResponse>();
@@ -34,7 +42,11 @@ namespace HockeyApp.Extensions
             return taskComplete.Task;
         }
 
-
+        /// <summary>
+        /// get the request stream asynchronously
+        /// </summary>
+        /// <param name="request">the request</param>
+        /// <returns>the request stream to write on</returns>
         public static Task<Stream> GetRequestStreamAsync(this WebRequest request)
         {
             var taskComplete = new TaskCompletionSource<Stream>();
@@ -53,6 +65,12 @@ namespace HockeyApp.Extensions
             return taskComplete.Task;
         }
 
+        /// <summary>
+        /// extension method for type to get a runtime property
+        /// </summary>
+        /// <param name="self">type to get the property from</param>
+        /// <param name="propertyName">name of the property to retrieve</param>
+        /// <returns>PropertyInfo from type</returns>
         public static PropertyInfo GetProperty(this Type self, string propertyName)
         {
             return self.GetRuntimeProperty(propertyName);

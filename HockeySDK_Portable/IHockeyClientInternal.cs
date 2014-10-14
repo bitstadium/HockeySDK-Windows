@@ -25,7 +25,9 @@ namespace HockeyApp.Internal
         /// </summary>
         string ApiBaseVersion3 { get; }
 
-        //domain of HockeyApp server
+        /// <summary>
+        /// domain of HockeyApp server
+        /// </summary>
         string ApiDomain { get; set; }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace HockeyApp.Internal
         /// </summary>
         IHockeyPlatformHelper PlatformHelper { get; set; }
         /// <summary>
-        /// 
+        /// crsh log meta information prefilled with data from platform helper
         /// </summary>
         CrashLogInformation PrefilledCrashLogInfo { get; }
 
@@ -151,7 +153,8 @@ namespace HockeyApp.Internal
         /// <summary>
         /// Factory method for ICrashData (for unity-sdk)
         /// </summary>
-        /// <param name="ex">Exception for which crashData is created</param>
+        /// <param name="logString">The log string.</param>
+        /// <param name="stackTrace">The stack trace.</param>
         /// <returns></returns>
         ICrashData CreateCrashData(String logString, String stackTrace);
 
@@ -193,7 +196,6 @@ namespace HockeyApp.Internal
         /// Handle Exception sync (only on platforms that support sync file access)
         /// </summary>
         /// <param name="ex"></param>
-        /// <param name="markAsHandled"></param>
         /// <returns></returns>
         void HandleException(Exception ex);
 

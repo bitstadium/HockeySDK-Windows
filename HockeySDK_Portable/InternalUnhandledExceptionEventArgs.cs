@@ -10,6 +10,9 @@ namespace HockeyApp
     /// </summary>
     public class InternalUnhandledExceptionEventArgs : EventArgs
     {
+        /// <summary>
+        /// The exception.
+        /// </summary>
         public Exception Exception { get; internal set; }
     }
 }

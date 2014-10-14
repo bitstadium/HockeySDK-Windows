@@ -18,6 +18,9 @@ using System.Runtime.CompilerServices;
 
 namespace HockeyApp.Model
 {
+    /// <summary>
+    /// represents data of a crashlog
+    /// </summary>
     [DataContract]
     public class CrashData : ICrashData
     {
@@ -69,6 +72,10 @@ namespace HockeyApp.Model
             //we don't support DescriptionLoader from unity at the moment
         }
 
+        /// <summary>
+        /// called on deserializing
+        /// </summary>
+        /// <param name="context">context of (de)serializer</param>
         [OnDeserializing]
         public void OnDeserializing(StreamingContext context)
         {
@@ -76,25 +83,45 @@ namespace HockeyApp.Model
             _logger = HockeyLogManager.GetLog(typeof(CrashData));
         }
 
+        /// <summary>
+        /// log string
+        /// </summary>
         [DataMember(Name = "log")]
         public string Log{get;set;}
 
+        /// <summary>
+        /// description string
+        /// </summary>
         [DataMember(Name = "description")]
         public string Description { get; set; }
         
+        /// <summary>
+        /// user id 
+        /// </summary>
         [DataMember(Name = "userID")]
         public string UserID { get; set; }
 
+        /// <summary>
+        /// contact info
+        /// </summary>
         [DataMember(Name = "contact")]
         public string Contact{get;set;}
 
+        /// <summary>
+        /// sdk name
+        /// </summary>
         [DataMember(Name = "sdk")]
         public string SDKName{get;set;}
-        
+        /// <summary>
+        /// sdk version
+        /// </summary>
         [DataMember(Name = "sdk_version")]
         public string SDKVersion{get;set;}
 
-
+        /// <summary>
+        /// sends the crashlog data to the hockeyapp serer
+        /// </summary>
+        /// <returns></returns>
         public async Task SendDataAsync()
         {
             string rawData = "";
@@ -149,12 +176,21 @@ namespace HockeyApp.Model
 
         }
 
+        /// <summary>
+        /// serialize data to a stream
+        /// </summary>
+        /// <param name="outputStream"></param>
         public void Serialize(Stream outputStream)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));
             serializer.WriteObject(outputStream, this);
         }
 
+        /// <summary>
+        /// unmarshall data from a stream
+        /// </summary>
+        /// <param name="inputStream">json data stream</param>
+        /// <returns>populated CrashData</returns>
         public static CrashData Deserialize(Stream inputStream)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));

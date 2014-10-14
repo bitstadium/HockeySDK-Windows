@@ -3,6 +3,9 @@ using System.IO;
 using System.Threading.Tasks;
 namespace HockeyApp
 {
+    /// <summary>
+    /// interface for crashlog data
+    /// </summary>
     public interface ICrashData
     {
 

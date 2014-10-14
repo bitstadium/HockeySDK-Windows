@@ -10,9 +10,18 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Model
 {
+    /// <summary>
+    /// represents an attachment to a feedback message
+    /// </summary>
     [DataContract]
     public class FeedbackAttachment : IFeedbackAttachment
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="dataBytes"></param>
+        /// <param name="contentType"></param>
         public FeedbackAttachment(string fileName, byte[] dataBytes, string contentType)
         {
             this.FileName = fileName;
@@ -20,21 +29,40 @@ namespace HockeyApp.Model
             this.DataBytes = dataBytes;
         }
 
+        /// <summary>
+        /// Remote URL where this attachment is available
+        /// </summary>
         [DataMember(Name = "url")]
         public string RemoteURL { get; internal set; }
-
+        /// <summary>
+        /// Timestamp of creation
+        /// </summary>
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; internal set; }
-
+        /// <summary>
+        /// unique Id of the attachment
+        /// </summary>
         [DataMember(Name = "id")]
         public string Id { get; internal set; }
-        
+
+        /// <summary>
+        /// Name of the file when it was uploaded
+        /// </summary>
         [DataMember(Name = "file_name")]
         public string FileName { get; set; }
-
+        /// <summary>
+        /// Bytes (usually only used when uploading attachments)
+        /// </summary>
         public byte[] DataBytes { get; set; }
+        /// <summary>
+        /// Mime content type
+        /// </summary>
         public string ContentType { get; set; }
 
+        /// <summary>
+        /// Load attachment to local storage
+        /// </summary>
+        /// <returns></returns>
         public async Task<bool> LoadAttachmentFromServer()
         {
             bool retVal = false;

@@ -80,37 +80,57 @@ namespace HockeyApp
 
         private readonly SynchronizationContext _syncContext;
 
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AsyncSynchronizationContext"/> class.
+        /// </summary>
+        /// <param name="syncContext">The synchronize context.</param>
         public AsyncSynchronizationContext(SynchronizationContext syncContext)
         {
             _syncContext = syncContext;
         }
 
-
+        /// <summary>
+        /// When overridden in a derived class, creates a copy of the synchronization context.
+        /// </summary>
+        /// <returns>
+        /// A new <see cref="T:System.Threading.SynchronizationContext" /> object.
+        /// </returns>
         public override SynchronizationContext CreateCopy()
         {
             return new AsyncSynchronizationContext(_syncContext.CreateCopy());
         }
 
-
+        /// <summary>
+        /// When overridden in a derived class, responds to the notification that an operation has completed.
+        /// </summary>
         public override void OperationCompleted()
         {
             _syncContext.OperationCompleted();
         }
 
-
+        /// <summary>
+        /// When overridden in a derived class, responds to the notification that an operation has started.
+        /// </summary>
         public override void OperationStarted()
         {
             _syncContext.OperationStarted();
         }
 
-
+        /// <summary>
+        /// When overridden in a derived class, dispatches an asynchronous message to a synchronization context.
+        /// </summary>
+        /// <param name="d">The <see cref="T:System.Threading.SendOrPostCallback" /> delegate to call.</param>
+        /// <param name="state">The object passed to the delegate.</param>
         public override void Post(SendOrPostCallback d, object state)
         {
             _syncContext.Post(WrapCallback(d), state);
         }
 
-
+        /// <summary>
+        /// When overridden in a derived class, dispatches a synchronous message to a synchronization context.
+        /// </summary>
+        /// <param name="d">The <see cref="T:System.Threading.SendOrPostCallback" /> delegate to call.</param>
+        /// <param name="state">The object passed to the delegate.</param>
         public override void Send(SendOrPostCallback d, object state)
         {
             _syncContext.Send(d, state);

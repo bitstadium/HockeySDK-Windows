@@ -8,9 +8,11 @@ using HockeyApp.Internal;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// static extension class for utility extensions
+    /// </summary>
     public static class UtilExtensions
     {
-
         internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
         {
             return (IHockeyClientInternal)@this;

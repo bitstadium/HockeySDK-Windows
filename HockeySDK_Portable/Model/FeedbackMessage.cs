@@ -8,46 +8,92 @@ using System.Threading.Tasks;
 
 namespace HockeyApp.Model
 {
+
+    /// <summary>
+    /// represents a feedback message
+    /// </summary>
     [DataContract]
     public class FeedbackMessage : IFeedbackMessage
     {
+        /// <summary>
+        /// types of message sources
+        /// </summary>
         public enum ViaTypes
         {
+            /// <summary>
+            /// via rest api (normally by an app using the sdk)
+            /// </summary>
             API = 1,
+            /// <summary>
+            /// via email
+            /// </summary>
             Email = 2,
+            /// <summary>
+            /// via web interface
+            /// </summary>
             Web = 3
         }
 
+        /// <summary>
+        /// message attachments
+        /// </summary>
         [DataMember(Name="name")]
         public string Name { get; set; }
 
+        /// <summary>
+        /// email of the message sender
+        /// </summary>
         [DataMember(Name="email")]
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gravatar hash of the senders email
+        /// </summary>
         [DataMember(Name = "gravatar_hash")]
         public string GravatarHash { get; set; }
 
+        /// <summary>
+        /// subject
+        /// </summary>
         [DataMember(Name = "subject")]
         public string Subject { get; set; }
 
+        /// <summary>
+        /// text (can include html)
+        /// </summary>
         [DataMember(Name = "Text")]
         public string Text { get; set; }
 
+        /// <summary>
+        /// Device oem
+        /// </summary>
         [DataMember(Name = "oem")]
         public string Oem { get; protected set; }
 
+        /// <summary>
+        /// Device model
+        /// </summary>
         [DataMember(Name = "Model")]
         public string Model { get; protected set; }
 
+        /// <summary>
+        /// corresponding OS Version
+        /// </summary>
         [DataMember(Name = "os_version")]
         public string OSVersion { get; protected set; }
 
+        /// <summary>
+        /// Timestamp of creation as string
+        /// </summary>
         [DataMember(Name = "created_at")]
         public string CreatedAt { get; protected set; }
 
         [DataMember(Name = "attachments")]
         internal List<FeedbackAttachment> attachments { get; set; }
 
+        /// <summary>
+        /// message attachments
+        /// </summary>
         public IEnumerable<IFeedbackAttachment> Attachments
         {
             get
@@ -55,7 +101,10 @@ namespace HockeyApp.Model
                 return this.attachments != null ? this.attachments.Cast<IFeedbackAttachment>() : new List<IFeedbackAttachment>();
             }
         }
-        
+
+        /// <summary>
+        /// Timestamp of creation
+        /// </summary>
         public DateTime Created
         {
             get
@@ -64,30 +113,56 @@ namespace HockeyApp.Model
             }
         }
 
+        /// <summary>
+        /// unique id of the message
+        /// </summary>
         [DataMember(Name = "id")]
         public int Id { get; private set; }
 
+        /// <summary>
+        /// Token for message
+        /// </summary>
         [DataMember(Name = "token")]
         public string Token { get; internal set; }
-
+        /// <summary>
+        /// via-flag (indicates if from web/api ..)
+        /// </summary>
         [DataMember(Name = "via")]
         public int Via { get; private set; }
 
+        /// <summary>
+        /// User
+        /// </summary>
         [DataMember(Name = "user_string")]
         public string UserString { get; protected set; }
 
+        /// <summary>
+        /// Message is only internal
+        /// </summary>
         [DataMember(Name = "internal")]
         public bool? @Internal { get; private set; }
 
+        /// <summary>
+        /// Raw text of the message
+        /// </summary>
         [DataMember(Name = "clean_text")]
         public string CleanText { get; private set; }
-
+        
+        /// <summary>
+        /// App id of the app this feedback message belongs to
+        /// </summary>
         [DataMember(Name = "app_id")]
         public string AppId { get; private set; }
 
+        /// <summary>
+        /// App version where the feedback relates to
+        /// </summary>
         [DataMember(Name = "app_verson_id")]
         public string AppVersionId { get; private set; }
 
+        /// <summary>
+        /// via-flag as string
+        /// </summary>
         public string ViaAsString { get {
             String retVal = "";
             switch (this.Via)

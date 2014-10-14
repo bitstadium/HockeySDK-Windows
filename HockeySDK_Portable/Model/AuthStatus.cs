@@ -48,6 +48,9 @@ namespace HockeyApp.Model
         static internal IEnumerable<AuthType> AuthTypes { get { return new List<AuthType>() { Authorized, Identified, Validated, NotFound, NotAuthorized, Invalid }; } }
     }
 
+    /// <summary>
+    /// represents the status of an autorization request
+    /// </summary>
     [DataContract]
     public sealed class AuthStatus : IAuthStatus
     {
@@ -121,9 +124,9 @@ namespace HockeyApp.Model
         }
 
         /// <summary>
-        /// 
+        /// trigger revalidation on the hockeyapp server
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true if this status (token) is still valid</returns>
         public async Task<bool> CheckIfStillValidAsync()
         {
             var request = WebRequest.CreateHttp(new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion3 + "apps/" +

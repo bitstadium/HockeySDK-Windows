@@ -11,11 +11,18 @@ using HockeyApp.Internal;
 
 namespace HockeyApp.Model
 {
+    /// <summary>
+    /// represents a feedback thread on hockeyapp with one or more messages
+    /// </summary>
     [DataContract]
     public class FeedbackThread : IFeedbackThread
     {
         
         private static ILog _logger = HockeyLogManager.GetLog(typeof(FeedbackThread));
+        /// <summary>
+        /// Creates a new thread.
+        /// </summary>
+        /// <returns>new thread</returns>
         public static IFeedbackThread CreateInstance()
         {
             return new FeedbackThread() { Token = Guid.NewGuid().ToString(), IsNewThread = true, messages = new List<FeedbackMessage>() };
@@ -23,23 +30,47 @@ namespace HockeyApp.Model
 
         private FeedbackThread() { }
 
+        /// <summary>
+        /// indicates if this thread was new (not on server yet)
+        /// </summary>
         public bool IsNewThread { get; private set; }
 
+        /// <summary>
+        /// name of the thread
+        /// </summary>
         [DataMember(Name="name")]
         public string Name { get; private set; }
+        /// <summary>
+        /// email of thread starter
+        /// </summary>
         [DataMember(Name="email")]
         public string EMail { get; private set; }
+        /// <summary>
+        /// unique id
+        /// </summary>
         [DataMember(Name="id")]
         public int Id { get; private set; }
+        /// <summary>
+        /// time of creation as string
+        /// </summary>
         [DataMember(Name="created_at")]
         public string CreatedAt { get; private set; }
+        /// <summary>
+        /// unique token for this thread
+        /// </summary>
         [DataMember(Name="token")]
         public string Token { get; private set; }
 
+        /// <summary>
+        /// status
+        /// </summary>
         [DataMember(Name="status")]
         public int Status { get; private set; }
 
 
+        /// <summary>
+        /// the messages in this thread (newest message last)
+        /// </summary>
         public List<IFeedbackMessage> Messages
         {
             get
@@ -56,12 +87,6 @@ namespace HockeyApp.Model
         [DataMember(Name = "messages")]
         internal List<FeedbackMessage> messages { get; set; }
 
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns>FeedbackThread or null if the thread got deleted</returns>
-        /// <exception cref="ApplicationException"></exception>
         internal static async Task<FeedbackThread> OpenFeedbackThreadAsync(HockeyClient client, string threadToken)
         {
             FeedbackThread retVal = null;
@@ -110,6 +135,16 @@ namespace HockeyApp.Model
             return retVal;
         }
 
+        /// <summary>
+        /// Posts the feedback message asynchronous.
+        /// </summary>
+        /// <param name="message">The message.</param>
+        /// <param name="email">The email.</param>
+        /// <param name="subject">The subject.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="attachments">The attachments.</param>
+        /// <returns></returns>
+        /// <exception cref="System.Exception">Server error. Server returned status  + fbResp.Status</exception>
         public async Task<IFeedbackMessage> PostFeedbackMessageAsync(string message, string email = null, string subject = null, string name = null, IEnumerable<IFeedbackAttachment> attachments = null)
         {
             IHockeyClientInternal client = HockeyClient.Current.AsInternal();

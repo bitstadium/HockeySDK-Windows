@@ -16,7 +16,7 @@ using Microsoft.Phone.Controls;
 namespace HockeyApp
 {
     /// <summary>
-    /// Provides the methods to integrate HockeyApp Feedback in your app
+    /// Provides the methods to integrate HockeyApp Feedback in your app. Don't use directly. Use HockeyClient.Current - extension methods
     /// </summary>
     public class FeedbackManager
     {

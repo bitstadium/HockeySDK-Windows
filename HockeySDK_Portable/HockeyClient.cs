@@ -14,6 +14,7 @@ using System.Threading;
 
 namespace HockeyApp
 {
+
     /// <summary>
     /// Implements the HockeyClient singleton
     /// </summary>
@@ -141,8 +142,10 @@ namespace HockeyApp
             set { _sdkVersion = value; }
         }
 
-        //App info
         private string _appIdentifier;
+        /// <summary>
+        /// Public identifier of your app
+        /// </summary>
         public string AppIdentifier
         {
             get { return _appIdentifier; }
@@ -283,6 +286,7 @@ namespace HockeyApp
         /// <param name="apiBase">[optional] the base url of the hockeyapp server. Only needed if used with a private HockeyApp installation.</param>
         /// <param name="userID">[optional] ID of the current user using your app, sent with crash-reports, can also be set via property.</param>
         /// <param name="contactInformation">[optional] contact info of the current user using your app, sent with crash-reports, can also be set via property.</param>
+        /// <param name="descriptionLoader">[optional] description loader func to return an additional description for the exception</param>
         [Obsolete("Use HockeyClient.Current.Configure(...)")]
         public static void Configure(string appIdentifier,
                                         string versionInfo,

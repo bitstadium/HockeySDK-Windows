@@ -1,6 +1,9 @@
 ﻿using System;
 namespace HockeyApp
 {
+    /// <summary>
+    /// interface for an app version
+    /// </summary>
     public interface IAppVersion
     {
         /// <summary>

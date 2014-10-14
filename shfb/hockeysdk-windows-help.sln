@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-pcl-help", "hockeysdk-pcl-help\hockeysdk-pcl-help.shfbproj", "{A27B200F-68C4-4B4B-879B-5056B08C0072}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-wpf-help", "hockeysdk-wpf-help\hockeysdk-wpf-help.shfbproj", "{91B69D9D-53EB-4246-8736-296BB2F5FF0E}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-forms-help", "hockeysdk-forms-help\hockeysdk-forms-help.shfbproj", "{6500C4B2-9BE3-4A30-A459-CE655CB999AF}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-wp8-help", "hockeysdk-wp8-help\hockeysdk-wp8-help.shfbproj", "{61E9B4DF-067D-4F01-8E40-0648F89BB328}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-win81-help", "hockeysdk-win81-help\hockeysdk-win81-help.shfbproj", "{622906C0-596F-4134-8E18-5A7C05F5D4DC}"
+EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "hockeysdk-wpa81-help", "hockeysdk-wpa81-help\hockeysdk-wpa81-help.shfbproj", "{75DF8761-87E9-4ADF-8695-0CF7FE08DC32}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A27B200F-68C4-4B4B-879B-5056B08C0072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A27B200F-68C4-4B4B-879B-5056B08C0072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A27B200F-68C4-4B4B-879B-5056B08C0072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A27B200F-68C4-4B4B-879B-5056B08C0072}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91B69D9D-53EB-4246-8736-296BB2F5FF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91B69D9D-53EB-4246-8736-296BB2F5FF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91B69D9D-53EB-4246-8736-296BB2F5FF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91B69D9D-53EB-4246-8736-296BB2F5FF0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6500C4B2-9BE3-4A30-A459-CE655CB999AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6500C4B2-9BE3-4A30-A459-CE655CB999AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6500C4B2-9BE3-4A30-A459-CE655CB999AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6500C4B2-9BE3-4A30-A459-CE655CB999AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E9B4DF-067D-4F01-8E40-0648F89BB328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E9B4DF-067D-4F01-8E40-0648F89BB328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E9B4DF-067D-4F01-8E40-0648F89BB328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E9B4DF-067D-4F01-8E40-0648F89BB328}.Release|Any CPU.Build.0 = Release|Any CPU
+		{622906C0-596F-4134-8E18-5A7C05F5D4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{622906C0-596F-4134-8E18-5A7C05F5D4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{622906C0-596F-4134-8E18-5A7C05F5D4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{622906C0-596F-4134-8E18-5A7C05F5D4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75DF8761-87E9-4ADF-8695-0CF7FE08DC32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75DF8761-87E9-4ADF-8695-0CF7FE08DC32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75DF8761-87E9-4ADF-8695-0CF7FE08DC32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75DF8761-87E9-4ADF-8695-0CF7FE08DC32}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

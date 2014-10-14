@@ -22,8 +22,16 @@ namespace HockeyApp
         public uint D;
     }
 
+    /// <summary>
+    /// static extension class for MD5 digest creation
+    /// </summary>
     public static class MD5Extension
     {
+        /// <summary>
+        /// string extension method to get md5 hash from string
+        /// </summary>
+        /// <param name="aString"></param>
+        /// <returns></returns>
         public static string GetMD5HexDigest(this String aString)
         {
             if (String.IsNullOrEmpty(aString))
@@ -40,13 +48,16 @@ namespace HockeyApp
 
 namespace HockeyApp.Util
 {
-
+    /// <summary>
+    /// MD5 digest algorithm
+    /// </summary>
     public sealed class MD5Core
     {
         //Prevent CSC from adding a default public constructor
         private MD5Core() { }
 
-        public static byte[] GetHash(string input, Encoding encoding)
+        
+        internal  static byte[] GetHash(string input, Encoding encoding)
         {
             if (null == input)
                 throw new System.ArgumentNullException("input", "Unable to calculate hash over null input data");
@@ -58,12 +69,12 @@ namespace HockeyApp.Util
             return GetHash(target);
         }
 
-        public static byte[] GetHash(string input)
+        internal static byte[] GetHash(string input)
         {
             return GetHash(input, new UTF8Encoding());
         }
 
-        public static string GetHashString(byte[] input)
+        internal static string GetHashString(byte[] input)
         {
             if (null == input)
                 throw new System.ArgumentNullException("input", "Unable to calculate hash over null input data");
@@ -74,6 +85,12 @@ namespace HockeyApp.Util
             return retval;
         }
 
+        /// <summary>
+        /// Get hash from string
+        /// </summary>
+        /// <param name="input">string to digest</param>
+        /// <param name="encoding">default encoding</param>
+        /// <returns>md5 hash</returns>
         public static string GetHashString(string input, Encoding encoding)
         {
             if (null == input)
@@ -86,12 +103,17 @@ namespace HockeyApp.Util
             return GetHashString(target);
         }
 
+        /// <summary>
+        /// Get hash from string (utf8 encoding)
+        /// </summary>
+        /// <param name="input">string to digest</param>
+        /// <returns>md5 hash</returns>
         public static string GetHashString(string input)
         {
             return GetHashString(input, new UTF8Encoding());
         }
 
-        public static byte[] GetHash(byte[] input)
+        internal static byte[] GetHash(byte[] input)
         {
             if (null == input)
                 throw new System.ArgumentNullException("input", "Unable to calculate hash over null input data");

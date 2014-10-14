@@ -21,8 +21,17 @@ namespace HockeyApp
     /// </summary>
     public enum TokenValidationPolicy
     {
-        Never, 
-        EveryLogin, 
+        /// <summary>
+        /// revalidate never
+        /// </summary>
+        Never,
+        /// <summary>
+        /// revalidate on every login
+        /// </summary>
+        EveryLogin,
+        /// <summary>
+        /// revalidate on new version
+        /// </summary>
         OnNewVersion
     }
 
@@ -31,7 +40,13 @@ namespace HockeyApp
     /// </summary>
     public enum AuthenticationMode
     {
+        /// <summary>
+        /// authorize
+        /// </summary>
         Authorize,
+        /// <summary>
+        /// identify
+        /// </summary>
         Identify
     }
 
@@ -40,7 +55,13 @@ namespace HockeyApp
     /// </summary>
     public enum AuthValidationMode
     {
+        /// <summary>
+        /// strict
+        /// </summary>
         Strict,
+        /// <summary>
+        /// graceful
+        /// </summary>
         Graceful
     }
 
@@ -54,6 +75,9 @@ namespace HockeyApp
         static AuthManager() { }
         private AuthManager() { }
 
+        /// <summary>
+        /// Gets the singleton instance.
+        /// </summary>
         public static AuthManager Instance
         {
             get

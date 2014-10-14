@@ -35,7 +35,7 @@ namespace HockeyApp
         /// <summary>
         /// Load attachment to local storage
         /// </summary>
-        /// <returns></returns>
+        /// <returns>true if successfull</returns>
         Task<bool> LoadAttachmentFromServer();
     }
 }
