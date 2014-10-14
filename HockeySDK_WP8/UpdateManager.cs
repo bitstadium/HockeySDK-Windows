@@ -161,6 +161,10 @@ namespace HockeyApp
                             }
                         }
                     }
+                    else
+                    {
+                        HockeyClient.Current.AsInternal().HandleInternalUnhandledException(finishedTask.Exception);
+                    }
                 });
             }
         }

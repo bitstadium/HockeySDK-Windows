@@ -1,5 +1,5 @@
-﻿RELEASE NOTES
-=========
-(HockeySDK for Windows WPF .Net 4.0)
+﻿# Release Notes
+## HockeySDK for WPF .Net4.0
+Included in Nuget Package <em>HockeySDK.WPF</em>
 
-see [HockeySDK for WPF .Net4.5](../HockeySDK_WPF45)
+see [HockeySDK.WPF45](../HockeySDK_WPF45)

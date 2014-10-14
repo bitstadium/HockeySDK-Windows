@@ -1,5 +1,5 @@
-﻿RELEASE NOTES
-=========
-(HockeySDK-Portable class file)
-##Version 2.0.0-beta
-Initial public beta version of the core component
+﻿# Release Notes
+## HockeySDK Portable Class Libray for .Net4.0
+Included in Nuget Package <em>HockeySDK.Core</em>
+
+see [HockeySDK_Portable45](../HockeySDK_Portable45)

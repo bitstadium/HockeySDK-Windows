@@ -583,7 +583,7 @@ namespace HockeyApp
 
                                 atLeatOneCrashSent = true;
                             }
-                            catch (IOException ex)
+                            catch (Exception ex)
                             {
                                 HandleInternalUnhandledException(ex);
                                 error = ex;
