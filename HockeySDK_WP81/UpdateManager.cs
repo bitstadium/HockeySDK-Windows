@@ -208,6 +208,7 @@ namespace HockeyApp
             catch (Exception e)
             {
                 installError = e;
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
             }
             if (installError != null)
             {

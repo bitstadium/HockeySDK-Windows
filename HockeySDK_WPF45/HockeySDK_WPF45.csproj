@@ -74,6 +74,12 @@
     <Compile Include="..\HockeySDK_WPF\UpdateManager.cs">
       <Link>UpdateManager.cs</Link>
     </Compile>
+    <Compile Include="HockeySDKStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>HockeySDKStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -88,6 +94,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="HockeySDKStrings.de.resx" />
+    <EmbeddedResource Include="HockeySDKStrings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>HockeySDKStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,8 +27,17 @@ namespace HockeyApp
     /// </summary>
     public enum TokenValidationPolicy
     {
+        /// <summary>
+        /// The never
+        /// </summary>
         Never,
+        /// <summary>
+        /// The every login
+        /// </summary>
         EveryLogin,
+        /// <summary>
+        /// The on new version
+        /// </summary>
         OnNewVersion
     }
 
@@ -37,7 +46,13 @@ namespace HockeyApp
     /// </summary>
     public enum AuthValidationMode
     {
+        /// <summary>
+        /// The strict
+        /// </summary>
         Strict,
+        /// <summary>
+        /// The graceful
+        /// </summary>
         Graceful
     }
 
@@ -46,7 +61,13 @@ namespace HockeyApp
     /// </summary>
     public enum AuthenticationMode
     {
+        /// <summary>
+        /// The authorize
+        /// </summary>
         Authorize,
+        /// <summary>
+        /// The identify
+        /// </summary>
         Identify
     }
 

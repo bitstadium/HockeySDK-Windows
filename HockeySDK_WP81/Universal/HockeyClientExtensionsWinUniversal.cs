@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Extensions for Win 8.1 Store Apps and Windows Phone 8.1 Store Apps
+    /// </summary>
     public static class HockeyClientExtensionsWinUniversal
     {
         #region Function wrappers

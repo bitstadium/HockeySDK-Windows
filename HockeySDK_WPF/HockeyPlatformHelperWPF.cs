@@ -157,12 +157,27 @@ namespace HockeyApp
 
         public string OSVersion
         {
-            get { return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack; }
+            get
+            {
+                //as windows 8.1 lies to us to be 8 we try via registry
+                try
+                {
+                    using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
+                    {
+                        return (string)registryKey.GetValue("CurrentVersion") + "." + (string)registryKey.GetValue("CurrentBuild") + ".0";
+                    }
+                }
+                catch (Exception e)
+                {
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
+                }
+                return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack; 
+            }
         }
 
         public string OSPlatform
-        {   //TODO wirklich ?!
-            get { return (Type.GetType("Mono.Runtime") == null) ? "Windows" : "Mono"; }
+        {   
+            get { return "Windows"; }
         }
 
         public string SDKVersion

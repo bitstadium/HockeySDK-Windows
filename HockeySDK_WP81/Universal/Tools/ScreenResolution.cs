@@ -8,7 +8,7 @@ using Windows.UI.Xaml;
 
 namespace HockeyApp.Tools
 {
-    public class ScreenResolution
+    internal class ScreenResolution
     {
 
         public static double HeightWithoutScale { get { return Window.Current.Bounds.Height; } }

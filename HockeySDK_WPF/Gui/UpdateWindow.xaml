@@ -7,6 +7,7 @@
              Height="400" Width="700" BorderBrush="#3F3F46" BorderThickness="1" ShowInTaskbar="False"
              >
     <Window.Resources>
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
         <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:Key="UpdateIcon">
             <Grid>
                 <Grid Width="256" Height="256" Visibility="Collapsed" />
@@ -41,23 +42,11 @@
                 <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
             <ContentPresenter Content="{StaticResource UpdateIcon}" Width="70" Height="70" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1"/>
-            <TextBlock Name="txtTopic" FontSize="24" Height="30" VerticalAlignment="Top" Grid.Row="0">
-                <Run Text="A new version of"/>
-                <Run x:Name="runAppNameTopic"/>
-                <Run Text="is available!" />
-            </TextBlock> 
-            <TextBlock Name="txtText"  TextWrapping="Wrap" Height="40" VerticalAlignment="Top" Grid.Row="1">
-                <Run Text="A new version of"/>
-                <Run x:Name="runAppName" Text="HockeyAppLoader"/>
-                <Run Text="is available"/>
-                <Run Text="(your version  is"/>
-                <Run x:Name="runCurrentVersion" Text="1.0.0.2"/><Run Text=", new version is"/>
-                <Run x:Name="runNewVersion" Text="1.0.0.3"/><Run Text=")."/>
-                <Run Text=" Would you like to update now?"/>
-            </TextBlock>
+            <TextBlock Name="txtTopic" FontSize="24" Height="30" VerticalAlignment="Top" Grid.Row="0" />
+            <TextBlock Name="txtText"  TextWrapping="Wrap" Height="40" VerticalAlignment="Top" Grid.Row="1" />
         </Grid>
-        
-        <TextBlock Text="Release notes:" Grid.Row="1" FontSize="16" VerticalAlignment="Center" Margin="0,16,0,4"/>
+
+        <TextBlock Name="txtReleaseNotes" Text="Release notes:" Grid.Row="1" FontSize="16" VerticalAlignment="Center" Margin="0,16,0,4"/>
         <Border  BorderBrush="#3F3F46" BorderThickness="1" Grid.Row="2">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <WebBrowser x:Name="releaseNotes" />
@@ -70,10 +59,10 @@
             </Grid>
 
             <Button x:Name="btnInstall" Margin="0,0,85,0" 
-                    Content="Install" HorizontalAlignment="Right" 
+                    Content="{Binding Path=LocalizedResources[UpdateInstallButton], Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Right" 
                     VerticalAlignment="Bottom" Width="80" Height="26" Click="btnInstall_Click"/>
-            
-            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Right" 
+
+            <Button x:Name="btnCancel" Content="{Binding Path=LocalizedResources[UpdateCancelButton], Source={StaticResource LocalizedStrings}}" HorizontalAlignment="Right" 
                     VerticalAlignment="Bottom" Width="80"  
                     Height="26" Click="btnCancel_Click"/>
         </Grid>

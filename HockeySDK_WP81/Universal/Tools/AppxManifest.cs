@@ -91,19 +91,19 @@ namespace HockeyApp.Tools
         }
     }
 
-    public interface IPhoneIdentity
+    internal interface IPhoneIdentity
     {
         string PhoneProductId { get; }
         string PhonePublisherId { get; }
     }
-    public interface IPackage
+    internal interface IPackage
     {
         IIdentity Identity { get; }
         IPhoneIdentity PhoneIdentity { get; }
         Dictionary<string, string> Properties { get; }
     }
 
-    public interface IIdentity
+    internal interface IIdentity
     {
         string Name { get; }
         string ProcessorArchitecture { get; }

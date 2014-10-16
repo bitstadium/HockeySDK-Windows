@@ -59,6 +59,7 @@ namespace HockeyApp
             catch (Exception ex)
             {
                 this._logger.Warn("Exception in CheckForUpdatesAsync: " + ex.GetType().Name + "\n" + ex.Message);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
             }
         }
 

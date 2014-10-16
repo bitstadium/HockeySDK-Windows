@@ -12,6 +12,9 @@ using Windows.UI.Xaml.Controls;
 
 namespace HockeyApp.Tools
 {
+    /// <summary>
+    /// static class for utility extension methods
+    /// </summary>
     public static class UtilWPExtensions
     {
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,17 +28,20 @@ namespace HockeyApp.Gui
             MouseDown += delegate { DragMove(); };
 
             this._newVersion = newVersion;
-            this.runAppNameTopic.Text = newVersion.Title;
-            this.runAppName.Text = newVersion.Title;
-            this.runCurrentVersion.Text = currentVersion.ToString();
-            this.runNewVersion.Text = newVersion.Version;
+            this.txtTopic.Text = String.Format(LocalizedStrings.LocalizedResources.UpdateHeader, newVersion.Title);
+            this.txtText.Text = String.Format(LocalizedStrings.LocalizedResources.UpdateText, newVersion.Title, currentVersion.ToString(), newVersion.Version);
+            this.txtReleaseNotes.Text = LocalizedStrings.LocalizedResources.ReleaseNotes;
             if (!string.IsNullOrWhiteSpace(newVersion.Notes))
             {
                 this.releaseNotes.NavigateToString(newVersion.Notes);
+                this.releaseNotes.Navigating += (sender, args) =>
+                {
+                    Process.Start(args.Uri.ToString());
+                    args.Cancel = true;
+                };
             }
         }
-
-      
+     
         private void btnInstall_Click(object sender, RoutedEventArgs e)
         {
             this.IsBusyGrid.Visibility = System.Windows.Visibility.Visible;
