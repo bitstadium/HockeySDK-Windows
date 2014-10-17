@@ -35,6 +35,17 @@ namespace HockeyApp.Views
 
         public LoginVM VM { get { return this.DataContext as LoginVM; } }
 
+
+        internal async void OnOpened(AuthenticationMode authmode, AuthValidationMode validationMode)
+        {
+            VM.IsBusy = true;
+            if (await AuthManager.Current.CheckAndHandleExistingTokenAsync(authmode, validationMode))
+            {
+                this.CloseRequested(this, EventArgs.Empty);
+            }
+            VM.IsBusy = false;
+        }
+
         private async void IdentifyButton_Click(object sender, RoutedEventArgs e)
         {
             var hideMe = await this.VM.AuthorizeOnline();

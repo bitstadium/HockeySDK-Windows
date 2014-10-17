@@ -1,10 +1,12 @@
-﻿using HockeyApp.Model;
+﻿using HockeyApp.Exceptions;
+using HockeyApp.Model;
 using HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,7 @@ using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -97,7 +100,7 @@ namespace HockeyApp
             // Encrypt the message.
             IBuffer buffProtected = await Provider.ProtectAsync(buffMsg);
 
-            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(dataIdentifier + ".crypt", CreationCollisionOption.ReplaceExisting);
+            var file = await ApplicationData.Current.LocalFolder.CreateFileAsync(dataIdentifier + ConstantsUniversal.EncryptedFileExt, CreationCollisionOption.ReplaceExisting);
             using (var stream = await file.OpenStreamForWriteAsync())
             {
                 await stream.WriteAsync(buffProtected.ToArray(),0,(int)buffProtected.Length);
@@ -116,9 +119,9 @@ namespace HockeyApp
 
             try
             {
-                buffer = await FileIO.ReadBufferAsync(await ApplicationData.Current.LocalFolder.GetFileAsync(dataIdentifier + ".crypt"));
+                buffer = await FileIO.ReadBufferAsync(await ApplicationData.Current.LocalFolder.GetFileAsync(dataIdentifier + ConstantsUniversal.EncryptedFileExt));
             }
-            catch (Exception)
+            catch (FileNotFoundException)
             {
                 return null;
             }
@@ -144,10 +147,10 @@ namespace HockeyApp
         protected IAuthStatus _authStatus = null;
         internal async Task UpdateAuthStatusAsync(IAuthStatus newStatus)
         {
-            if (_authStatus as AuthStatus != null && _authStatus.IsIdentified)
+            if (newStatus as AuthStatus != null && newStatus.IsIdentified)
             {
-                await StoreStringProtectedAsync(ConstantsUniversal.AuthStatusKey, (_authStatus as AuthStatus).SerializeToString());
-                ApplicationData.Current.LocalSettings.Values.SetValue(ConstantsUniversal.AuthLastAuthorizedVersionKey, HockeyClient.Current.AsInternal().VersionInfo);
+                await StoreStringProtectedAsync(ConstantsUniversal.AuthStatusKey, (newStatus as AuthStatus).SerializeToString());
+                HockeyClient.Current.AsInternal().PlatformHelper.SetSettingValue(ConstantsUniversal.AuthLastAuthorizedVersionKey, HockeyClient.Current.AsInternal().VersionInfo);
             }
             _authStatus = newStatus;
         }
@@ -174,8 +177,8 @@ namespace HockeyApp
             bool needsLogin = TokenValidationPolicy.EveryLogin.Equals(tokenValidationPolicy);
 
             if(!needsLogin && TokenValidationPolicy.OnNewVersion.Equals(tokenValidationPolicy)) {
-                string lastAuthorizedVersion = ApplicationData.Current.LocalSettings.Values.GetValue(ConstantsUniversal.AuthLastAuthorizedVersionKey) as String;
-                needsLogin = (lastAuthorizedVersion == null) || (new Version(lastAuthorizedVersion) < new Version(AppxManifest.Current.Package.Identity.Version));
+                string lastAuthorizedVersion = HockeyClient.Current.AsInternal().PlatformHelper.GetSettingValue(ConstantsUniversal.AuthLastAuthorizedVersionKey);
+                needsLogin = (lastAuthorizedVersion == null) || (new Version(lastAuthorizedVersion) < new Version(HockeyClient.Current.AsInternal().VersionInfo));
             }
 
             if (needsLogin)
@@ -188,6 +191,74 @@ namespace HockeyApp
             }
         }
 
+        //;
+
+        internal async Task<bool> CheckAndHandleExistingTokenAsync(AuthenticationMode authMode, AuthValidationMode validationMode)
+        {
+
+            string serializedAuthStatus = await RetrieveProtectedStringAsync(ConstantsUniversal.AuthStatusKey);
+            if (!String.IsNullOrEmpty(serializedAuthStatus))
+            {
+                var aS = AuthStatus.DeserializeFromString(serializedAuthStatus);
+                //consider that a change in Authmode is possible between versions of an app, so check if the saved token may be trusted
+                if (AuthenticationMode.Authorize.Equals(authMode) && !aS.IsAuthorized || AuthenticationMode.Identify.Equals(authMode) && aS.IsAuthorized)
+                {
+                    return false;
+                }
+                else if (NetworkInterface.GetIsNetworkAvailable())
+                {
+                    Exception error = null;
+                    try
+                    {
+                        if (await aS.CheckIfStillValidAsync())
+                        {
+                            _authStatus = aS;
+                            ExecuteSuccessRedirectOrAction();
+                            return true;
+                        }
+                    }
+                    catch (WebTransferException e)
+                    {
+                        HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
+                        error = e;
+                    }
+                    if (error != null)
+                    {
+                        if (AuthValidationMode.Graceful.Equals(validationMode))
+                        {
+                            _authStatus = aS;
+                            ExecuteSuccessRedirectOrAction();
+                            return true;
+                        }
+                        else
+                        {
+                            await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                            {
+                                await new MessageDialog(LocalizedStrings.LocalizedResources.AuthNetworkError).ShowAsync();
+                            });
+                        }
+                    }
+                }
+                else
+                {
+                    if (AuthValidationMode.Graceful.Equals(validationMode))
+                    {
+                        ExecuteSuccessRedirectOrAction();
+                        return true;
+                    }
+                    else
+                    {
+                        await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+                        {
+                            await new MessageDialog(LocalizedStrings.LocalizedResources.AuthNetworkError).ShowAsync();
+                        });
+                    }
+                }
+            }
+            return false;
+        }
+        
+
         internal async void ExecuteSuccessRedirectOrAction()
         {
             if (this.SuccessAction != null)
@@ -196,7 +267,10 @@ namespace HockeyApp
             }
             if (this.SuccessRedirectPageType != null)
             {
-                this.Frame.Navigate(this.SuccessRedirectPageType);
+                await CoreWindow.GetForCurrentThread().Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
+                {
+                    this.Frame.Navigate(this.SuccessRedirectPageType);
+                });
             }
         }
        
@@ -208,7 +282,7 @@ namespace HockeyApp
         {
             try
             {
-                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(ConstantsUniversal.AuthStatusKey + ".crypt");
+                var file = await ApplicationData.Current.LocalFolder.GetFileAsync(ConstantsUniversal.AuthStatusKey + ConstantsUniversal.EncryptedFileExt);
                 await file.DeleteAsync();
             }
             catch (FileNotFoundException)

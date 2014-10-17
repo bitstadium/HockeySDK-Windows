@@ -28,6 +28,7 @@ namespace HockeyApp
             authPopup = new Popup();
             authPopup.Child = dialog;
             authPopup.IsOpen = true;
+            dialog.OnOpened(authMode, authValidationMode);
         }
 
         private void Dialog_CloseRequested(object sender, EventArgs e)

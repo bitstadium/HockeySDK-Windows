@@ -15,6 +15,7 @@ namespace HockeyApp
 
         public const string AuthLastAuthorizedVersionKey = "HockeyAppAuth_LastVersionAuthorized";
         public const string AuthStatusKey = "HockeyAppAuth_Status";
+        public const string EncryptedFileExt = ".crypt";
 
         public const string FeedbackAttachmentTmpDir = "HAFeedbackTmp";
         

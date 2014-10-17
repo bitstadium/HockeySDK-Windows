@@ -33,30 +33,17 @@ namespace HockeyApp.Views
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private NavigationHelper navigationHelper;
         private LoginPageVM defaultViewModel = new LoginPageVM();
 
         public LoginPage()
         {
             this.DataContext = new LoginPageVM();
             this.InitializeComponent();
-
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
         }
 
         private async void LoginButton_Click(object sender, RoutedEventArgs e)
         {
             await AuthenticateOnlineAsync();
-        }
-
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return this.navigationHelper; }
         }
 
         /// <summary>
@@ -66,35 +53,6 @@ namespace HockeyApp.Views
         public LoginPageVM DefaultViewModel
         {
             get { return this.defaultViewModel; }
-        }
-
-        /// <summary>
-        /// Populates the page with content passed during navigation.  Any saved state is also
-        /// provided when recreating a page from a prior session.
-        /// </summary>
-        /// <param name="sender">
-        /// The source of the event; typically <see cref="NavigationHelper"/>
-        /// </param>
-        /// <param name="e">Event data that provides both the navigation parameter passed to
-        /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
-        /// a dictionary of state preserved by this page during an earlier
-        /// session.  The state will be null the first time a page is visited.</param>
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
-        {
-
-        }
-
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-
         }
 
         internal LoginPageVM VM
@@ -155,9 +113,10 @@ namespace HockeyApp.Views
 
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
             dynamic pars = e.Parameter as DynamicNavigationParameters ?? new DynamicNavigationParameters();
 
             this.VM.AuthMode = (AuthenticationMode?)pars.authmode ?? AuthenticationMode.Authorize;
@@ -165,14 +124,14 @@ namespace HockeyApp.Views
             this.VM.Email = (String)pars.email ?? "";
             AuthValidationMode authValidationMode  = (AuthValidationMode?)pars.validationmode ?? AuthValidationMode.Graceful;
 
-            this.navigationHelper.OnNavigatedTo(e);
+            this.VM.IsBusy = true;
+            await AuthManager.Current.CheckAndHandleExistingTokenAsync(this.VM.AuthMode, authValidationMode);
+            this.VM.IsBusy = false;
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
             base.OnNavigatedFrom(e);
-
-            this.navigationHelper.OnNavigatedFrom(e);
 
             // Remove current page from history
             var pageStackEntry = Frame.BackStack.LastOrDefault(entry => entry.SourcePageType == this.GetType());
