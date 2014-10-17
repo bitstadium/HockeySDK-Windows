@@ -33,7 +33,7 @@ namespace HockeyApp
             t.Wait();
         }
 
-        public async Task CheckForUpdatesAsync(bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
+        public async Task<bool> CheckForUpdatesAsync(bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             this._autoShowUi = autoShowUi;
             this._shutdownActions = shutdownActions;
@@ -53,14 +53,15 @@ namespace HockeyApp
                     {
                         this.StartUi(newestVersion);
                     }
+                    return true;
                 }
-                
             }
             catch (Exception ex)
             {
                 this._logger.Warn("Exception in CheckForUpdatesAsync: " + ex.GetType().Name + "\n" + ex.Message);
                 HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
             }
+            return false;
         }
 
         private async Task<IAppVersion> CheckForUpdates()

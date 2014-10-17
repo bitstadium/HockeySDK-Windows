@@ -22,8 +22,9 @@ namespace HockeyApp
         /// If System.Version.TryParse() fails, no Version compare can be executed
         /// </summary>
         /// <param name="autoShowUi">Use the default update dialogs</param>
-        /// <param name="shutdownRequest">Callback to gracefully stop your application. If using default-ui, call has to be provided.</param>
+        /// <param name="shutdownActions">The shutdown actions.</param>
         /// <param name="updateAvailableAction">Callback for available versions, if you want to provide own update dialogs</param>
-        Task CheckForUpdatesAsync(bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null);
+        /// <returns>false if no new version is found</returns>
+        Task<bool> CheckForUpdatesAsync(bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null);
     }
 }

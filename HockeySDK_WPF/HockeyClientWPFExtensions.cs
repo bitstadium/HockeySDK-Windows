@@ -122,11 +122,11 @@ namespace HockeyApp
         /// <param name="autoShowUi">Use the default update dialogs</param>
         /// <param name="shutdownRequest">Callback to gracefully stop your application. If using default-ui, call has to be provided.</param>
         /// <param name="updateAvailableAction">Callback for available versions, if you want to provide own update dialogs</param>
-        public static async Task CheckForUpdatesAsync(this IHockeyClient @this, bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
+        public static async Task<bool> CheckForUpdatesAsync(this IHockeyClient @this, bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             @this.AsInternal().CheckForInitialization();
             //TODO refactor for next version
-            await HockeyClientWPF.Instance.UpdateManager.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
+            return await HockeyClientWPF.Instance.UpdateManager.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
         }
 
         #endregion
