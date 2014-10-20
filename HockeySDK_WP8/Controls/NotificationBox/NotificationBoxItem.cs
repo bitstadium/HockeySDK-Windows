@@ -1,4 +1,4 @@
-﻿/**
+﻿/*
  * Origin:
  * http://wpassets.codeplex.com/SourceControl/changeset/view/86675
  * 

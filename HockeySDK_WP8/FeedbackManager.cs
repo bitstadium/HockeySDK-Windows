@@ -167,6 +167,7 @@ namespace HockeyApp
         /// <param name="email">email address of sender</param>
         /// <param name="subject">subject of message</param>
         /// <param name="name">name of sender</param>
+        /// <param name="attachments">The attachments.</param>
         /// <returns></returns>
         public async Task<IFeedbackMessage> SendFeedback(string message, string email, string subject, string name, IEnumerable<IFeedbackAttachment> attachments)
         {

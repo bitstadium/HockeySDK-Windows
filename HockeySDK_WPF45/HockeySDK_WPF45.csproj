@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>..\bin\help\wpf\HockeyApp.XML</DocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
@@ -65,21 +66,21 @@
     <Compile Include="..\HockeySDK_WPF\HockeyPlatformHelperWPF.cs">
       <Link>HockeyPlatformHelperWPF.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_WPF\HockeySDKStrings.Designer.cs">
+      <Link>HockeySDKStrings.Designer.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_WPF\IAppVersionExtensions.cs">
       <Link>IAppVersionExtensions.cs</Link>
     </Compile>
     <Compile Include="..\HockeySDK_WPF\IUpdateManager.cs">
       <Link>IUpdateManager.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_WPF\LocalizedStrings.cs">
+      <Link>LocalizedStrings.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_WPF\UpdateManager.cs">
       <Link>UpdateManager.cs</Link>
     </Compile>
-    <Compile Include="HockeySDKStrings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>HockeySDKStrings.resx</DependentUpon>
-    </Compile>
-    <Compile Include="LocalizedStrings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,10 +97,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="HockeySDKStrings.de.resx" />
-    <EmbeddedResource Include="HockeySDKStrings.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>HockeySDKStrings.Designer.cs</LastGenOutput>
+    <EmbeddedResource Include="..\HockeySDK_WPF\HockeySDKStrings.de.resx">
+      <Link>HockeySDKStrings.de.resx</Link>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\HockeySDK_WPF\HockeySDKStrings.resx">
+      <Link>HockeySDKStrings.resx</Link>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

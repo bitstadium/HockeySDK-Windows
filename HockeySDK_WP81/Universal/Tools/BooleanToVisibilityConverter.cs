@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Data;
 namespace HockeyApp.Tools
 {
     /// <summary>
-    /// xaml converter boolean<-> visibility
+    /// xaml converter boolean to visibility
     /// </summary>
     public class BooleanToVisibilityConverter : IValueConverter
     {

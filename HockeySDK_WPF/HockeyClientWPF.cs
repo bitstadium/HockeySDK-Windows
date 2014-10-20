@@ -35,7 +35,9 @@ namespace HockeyApp
         /// <param name="contactInformation">optional contact information like an email adress</param>
         /// <param name="descriptionLoader">optional delegate for attaching description information like event logs etc. Can be null.</param>
         /// <param name="apiBase">optional: apiBase - if not the standard is used</param>
+        /// <param name="userAgentString">The user agent string.</param>
         /// <param name="keepRunning">optional: if an unhandled exception is thrown on the dispatcher thread, the system can be kept alive - default is false</param>
+        /// <exception cref="System.Exception">ApiBase must not be empty!</exception>
         public void Configure(string appIdentifier, 
                             string appVersionInformation = null,
                             string userID = null, 

@@ -11,6 +11,8 @@ using System.Windows;
 
 namespace HockeyApp
 {
+
+#pragma warning disable 1998
     public class HockeyPlatformHelperWPF : IHockeyPlatformHelper
     {
 
@@ -232,4 +234,5 @@ namespace HockeyApp
         }
 
     }
+#pragma warning restore 1998
 }

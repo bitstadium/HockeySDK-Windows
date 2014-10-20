@@ -61,9 +61,9 @@
                      Margin="10"/>
 
             </StackPanel>
-            <Grid Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.6">
-                <ProgressRing IsActive="True" />
-            </Grid>
+        </Grid>
+        <Grid Visibility="{Binding IsBusy, Converter={StaticResource BooleanToVisibilityConverter}}" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Opacity="0.9">
+            <ProgressRing IsActive="True" />
         </Grid>
     </Grid>
 </Page>

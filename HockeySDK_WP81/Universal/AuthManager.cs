@@ -155,17 +155,6 @@ namespace HockeyApp
             _authStatus = newStatus;
         }
 
-        /// <summary>
-        /// Authenticate a user against the hockeyapp service. Will show a login popup if no valid token is available.
-        /// HockeyClient needs to be configured before calling this method, which is automatically done internally when you configure a CrashHandler in the App() constructor.
-        /// </summary>
-        /// <param name="navigationService">the navigation service - needed to navigate to the login-page. Just use this.NavigationService from your view.</param>
-        /// <param name="successRedirect">The URI for the page to redirect to after successfull login</param>
-        /// <param name="authMode">[optional] (default: Authorize) AuthMode (Identify uses only the email-adresse, Authorize email and password)</param>
-        /// <param name="tokenValidationPolicy">[optional] (default: EveryLogin) Policy for revalidation (every login or only after updates)</param>
-        /// <param name="authValidationMode">[optional] (default: Graceful) Mode for token-Validation (Strict needs a network-connection on every login)</param>
-        /// <param name="email">[optional] inititalize email of the user</param>
-        /// <param name="appSecret">[optional] HockeyApp AppSecret of your App. only needed for AuthMode.Identify</param>
         internal void AuthenticateUser(AuthenticationMode authMode = AuthenticationMode.Authorize,
             TokenValidationPolicy tokenValidationPolicy = TokenValidationPolicy.EveryLogin, AuthValidationMode authValidationMode = AuthValidationMode.Graceful,
             string email = null, string appSecret = null)
@@ -291,14 +280,13 @@ namespace HockeyApp
             }
         }
 
-        /// <summary>
-        /// Starts the Web-Authentication-Flow of hockeyapp.
-        /// Prerequisite is to register your app for a URI-association as describe here:
-        /// http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206987%28v=vs.105%29.aspx#BKMK_URIassociations
-        /// Make sure to add the following line to your registered protocols (inside the <Extension>-Tag):
-        /// <Protocol Name="hockeyAuth" NavUriFragment="encodedLaunchUri=%s" TaskID="_default" />
-        /// In your UriMapperBase- Implementation in MapURI() call UpdateManager.HandleLoginURI(uri)
-        /// </summary>
+
+        // Starts the Web-Authentication-Flow of hockeyapp.
+        // Prerequisite is to register your app for a URI-association as describe here:
+        // http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206987%28v=vs.105%29.aspx#BKMK_URIassociations
+        // Make sure to add the following line to your registered protocols (inside the <Extension>-Tag):
+        // <Protocol Name="hockeyAuth" NavUriFragment="encodedLaunchUri=%s" TaskID="_default" />
+        // In your UriMapperBase- Implementation in MapURI() call UpdateManager.HandleLoginURI(uri)
         /*public void InitiateWebAuthentication()
         {
             var webBrowserTask = new WebBrowserTask();

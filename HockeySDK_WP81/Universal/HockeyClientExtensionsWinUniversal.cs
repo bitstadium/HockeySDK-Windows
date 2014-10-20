@@ -57,7 +57,8 @@ namespace HockeyApp
         /// <summary>
         /// Inititate user identification and define a action to perform when authorization is successfull
         /// </summary>
-        /// <param name="this"></param>
+        /// <param name="this">The this.</param>
+        /// <param name="appSecret">The application secret from HockeyApp.</param>
         /// <param name="successAction">Action to perform when login is successfull</param>
         /// <param name="eMail">[Optional] E-Mail adress to prefill form</param>
         /// <param name="tokenValidationPolicy">[Optional] Default is EveryLogin</param>

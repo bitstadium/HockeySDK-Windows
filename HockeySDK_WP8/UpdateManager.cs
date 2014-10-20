@@ -120,6 +120,7 @@ namespace HockeyApp
 
         /// <summary>
         /// Obsolete. Use UpdateManager.Instance.RunUpdateCheck()
+        /// </summary>
         [Obsolete]
         public static void RunUpdateCheck(string identifier, UpdateCheckSettings settings = null)
         {

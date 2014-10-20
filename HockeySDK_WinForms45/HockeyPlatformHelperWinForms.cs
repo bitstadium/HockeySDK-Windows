@@ -141,7 +141,7 @@ namespace HockeyApp
                         object deployment = type.GetMethod("CurrentDeployment").Invoke(null,null);
                         Version version = type.GetMethod("CurrentVersion").Invoke(deployment, null) as Version;
                         _appVersion = version.ToString();
-                    } catch (Exception e) { }
+                    } catch (Exception) { }
                 //Excecuting Assembly
                     _appVersion = Assembly.GetCallingAssembly().GetName().Version.ToString();
                 }

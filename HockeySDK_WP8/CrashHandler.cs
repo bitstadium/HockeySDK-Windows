@@ -1,4 +1,4 @@
-﻿/**
+﻿/*
  * The MIT License
  * Copyright (c) 2012 Codenauts UG (haftungsbeschränkt). All rights reserved.
  *

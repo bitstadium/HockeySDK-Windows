@@ -61,8 +61,8 @@ namespace HockeyApp
         /// The func you set will be called after HockeyApp has written the crash-log and allows you to continue
         /// If the func returns false the app will not terminate but keep running
         /// </summary>
-        /// <param name="this"></param>
-        /// <param name="customAction"></param>
+        /// <param name="this">The this.</param>
+        /// <param name="customFunc">The custom function.</param>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Func<UnhandledExceptionEventArgs, bool> customFunc)
         {
@@ -74,8 +74,8 @@ namespace HockeyApp
         /// The func you set will be called after HockeyApp has written the crash-log and allows you to continue
         /// If the func returns false the app will not terminate but keep running
         /// </summary>
-        /// <param name="this"></param>
-        /// <param name="customAction"></param>
+        /// <param name="this">The this.</param>
+        /// <param name="customFunc">The custom function.</param>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnobserveredTaskExceptionLogic(this IHockeyClientConfigurable @this, Func<UnobservedTaskExceptionEventArgs, bool> customFunc)
         {

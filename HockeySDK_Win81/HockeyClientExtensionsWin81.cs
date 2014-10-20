@@ -64,7 +64,7 @@ namespace HockeyApp
         /// If the func returns false the app will not terminate but keep running
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="customAction"></param>
+        /// <param name="customFunc"></param>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Func<UnhandledExceptionEventArgs, bool> customFunc)
         {
@@ -77,7 +77,7 @@ namespace HockeyApp
         /// If the func returns false the app will not terminate but keep running
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="customAction"></param>
+        /// <param name="customFunc"></param>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnobserveredTaskExceptionLogic(this IHockeyClientConfigurable @this, Func<UnobservedTaskExceptionEventArgs, bool> customFunc)
         {
@@ -94,8 +94,8 @@ namespace HockeyApp
         /// Invoke this method to open the feedback UI where a user can send you a message including image attachments over the HockeyApp feedback system.
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="initialUsername">[Optional] Username to prefill the name field</param>
-        /// <param name="initialEmail">[Optional] Email to prefill the email field</param>
+        /// <param name="initialUserName">[Optional] Username to prefill the name field</param>
+        /// <param name="initialEMail">[Optional] Email to prefill the email field</param>
         public static void ShowFeedback(this IHockeyClient @this, string initialUserName = null, string initialEMail = null)
         {
             @this.AsInternal().CheckForInitialization();

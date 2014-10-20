@@ -54,8 +54,10 @@ namespace HockeyApp
         /// Links the synchronization context to the specified frame
         /// and ensures that it is still in use after each navigation event
         /// </summary>
-        /// <param name="rootFrame"></param>
+        /// <param name="rootFrame">The root frame.</param>
+        /// <param name="handler">The handler.</param>
         /// <returns></returns>
+        /// <exception cref="System.ArgumentNullException">rootFrame</exception>
         public static AsyncSynchronizationContext RegisterForFrame(Frame rootFrame, CrashHandler handler)
         {
             if (rootFrame == null)

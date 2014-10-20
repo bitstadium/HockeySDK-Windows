@@ -53,14 +53,12 @@ namespace HockeyApp
 
         #region CrashHandling
 
-        //TODO docu
         /// <summary>
-        /// 
+        /// Send crashes to the HockeyApp server
         /// </summary>
         /// <param name="this"></param>
-        /// <param name="sendAutomatically"></param>
         /// <returns></returns>
-        public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this)
+        public static async Task<bool> SendCrashesAsync(this IHockeyClient @this)
         {
             @this.AsInternal().CheckForInitialization();
             bool result = await @this.AsInternal().SendCrashesAndDeleteAfterwardsAsync().ConfigureAwait(false);

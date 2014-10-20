@@ -19,8 +19,12 @@ namespace HockeyApp
         /// Downloads the new version to a temporary folder and provides the generated filename.
         /// The progress delegate returns, if the download process should be canceled. Return false, if not.
         /// </summary>
-        /// <param name="this"></param>
-        /// <returns>Filename of the msi-file</returns>
+        /// <param name="this">The this.</param>
+        /// <param name="progress">The progress.</param>
+        /// <param name="completed">callbakc when download is completed.</param>
+        /// <returns>
+        /// Filename of the msi-file
+        /// </returns>
         public static async Task<string> DownloadMsi(this IAppVersion @this, Func<DownloadProgressInformation, bool> progress = null, Action completed = null)
         {
             var tmpFilenameWithPath = Path.GetTempFileName();
@@ -66,7 +70,7 @@ namespace HockeyApp
         /// After starting the install process a call to Environment.Exit is done.
         /// </summary>
         /// <param name="this"></param>
-        public static async void InstallVersion(this IAppVersion @this)
+        public static void InstallVersion(this IAppVersion @this)
         {
             if (!_downloadFilesnames.ContainsKey(@this.AppId))
             {

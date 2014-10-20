@@ -115,13 +115,15 @@ namespace HockeyApp
 
         #region Update
 
-        
+
         /// <summary>
         /// Check for available updates asynchronously.
         /// </summary>
+        /// <param name="this">The this.</param>
         /// <param name="autoShowUi">Use the default update dialogs</param>
-        /// <param name="shutdownRequest">Callback to gracefully stop your application. If using default-ui, call has to be provided.</param>
+        /// <param name="shutdownActions">Callback to gracefully stop your application. If using default-ui, call has to be provided.</param>
         /// <param name="updateAvailableAction">Callback for available versions, if you want to provide own update dialogs</param>
+        /// <returns></returns>
         public static async Task<bool> CheckForUpdatesAsync(this IHockeyClient @this, bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             @this.AsInternal().CheckForInitialization();
@@ -144,8 +146,11 @@ namespace HockeyApp
         /// <summary>
         /// Opens a Feedback-Thread on the server.
         /// </summary>
+        /// <param name="this">The this.</param>
         /// <param name="feedbackToken">A guid which identifies the Feedback-Thread</param>
-        /// <returns>The Feedback-Thread or, if not found or delete, null.</returns>
+        /// <returns>
+        /// The Feedback-Thread or, if not found or delete, null.
+        /// </returns>
         public static async Task<IFeedbackThread> OpenFeedbackThreadAsync(this IHockeyClient @this,string feedbackToken)
         {
             return await @this.AsInternal().OpenFeedbackThreadAsync(feedbackToken);

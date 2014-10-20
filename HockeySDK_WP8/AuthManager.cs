@@ -245,14 +245,14 @@ namespace HockeyApp
             }
         }
 
-        /// <summary>
-        /// Starts the Web-Authentication-Flow of hockeyapp.
-        /// Prerequisite is to register your app for a URI-association as describe here:
-        /// http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206987%28v=vs.105%29.aspx#BKMK_URIassociations
-        /// Make sure to add the following line to your registered protocols (inside the <Extension>-Tag):
-        /// <Protocol Name="hockeyAuth" NavUriFragment="encodedLaunchUri=%s" TaskID="_default" />
-        /// In your UriMapperBase- Implementation in MapURI() call UpdateManager.HandleLoginURI(uri)
-        /// </summary>
+        
+        // Starts the Web-Authentication-Flow of hockeyapp.
+        // Prerequisite is to register your app for a URI-association as describe here:
+        // http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206987%28v=vs.105%29.aspx#BKMK_URIassociations
+        // Make sure to add the following line to your registered protocols (inside the <Extension>-Tag):
+        // <Protocol Name="hockeyAuth" NavUriFragment="encodedLaunchUri=%s" TaskID="_default" />
+        // In your UriMapperBase- Implementation in MapURI() call UpdateManager.HandleLoginURI(uri)
+        
         /*public void InitiateWebAuthentication()
         {
             var webBrowserTask = new WebBrowserTask();

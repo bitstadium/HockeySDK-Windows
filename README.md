@@ -1,7 +1,7 @@
 HockeySDK for Windows
 =========
 
-The official Windows SDK for the HockeyApp service. Supports .NET Framework >= 4.0 as well as Windows Phone 8.
+The official Windows SDK for the HockeyApp service. Supports .NET Framework >= 4.0 as well as Windows Phone and Windows Store Apps.
 
 ## Introduction
 
