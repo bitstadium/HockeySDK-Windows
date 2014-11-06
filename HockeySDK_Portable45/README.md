@@ -38,3 +38,6 @@ Included in Nuget Package <em>HockeySDK.Core</em>
 ### Version 2.2.0-beta5
 * Internal optimizations
 * Added event OnHockeySDKInternalException to HockeyClient for debugging purposes. Add a handler to get all internally swallowed exceptions.
+
+### Version 2.2.0
+* Stable release

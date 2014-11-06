@@ -40,3 +40,6 @@ Included in Nuget Package <em>HockeySDK.WP</em>
 
 ### Version 2.2.0-beta5
 * internal optimizations and updates in HockeySDK.Core
+
+### Version 2.2.0
+* Stable release

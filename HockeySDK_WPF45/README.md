@@ -29,3 +29,6 @@ Included in Nuget Package <em>HockeySDK.WPF</em>
 ### Version 2.2.0-beta5
 * Internationalization for Update GUI and messages
 * Optimizations for updater
+
+### Version 2.2.0
+* Stable release

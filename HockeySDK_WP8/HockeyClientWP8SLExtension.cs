@@ -12,7 +12,7 @@ using System.Windows.Navigation;
 namespace HockeyApp
 {
     /// <summary>
-    /// static extension class for Windows phone silverlight
+    /// Static extension class containing the main extension methods for controlling the HockeySDK client
     /// </summary>
     public static class HockeyClientWP8SLExtension
     {

@@ -19,3 +19,6 @@ The NugetPackage can also be used for Windows Universal Apps.
 ### Version 2.2.0-beta5
 * Internal optimizations and updated HockeySDK.Core
 * Bugfix for authentication: Auth-Token was not saved therefore requiring login on every start.
+
+### Version 2.2.0
+* Stable release

@@ -90,6 +90,7 @@
     <Compile Include="Views\UpdatePage.xaml.cs">
       <DependentUpon>UpdatePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\windows_phone.png" />

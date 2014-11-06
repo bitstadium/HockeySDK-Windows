@@ -8,7 +8,7 @@ namespace HockeyApp
     internal class SDKConstants
     {
         internal const string SdkName = "HockeySDKWinPCL";
-        internal const string SdkVersion = "2.2.0-beta5";
+        internal const string SdkVersion = "2.2.0";
         internal const string PublicApiDomain = "https://rink.hockeyapp.net";
         internal const string UserAgentString = "Hockey/WinPCL";
 

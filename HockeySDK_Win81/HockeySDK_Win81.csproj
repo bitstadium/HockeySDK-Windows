@@ -114,6 +114,7 @@
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\FeedbackFlyout.xaml">

@@ -55,6 +55,7 @@ This is the automatically generated XML documentation of the HockeySDK.WINRT pro
     <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, ProtectedInternalAsProtected</VisibleItems>
     <FooterText>[HockeySDK.Core Version 2.2.0]</FooterText>
     <HeaderText>&amp;lt%3ba href=&amp;quot%3bhttps://github.com/bitstadium/HockeySDK-Windows&amp;quot%3b&amp;gt%3bSources and documentation can be found on Github&amp;lt%3b/a&amp;gt%3b</HeaderText>
+    <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

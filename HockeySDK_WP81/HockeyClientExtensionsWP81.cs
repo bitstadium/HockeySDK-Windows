@@ -14,6 +14,9 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace HockeyApp
 {
+    /// <summary>
+    /// Static extension class containing the main extension methods for controlling the HockeySDK client
+    /// </summary>
     public static class HockeyClientExtensionsWP81
     {
 
