@@ -42,6 +42,14 @@ namespace HockeyApp.Model
         /// windows version
         /// </summary>
         public string Windows;
+        /// <summary>
+        /// current ui culture
+        /// </summary>
+        public string CurrentUICulture;
+        /// <summary>
+        /// current culture
+        /// </summary>
+        public string CurrentCulture;
 
         /// <summary>
         /// concatenate info to key-value string 
@@ -77,7 +85,15 @@ namespace HockeyApp.Model
             {
                 builder.AppendFormat("Model: {0}\n", this.Model);
             }
-            
+            if (!String.IsNullOrWhiteSpace(this.CurrentCulture))
+            {
+                builder.Append("Culture: ").AppendLine(this.CurrentCulture);
+            }
+            if (!String.IsNullOrWhiteSpace(this.CurrentUICulture))
+            {
+                builder.Append("UI Culture: ").AppendLine(this.CurrentUICulture);
+            }
+
             builder.AppendFormat("Date: {0}\n", DateTime.UtcNow.ToString("o"));
 
             if (!String.IsNullOrWhiteSpace(this.ProductID))
