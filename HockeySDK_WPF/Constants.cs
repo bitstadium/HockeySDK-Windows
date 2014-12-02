@@ -9,11 +9,11 @@ namespace HockeyApp
     internal class Constants
     {
 
-        public static string GetPathToHockeyCrashes()
+        internal static string GetPathToHockeyCrashes()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             if (!path.EndsWith("\\")) { path += "\\"; }
-            path += "HockeyCrashes\\";
+            path += "HockeyApp\\" + HockeyClientWPFExtensions.AppIdHash + "\\";
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             return path;
         }
@@ -22,7 +22,7 @@ namespace HockeyApp
 
         internal const string USER_AGENT_STRING = "Hockey/WinWPF";
         internal const string SDKNAME = "HockeySDKWinWPF";
-        internal const string SDKVERSION = "2.2.0";
+        internal const string SDKVERSION = "2.2.1";
 
         internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
     }
