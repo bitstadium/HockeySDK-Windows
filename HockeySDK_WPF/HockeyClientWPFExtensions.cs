@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Resources;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,8 +22,8 @@ namespace HockeyApp
 
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier)
         {
-            @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWPF();
             @this.AsInternal().AppIdentifier = identifier;
+            @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWPF();
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
@@ -190,6 +191,30 @@ namespace HockeyApp
                 return false;
             }
         }
+
+        #endregion
+
+        #region Helper
+
+        private static string _appIdHash = null;
+        public static string AppIdHash
+        {
+            get {
+                if (_appIdHash == null)
+                {
+                    _appIdHash = GetMD5Hash(HockeyClient.Current.AsInternal().AppIdentifier);
+                }
+                return _appIdHash; }
+        }
+
+        internal static string GetMD5Hash(string sourceString)
+        {
+            if (String.IsNullOrEmpty(sourceString)) { return string.Empty; }
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
+            byte[] result = md5.ComputeHash(sourceBytes);
+            return System.BitConverter.ToString(result);
+        } 
 
         #endregion
     }
