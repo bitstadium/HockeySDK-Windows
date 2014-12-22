@@ -36,7 +36,7 @@ namespace HockeyApp.ViewModels
                 if (this.FeedbackThread.Messages != null && this.FeedbackThread.Messages.Count > 0)
                 {
 
-                    return this.FeedbackThread.Messages.Last().Email;
+                    return this.FeedbackThread.Messages.First().Email;
                 }
                 return null;
             }

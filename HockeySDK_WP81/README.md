@@ -22,3 +22,6 @@ The NugetPackage can also be used for Windows Universal Apps.
 
 ### Version 2.2.0
 * Stable release
+
+### Version 2.2.1
+* Fixed a bug in feedback where email could be empty in followup messages.

@@ -150,7 +150,7 @@
                                  Background="White" BorderBrush="Transparent"
                                  Padding="3,4,3,3" 
                                  Margin="3,10,0,-2"
-                                 IsReadOnly="{Binding IsThreadActive}"
+                                 IsReadOnly="{Binding IsEmailReadOnly}"
                              FontSize="{ThemeResource TextStyleMediumFontSize}"/>
                     </Grid>
                 </Border>

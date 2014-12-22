@@ -12,7 +12,7 @@ namespace HockeyApp
     {
 
         internal const string Name = "HockeySDKWin81";
-        internal const string Version = "2.2.0";
+        internal const string Version = "2.2.1";
         internal const string UserAgent = "Hockey/Win81";
 
 

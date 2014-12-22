@@ -28,6 +28,7 @@ namespace HockeyApp.ViewModels
             get { return typeof(FeedbackImagePage); }
         }
 
+
         private void SetCommands()
         {
             Frame rootFrame = (Window.Current.Content as Frame);
@@ -88,6 +89,10 @@ namespace HockeyApp.ViewModels
 
         }
 
+        public bool IsEmailReadOnly
+        {
+            get { return IsThreadActive && !String.IsNullOrWhiteSpace(this.Email); }
+        }
 
         #region Serialization
 
