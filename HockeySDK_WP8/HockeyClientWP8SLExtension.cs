@@ -36,7 +36,11 @@ namespace HockeyApp
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
             CrashHandler.Current.Application.UnhandledException += (sender, args) => { 
-                CrashHandler.Current.HandleException(args.ExceptionObject); 
+                CrashHandler.Current.HandleException(args.ExceptionObject);
+                if (customUnhandledExceptionAction != null)
+                {
+                    customUnhandledExceptionAction(args);
+                }
             };
 
             if (rootFrame != null)
@@ -89,6 +93,33 @@ namespace HockeyApp
             @this.AsInternal().CheckForInitialization();
             return await CrashHandler.Current.HandleCrashesAsync(sendWithoutAsking).ConfigureAwait(false);
         }
+
+
+        internal static Action<ApplicationUnhandledExceptionEventArgs> customUnhandledExceptionAction;
+        internal static Action<Exception> customUnobservedTaskExceptionAction;
+
+        /// <summary>
+        /// The action you set will be called after HockeyApp has written the crash-log and allows you to run custom logic like marking the exception as handled
+        /// </summary>
+        /// <param name="customAction">The custom action.</param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Action<ApplicationUnhandledExceptionEventArgs> customAction)
+        {
+            customUnhandledExceptionAction = customAction;
+            return @this;
+        }
+
+        /// <summary>
+        /// The action you set will be called after HockeyApp has written the crash-log and allows you to run custom logic like exiting the application
+        /// </summary>
+        /// <param name="customFunc">The custom action.</param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterCustomUnobserveredTaskExceptionLogic(this IHockeyClientConfigurable @this, Action<Exception> customAction)
+        {
+            customUnobservedTaskExceptionAction = customAction;
+            return @this;
+        }
+
 
         #endregion
 

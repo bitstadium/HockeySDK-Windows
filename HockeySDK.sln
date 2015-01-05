@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable", "HockeySDK_Portable\HockeySDK_Portable.csproj", "{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}"
 EndProject
@@ -35,13 +35,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HockeyApp.Content", "Hockey
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable45", "HockeySDK_Portable45\HockeySDK_Portable45.csproj", "{643606BA-84A8-483F-A582-49E472B8701E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3F098532-4B56-4899-AEAF-C60DC07E32EE}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF45", "HockeySDK_WPF45\HockeySDK_WPF45.csproj", "{C9612531-2077-4662-B8A4-092E06D5069B}"
 EndProject

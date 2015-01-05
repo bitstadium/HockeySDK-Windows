@@ -152,6 +152,10 @@ namespace HockeyApp
                     if (crashHandler != null)
                     {
                         crashHandler.HandleException(ex);
+                        if (HockeyClientWP8SLExtension.customUnobservedTaskExceptionAction != null)
+                        {
+                            HockeyClientWP8SLExtension.customUnobservedTaskExceptionAction(ex);
+                        }
                     }
                 }
             };
