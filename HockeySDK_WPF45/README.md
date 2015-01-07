@@ -32,3 +32,6 @@ Included in Nuget Package <em>HockeySDK.WPF</em>
 
 ### Version 2.2.0
 * Stable release
+
+### Version 2.2.2
+* Fixed dependencies for BCL packages for .Net 4.0

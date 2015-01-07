@@ -43,3 +43,6 @@ Included in Nuget Package <em>HockeySDK.WP</em>
 
 ### Version 2.2.0
 * Stable release
+
+### Version 2.2.2
+* Added methods to register custom logic after exceptions
