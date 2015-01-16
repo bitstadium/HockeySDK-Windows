@@ -1,4 +1,4 @@
-﻿# Release Notes
+# Release Notes
 ## HockeySDK for Windows Phone Store Apps
 Included in Nuget Package <em>HockeySDK.WINRT</em>
 The NugetPackage can also be used for Windows Universal Apps.
@@ -25,3 +25,6 @@ The NugetPackage can also be used for Windows Universal Apps.
 
 ### Version 2.2.1
 * Fixed a bug in feedback where email could be empty in followup messages.
+
+### Version 2.2.2
+* Update because of HockeySDk.Core version update (no relevant changes for WinRT)
