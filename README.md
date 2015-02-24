@@ -11,9 +11,8 @@ The next time the user starts the app, he is asked to send the crash data to the
 
 Furthermore it wraps the necessary api calls for sending feedback information to the platform.
 
-## Features & Installation via Nuget
-If you want to use the nuget packages make sure you have prerelease filter activated.
 
+## Features & Installation via Nuget
 ### Windows Phone 8
 <pre>Nuget PM> Install-Package HockeySDK.WP</pre>
 
@@ -52,135 +51,35 @@ A basic API wrapper for the HockeyApp API that supports
 
 ## Requirements
 
-Before you integrate HockeySDK into your own app, you should add the app to HockeyApp if you haven't already. Read http://support.hockeyapp.net/kb/about-general-faq/how-to-create-a-new-app on how to do this.
+Before you integrate HockeySDK into your own app, you should add the app to HockeyApp if you haven't already. Read [this faq entry](http://support.hockeyapp.net/kb/about-general-faq/how-to-create-a-new-app) on how to do this.
 
-## Getting started with WP8
-With Version 2.2.0 we are unifying the API for the different platforms. While you can still use the methods described here have a look at he Windows 8.1/RT section below, which is nearly identical for WP8.
+## Getting started 
+Guides to get you started with HockeySDK can be found in the [HockeyApp Knowledge Base](http://support.hockeyapp.net/kb)
 
-### Configure the CrashHandler
+There are also [Demo Apps](https://github.com/bitstadium/HockeySDK-WindowsDemo) on GitHub.
 
-Open your App.xaml.cs
-Search for the "App" constructor method and add the following line after InitializePhoneApplication() <pre>CrashHandler.Instance.Configure(this, YOUR_APP_ID, RootFrame);</pre>
-Replace YOUR_APP_ID with the [App ID of your app on HockeyApp](http://support.hockeyapp.net/kb/about-general-faq/how-to-find-the-app-id)
+###[HockeyApp for Windows Store Apps and Windows Phone Store Apps](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-store-apps-and-windows-phone-store-apps)
 
-Open the root page of your app (or the page in which you want to check for new crashes), for example MainPage.xaml.cs.
-Search the constructor of the class, e.g. "MainPage", and add the following line at the bottom:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes();</pre>If you want to send crashes without user interaction, use this line instead:<pre>HockeyApp.CrashHandler.Instance.HandleCrashes(true);</pre>
-There is also an Async Version of that method if you use async in your framework. 
+###[HockeyApp for Windows Phone Silverlight Apps (8.0 and 8.1)](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-phone-silverlight-apps-80-and-81)
 
-Now every time when an unhandled exception occurs, the exception stacktrace is logged. At the next start, you should be asked to send the crash data (or crashes are sent automatically if you configured this).
+###[HockeyApp for Windows WPF Apps](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-wpf-apps)
 
-### Link the feedback page
-Use the following line in an apropriate place (like a click-handler for a Feedback-Button)
-<pre>FeedbackManager.Instance.NavigateToFeedbackUI(NavigationService);</pre>
-if you don't have access to NavigationService in your ViewModels (like when using Caliburn.Micro) you should use the following URI with your navigation framework <pre>new Uri("/HockeyApp;component/Views/FeedbackPage.xaml", UriKind.Relative)</pre>
-
-### Use automatic updates
-Use the next line right after the call to HandleCrashes() to check for updates and present them to the user automatically
-<pre>UpdateManager.RunUpdateCheck(Constants.HockeyAppAppId);</pre>
-
-### Use HockeyApp Authentication
-You can require the user to either identify a user by their email address or let the user authorize himself with email and password.
-
-* Authorization
-<pre>
-AuthManager.Instance.AuthenticateUser(NavigationService, 
-                        new Uri("/RedirectToThisPageOnSuccess.xaml", UriKind.Relative), 
-                        tokenValidationPolicy: TokenValidationPolicy.EveryLogin);
-</pre>
-* Identification
-<pre>
-AuthManager.Instance.AuthenticateUser(NavigationService, 
-                        new Uri("/RedirectToThisPageOnSuccess.xaml", UriKind.Relative),
-                        tokenValidationPolicy: TokenValidationPolicy.OnNewVersion,
-                        authMode: AuthenticationMode.Identify,
-                        appSecret: "yourAppSecretFromHockeyApp");
-</pre>
-* Logout the user
-<pre>AuthManager.Instance.RemoveUserToken(); </pre>
-
-## Getting started with Windows 8.1 (Windows RT)
-### Configure the HockeyClient
-Open App.xaml.cs
-Add the using directive for HockeyApp:
-<pre>using HockeyApp;</pre>
-Add the following line to the App constructor App():
-<pre>HockeyClient.Current.Configure(“App_ID”);</pre>
-Replace App_ID with the App ID of your app from your app's page on HockeyApp.
-
-### Add the code to send crashes to the HockeyApp server
-Add the following line at the end of the OnLaunched(LaunchActivatedEventArgs e) Method (in App.xaml.cs)
-<pre>await HockeyClient.Current.SendCrashesAsync();</pre>
-If you want to send crashes without asking the user provide the optional parameter sendAutomatically with value true.
-
-### Check for updates (only Windows Phone)
-This is only available for Windows Phone apps as there is currently no practical way to deploy to Windows Store apps beside the Windows Store beta program or in an inhouse enterprise setup.
-
-Add the following lines at the end of the OnLaunched(LaunchActivatedEventArgs e) method in App.xaml.cs
-<pre>#if WINDOWS_PHONE_APP
-      await HockeyClient.Current.CheckForAppUpdateAsync();      
-#endif</pre>
-
-### Open the feedback UI to let your users provide feedback via HockeyApp (optional)
-Call the following method in your code (e.g. inside a Button-Clickhandler)
-<pre>HockeyClient.Current.ShowFeedback();</pre>
-Important for Windows Phone: to let your users add attachments to their feedback HockeySDK must be able to pick up after a PickFileAndContinue call which resumes your app. To allow for that please add the following line to the OnActivated(IActivatedEventArgs e) method in App.xaml.cs
-<pre>HockeyClient.Current.HandleReactivationOfFeedbackFilePicker(e);</pre>
-
-### Authenticate users with HockeyApp credentials in your app (Optional)
-With HockeyApp you can either identify users by validating their email address (*Identify*) or authorize them by checking their HockeyApp credentials (email and password).
-
-Call one of the following calls to the OnLaunched(LaunchActivatedEventArgs e) method in your App.xaml.cs to authorize users. A dialog will be shown for users to input their credentials.
-<pre>//authorize
-HockeyClient.Current.AuthorizeUser(typeof(YourProtectedPage));
-//identify
-HockeyClient.Current.IdentifyUser("App_secret", typeof(YourProtectedPage));</pre>
-Replace App_secret with your app's secret from the HockeyApp app page.
-
-If you want to delete the cached user token (logout the user)
-<pre>await HockeyClient.Current.LogoutUserAsync();</pre>
-
-### Localization and custom strings
-HockeySDK supports localization for English and German. To support different languages or override the provided strings, just add a resource-file named HockeyApp.resw to your project under the appropriate language folder (e.g. /Strings/de/HockeyApp.resw)
-
-## Getting started with WPF
-
-### Configure the CrashHandler
-1. Open your App.xaml.cs and override the OnStartup-Method. If your are using frameworks like Caliburn.Micro use the caliburn-bootstrapper.
-2. Before calling any methods you have to configure the sdk via `HockeyApp.HockeyClientWPF.Instance.Configure(YOUR_APP_ID, YOUR_APP_VERSION, USERNAME, CONTACT_INFO, DESCRIPTION_HANDLER, API_BASE)`
-* YOUR_APP_ID and YOUR_APP_VERSION are not optional
-* USERNAME and CONTACT_INFO is for optional submitting an logged on username and contactinfo
-* DESCRIPTION_HANDLER is a lambda for submitting additional information like an event log
-* The default API_BASE is https://rink.hockeyapp.net/api/2/ and can be overwritten
-3. After the sdk is configured, all non handled exceptions are caught by the sdk. Exception information are written to the filesystem (%APPDATA%)
-4. Crashdata is send using <pre>HockeyApp.HockeyClientWPF.Instance.SendCrashesNowAsync();</pre>
-* The user can be asked, if the crashed should be sent using `HockeyApp.HockeyClientWPF.Instance.CrashesAvailable` and `HockeyApp.HockeyClientWPF.Instance.CrashesAvailableCount`
-* Crashed can be deleted using `HockeyApp.HockeyClientWPF.Instance.DeleteAllCrashes()`. This function is for debugging purposes. Crashes do not have to be deleted. Crashes are deleted by SendCrashesNowAsync() when they are submitted to HockeyApp. Crashes are not deleted, if a web exception occurs. If the files are cirrupt (e.g. formatting), the crashes are deleted anyway.
-
-### Use Feedback
-In the WPF SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens
-must stored in the client application.
+#### Feedback in WPF
+In the WPF SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens must be stored in the client application.
 Creating a new Feedback:
 
-1. `HockeyApp.HockeyClientWPF.Instance.CreateFeedbackThread()` creates an new IFeedbackThread
+1. `HockeyClient.Current.CreateFeedbackThread()` creates an new IFeedbackThread
 2. `feedbackThread.PostFeedbackMessageAsync(MESSAGE, EMAIL, SUBJECT, USERNAME);` submits a new feedback message on the selected feedback-thread.
 3. The FeedbackThread is created on the server with submitting the first feedback-message (keep that in mind when storing the feedback-token information)
 
 ## Using the PCL
-Without using the WPF or WP-SDKs you can use the portable library directly - e.g. when implementing an own SDK.
+You can use the portable library directly - e.g. when implementing your own custom-platform SDK. To get some hints look at the classes implementing 
+[`IHockeyPlatformHelper`](https://github.com/bitstadium/HockeySDK-Windows/blob/develop/HockeySDK_Portable/IHockeyPlatformHelper.cs) and the extension classes e.g. [`HockeyClientWPFExtensions`](https://github.com/bitstadium/HockeySDK-Windows/blob/develop/HockeySDK_WPF/HockeyClientWPFExtensions.cs).
 
-1. First you have to configure the portable using `HockeyClient.Configure(YOUR_APP_ID,YOUR_VERSION,API_BASE,USERNAME,USER_CONTACT_INFO,DESCRIPTION)` or
-`HockeyClient.ConfigureInternal(YOUR_APP_ID,YOUR_VERSION,API_BASE,USERNAME,USER_CONTACT_INFO, USER_AGENT, SDK_NAME, SDK_VERSION, DESCRIPTION);`
-2. Exception have to be caught in your own SDK. Using `HockeyClient.Instance.CreateCrashData(EXCEPTION,CRASHLOGINFO);` 
-you can serialize the CrashData using `ICrashData.Serialize(Stream outputstream);`
-3. When you want to post all crashes to the server, `HockeyClient.Deserialize(Stream inputStream)` offers you a deserializing functionality. 
-4. With the deserialized ICrashData you can post the crash information using `ICrashData.Task SendDataAsync();`
- 
 ## Console app
-There is no special SDK for console apps, because feedback information is not used in console apps. The crashhandler has to be implemented yourself. Please find an example in Hoch.exe (HockeyUploaderConsole).
+There is no special SDK for console apps but you can find an example of crashhandling in Hoch.exe (Project [HockeyAppForWindowsConsole](https://github.com/bitstadium/HockeyApp-for-Windows/tree/develop/HockeyAppForWindowsConsole)).
 
-
-
-## Support
+# Support
 
 If you have any questions, problems or suggestions, please contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
 
