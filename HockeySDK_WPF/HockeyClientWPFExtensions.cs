@@ -37,6 +37,17 @@ namespace HockeyApp
         private static Action<DispatcherUnhandledExceptionEventArgs> customDispatcherUnhandledExceptionAction;
 
         /// <summary>
+        /// Removes the handler for UnobservedTaskExceptions
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable UnregisterDefaultUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+            return @this;
+        }
+
+        /// <summary>
         /// This will run after HockeyApp has written the crash-log to disk.
         /// </summary>
         /// <param name="this"></param>
