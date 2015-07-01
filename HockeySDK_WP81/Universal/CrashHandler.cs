@@ -111,6 +111,10 @@ namespace HockeyApp
             // Show the message dialog and get the event that was invoked via the async operator
             var commandChosen = await messageDialog.ShowAsync();
 
+            if (commandChosen == null) {
+                return false;
+            }
+
             return (Boolean)commandChosen.Id;
         }
     }
