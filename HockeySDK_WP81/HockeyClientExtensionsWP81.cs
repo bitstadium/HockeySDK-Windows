@@ -36,15 +36,6 @@ namespace HockeyApp
             //Application.Current.Resuming += HandleAppResuming;
             Application.Current.Suspending += HandleAppSuspending;
 
-            TaskScheduler.UnobservedTaskException += async (sender, e) => {
-                e.SetObserved();
-                await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
-                if (customUnobservedTaskExceptionFunc == null || customUnobservedTaskExceptionFunc(e))
-                {
-                    Application.Current.Exit();
-                }
-            };
-
             Application.Current.UnhandledException += async (sender, e) => { 
                 e.Handled = true;
                 await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
@@ -59,6 +50,28 @@ namespace HockeyApp
         private static Func<UnhandledExceptionEventArgs,bool> customUnhandledExceptionFunc;
 
         private static Func<UnobservedTaskExceptionEventArgs, bool> customUnobservedTaskExceptionFunc;
+
+        /// <summary>
+        /// Adds the handler for UnobservedTaskException
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            return @this;
+        }
+
+        /// <summary>
+        /// Removes the handler for UnobservedTaskException
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable UnregisterUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+            return @this;
+        }
 
         /// <summary>
         /// The func you set will be called after HockeyApp has written the crash-log and allows you to continue
@@ -97,6 +110,15 @@ namespace HockeyApp
         static void HandleAppResuming(object sender, object e)
         {
             
+        }
+        static async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            e.SetObserved();
+            await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
+            if (customUnobservedTaskExceptionFunc == null || customUnobservedTaskExceptionFunc(e))
+            {
+                Application.Current.Exit();
+            }
         }
 
 

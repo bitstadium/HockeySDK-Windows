@@ -27,7 +27,6 @@ namespace HockeyApp
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
             return (IHockeyClientConfigurable)@this;
         }
@@ -35,6 +34,17 @@ namespace HockeyApp
         private static Action<UnhandledExceptionEventArgs> customUnhandledExceptionAction;
         private static Action<UnobservedTaskExceptionEventArgs> customUnobservedTaskExceptionAction;
         private static Action<DispatcherUnhandledExceptionEventArgs> customDispatcherUnhandledExceptionAction;
+
+        /// <summary>
+        /// Adds the handler for UnobservedTaskExceptions
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterDefaultUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            return @this;
+        }
 
         /// <summary>
         /// Removes the handler for UnobservedTaskExceptions
