@@ -28,9 +28,30 @@ namespace HockeyApp
                 Application.ThreadException += Current_ThreadException;
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             }
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
             return (IHockeyClientConfigurable)@this;
+        }
+
+        /// <summary>
+        /// Adds the handler for UnobservedTaskExceptions
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable RegisterDefaultUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+            return @this;
+        }
+
+        /// <summary>
+        /// Removes the handler for UnobservedTaskExceptions
+        /// </summary>
+        /// <param name="this"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable UnregisterDefaultUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
+        {
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+            return @this;
         }
 
         static async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
