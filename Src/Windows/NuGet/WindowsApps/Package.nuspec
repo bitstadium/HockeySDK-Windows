@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Microsoft.ApplicationInsights.WindowsApps</id>
+    <version>$version$</version>
+    <title>Application Insights for Windows Applications</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=510709</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
+    <iconUrl>$image$</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>Application Insights for .Net Windows applications. This package supports Windows Phone 8.0 and 8.1 applications and Windows Store 8.1 applications targetting either WinRT or Silverlight.  See http://go.microsoft.com/fwlink/?LinkID=510753 for more information.</description>
+    <copyright>$copyright$</copyright>
+    <releaseNotes>For the release notes please follow http://go.microsoft.com/fwlink/?LinkId=535037</releaseNotes>
+    <tags>Analytics ApplicationInsights Telemetry AppInsights Application Insights</tags>
+    <dependencies>
+      <group>
+        <dependency id="Microsoft.ApplicationInsights" version="$version$" />
+        <dependency id="Microsoft.ApplicationInsights.PersistenceChannel" version="$version$" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- win81: Windows Runtime projects (Managed) -->
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.dll" target="lib\win81" />
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.pdb" target="lib\win81" />
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.xml" target="lib\win81" />
+
+    <!-- wp8 (Silverlight Runtime) platform for .NET projects -->    
+    <file src="$configuration$\Windows\Wp80\Microsoft.ApplicationInsights.Extensibility.Windows.dll" target="lib\wp8" />
+    <file src="$configuration$\Windows\Wp80\Microsoft.ApplicationInsights.Extensibility.Windows.pdb" target="lib\wp8" />
+    <file src="$configuration$\Windows\Wp80\Microsoft.ApplicationInsights.Extensibility.Windows.xml" target="lib\wp8" />
+
+    <!-- wpa81 (Windows Runtime) platform for .NET projects -->    
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.dll" target="lib\wpa81" />
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.pdb" target="lib\wpa81" />
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.xml" target="lib\wpa81" />
+  </files>
+</package>

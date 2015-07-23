@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="SharedProjectFile_SccProperties">
+    <SharedProjectFile_ProjectGuid>{C27F58F5-066D-4C55-9194-B0AD02410906}</SharedProjectFile_ProjectGuid>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>736292e3-1081-4da6-9a0c-9fcfd54413b0</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Microsoft.ApplicationInsights.Windows</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ComponentContextInitializerTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PageViewTelemetryModuleTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SessionTelemetryModuleTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserContextInitializerTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnhandledExceptionTelemetryModuleTest.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowsAppInitializerTests.cs" />
+  </ItemGroup>
+</Project>
