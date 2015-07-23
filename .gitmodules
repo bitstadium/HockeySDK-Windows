@@ -1,0 +1,3 @@
+[submodule "ApplicationInsights-dotnet"]
+	path = ApplicationInsights-dotnet
+	url = https://github.com/Microsoft/ApplicationInsights-dotnet
