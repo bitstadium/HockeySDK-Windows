@@ -37,25 +37,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Win81.Tests", "Core\Ma
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{1EACB95F-662D-43A1-8758-0A69B1BD91A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wp80", "Windows\Wp80\Windows.Wp80.csproj", "{AFC48348-7368-47BE-85E6-6707CA42E2E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wp80", "src\Windows\Wp80\Windows.Wp80.csproj", "{AFC48348-7368-47BE-85E6-6707CA42E2E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wrt81", "Windows\Wrt81\Windows.Wrt81.csproj", "{2E1127B9-787B-4427-8D92-1E9EB3A79DE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wrt81", "src\Windows\Wrt81\Windows.Wrt81.csproj", "{2E1127B9-787B-4427-8D92-1E9EB3A79DE1}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.Shared", "Windows\Shared\Windows.Shared.shproj", "{0A20699D-4E6B-4FCE-ABFD-84EB230255F3}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.Shared", "src\Windows\Shared\Windows.Shared.shproj", "{0A20699D-4E6B-4FCE-ABFD-84EB230255F3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows.Tests", "Windows.Tests", "{C89C77E0-9544-4532-AE26-198D2081A2B7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows.Tests", "src\Windows.Tests", "{C89C77E0-9544-4532-AE26-198D2081A2B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wp80.Tests", "Windows\Wp80.Tests\Windows.Wp80.Tests.csproj", "{0FF88612-6F5B-4D8E-A78A-38851F038066}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wp80.Tests", "src\Windows\Wp80.Tests\Windows.Wp80.Tests.csproj", "{0FF88612-6F5B-4D8E-A78A-38851F038066}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wpa81.Tests", "Windows\Wpa81.Tests\Windows.Wpa81.Tests.csproj", "{DC80A5B2-4643-4C45-8C1E-280B4D57C312}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Wpa81.Tests", "src\Windows\Wpa81.Tests\Windows.Wpa81.Tests.csproj", "{DC80A5B2-4643-4C45-8C1E-280B4D57C312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Win81.Tests", "Windows\Win81.Tests\Windows.Win81.Tests.csproj", "{659E6063-E530-4061-A253-4E9D1B8D74AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows.Win81.Tests", "src\Windows\Win81.Tests\Windows.Win81.Tests.csproj", "{659E6063-E530-4061-A253-4E9D1B8D74AF}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.Shared.Tests", "Windows\Shared.Tests\Windows.Shared.Tests.shproj", "{736292E3-1081-4DA6-9A0C-9FCFD54413B0}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Windows.Shared.Tests", "src\Windows\Shared.Tests\Windows.Shared.Tests.shproj", "{736292E3-1081-4DA6-9A0C-9FCFD54413B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows.NuGet", "Windows.NuGet", "{5116D6F6-6065-48C7-BE05-71EED997F2F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApps.NuGet", "Windows\NuGet\WindowsApps\WindowsApps.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApps.NuGet", "src\Windows\NuGet\WindowsApps\WindowsApps.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A1}"
 	ProjectSection(ProjectDependencies) = postProject
 		{50368B2B-A526-460E-8AD9-AB2E7951DAB2} = {50368B2B-A526-460E-8AD9-AB2E7951DAB2}
 		{AFC48348-7368-47BE-85E6-6707CA42E2E5} = {AFC48348-7368-47BE-85E6-6707CA42E2E5}
