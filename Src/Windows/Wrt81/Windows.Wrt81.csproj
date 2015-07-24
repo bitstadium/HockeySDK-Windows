@@ -35,10 +35,6 @@
       <Project>{9B539AB9-E510-4D4E-9038-1A6AEDC0CA7D}</Project>
       <Name>Core.Wrt81</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TelemetryChannels\PersistenceChannel\Wrt81\PersistenceChannel.Wrt81.csproj">
-      <Project>{48d96f13-d9f7-4db8-a738-e03f82e45bbb}</Project>
-      <Name>PersistenceChannel.Wrt81</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
