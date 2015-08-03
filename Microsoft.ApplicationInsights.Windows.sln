@@ -3,37 +3,37 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81", "ApplicationInsights-dotnet\src\Core\Managed\Wrt81\Core.Wrt81.csproj", "{50368B2B-A526-460E-8AD9-AB2E7951DAB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81", "Core\ApplicationInsights-dotnet\src\Core\Managed\Wrt81\Core.Wrt81.csproj", "{50368B2B-A526-460E-8AD9-AB2E7951DAB2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wp80", "ApplicationInsights-dotnet\src\Core\Managed\Wp80\Core.Wp80.csproj", "{3A820D7A-F63C-460D-B2BD-DDAC9433B4E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wp80", "Core\ApplicationInsights-dotnet\src\Core\Managed\Wp80\Core.Wp80.csproj", "{3A820D7A-F63C-460D-B2BD-DDAC9433B4E9}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.Shared", "ApplicationInsights-dotnet\src\Core\Managed\Shared\Core.Shared.shproj", "{C1AAA703-5E32-45C0-A69D-F46D1C659AE4}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.Shared", "Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Core.Shared.shproj", "{C1AAA703-5E32-45C0-A69D-F46D1C659AE4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core.Tests", "Core.Tests", "{C2FEEDE5-8CAE-41A4-8932-42D284A86EA7}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.Shared.Tests", "ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.shproj", "{C4A0DB5B-0988-4E04-B9B8-BCF3B0842000}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.Shared.Tests", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.shproj", "{C4A0DB5B-0988-4E04-B9B8-BCF3B0842000}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{68CC2924-E162-44BE-8D7A-DBA385365585}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wp80.Tests", "ApplicationInsights-dotnet\Test\CoreSDK.Test\Wp80\Core.Wp80.Tests.csproj", "{30717095-904B-47B6-A76B-3D7A21F14E18}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wp80.Tests", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Wp80\Core.Wp80.Tests.csproj", "{30717095-904B-47B6-A76B-3D7A21F14E18}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B3AD9230-7E7A-4C82-8A7E-F297EEEF8BB8} = {B3AD9230-7E7A-4C82-8A7E-F297EEEF8BB8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wpa81.Tests", "ApplicationInsights-dotnet\Test\CoreSDK.Test\Wpa81\Core.Wpa81.Tests.csproj", "{6587B432-E16A-4D26-93E1-BF12449FDB32}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wpa81.Tests", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Wpa81\Core.Wpa81.Tests.csproj", "{6587B432-E16A-4D26-93E1-BF12449FDB32}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9F9C3D52-ABB9-461A-B1B6-A01BB5CECD93} = {9F9C3D52-ABB9-461A-B1B6-A01BB5CECD93}
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFramework", "TestFramework", "{BED5EB47-4AB1-4387-98B6-83CC327D6D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework.Wp80", "ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Wp80\TestFramework.Wp80.csproj", "{B3AD9230-7E7A-4C82-8A7E-F297EEEF8BB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework.Wp80", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Wp80\TestFramework.Wp80.csproj", "{B3AD9230-7E7A-4C82-8A7E-F297EEEF8BB8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework.Wrt81", "ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Wrt81\TestFramework.Wrt81.csproj", "{9F9C3D52-ABB9-461A-B1B6-A01BB5CECD93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestFramework.Wrt81", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Wrt81\TestFramework.Wrt81.csproj", "{9F9C3D52-ABB9-461A-B1B6-A01BB5CECD93}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestFramework.Shared", "ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.shproj", "{F76C6CBD-29B0-4564-BDCB-C969F8FEC136}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "TestFramework.Shared", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.shproj", "{F76C6CBD-29B0-4564-BDCB-C969F8FEC136}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Win81.Tests", "ApplicationInsights-dotnet\Test\CoreSDK.Test\Win81\Core.Win81.Tests.csproj", "{FF8678DB-8FF0-4507-A793-2FF896FC7AD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Win81.Tests", "Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Win81\Core.Win81.Tests.csproj", "{FF8678DB-8FF0-4507-A793-2FF896FC7AD7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{1EACB95F-662D-43A1-8758-0A69B1BD91A6}"
 EndProject
@@ -65,34 +65,34 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApps.NuGet", "src\Wi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Channels", "Channels", "{A2B4271C-9FB7-4D61-8181-0DC843954531}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.shproj", "{3F212C88-4C51-4B4D-8E8D-7512B791E4BF}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Shared", "Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.shproj", "{3F212C88-4C51-4B4D-8E8D-7512B791E4BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wp80", "ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Wp80\PersistenceChannel.Wp80.csproj", "{27BF043B-B716-44CF-940E-33A106CDE314}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wp80", "Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Wp80\PersistenceChannel.Wp80.csproj", "{27BF043B-B716-44CF-940E-33A106CDE314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wrt81", "ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Wrt81\PersistenceChannel.Wrt81.csproj", "{48D96F13-D9F7-4DB8-A738-E03F82E45BBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wrt81", "Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Wrt81\PersistenceChannel.Wrt81.csproj", "{48D96F13-D9F7-4DB8-A738-E03F82E45BBB}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{30717095-904b-47b6-a76b-3d7a21f14e18}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{27bf043b-b716-44cf-940e-33a106cde314}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{30717095-904b-47b6-a76b-3d7a21f14e18}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{27bf043b-b716-44cf-940e-33a106cde314}*SharedItemsImports = 4
 		src\Windows\Shared.Tests\Windows.Shared.Tests.projitems*{dc80a5b2-4643-4c45-8c1e-280b4d57c312}*SharedItemsImports = 4
 		src\Windows\Shared\Windows.Shared.projitems*{afc48348-7368-47be-85e6-6707ca42e2e5}*SharedItemsImports = 4
 		src\Windows\Shared\Windows.Shared.projitems*{0a20699d-4e6b-4fce-abfd-84eb230255f3}*SharedItemsImports = 13
 		src\Windows\Shared.Tests\Windows.Shared.Tests.projitems*{659e6063-e530-4061-a253-4e9d1b8d74af}*SharedItemsImports = 4
 		src\Windows\Shared.Tests\Windows.Shared.Tests.projitems*{736292e3-1081-4da6-9a0c-9fcfd54413b0}*SharedItemsImports = 13
-		ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{3f212c88-4c51-4b4d-8e8d-7512b791e4bf}*SharedItemsImports = 13
-		ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{f76c6cbd-29b0-4564-bdcb-c969f8fec136}*SharedItemsImports = 13
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{6587b432-e16a-4d26-93e1-bf12449fdb32}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{3f212c88-4c51-4b4d-8e8d-7512b791e4bf}*SharedItemsImports = 13
+		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{f76c6cbd-29b0-4564-bdcb-c969f8fec136}*SharedItemsImports = 13
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{6587b432-e16a-4d26-93e1-bf12449fdb32}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Shared\TestFramework.Shared.projitems*{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}*SharedItemsImports = 4
 		src\Windows\Shared\Windows.Shared.projitems*{2e1127b9-787b-4427-8d92-1e9eb3a79de1}*SharedItemsImports = 4
 		src\Windows\Shared.Tests\Windows.Shared.Tests.projitems*{0ff88612-6f5b-4d8e-a78a-38851f038066}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{50368b2b-a526-460e-8ad9-ab2e7951dab2}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{ff8678db-8ff0-4507-a793-2ff896fc7ad7}*SharedItemsImports = 4
-		ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{c1aaa703-5e32-45c0-a69d-f46d1c659ae4}*SharedItemsImports = 13
-		ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{c4a0db5b-0988-4e04-b9b8-bcf3b0842000}*SharedItemsImports = 13
-		ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{48d96f13-d9f7-4db8-a738-e03f82e45bbb}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{50368b2b-a526-460e-8ad9-ab2e7951dab2}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{ff8678db-8ff0-4507-a793-2ff896fc7ad7}*SharedItemsImports = 4
+		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{c1aaa703-5e32-45c0-a69d-f46d1c659ae4}*SharedItemsImports = 13
+		Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\Shared\Core.Shared.Tests.projitems*{c4a0db5b-0988-4e04-b9b8-bcf3b0842000}*SharedItemsImports = 13
+		Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Shared\Shared.projitems*{48d96f13-d9f7-4db8-a738-e03f82e45bbb}*SharedItemsImports = 4
 	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

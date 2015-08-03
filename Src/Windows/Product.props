@@ -3,13 +3,14 @@
   <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildThisFileDirectory), 'Common.props'))\Common.props"/>
   <PropertyGroup>
     <!--Removing the SRC folder from the output directory-->
-    <CorePath>$(RelativeOutputPathBase.Substring(4))</CorePath>	
-    <OutputPath>$(BinRoot)\$(Configuration)\$(CorePath)</OutputPath>
+    <WinAppPath>$(RelativeOutputPathBase.Substring(4))</WinAppPath>	
+    <OutputPath>$(BinRoot)\$(Configuration)\$(WinAppPath)</OutputPath>
     <OutputPath>$([System.IO.Path]::GetFullPath( $(OutputPath) ))\</OutputPath>
   </PropertyGroup>
   
   <PropertyGroup>
-    <AssemblyName>$(RootNamespace)</AssemblyName>
+    <RootNamespace>$(RootNamespace).Extensibility.Windows</RootNamespace>
+	<AssemblyName>$(RootNamespace)</AssemblyName>
     <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
   </PropertyGroup>
 </Project>
