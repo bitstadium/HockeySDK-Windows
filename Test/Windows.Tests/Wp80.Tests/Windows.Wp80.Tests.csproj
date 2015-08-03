@@ -129,7 +129,7 @@
       <Project>{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}</Project>
       <Name>TestFramework.Wp80</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Wp80\Windows.Wp80.csproj">
+    <ProjectReference Include="..\..\..\src\Windows\Wp80\Windows.Wp80.csproj">
       <Project>{AFC48348-7368-47BE-85E6-6707CA42E2E5}</Project>
       <Name>Windows.Wp80</Name>
     </ProjectReference>

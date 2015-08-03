@@ -20,7 +20,7 @@
     <NoWarn>2008</NoWarn>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\Core\Managed\Wrt81\Microsoft.ApplicationInsights.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\Windows\Wrt81\Microsoft.ApplicationInsights.Extensibility.Windows.dll</PackageVersionFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
