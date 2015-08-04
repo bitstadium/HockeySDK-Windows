@@ -2,8 +2,7 @@
 {
     using System;
     using System.Collections.Concurrent;
-    using System.Threading.Tasks;
-    using Microsoft.Diagnostics.Tracing;
+    using System.Diagnostics.Tracing;
 
     /// <summary>
     /// Represents a communication channel for sending telemetry to Application Insights via UTC (Windows Universal Telemetry Client).

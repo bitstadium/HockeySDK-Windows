@@ -6,7 +6,7 @@
     using System.Text.RegularExpressions;
     using Microsoft.ApplicationInsights.DataContracts;
     using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
-    using Microsoft.Diagnostics.Tracing;
+    using System.Diagnostics.Tracing;
 
     /// <summary>
     /// Encapsulates logic for sending a telemetry as a Common Schema 2.0 event.

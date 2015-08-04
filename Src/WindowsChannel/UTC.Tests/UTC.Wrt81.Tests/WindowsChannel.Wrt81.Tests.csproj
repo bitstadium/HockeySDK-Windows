@@ -62,14 +62,6 @@
       <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
       <Name>Core.Wrt81</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TestFramework\Wrt81\TestFramework.Wrt81.csproj">
-      <Project>{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}</Project>
-      <Name>TestFramework.Wrt81</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\UTC\Wrt81\WindowsChannel.Wrt81.csproj">
-      <Project>{442ec7a9-d369-49c8-89de-02187ddf32df}</Project>
-      <Name>WindowsChannel.Wrt81</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SmallLogo.png" />
