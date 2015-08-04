@@ -1,8 +1,8 @@
-![Build Status](https://mseng.visualstudio.com/DefaultCollection/_apis/public/build/definitions/96a62c4a-58c2-4dbb-94b6-5979ebc7f2af/1822/badge)
+![Build Status](https://mseng.visualstudio.com/DefaultCollection/_apis/public/build/definitions/96a62c4a-58c2-4dbb-94b6-5979ebc7f2af/1930/badge)
 
-# Application Insights for .NET
+# Application Insights for Windows Applications
 
-This repository has code for the core .NET SDK for Application Insights. [Application Insights][AILandingPage] is a service that allows developers ensure their application are available, performing, and succedding. This SDK provides the core ability to send all Application Insights types from any .NET project. 
+This repository has code for the WindowsApps for Application Insights. [Application Insights][AILandingPage]
 
 ## Getting Started
 
@@ -15,43 +15,6 @@ To use the Application Insights SDK you will need to provide it with an Instrume
 ### Add the SDK library
 
 We recommend consuming the library as a NuGet package. Make sure to look for the [Microsoft.ApplicationInsights][NuGetCore] package. Use the NuGet package manager to add a reference to your application code. 
-
-### Initialize a TelemetryClient
-
-The `TelemetryClient` object is the primary root object for the library. Almost all functionality around telemetry sending is located on this object. You must intiialize an instance of this object and populate it with your Instrumentation Key to identify your data.
-
-```C#
-using Microsoft.ApplicationInsights;
-
-var tc = new TelemetryClient();
-tc.InstrumentationKey = "INSERT YOUR KEY";
-```
-
-### Use the TelemetryClient to send telemetry
-
-This "core" library does not provide any automatic telemetry collection or any automatic meta-data properties. You can populate common context on the `TelemetryClient.context` property which will be automatically attached to each telemetry item sent. You can also attach additional propety data to each telemetry item sent. The `TelemetryClient` also exposes a number of `Track...()` methods that can be used to send all core telemetry types understood by the Application Insights service. Some example use cases are shown below.
-
-```C#
-tc.Context.User.Id = Environment.GetUserName(); // This is probably a bad idea from a PII perspective.
-tc.Context.Device.OperatingSystem = Environment.OSVersion.ToString();
-
-tc.TrackPageView("Form1");
-
-tc.TrackEvent("PurchaseOrderSubmitted", new Dictionary<string, string>() { {"CouponCode", "JULY2015" } }, new Dictionary<string, double>() { {"OrderTotal", 68.99 }, {"ItemsOrdered", 5} });
-	
-try
-{
-	...
-}
-catch(Exception e)
-{
-	tc.TrackException(e);
-}
-``` 
-
-### Ensure you don't lose telemetry
-
-This library makes use of the InMemoryChannel to send telemetry data. This is a very lightweight channel implementation. It stores all telemetry to an in-memory queue and batches and sends telemetry. As a result, if the process is terminated suddenly, you could lose telemetry that is stored in the queue but not yet sent. It is recommended to track the closing of your process and call the `TelemetryClient.Flush()` method to ensure no telemetry is lost.
 
 ## Branches
 
