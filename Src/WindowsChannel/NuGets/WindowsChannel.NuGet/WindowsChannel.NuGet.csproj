@@ -20,17 +20,11 @@
     <NoWarn>2008</NoWarn>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\Core\Managed\Net40\Microsoft.ApplicationInsights.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll</PackageVersionFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
-    <Content Include="ApplicationInsights.config.install.xdt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ApplicationInsights.config.uninstall.xdt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="Package.nuspec">
       <SubType>Designer</SubType>
     </None>

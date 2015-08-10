@@ -3,13 +3,14 @@
   <PropertyGroup Label="Global_Build_Properties">
     <GlobalPropsLocation>$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Global.props'))</GlobalPropsLocation>
   </PropertyGroup>
+  
   <ImportGroup Label="Global_Build_Properties">
     <Import Project="$(GlobalPropsLocation)\Global.props" />
     <Import Project="$(GlobalPropsLocation)\Signing.props" />
   </ImportGroup>     
   
   <PropertyGroup>
-    <RootNamespace>Microsoft.ApplicationInsights.UniversalTelemetryChannel</RootNamespace>
+    <RootNamespace>Microsoft.ApplicationInsights.WindowsChannel</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

@@ -7,8 +7,6 @@
     <ProjectGuid>{F2152A1F-4B4B-431C-8F84-5EDCA2DCDF25}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Microsoft.ApplicationInsights.UniversalTelemetryChannel</RootNamespace>
-    <AssemblyName>WindowsChannel.Uwp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -23,6 +21,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\ClassLibrary1.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Core.Uwp\Core.Uwp.csproj">
+      <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
+      <Name>Core.Uwp</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Shared\Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

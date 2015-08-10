@@ -24,19 +24,9 @@
     </dependencies>
   </metadata> 
   <files>
-    <!-- Content files for all projects -->
-    <file src="$configuration$\TelemetryChannels\NuGets\UTC.NuGet\ApplicationInsights.config.install.xdt" target="content" />
-    <file src="$configuration$\TelemetryChannels\NuGets\UTC.NuGet\ApplicationInsights.config.uninstall.xdt" target="content" />
-
-    <!-- Binaries for .NET 4.0 projects -->
-    <file src="$configuration$\TelemetryChannels\UTC\Net40\Microsoft.ApplicationInsights.UniversalTelemetryChannel.dll" target="lib\net40" />
-    <file src="$configuration$\TelemetryChannels\UTC\Net40\Microsoft.ApplicationInsights.UniversalTelemetryChannel.pdb" target="lib\net40" />
-    <file src="$configuration$\TelemetryChannels\UTC\Net40\Microsoft.ApplicationInsights.UniversalTelemetryChannel.xml" target="lib\net40" />
-
     <!-- portable-win81+wpa81: Windows Runtime projects (Phone & Store, Managed)-->
-    <file src="$configuration$\TelemetryChannels\UTC\Wrt81\Microsoft.ApplicationInsights.UniversalTelemetryChannel.dll" target="lib\portable-win81+wpa81" />
-    <file src="$configuration$\TelemetryChannels\UTC\Wrt81\Microsoft.ApplicationInsights.UniversalTelemetryChannel.pdb" target="lib\portable-win81+wpa81" />
-    <file src="$configuration$\TelemetryChannels\UTC\Wrt81\Microsoft.ApplicationInsights.UniversalTelemetryChannel.xml" target="lib\portable-win81+wpa81" />
-
+    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll" target="lib\portable-win81+wpa81" />
+    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.pdb" target="lib\portable-win81+wpa81" />
+    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.xml" target="lib\portable-win81+wpa81" />
   </files>
 </package>

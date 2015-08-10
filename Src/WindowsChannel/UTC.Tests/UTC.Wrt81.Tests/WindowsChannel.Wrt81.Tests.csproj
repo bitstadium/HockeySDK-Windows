@@ -58,12 +58,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Wrt81\Core.Wrt81.csproj">
-      <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
-      <Name>Core.Wrt81</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="SmallLogo.png" />
     <Content Include="SplashScreen.png" />
     <Content Include="StoreLogo.png" />

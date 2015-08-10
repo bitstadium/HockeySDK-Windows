@@ -5,7 +5,7 @@
     using System.Text.RegularExpressions;
     using Microsoft.ApplicationInsights;
     using Microsoft.ApplicationInsights.Channel;    
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
