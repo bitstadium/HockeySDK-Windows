@@ -115,6 +115,12 @@
   <ItemGroup>
     <Content Include="Properties\Uwp.rd.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Core.Uwp\Core.Uwp.csproj">
+      <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
+      <Name>Core.Uwp</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Shared\TestFramework.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

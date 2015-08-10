@@ -3,13 +3,8 @@ namespace Microsoft.ApplicationInsights.TestFramework
 {
     using System;
     using System.Collections.Generic;
-#if WINRT
     using System.Diagnostics.Tracing;
-#endif
     using System.Threading;
-#if NET40 || NET35 
-    using Microsoft.Diagnostics.Tracing;
-#endif
 
     internal class TestEventListener : EventListener
     {
