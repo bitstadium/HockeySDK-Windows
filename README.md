@@ -36,3 +36,12 @@ We strongly welcome and encourage contributions to this project. Please read the
 [WinAppGetStarted]: https://azure.microsoft.com/documentation/articles/app-insights-windows-get-started/
 [DesktopGetStarted]: https://azure.microsoft.com/documentation/articles/app-insights-windows-desktop/
 [AIKey]: https://github.com/Microsoft/ApplicationInsights-Home/wiki#getting-an-application-insights-instrumentation-key
+
+## Cloning
+This project references ApplicationInsights-Dotnet repository as a sub-module, so to clone the submodule as well, use this command:  
+git clone https://github.com/Microsoft/ApplicationInsights-WindowsApp.git --recursive
+
+## Building
+To build the project for the first time, build the ApplicationInsights-Dotnet submodule's solution first:  
+  Core\ApplicationInsights-dotnet\Microsoft.ApplicationInsights.sln  
+This will download the requried NuGets for ApplicationInsights-Dotnet.  
