@@ -25,13 +25,13 @@
   </metadata> 
   <files>
     <!-- portable-win81+wpa81: Windows Runtime projects (Phone & Store, Managed)-->
-    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll" target="lib\portable-win81+wpa81" />
-    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.pdb" target="lib\portable-win81+wpa81" />
-    <file src="$configuration$\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.xml" target="lib\portable-win81+wpa81" />
+    <file src="$configuration$\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll" target="lib\portable-win81+wpa81" />
+    <file src="$configuration$\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.pdb" target="lib\portable-win81+wpa81" />
+    <file src="$configuration$\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.xml" target="lib\portable-win81+wpa81" />
 
     <!-- Net46-->
-    <file src="$configuration$\src\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.dll" target="lib\net46" />
-    <file src="$configuration$\src\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.pdb" target="lib\net46" />
-    <file src="$configuration$\src\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.xml" target="lib\net46" />    
+    <file src="$configuration$\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.dll" target="lib\net46" />
+    <file src="$configuration$\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.pdb" target="lib\net46" />
+    <file src="$configuration$\WindowsChannel\WinChannel\Net46\Microsoft.ApplicationInsights.WindowsChannel.xml" target="lib\net46" />    
   </files>
 </package>

@@ -7,7 +7,14 @@
   <ImportGroup Label="Global_Build_Properties">
     <Import Project="$(GlobalPropsLocation)\Global.props" />
     <Import Project="$(GlobalPropsLocation)\Signing.props" />
-  </ImportGroup>     
+  </ImportGroup>
+  
+  <PropertyGroup>
+    <!--Removing the SRC folder from the output directory-->
+    <WinChannelPath>$(RelativeOutputPathBase.Substring(4))</WinChannelPath>	
+    <OutputPath>$(BinRoot)\$(Configuration)\$(WinChannelPath)</OutputPath>
+    <OutputPath>$([System.IO.Path]::GetFullPath( $(OutputPath) ))\</OutputPath>
+  </PropertyGroup>
   
   <PropertyGroup>
     <RootNamespace>Microsoft.ApplicationInsights.WindowsChannel</RootNamespace>

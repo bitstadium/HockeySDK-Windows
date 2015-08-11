@@ -8,6 +8,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B69CBB57-4D1F-4FBE-B4AB-FD87EDBEE12B}</ProjectGuid>
     <OutputType>Library</OutputType>
+    <OutputPath>$(BinRoot)\$(Configuration)\WindowsChannel\NuGets\WindowsChannel.NuGet</OutputPath>
     <RootNamespace>Microsoft.ApplicationInsights.NuGet</RootNamespace>
     <AssemblyName>Microsoft.ApplicationInsights.NuGet</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -20,7 +21,7 @@
     <NoWarn>2008</NoWarn>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\Src\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\WindowsChannel\WinChannel\Uwp\Microsoft.ApplicationInsights.WindowsChannel.dll</PackageVersionFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
