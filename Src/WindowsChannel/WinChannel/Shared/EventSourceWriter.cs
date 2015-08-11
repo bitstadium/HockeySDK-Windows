@@ -93,7 +93,7 @@
         {
             if (telemetryItem == null)
             {
-                CoreEventSource.Log.LogVerbose("telemetryItem param is null in EventSourceWriter.WriteTelemetry()");                
+                CoreEventSource.Log.LogVerbose("telemetryItem parameter is null in EventSourceWriter.WriteTelemetry()");                
                 return;
             }
 
@@ -142,7 +142,7 @@
                 }
                 else
                 {
-                    string msg = string.Format(CultureInfo.InvariantCulture, "Unknown telemtry type: {0}", telemetryItem.GetType());                    
+                    string msg = string.Format(CultureInfo.InvariantCulture, "Unknown telemetry type: {0}", telemetryItem.GetType());                    
                     CoreEventSource.Log.LogVerbose(msg);
                 }
             }

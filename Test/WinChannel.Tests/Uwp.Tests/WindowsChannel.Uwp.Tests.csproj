@@ -128,7 +128,7 @@
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Core.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Src\WindowsChannel\TestFramework\Uwp\TestFramework.Uwp.csproj">
+    <ProjectReference Include="..\TestFramework\Uwp\TestFramework.Uwp.csproj">
       <Project>{95d2d904-1034-4e66-a5a7-0593c02783c9}</Project>
       <Name>TestFramework.Uwp</Name>
     </ProjectReference>
@@ -140,7 +140,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="..\..\..\Src\WindowsChannel\UTC.Tests\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
+  <Import Project="..\Shared.Tests\Shared.Tests.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
