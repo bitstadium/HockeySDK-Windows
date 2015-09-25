@@ -39,6 +39,8 @@ using System.Net.NetworkInformation;
 using HockeyApp.Exceptions;
 using HockeyApp.Model;
 using HockeyApp.Internal;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.Extensibility;
 
 namespace HockeyApp
 {
@@ -138,7 +140,7 @@ namespace HockeyApp
                 throw new InvalidOperationException("CrashHandler was already configured!");
             }
 
-            Extensions.ApplicationInsights.ConfigureApplicationInsights(identifier);
+            CrashHandler.ConfigureApplicationInsights(identifier);
         }
 
         /// <summary>
@@ -378,6 +380,21 @@ namespace HockeyApp
             else
             {
                 return "Unknown";
+            }
+        }
+
+        /// <summary>
+        /// Bootstraps Application Insights SDK
+        /// </summary>
+        /// <param name="applicationInsightsInstrumentationKey"></param>
+        private static void ConfigureApplicationInsights(string applicationInsightsInstrumentationKey)
+        {
+            try
+            {
+                TelemetryConfiguration.Active.InstrumentationKey = applicationInsightsInstrumentationKey;
+            }
+            catch (Exception)
+            {
             }
         }
     }

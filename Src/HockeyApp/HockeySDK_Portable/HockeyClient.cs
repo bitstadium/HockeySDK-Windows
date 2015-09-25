@@ -349,8 +349,6 @@ namespace HockeyApp
             _instance.Device = device;
             _instance.Oem = oem;
             _instance.Uuid = uuid;
-
-            Extensions.ApplicationInsights.ConfigureApplicationInsights(appIdentifier);
         }
 
         /// <summary>

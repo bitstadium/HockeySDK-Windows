@@ -37,9 +37,6 @@
     <Compile Include="..\HockeySDK_Portable\Exceptions\WebTransferException.cs">
       <Link>Exceptions\WebTransferException.cs</Link>
     </Compile>
-    <Compile Include="..\HockeySDK_Portable\Extensions\ApplicationInsights.cs">
-      <Link>Extensions\ApplicationInsights.cs</Link>
-    </Compile>
     <Compile Include="..\HockeySDK_Portable\Extensions\ExceptionExtension.cs">
       <Link>Extensions\ExceptionExtension.cs</Link>
     </Compile>

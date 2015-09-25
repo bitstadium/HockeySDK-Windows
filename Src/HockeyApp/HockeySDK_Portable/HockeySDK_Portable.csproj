@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exceptions\WebTransferException.cs" />
-    <Compile Include="Extensions\ApplicationInsights.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\MD5.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
