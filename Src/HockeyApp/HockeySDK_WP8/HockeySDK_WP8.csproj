@@ -199,6 +199,10 @@
     <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Windows\Wp80\Windows.Wp80.csproj">
+      <Project>{afc48348-7368-47be-85e6-6707ca42e2e5}</Project>
+      <Name>Windows.Wp80</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HockeySDK_Portable45\HockeySDK_Portable45.csproj">
       <Project>{643606ba-84a8-483f-a582-49e472b8701e}</Project>
       <Name>HockeySDK_Portable45</Name>
