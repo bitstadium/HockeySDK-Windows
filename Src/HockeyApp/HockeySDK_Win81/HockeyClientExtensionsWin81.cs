@@ -40,7 +40,8 @@ namespace HockeyApp
                     Application.Current.Exit();
                 }
             };
-            
+
+            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(appIdentifier);
             return @this as IHockeyClientConfigurable;
         }
 

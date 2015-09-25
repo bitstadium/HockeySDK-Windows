@@ -116,6 +116,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Net40\Core.Net40.csproj">
+      <Project>{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}</Project>
+      <Name>Core.Net40</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HockeySDK_Portable\HockeySDK_Portable.csproj">
       <Project>{dd8a28b6-572b-4c4f-8f73-3d4a7d4f7f96}</Project>
       <Name>HockeySDK_Portable</Name>

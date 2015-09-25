@@ -52,6 +52,7 @@ namespace HockeyApp
                 sdkName: Constants.SDKNAME,
                 sdkVersion: Constants.SDKVERSION);
 
+            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(userID);
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader);
         }
 

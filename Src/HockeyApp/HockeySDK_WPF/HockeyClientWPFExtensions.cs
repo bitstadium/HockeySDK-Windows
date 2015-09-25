@@ -27,7 +27,7 @@ namespace HockeyApp
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
-
+            Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey = identifier;
             return (IHockeyClientConfigurable)@this;
         }
 

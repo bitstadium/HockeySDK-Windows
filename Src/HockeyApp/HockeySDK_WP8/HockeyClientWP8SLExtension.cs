@@ -1,13 +1,11 @@
 ﻿using HockeyApp.Internal;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Resources;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using Microsoft.ApplicationInsights;
 
 namespace HockeyApp
 {
@@ -50,6 +48,7 @@ namespace HockeyApp
                 AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
             }
 
+            HockeyClientWP8SLExtension.ConfigureApplicationInsights(appId);
             return @this as IHockeyClientConfigurable;
         }
 
@@ -68,6 +67,20 @@ namespace HockeyApp
             return @this;
         }
 
+        /// <summary>
+        /// Bootstraps Application Insights SDK
+        /// </summary>
+        /// <param name="applicationInsightsInstrumentationKey"></param>
+        private static void ConfigureApplicationInsights(string applicationInsightsInstrumentationKey)
+        {
+            try
+            {
+                WindowsAppInitializer.InitializeAsync(applicationInsightsInstrumentationKey);
+            }
+            catch (Exception)
+            {
+            }
+        }
 
         #endregion
 
