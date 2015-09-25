@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.WINRT80</id>
+    <version>2.2.0-beta3</version>
+    <authors>Bit Stadium GmbH</authors>
+  <owners>Bit Stadium GmbH</owners>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use the HockeyApp platform from Windows apps. Collect crash reports and provide feedback-functionality. Legacy support for win 8.0</description>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
+    <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
+
+    <dependencies>
+       <dependency id="HockeySDK.Core" version="[2.2.0-beta3]" />
+    </dependencies>
+  </metadata>
+
+  <files>
+    <file src="..\bin\winrt_80\Release\HockeyApp.*" target="lib\windows" />
+    <file src="tools\**" target="tools" />
+  </files>
+</package>
