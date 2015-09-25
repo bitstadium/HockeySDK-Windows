@@ -41,6 +41,7 @@ using HockeyApp.Model;
 using HockeyApp.Internal;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Extensibility.Windows;
 
 namespace HockeyApp
 {
@@ -391,7 +392,7 @@ namespace HockeyApp
         {
             try
             {
-                TelemetryConfiguration.Active.InstrumentationKey = applicationInsightsInstrumentationKey;
+                WindowsAppInitializer.InitializeAsync(applicationInsightsInstrumentationKey);
             }
             catch (Exception)
             {
