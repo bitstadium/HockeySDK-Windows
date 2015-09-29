@@ -101,6 +101,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Net40", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Net45", "Core\ApplicationInsights-dotnet\src\TelemetryChannels\PersistenceChannel\Net45\PersistenceChannel.Net45.csproj", "{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.Core.NuGet", "Src\Windows\NuGet\HockeySDK.Core\HockeySDK.Core.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{412659ca-49b0-4834-bfbf-8183055083c8}*SharedItemsImports = 4
@@ -375,6 +377,14 @@ Global
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -415,5 +425,6 @@ Global
 		{D076FB25-D286-48F5-80C9-F55FFA576B77} = {68CC2924-E162-44BE-8D7A-DBA385365585}
 		{1EFA40A6-A835-4668-A41F-CB2660B93BFC} = {A2B4271C-9FB7-4D61-8181-0DC843954531}
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C} = {A2B4271C-9FB7-4D61-8181-0DC843954531}
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 	EndGlobalSection
 EndGlobal
