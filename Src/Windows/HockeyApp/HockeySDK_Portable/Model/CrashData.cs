@@ -76,6 +76,7 @@ namespace HockeyApp.Model
         /// called on deserializing
         /// </summary>
         /// <param name="context">context of (de)serializer</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2238:ImplementSerializationMethodsCorrectly")]
         [OnDeserializing]
         public void OnDeserializing(StreamingContext context)
         {

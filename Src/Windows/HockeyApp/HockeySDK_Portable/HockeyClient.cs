@@ -27,6 +27,8 @@ namespace HockeyApp
         /// <summary>
         /// ApiBase of HockeyApp server
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)", Justification ="ToDo: Perform refactoring after HA/AI SDK integration.")]
         [Obsolete("Use Version-specific ApiBase!")]
         public string ApiBase
         {
@@ -54,6 +56,7 @@ namespace HockeyApp
         /// <summary>
         /// Base URL (prototcol+domainname) of HockeyApp server
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
         public string ApiDomain
         {
             get { return _apiDomain; }
@@ -354,6 +357,7 @@ namespace HockeyApp
         /// <summary>
         /// The current configured instance of HockeyClient
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         [Obsolete("Use IHockeyClient.Current if you utilize the new extensions method HockeyClient.Current.Configure(...)")]
         public static IHockeyClient Instance
         {
@@ -529,6 +533,7 @@ namespace HockeyApp
         /// Handle exception syncronously (only for platforms that support sync write to storage
         /// </summary>
         /// <param name="ex">the exception that should be saved to a crashlog</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.String.Format(System.String,System.Object[])")]
         public void HandleException(Exception ex)
         {
             if (!this.PlatformHelper.PlatformSupportsSyncWrite)
@@ -805,6 +810,7 @@ namespace HockeyApp
         /// <summary>
         /// A filled CrashLogInformation object
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
         public CrashLogInformation PrefilledCrashLogInfo
         {
             get

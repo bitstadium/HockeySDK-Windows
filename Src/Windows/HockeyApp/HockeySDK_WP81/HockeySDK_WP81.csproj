@@ -129,7 +129,7 @@
     <PRIResource Include="Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Windows\Wrt81\Windows.Wrt81.csproj">
+    <ProjectReference Include="..\..\Wrt81\Windows.Wrt81.csproj">
       <Project>{2e1127b9-787b-4427-8d92-1e9eb3a79de1}</Project>
       <Name>Windows.Wrt81</Name>
     </ProjectReference>

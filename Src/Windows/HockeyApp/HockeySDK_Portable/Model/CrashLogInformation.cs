@@ -47,6 +47,8 @@ namespace HockeyApp.Model
         /// concatenate info to key-value string 
         /// </summary>
         /// <returns>data as string</returns>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.DateTime.ToString(System.String)")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.Text.StringBuilder.AppendFormat(System.String,System.Object[])")]
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();

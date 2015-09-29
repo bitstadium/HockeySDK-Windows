@@ -105,6 +105,7 @@ namespace HockeyApp.Model
         /// <summary>
         /// Timestamp of creation
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1305:SpecifyIFormatProvider", MessageId = "System.DateTime.Parse(System.String)")]
         public DateTime Created
         {
             get
