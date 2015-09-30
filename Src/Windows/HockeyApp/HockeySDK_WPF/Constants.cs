@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
+using System.Globalization;
 
 namespace HockeyApp
 {
@@ -12,7 +10,7 @@ namespace HockeyApp
         internal static string GetPathToHockeyCrashes()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            if (!path.EndsWith("\\")) { path += "\\"; }
+            if (!path.EndsWith("\\", StringComparison.OrdinalIgnoreCase)) { path += "\\"; }
             path += "HockeyApp\\" + HockeyClientWPFExtensions.AppIdHash + "\\";
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             return path;

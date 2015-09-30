@@ -20,6 +20,7 @@
   </metadata>
 
   <files>
+    <!-- HockeySDK -->
     <file src="$configuration$\Windows\HockeyApp\HockeySDK_Win81\HockeyApp.dll" target="lib\portable-win81" />
     <file src="$configuration$\Windows\HockeyApp\HockeySDK_Win81\HockeyApp.pri" target="lib\portable-win81" />
     <file src="$configuration$\Windows\HockeyApp\HockeySDK_Win81\HockeyApp.pdb" target="lib\portable-win81" />
@@ -33,5 +34,8 @@
     <file src="$configuration$\Windows\HockeyApp\HockeySDK_WP81\Views\*.xbf" target="lib\portable-wpa81\HockeyApp\Views" />
     <file src="$configuration$\Windows\HockeyApp\HockeySDK_WP81\Assets\*.*" target="lib\portable-wpa81\HockeyApp\Assets" />
     <file src="$configuration$\src\Windows\NuGet\HockeySDK.WP\tools\**" target="tools" />
+  
+    <!-- Application Insights -->
+    <file src="$configuration$\Windows\Wrt81\Microsoft.ApplicationInsights.*" target="lib\portable-win81" />
   </files>
 </package>

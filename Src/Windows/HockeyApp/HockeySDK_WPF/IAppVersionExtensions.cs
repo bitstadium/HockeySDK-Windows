@@ -15,6 +15,7 @@ namespace HockeyApp
         //better ideas welcome... Need something like an extension property
         private static Dictionary<string, string> _downloadFilesnames = new Dictionary<string, string>();
 
+#pragma warning disable 1998
         /// <summary>
         /// Downloads the new version to a temporary folder and provides the generated filename.
         /// The progress delegate returns, if the download process should be canceled. Return false, if not.
@@ -64,6 +65,7 @@ namespace HockeyApp
             }
             return msiFilenameWithPath;
         }
+#pragma warning restore  1998
 
         /// <summary>
         /// Installs the app. If not downloaded, the download will start implicitly.

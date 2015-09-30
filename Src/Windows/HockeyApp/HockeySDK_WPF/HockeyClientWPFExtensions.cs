@@ -137,7 +137,7 @@ namespace HockeyApp
 
         #region Update
 
-
+#pragma warning disable 612, 618
         /// <summary>
         /// Check for available updates asynchronously.
         /// </summary>
@@ -152,6 +152,7 @@ namespace HockeyApp
             //TODO refactor for next version
             return await HockeyClientWPF.Instance.UpdateManager.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
         }
+#pragma warning restore 612, 618
 
         #endregion
 

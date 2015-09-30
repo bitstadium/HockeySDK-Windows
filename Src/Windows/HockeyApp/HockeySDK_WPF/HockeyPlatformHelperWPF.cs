@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace HockeyApp
             return ((folderName ?? "") + (noDirectorySeparator ? "" : "" + Path.DirectorySeparatorChar) + HockeyClientWPFExtensions.AppIdHash);
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
             using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Create, FileAccess.Write))
@@ -35,6 +37,7 @@ namespace HockeyApp
             }
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
             if(isoStore.FileExists(FILE_PREFIX + key)) {

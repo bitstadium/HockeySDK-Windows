@@ -1,13 +1,10 @@
-﻿using HockeyApp.Exceptions;
-using HockeyApp.Model;
+﻿using HockeyApp.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Globalization;
 
 namespace HockeyApp
 {
@@ -66,7 +63,7 @@ namespace HockeyApp
             try
             {
                 string crashID = Guid.NewGuid().ToString();
-                String filename = String.Format("{0}{1}.log", Constants.CrashFilePrefix, crashID);
+                String filename = String.Format(CultureInfo.InvariantCulture, "{0}{1}.log", Constants.CrashFilePrefix, crashID);
 
                 CrashLogInformation logInfo = new CrashLogInformation()
                 {
