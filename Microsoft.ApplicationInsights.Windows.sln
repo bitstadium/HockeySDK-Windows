@@ -107,6 +107,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WinForms.NuGet", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WP.NuGet", "Src\Windows\NuGet\HockeySDK.WP\HockeySDK.WP.NuGet.csproj", "{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WINRT.NuGet", "Src\Windows\NuGet\HockeySDK.WINRT\HockeySDK.WINRT.NuGet.csproj", "{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{412659ca-49b0-4834-bfbf-8183055083c8}*SharedItemsImports = 4
@@ -311,12 +313,12 @@ Global
 		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{621893EB-F854-4777-8CFD-9032E6FF740C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{621893EB-F854-4777-8CFD-9032E6FF740C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{621893EB-F854-4777-8CFD-9032E6FF740C}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
@@ -405,6 +407,14 @@ Global
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -448,5 +458,6 @@ Global
 		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 	EndGlobalSection
 EndGlobal
