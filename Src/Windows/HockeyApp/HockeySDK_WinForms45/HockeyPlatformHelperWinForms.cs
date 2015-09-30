@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace HockeyApp
         private const string FILE_PREFIX = "HA__SETTING_";
         IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
             using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key,FileMode.Create, FileAccess.Write)){
@@ -27,11 +29,12 @@ namespace HockeyApp
             }
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
             if(isoStore.FileExists(FILE_PREFIX + key)) {
                 using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key,FileMode.Open, FileAccess.Read)){
-                    using(var reader = new StreamReader(fileStream)){
+                    using(var reader = new StreamReader(fileStream)) {
                         return reader.ReadToEnd();
                     }
                 }
@@ -48,7 +51,9 @@ namespace HockeyApp
 
 
         #region File access
-
+        
+        // ToDo: Remove warning suppression
+#pragma warning disable 1998
         public async Task<bool> DeleteFileAsync(string fileName, string folderName = null)
         {
             if (isoStore.FileExists((folderName ?? "") + Path.DirectorySeparatorChar + fileName))
@@ -69,6 +74,19 @@ namespace HockeyApp
             return isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
         }
 
+        public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
+        {
+            try
+            {
+                return isoStore.GetFileNames((folderName ?? "") + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                return new string[0];
+            }
+        }
+ #pragma warning restore 1998
+
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
             // Ensure crashes folder exists
@@ -78,15 +96,6 @@ namespace HockeyApp
 
             using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
                 await dataStream.CopyToAsync(fileStream);
-            }
-        }
-
-        public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
-        {
-            try {
-                return isoStore.GetFileNames((folderName ?? "") + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
-            } catch (DirectoryNotFoundException) {
-                return new string[0];
             }
         }
 

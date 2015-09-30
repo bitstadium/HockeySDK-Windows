@@ -12,7 +12,7 @@ namespace HockeyApp
         public static string GetPathToHockeyCrashes()
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-            if (!path.EndsWith("\\")) { path += "\\"; }
+            if (!path.EndsWith("\\", StringComparison.OrdinalIgnoreCase)) { path += "\\"; }
             path += "HockeyCrashes\\";
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             return path;
