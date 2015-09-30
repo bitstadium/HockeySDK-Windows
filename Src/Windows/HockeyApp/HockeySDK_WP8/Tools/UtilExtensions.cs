@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using System.Globalization;
 
 namespace HockeyApp.Tools
 {
@@ -95,14 +96,14 @@ namespace HockeyApp.Tools
                 //handle ARGB strings (8 characters long)
                 if (hexColorString.Length == 8)
                 {
-                    a = byte.Parse(hexColorString.Substring(0, 2), System.Globalization.NumberStyles.HexNumber);
+                    a = byte.Parse(hexColorString.Substring(0, 2), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture);
                     start = 2;
                 }
 
                 //convert RGB characters to bytes
-                r = byte.Parse(hexColorString.Substring(start, 2), System.Globalization.NumberStyles.HexNumber);
-                g = byte.Parse(hexColorString.Substring(start + 2, 2), System.Globalization.NumberStyles.HexNumber);
-                b = byte.Parse(hexColorString.Substring(start + 4, 2), System.Globalization.NumberStyles.HexNumber);
+                r = byte.Parse(hexColorString.Substring(start, 2), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                g = byte.Parse(hexColorString.Substring(start + 2, 2), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture);
+                b = byte.Parse(hexColorString.Substring(start + 4, 2), System.Globalization.NumberStyles.HexNumber, CultureInfo.InvariantCulture);
 
                 return Color.FromArgb(a, r, g, b);
             }

@@ -42,6 +42,7 @@ using HockeyApp.Internal;
 using Microsoft.ApplicationInsights;
 using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.ApplicationInsights.Extensibility.Windows;
+using System.Globalization;
 
 namespace HockeyApp
 {
@@ -178,7 +179,7 @@ namespace HockeyApp
                     store.CreateDirectory(Constants.CrashDirectoryName);
                 }
 
-                String filename = string.Format("{0}{1}.log", Constants.CrashFilePrefix, crashId);
+                String filename = string.Format(CultureInfo.InvariantCulture, "{0}{1}.log", Constants.CrashFilePrefix, crashId);
                 using (FileStream stream = store.CreateFile(Path.Combine(Constants.CrashDirectoryName, filename)))
                 {
                     cd.Serialize(stream);

@@ -25,7 +25,7 @@ namespace HockeyApp.Tools
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             string res = (string)value;
-            if(!String.IsNullOrEmpty(res) && !res.TrimEnd().EndsWith(":")){
+            if(!String.IsNullOrEmpty(res) && !res.TrimEnd().EndsWith(":", StringComparison.OrdinalIgnoreCase)){
                 return res.TrimEnd() + ":";
             }
             return value;

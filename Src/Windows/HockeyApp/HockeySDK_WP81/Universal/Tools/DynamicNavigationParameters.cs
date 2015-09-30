@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Dynamic;
 using System.Reflection;
-using System.Threading.Tasks;
-using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace HockeyApp.Tools
 {
@@ -27,11 +25,13 @@ namespace HockeyApp.Tools
 
         public Dictionary<string,object> Properties = new Dictionary<string, object>();
 
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "ToDo: Remove suppression.")]
         public DynamicNavigationParameters() 
         {
             Initialize(this);            
         }
 
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors", Justification = "ToDo: Remove suppression.")]
         public DynamicNavigationParameters(object instance)
         {
             Initialize(instance);
