@@ -109,6 +109,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WP.NuGet", "Src\W
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WINRT.NuGet", "Src\Windows\NuGet\HockeySDK.WINRT\HockeySDK.WINRT.NuGet.csproj", "{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WPF.NuGet", "Src\Windows\NuGet\HockeySDK.WPF\HockeySDK.WPF.NuGet.csproj", "{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Core\ApplicationInsights-dotnet\src\Core\Managed\Shared\Shared.projitems*{412659ca-49b0-4834-bfbf-8183055083c8}*SharedItemsImports = 4
@@ -415,6 +417,14 @@ Global
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -459,5 +469,6 @@ Global
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 	EndGlobalSection
 EndGlobal
