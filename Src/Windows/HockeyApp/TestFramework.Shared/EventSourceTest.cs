@@ -6,7 +6,7 @@ namespace Microsoft.ApplicationInsights.TestFramework
 {
     using System;
     using System.Collections.Generic;
-#if CORE_PCL || NET45 || WINRT || UWP || NET46
+#if CORE_PCL || NET45 || WINRT || UWP || NET46 || WINDOWS_UWP
     using System.Diagnostics.Tracing;
 #endif
     using System.Globalization;
@@ -69,7 +69,7 @@ namespace Microsoft.ApplicationInsights.TestFramework
                 return "Test String";
             }
 
-#if WINRT || UWP
+#if WINRT || UWP || WINDOWS_UWP
             if (parameter.ParameterType.GetTypeInfo().IsValueType)
 #else
             if (parameter.ParameterType.IsValueType)
@@ -104,7 +104,7 @@ namespace Microsoft.ApplicationInsights.TestFramework
 
         private static void VerifyEventApplicationName(MethodInfo eventMethod, EventWrittenEventArgs actualEvent)
         {
-#if !WINRT && !UWP
+#if !WINRT && !UWP && !WINDOWS_UWP
             string expectedApplicationName = AppDomain.CurrentDomain.FriendlyName;
 #else
             string expectedApplicationName = string.Empty;

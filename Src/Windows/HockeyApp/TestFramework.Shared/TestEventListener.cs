@@ -3,7 +3,7 @@ namespace Microsoft.ApplicationInsights.TestFramework
 {
     using System;
     using System.Collections.Generic;
-#if CORE_PCL || NET45 || WINRT || UWP || NET46
+#if CORE_PCL || NET45 || WINRT || UWP || NET46 || WINDOWS_UWP
     using System.Diagnostics.Tracing;
 #endif
     using System.Threading;
