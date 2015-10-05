@@ -103,7 +103,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wrt81.Te
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Extensibility.Shared.Tests", "Src\Windows\HockeyApp\Extensibility.Shared.Tests\Extensibility.Shared.Tests.shproj", "{DB22AB6F-C72E-44DA-B0FE-E2FFAA02CD59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Tests", "Src\Windows\HockeyApp\Extensibility.Wrt81.Tests\Extensibility.Wrt81.Tests.csproj", "{E1F01DCB-5479-4B09-8208-037F84B71D72}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Win81.Tests", "Src\Windows\HockeyApp\Extensibility.Wrt81.Win81.Tests\Extensibility.Wrt81.Win81.Tests.csproj", "{E1F01DCB-5479-4B09-8208-037F84B71D72}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

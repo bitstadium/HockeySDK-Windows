@@ -9,4 +9,4 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Extensibility.Wpa81.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Extensibility.Wp80.Tests" + AssemblyInfo.PublicKey)]
-[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Extensibility.Wrt81.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Extensibility.Wrt81.Win81.Tests" + AssemblyInfo.PublicKey)]
