@@ -121,20 +121,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Wp80\Core.Wp80.csproj">
-      <Project>{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}</Project>
-      <Name>Core.Wp80</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Core\ApplicationInsights-dotnet\Test\CoreSDK.Test\TestFramework\Wp80\TestFramework.Wp80.csproj">
-      <Project>{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}</Project>
-      <Name>TestFramework.Wp80</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\Windows\Wp80\Windows.Wp80.csproj">
-      <Project>{AFC48348-7368-47BE-85E6-6707CA42E2E5}</Project>
-      <Name>Windows.Wp80</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="..\Shared.Tests\Windows.Shared.Tests.projitems" Label="Shared" />

@@ -62,7 +62,7 @@
       <Name>PersistenceChannel.Wp80</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Extensibility.Shared" />
+  <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <Import Project="..\..\..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\..\..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

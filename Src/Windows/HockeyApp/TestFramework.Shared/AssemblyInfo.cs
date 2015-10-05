@@ -17,3 +17,8 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Windows.Wp80.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Windows.Wpa81.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.Windows.Win81.Tests" + AssemblyInfo.PublicKey)]
+
+[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.PersistenceChannel.Net40.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.PersistenceChannel.Net45.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.PersistenceChannel.Wrt81.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.ApplicationInsights.PersistenceChannel.Wp80.Tests" + AssemblyInfo.PublicKey)]

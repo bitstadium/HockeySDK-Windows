@@ -89,7 +89,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Core.Shared.Tests" />
+  <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
   <Import Project="..\Shared.Net\Core.Shared.Net.Tests.projitems" Label="Shared" Condition="Exists('..\Shared.Net\Core.Shared.Net.Tests.projitems')" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

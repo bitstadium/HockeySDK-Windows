@@ -53,7 +53,7 @@
     <Compile Include="Extensibility\Implementation\External\Tags.cs" />
     <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
   </ItemGroup>
-  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Core.Shared" />
+  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
