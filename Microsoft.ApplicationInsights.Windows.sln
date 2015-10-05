@@ -107,6 +107,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Win81.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wp80.Tests", "Src\Windows\HockeyApp\Extensibility.Wp80.Tests\Extensibility.Wp80.Tests.csproj", "{0FF88612-6F5B-4D8E-A78A-38851F038066}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Wpa81.Tests", "Src\Windows\HockeyApp\Extensibility.Wrt81.Wpa81.Tests\Extensibility.Wrt81.Wpa81.Tests.csproj", "{DC80A5B2-4643-4C45-8C1E-280B4D57C312}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Src\Windows\HockeyApp\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{bf0ac726-de9a-4da2-8a24-e8b8bc4b2479}*SharedItemsImports = 13
@@ -114,6 +116,7 @@ Global
 		Src\Windows\HockeyApp\TestFramework.Shared\TestFramework.Shared.projitems*{48b9ced7-8caf-4605-a74f-54693b16ef52}*SharedItemsImports = 4
 		Src\Windows\HockeyApp\TestFramework.Shared\TestFramework.Shared.projitems*{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}*SharedItemsImports = 4
 		Src\Windows\HockeyApp\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{27bf043b-b716-44cf-940e-33a106cde314}*SharedItemsImports = 4
+		Src\Windows\HockeyApp\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{dc80a5b2-4643-4c45-8c1e-280b4d57c312}*SharedItemsImports = 4
 		Src\Windows\HockeyApp\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{e1f01dcb-5479-4b09-8208-037f84b71d72}*SharedItemsImports = 4
 		Src\Windows\HockeyApp\Extensibility.Shared\Extensibility.Shared.projitems*{afc48348-7368-47be-85e6-6707ca42e2e5}*SharedItemsImports = 4
 		Src\Windows\HockeyApp\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{4cd8227f-afaa-425e-8c49-276167053110}*SharedItemsImports = 4
@@ -999,6 +1002,28 @@ Global
 		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|x86.ActiveCfg = Release|x86
 		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|x86.Build.0 = Release|x86
 		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|x86.Deploy.0 = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.ActiveCfg = Debug|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.Build.0 = Debug|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.Deploy.0 = Debug|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x64.ActiveCfg = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x86.ActiveCfg = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x86.Build.0 = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x86.Deploy.0 = Debug|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Any CPU.ActiveCfg = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.ActiveCfg = Release|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.Build.0 = Release|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.Deploy.0 = Release|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.Build.0 = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.Deploy.0 = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|x64.ActiveCfg = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|x86.ActiveCfg = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|x86.Build.0 = Release|x86
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
