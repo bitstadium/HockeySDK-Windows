@@ -69,10 +69,12 @@
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Core\ApplicationInsights-dotnet\src\Core\Managed\Net45\Core.Net45.csproj">
+    <ProjectReference Include="..\Core.Net45\Core.Net45.csproj">
       <Project>{412659ca-49b0-4834-bfbf-8183055083c8}</Project>
       <Name>Core.Net45</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\HockeySDK_Portable45\HockeySDK_Portable45.csproj">
       <Project>{643606ba-84a8-483f-a582-49e472b8701e}</Project>
       <Name>HockeySDK_Portable45</Name>

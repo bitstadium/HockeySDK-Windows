@@ -7,7 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HockeyPlatformHelperWinForms = HockeyApp.HockeyPlatformHelperWPF;
-using Microsoft.ApplicationInsights;
+using Microsoft.
+    ApplicationInsights;
 
 namespace HockeyApp
 {

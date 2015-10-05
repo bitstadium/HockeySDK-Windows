@@ -62,7 +62,7 @@
   <ItemGroup>
     <Compile Include="Storage.cs" />
   </ItemGroup>
-  <Import Project="..\PersistenceChannel.Shared\PersistentChannel.Shared.projitems" Label="PersistentChannel.Shared" />
+  <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="PersistenceChannel.Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\..\..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets')" />
   <Import Project="..\..\..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\..\..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
