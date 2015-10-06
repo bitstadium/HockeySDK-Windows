@@ -1,0 +1,41 @@
+﻿body { 
+    background: #000000; 
+    color: #FEFEFE;
+    font-family: "Segoe WP";
+    font-size: 11pt;
+    letter-spacing: 0.02em;
+    width: 460px;
+    font-weight: 300;
+    margin: 0 0 0 6px;
+    padding: 0;
+    min-height: 99%;
+    background-color: Background;
+    -ms-text-size-adjust: none;
+    padding-bottom: 8px;
+}
+
+.light {
+    color: #000000;
+}
+
+.dark {
+    color: #FFFFFF;
+}
+
+h3 
+{
+    font-weight: 500;
+    margin: 18px 0 6px 0;
+}
+
+ul
+{
+    padding: 0px;
+    margin: 0px;
+}
+
+ul li
+{
+    padding-left: 0px; 
+    margin: 8px 0;
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.WinForms</id>
+    <version>2.1.0-beta6</version>
+    <authors>Bit Stadium GmbH</authors>
+    <owners>Bit Stadium GmbH</owners>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates. Includes a CrashReporter for WinForms projects.</description>
+    <language>en-US</language>
+    <releaseNotes>Optimizations for Feedback</releaseNotes>
+    <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
+    <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
+
+    <dependencies>
+       <dependency id="HockeySDK.Core" version="[2.1.0-beta6]" />
+    </dependencies>
+  </metadata>
+
+  <files>
+    <!-- HockeySDK -->
+    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WinForms45\HockeyApp.*" target="lib\net45" />
+    <file src="$configuration$\src\Windows\NuGet\HockeySDK.WinForms\tools\**" target="tools" />
+    
+    <!-- Application Insights -->
+    <!-- Binaries for .NET 4.5 projects -->
+    <!-- Currently a hack to get it from WPF binaries, because we don't have access to core -->
+    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WPF45\Microsoft.ApplicationInsights.*" target="lib\net45" />
+  </files>
+</package>

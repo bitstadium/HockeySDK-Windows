@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.Core</id>
+    <version>2.2.7</version>
+    <authors>Bit Stadium GmbH</authors>
+    <owners>Bit Stadium GmbH</owners>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Use the HockeyApp platform from Windows and WindowsPhone apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
+    <language>en-US</language>
+    <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
+    <tags>crash reports reporting feedback WPF WP8 SL5 windows phone hockeyapp</tags>
+    <dependencies>
+      <group targetFramework="portable-net40+sl5">
+        <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
+      </group>
+      <group targetFramework="portable-net45+win8+wp8+wpa81">
+        
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <!-- Hockey SDK -->
+    <file src="$configuration$\Windows\HockeyApp\HockeySDK_Portable\HockeyAppPCL.*" target="lib\portable-net40+sl5" />
+    <file src="$configuration$\Windows\HockeyApp\HockeySDK_Portable45\HockeyAppPCL.*" target="lib\portable-net45+win8+wp8+wpa81+win81" />
+  </files>
+</package>

@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AttachImg" xml:space="preserve">
+    <value>Attach image</value>
+  </data>
+  <data name="AuthAuthorizeButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="AuthAuthorizeNote" xml:space="preserve">
+    <value>Please enter your HockeyApp account's email address and password to authorize access to this app.</value>
+  </data>
+  <data name="AuthCredentialsError" xml:space="preserve">
+    <value>You have entered an invalid email or password. Please check your input and try again.</value>
+  </data>
+  <data name="Authentication_AppSecretMissing" xml:space="preserve">
+    <value>The HockeySDK authorization secret has not been set. Please contact the developer of this app.</value>
+  </data>
+  <data name="AuthIdentifyButton" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="AuthIdentifyNote" xml:space="preserve">
+    <value>Please enter your HockeyApp account's email address to authorize access to this app.</value>
+  </data>
+  <data name="AuthNetworkError" xml:space="preserve">
+    <value>Failed to authorize because your device appears to be disconnected from the Internet. Please try again.</value>
+  </data>
+  <data name="AuthNoMemberError" xml:space="preserve">
+    <value>You are not authorized to use this app. Please contact the developer of this app.</value>
+  </data>
+  <data name="AuthUnknownError" xml:space="preserve">
+    <value>Authorization error. Please contact the developer of this app.</value>
+  </data>
+  <data name="AuthWorking" xml:space="preserve">
+    <value>Working...</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CrashData" xml:space="preserve">
+    <value>Crash Data</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Dismiss" xml:space="preserve">
+    <value>Dismiss</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailEmptyWarning" xml:space="preserve">
+    <value>Please enter a valid email.</value>
+  </data>
+  <data name="FeedbackDateFormat" xml:space="preserve">
+    <value>dd/MM/yyyy HH:mm</value>
+  </data>
+  <data name="FeedbackDrawingColor" xml:space="preserve">
+    <value>#FFFF0000</value>
+  </data>
+  <data name="FeedbackFetchError" xml:space="preserve">
+    <value>There has been a connection problem with the server. Please try again or contact the developer of this app.</value>
+  </data>
+  <data name="FeedbackNoInternet" xml:space="preserve">
+    <value>Your device appears to be disconnected from the Internet. Please try again.</value>
+  </data>
+  <data name="FeedbackSendError" xml:space="preserve">
+    <value>Could not send Feedback. Are you connected to the internet?</value>
+  </data>
+  <data name="ImgClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ImgDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ImgOk" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ImgReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Install" xml:space="preserve">
+    <value>Install</value>
+  </data>
+  <data name="InstallProviderProfile" xml:space="preserve">
+    <value>Install Profile</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MessageEmptyWarning" xml:space="preserve">
+    <value>Please enter a message or add an image as attachment.</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="NoUpdateAvailable" xml:space="preserve">
+    <value>There is currently no new version of the app available.</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="ReleaseNotes" xml:space="preserve">
+    <value>Releasenotes</value>
+  </data>
+  <data name="Reply" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendCrashQuestion" xml:space="preserve">
+    <value>The app quit unexpectedly. Would you like to send information about this to the developer?</value>
+  </data>
+  <data name="Show" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="SubjectEmptyWarning" xml:space="preserve">
+    <value>Please enter a subject.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="UpdateAvailable" xml:space="preserve">
+    <value>A new version of the app is available.</value>
+  </data>
+  <data name="UpdateInProgress" xml:space="preserve">
+    <value>Update in progress...</value>
+  </data>
+  <data name="UpdateNotification" xml:space="preserve">
+    <value>Update notification</value>
+  </data>
+  <data name="UserEmptyWarning" xml:space="preserve">
+    <value>Please enter a name.</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Working" xml:space="preserve">
+    <value>Working...</value>
+  </data>
+  <data name="UpdateUnknownError" xml:space="preserve">
+    <value>Unknown error while checking for app updates. Are you connected to the internet?</value>
+  </data>
+  <data name="FeedbackPageTitle" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="Reload" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="YourMessage" xml:space="preserve">
+    <value>Your message ...</value>
+  </data>
+  <data name="OpenAttachment" xml:space="preserve">
+    <value>Öffnen</value>
+  </data>
+  <data name="RemoveAttachment" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="CloseActiveThreadQuestion" xml:space="preserve">
+    <value>This thread will be closed and can not be reopened from the app. Are you sure?</value>
+  </data>
+  <data name="CloseNewThreadQuestion" xml:space="preserve">
+    <value>Are you sure you want to cancel your message?</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="AuthAuthorizeHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="AuthIdentifyHeader" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="UpdateAPIError" xml:space="preserve">
+    <value>The Installation of the update failed with the error: {0}. 
+Update via web will be tried.</value>
+  </data>
+  <data name="AuthNoInternet" xml:space="preserve">
+    <value>Your device appears to be disconnected from the Internet. Please try again.</value>
+  </data>
+</root>
