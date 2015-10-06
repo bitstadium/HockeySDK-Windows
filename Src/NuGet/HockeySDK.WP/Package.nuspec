@@ -28,13 +28,13 @@
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WP8\HockeyApp.*" target="lib\wp8" />
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WP8\de\HockeyApp.*" target="lib\wp8\de" />
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WP8\Microsoft.ApplicationInsights.*" target="lib\wp8" />
-    <file src="$configuration$\src\Windows\NuGet\HockeySDK.WP\content\**" target="content" />
-    <file src="$configuration$\src\Windows\NuGet\HockeySDK.WP\tools\**" target="tools" />
+    <file src="$configuration$\HockeySDK_WP8\HockeyApp.*" target="lib\wp8" />
+    <file src="$configuration$\HockeySDK_WP8\de\HockeyApp.*" target="lib\wp8\de" />
+    <file src="$configuration$\HockeySDK_WP8\Microsoft.ApplicationInsights.*" target="lib\wp8" />
+    <file src="$configuration$\NuGet\HockeySDK.WP\content\**" target="content" />
+    <file src="$configuration$\NuGet\HockeySDK.WP\tools\**" target="tools" />
 
     <!-- Application Insights -->
-    <file src="$configuration$\Windows\Wp80\Microsoft.ApplicationInsights.*" target="lib\portable-win81" />
+    <file src="$configuration$\Extensibility.Wp80\Microsoft.ApplicationInsights.*" target="lib\portable-win81" />
   </files>
 </package>

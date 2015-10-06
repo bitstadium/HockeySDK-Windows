@@ -21,12 +21,12 @@
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WPF\HockeyApp.*" target="lib\net40" />
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WPF45\HockeyApp.*" target="lib\net45" />
-    <file src="$configuration$\src\Windows\NuGet\HockeySDK.WP\tools\**" target="tools" />
+    <file src="$configuration$\HockeySDK_WPF\HockeyApp.*" target="lib\net40" />
+    <file src="$configuration$\HockeySDK_WPF45\HockeyApp.*" target="lib\net45" />
+    <file src="$configuration$\NuGet\HockeySDK.WP\tools\**" target="tools" />
 
     <!-- Application Insights -->
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WPF\Microsoft.ApplicationInsights.dll.*" target="lib\net40" />
-    <file src="$configuration$\Windows\HockeyApp\HockeySDK_WPF45\Microsoft.ApplicationInsights.dll.*" target="lib\net45" />
+    <file src="$configuration$\HockeySDK_WPF\Microsoft.ApplicationInsights.dll.*" target="lib\net40" />
+    <file src="$configuration$\HockeySDK_WPF45\Microsoft.ApplicationInsights.dll.*" target="lib\net45" />
   </files>
 </package>

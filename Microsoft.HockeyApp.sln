@@ -3,15 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows.NuGet", "Windows.NuGet", "{5116D6F6-6065-48C7-BE05-71EED997F2F9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsApps.NuGet", "src\NuGet\WindowsApps\WindowsApps.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A1}"
-	ProjectSection(ProjectDependencies) = postProject
-		{50368B2B-A526-460E-8AD9-AB2E7951DAB2} = {50368B2B-A526-460E-8AD9-AB2E7951DAB2}
-		{AFC48348-7368-47BE-85E6-6707CA42E2E5} = {AFC48348-7368-47BE-85E6-6707CA42E2E5}
-		{3A820D7A-F63C-460D-B2BD-DDAC9433B4E9} = {3A820D7A-F63C-460D-B2BD-DDAC9433B4E9}
-		{2E1127B9-787B-4427-8D92-1E9EB3A79DE1} = {2E1127B9-787B-4427-8D92-1E9EB3A79DE1}
-	EndProjectSection
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{5116D6F6-6065-48C7-BE05-71EED997F2F9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable45", "Src\HockeySDK_Portable45\HockeySDK_Portable45.csproj", "{643606BA-84A8-483F-A582-49E472B8701E}"
 EndProject
@@ -186,6 +178,26 @@ Global
 		{C9612531-2077-4662-B8A4-092E06D5069B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C9612531-2077-4662-B8A4-092E06D5069B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{CD752CD2-6711-4AD7-B5C8-F8C23CF076B1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
 		{CD752CD2-6711-4AD7-B5C8-F8C23CF076B1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{CD752CD2-6711-4AD7-B5C8-F8C23CF076B1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
@@ -309,7 +321,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A1} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}

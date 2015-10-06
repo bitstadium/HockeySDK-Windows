@@ -73,7 +73,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Extensibility.Wrt81\Extensibility.Wrt81.csproj">
       <Project>{2e1127b9-787b-4427-8d92-1e9eb3a79de1}</Project>
-      <Name>Windows.Wrt81</Name>
+      <Name>Extensibility.Wrt81</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
