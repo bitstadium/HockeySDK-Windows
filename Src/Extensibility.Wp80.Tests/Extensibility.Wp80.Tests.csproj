@@ -119,13 +119,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Wp80.Tests.TestFramework\Core.Wp80.Tests.TestFramework.csproj">
+      <Project>{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}</Project>
+      <Name>Core.Wp80.Tests.TestFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core.Wp80\Core.Wp80.csproj">
       <Project>{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}</Project>
       <Name>Core.Wp80</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFramework.Wp80\TestFramework.Wp80.csproj">
-      <Project>{b3ad9230-7e7a-4c82-8a7e-f297eeef8bb8}</Project>
-      <Name>TestFramework.Wp80</Name>
     </ProjectReference>
     <ProjectReference Include="..\Extensibility.Wp80\Extensibility.Wp80.csproj">
       <Project>{AFC48348-7368-47BE-85E6-6707CA42E2E5}</Project>

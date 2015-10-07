@@ -46,13 +46,13 @@
       <Project>{412659ca-49b0-4834-bfbf-8183055083c8}</Project>
       <Name>Core.Net45</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PersistenceChannel.Net45.Tests.TestFramework\PersistenceChannel.Net45.Tests.TestFramework.csproj">
+      <Project>{9181dca1-c390-44b2-ae4e-93333977a7b3}</Project>
+      <Name>PersistenceChannel.Net45.Tests.TestFramework</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PersistenceChannel.Net45\PersistenceChannel.Net45.csproj">
       <Project>{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}</Project>
       <Name>PersistenceChannel.Net45</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TestFramework.Net45\TestFramework.Net45.csproj">
-      <Project>{9181dca1-c390-44b2-ae4e-93333977a7b3}</Project>
-      <Name>TestFramework.Net45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
