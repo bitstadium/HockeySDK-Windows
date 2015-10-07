@@ -21,6 +21,7 @@
     <NoWarn>1591</NoWarn>
     <!-- Disabling Code Analysis on the project, as it is firing  an error was encountered while parsing il for method exception which causes no harm. -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AppxBundlePlatforms>Any CPU</AppxBundlePlatforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
