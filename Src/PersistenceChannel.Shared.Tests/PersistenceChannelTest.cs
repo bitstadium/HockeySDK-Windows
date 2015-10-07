@@ -115,7 +115,7 @@
             {
                 var channel = new PersistenceChannel();
 
-                var telemetry = new         StubTelemetry();
+                var telemetry = new StubTelemetry();
                 channel.Send(telemetry);
 
                 IEnumerable<ITelemetry> actual = channel.TelemetryBuffer.Dequeue();
