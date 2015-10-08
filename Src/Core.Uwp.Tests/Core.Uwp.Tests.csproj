@@ -15,7 +15,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Core.Uwp.Tests_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
   </PropertyGroup>
@@ -93,6 +93,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
+    <None Include="..\..\HockeyAppTest.pfx">
+      <Link>HockeyAppTest.pfx</Link>
+    </None>
     <None Include="project.json" />
     <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
@@ -112,7 +115,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Core.Uwp.Tests_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
@@ -129,7 +131,7 @@
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Core.Uwp</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestFramework.Uwp\TestFramework.Uwp.csproj">
+    <ProjectReference Include="..\Core.Uwp.Tests.TestFramework\Core.Uwp.Tests.TestFramework.csproj">
       <Project>{48b9ced7-8caf-4605-a74f-54693b16ef52}</Project>
       <Name>TestFramework.Uwp</Name>
     </ProjectReference>
@@ -148,7 +150,7 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="..\Shared\Core.Shared.Tests.projitems" Label="Shared" />
+  <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

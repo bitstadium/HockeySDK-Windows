@@ -43,10 +43,8 @@ git clone https://github.com/Microsoft/ApplicationInsights-WindowsApp.git --recu
 
 ## Building
 1. Use Visual Studio 2015.
-2. Install the following certificates: 
+2. Install the following certificates into the current user's personal certificate store. Use empty password. 
    a. Src\Core.Uwp.Tests\Core.Uwp.Tests_TemporaryKey.pfx
    b. Src\Core.Win81.Tests\TemporaryKey.pfx
    c. Src\PersistenceChannel.Wrt81.Tests\TemporaryKey.pfx
    d. Src\Extensibility.Wrt81.Win81.Tests\Windows.Win81.Tests_TemporaryKey.pfx
-   e. Src\Extensibility.Wrt81.Wpa81.Tests\Windows.Wpa81.Tests_TemporaryKey.pfx
-   f. Src\Core.Wpa81.Tests\Wpa81.Tests_TemporaryKey.pfx
