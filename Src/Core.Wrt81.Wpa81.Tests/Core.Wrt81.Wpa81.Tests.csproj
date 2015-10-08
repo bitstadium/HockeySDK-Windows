@@ -62,7 +62,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.Wrt81.Tests.TestFramework\Core.Wrt81.Tests.TestFramework.csproj">
       <Project>{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}</Project>
-      <Name>TestFramework.Wrt81</Name>
+      <Name>Core.Wrt81.Tests.TestFramework</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">
       <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>

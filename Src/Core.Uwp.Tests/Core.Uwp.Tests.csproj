@@ -133,7 +133,7 @@
     </ProjectReference>
     <ProjectReference Include="..\Core.Uwp.Tests.TestFramework\Core.Uwp.Tests.TestFramework.csproj">
       <Project>{48b9ced7-8caf-4605-a74f-54693b16ef52}</Project>
-      <Name>TestFramework.Uwp</Name>
+      <Name>Core.Uwp.Tests.TestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
