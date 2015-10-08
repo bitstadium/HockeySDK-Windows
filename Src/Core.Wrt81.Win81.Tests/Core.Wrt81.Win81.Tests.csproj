@@ -23,7 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PackageCertificateThumbprint>499A3B296891E38FE0021F842E4E5BD66C1BAB58</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>cb0fb236b0bbe12613968b57806e70d693cb9e0</PackageCertificateThumbprint>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
