@@ -23,7 +23,10 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PackageCertificateThumbprint>cb0fb236b0bbe12613968b57806e70d693cb9e0</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
+    
+    <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
+    <EnableSigningChecks>false</EnableSigningChecks>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

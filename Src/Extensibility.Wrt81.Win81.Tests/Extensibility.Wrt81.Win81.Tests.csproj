@@ -15,7 +15,6 @@
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
     <AppxBundle>Never</AppxBundle>
     <AllowCrossPlatformRetargeting>False</AllowCrossPlatformRetargeting>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -23,6 +22,9 @@
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.Windows.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <NuGetPackageImportStamp>3b5ea350</NuGetPackageImportStamp>
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
+    <EnableSigningChecks>false</EnableSigningChecks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />

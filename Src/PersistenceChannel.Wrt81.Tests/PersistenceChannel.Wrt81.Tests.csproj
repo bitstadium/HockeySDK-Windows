@@ -15,7 +15,7 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    
     <AppxBundle>Never</AppxBundle>
     <AppXPackage>True</AppXPackage>
     <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
@@ -24,7 +24,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PackageCertificateThumbprint>cb0fb236b0bbe12613968b57806e70d693cb9e0</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
     <NuGetPackageImportStamp>03e31619</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
