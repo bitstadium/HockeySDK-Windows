@@ -95,15 +95,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Net45.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Net45", "Src\PersistenceChannel.Net45\PersistenceChannel.Net45.csproj", "{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wp80.Tests", "Src\PersistenceChannel.Wp80.Tests\PersistenceChannel.Wp80.Tests.csproj", "{4CD8227F-AFAA-425E-8C49-276167053110}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wrt81.Tests", "Src\PersistenceChannel.Wrt81.Tests\PersistenceChannel.Wrt81.Tests.csproj", "{4CAD12EE-32A9-4206-8379-7857F093BA2D}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Extensibility.Shared.Tests", "Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.shproj", "{DB22AB6F-C72E-44DA-B0FE-E2FFAA02CD59}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Win81.Tests", "Src\Extensibility.Wrt81.Win81.Tests\Extensibility.Wrt81.Win81.Tests.csproj", "{E1F01DCB-5479-4B09-8208-037F84B71D72}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wp80.Tests", "Src\Extensibility.Wp80.Tests\Extensibility.Wp80.Tests.csproj", "{0FF88612-6F5B-4D8E-A78A-38851F038066}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensibility.Wrt81.Wpa81.Tests", "Src\Extensibility.Wrt81.Wpa81.Tests\Extensibility.Wrt81.Wpa81.Tests.csproj", "{DC80A5B2-4643-4C45-8C1E-280B4D57C312}"
 EndProject
@@ -137,21 +133,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Win81.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Wpa81.Tests", "Src\Core.Wrt81.Wpa81.Tests\Core.Wrt81.Wpa81.Tests.csproj", "{6587B432-E16A-4D26-93E1-BF12449FDB32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wp80.Tests", "Src\Core.Wp80.Tests\Core.Wp80.Tests.csproj", "{30717095-904B-47B6-A76B-3D7A21F14E18}"
-EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{bf0ac726-de9a-4da2-8a24-e8b8bc4b2479}*SharedItemsImports = 13
 		Src\Core.Shared\Core.Shared.projitems*{412659ca-49b0-4834-bfbf-8183055083c8}*SharedItemsImports = 4
 		Src\Core.Shared.Tests.TestFramework\Core.Shared.Tests.TestFramework.projitems*{48b9ced7-8caf-4605-a74f-54693b16ef52}*SharedItemsImports = 4
 		Src\Core.Shared.Tests.TestFramework\Core.Shared.Tests.TestFramework.projitems*{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}*SharedItemsImports = 4
-		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{30717095-904b-47b6-a76b-3d7a21f14e18}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{27bf043b-b716-44cf-940e-33a106cde314}*SharedItemsImports = 4
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{dc80a5b2-4643-4c45-8c1e-280b4d57c312}*SharedItemsImports = 4
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{e1f01dcb-5479-4b09-8208-037f84b71d72}*SharedItemsImports = 4
 		Src\Extensibility.Shared\Extensibility.Shared.projitems*{afc48348-7368-47be-85e6-6707ca42e2e5}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{9181dca1-c390-44b2-ae4e-93333977a7b3}*SharedItemsImports = 4
-		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{4cd8227f-afaa-425e-8c49-276167053110}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{726df739-178a-457e-8466-a35ee616365a}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{0927e682-4a56-46b6-8125-94fa066b2f57}*SharedItemsImports = 4
@@ -173,7 +165,6 @@ Global
 		Src\Extensibility.Shared\Extensibility.Shared.projitems*{2e1127b9-787b-4427-8d92-1e9eb3a79de1}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{dcbf9f18-0903-4311-b533-9c41ab2e9728}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}*SharedItemsImports = 4
-		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{0ff88612-6f5b-4d8e-a78a-38851f038066}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{50368b2b-a526-460e-8ad9-ab2e7951dab2}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{ff8678db-8ff0-4507-a793-2ff896fc7ad7}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{c1aaa703-5e32-45c0-a69d-f46d1c659ae4}*SharedItemsImports = 13
@@ -431,14 +422,6 @@ Global
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{DFC9EC7C-8BEF-4FD3-ACEC-9128A9BDE53C}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Release|Any CPU.ActiveCfg = Release|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Release|Mixed Platforms.Build.0 = Release|x86
-		{4CD8227F-AFAA-425E-8C49-276167053110}.Release|Mixed Platforms.Deploy.0 = Release|x86
 		{4CAD12EE-32A9-4206-8379-7857F093BA2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4CAD12EE-32A9-4206-8379-7857F093BA2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CAD12EE-32A9-4206-8379-7857F093BA2D}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
@@ -462,14 +445,6 @@ Global
 		{E1F01DCB-5479-4B09-8208-037F84B71D72}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E1F01DCB-5479-4B09-8208-037F84B71D72}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E1F01DCB-5479-4B09-8208-037F84B71D72}.Release|Mixed Platforms.Deploy.0 = Release|Any CPU
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|Any CPU.ActiveCfg = Release|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|Mixed Platforms.Build.0 = Release|x86
-		{0FF88612-6F5B-4D8E-A78A-38851F038066}.Release|Mixed Platforms.Deploy.0 = Release|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.Build.0 = Debug|x86
@@ -586,14 +561,6 @@ Global
 		{6587B432-E16A-4D26-93E1-BF12449FDB32}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{6587B432-E16A-4D26-93E1-BF12449FDB32}.Release|Mixed Platforms.Build.0 = Release|x86
 		{6587B432-E16A-4D26-93E1-BF12449FDB32}.Release|Mixed Platforms.Deploy.0 = Release|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Release|Any CPU.ActiveCfg = Release|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Release|Mixed Platforms.Build.0 = Release|x86
-		{30717095-904B-47B6-A76B-3D7A21F14E18}.Release|Mixed Platforms.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
