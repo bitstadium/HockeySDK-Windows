@@ -43,8 +43,5 @@ git clone https://github.com/Microsoft/ApplicationInsights-WindowsApp.git --recu
 
 ## Building
 1. Use Visual Studio 2015.
-2. Install the following certificates into the current user's personal certificate store. Use empty password. 
-   a. Src\Core.Uwp.Tests\Core.Uwp.Tests_TemporaryKey.pfx
-   b. Src\Core.Win81.Tests\TemporaryKey.pfx
-   c. Src\PersistenceChannel.Wrt81.Tests\TemporaryKey.pfx
-   d. Src\Extensibility.Wrt81.Win81.Tests\Windows.Win81.Tests_TemporaryKey.pfx
+2. Install HockeyAppTest.pfx certificate into the current user's personal certificate store. Use empty password. 
+
