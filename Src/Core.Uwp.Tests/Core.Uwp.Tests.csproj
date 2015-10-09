@@ -15,10 +15,11 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
     <UnitTestPlatformVersion Condition="'$(UnitTestPlatformVersion)' == ''">14.0</UnitTestPlatformVersion>
     <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F479CF5F67B399C79732FC89955B7C1C407204C5</PackageCertificateThumbprint>
+    <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
     <EnableSigningChecks>false</EnableSigningChecks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
@@ -93,11 +94,12 @@
   <PropertyGroup>
     <AssemblyName>Microsoft.ApplicationInsights.Core.Uwp.Tests</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
-    <None Include="..\..\HockeyAppTest.pfx">
-      <Link>HockeyAppTest.pfx</Link>
-    </None>
+    <None Include="HockeyAppTest.pfx" />
     <None Include="project.json" />
     <SDKReference Include="MSTestFramework.Universal, Version=$(UnitTestPlatformVersion)" />
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />

@@ -15,7 +15,6 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
     <AppxBundle>Never</AppxBundle>
     <AppXPackage>True</AppXPackage>
     <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
@@ -23,8 +22,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
-    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
-    
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F479CF5F67B399C79732FC89955B7C1C407204C5</PackageCertificateThumbprint>
     <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
     <EnableSigningChecks>false</EnableSigningChecks>
     <NuGetPackageImportStamp>

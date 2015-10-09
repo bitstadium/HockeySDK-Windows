@@ -23,7 +23,8 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <NuGetPackageImportStamp>3b5ea350</NuGetPackageImportStamp>
     <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
-    <PackageCertificateThumbprint>CB0FB236B0BBE12613968B57806E70D693CB9E0</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>F479CF5F67B399C79732FC89955B7C1C407204C5</PackageCertificateThumbprint>
+    <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
     <EnableSigningChecks>false</EnableSigningChecks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
