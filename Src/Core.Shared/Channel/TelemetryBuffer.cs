@@ -87,6 +87,9 @@
                     }
                 }
             }
+            else
+            {
+            }
 
             return telemetryToFlush;
         }
