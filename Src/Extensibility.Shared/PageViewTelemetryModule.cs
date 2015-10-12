@@ -7,12 +7,10 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Implementation;
-    using Microsoft.ApplicationInsights;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using ApplicationInsights;
+    using DataContracts;
+    using Extensibility;
+    using Implementation.Tracing;
 #if SILVERLIGHT
     using System.Windows;
     using System.Windows.Controls;

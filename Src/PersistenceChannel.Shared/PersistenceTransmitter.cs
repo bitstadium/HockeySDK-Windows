@@ -6,16 +6,11 @@ namespace Microsoft.ApplicationInsights.Channel
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
-    using System.Linq;
-    using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
+    using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
 
 #if WINRT
     using TaskEx = System.Threading.Tasks.Task;

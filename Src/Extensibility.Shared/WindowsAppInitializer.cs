@@ -4,10 +4,10 @@
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
+    using Channel;
     using Extensibility;
+    using Extensibility.Implementation;
     using Extensibility.Windows;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
 
     using global::Windows.ApplicationModel.Activation;
     using global::Windows.ApplicationModel.Core;

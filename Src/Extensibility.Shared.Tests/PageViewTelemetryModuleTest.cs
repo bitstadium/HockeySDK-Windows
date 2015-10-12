@@ -1,5 +1,8 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
 {
+    using Channel;
+    using DataContracts;
+    using TestFramework;
     using System;
     using System.Reflection;
     using System.Threading;
@@ -8,10 +11,6 @@
     using System.Windows;
     using System.Windows.Controls;
 #endif
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
     using Microsoft.ApplicationInsights.Windows;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #if WINRT
