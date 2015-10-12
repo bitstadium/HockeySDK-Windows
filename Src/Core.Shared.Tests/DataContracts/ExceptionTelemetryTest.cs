@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.DataContracts
+﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using System;
     using System.Collections.Generic;
@@ -10,6 +10,7 @@
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.External;
     using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
@@ -184,7 +185,7 @@
             }
             finally
             {
-                Microsoft.ApplicationInsights.Extensibility.Implementation.Platform.PlatformSingleton.Current = null;
+                PlatformSingleton.Current = null;
             }
         }
 

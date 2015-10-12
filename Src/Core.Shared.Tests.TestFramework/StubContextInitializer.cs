@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.TestFramework
+﻿namespace Microsoft.HockeyApp.TestFramework
 {
     using DataContracts;
     using Extensibility;

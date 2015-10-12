@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using Channel;
     using DataContracts;
@@ -11,7 +11,7 @@
     using System.Windows;
     using System.Windows.Controls;
 #endif
-    using Microsoft.ApplicationInsights.Windows;
+    using Microsoft.HockeyApp.Windows;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #if WINRT
     using global::Windows.UI.Xaml;

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.PersistenceChannel.Tests
+﻿namespace Microsoft.HockeyApp.PersistenceChannel.Tests
 {
     using System;
     using System.Text;

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
     using System.Collections.Generic;
@@ -7,10 +7,10 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using ApplicationInsights;
     using DataContracts;
     using Extensibility;
     using Implementation.Tracing;
+    using Microsoft.HockeyApp;
 #if SILVERLIGHT
     using System.Windows;
     using System.Windows.Controls;

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights
+﻿namespace Microsoft.HockeyApp
 {
     using System;
     using System.IO;

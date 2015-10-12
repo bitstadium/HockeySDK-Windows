@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.DataContracts
+﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using System;
     using System.Globalization;

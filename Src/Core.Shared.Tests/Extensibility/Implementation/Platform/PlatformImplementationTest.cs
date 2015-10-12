@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Platform
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.Platform
 {
     using System;
     using System.IO;

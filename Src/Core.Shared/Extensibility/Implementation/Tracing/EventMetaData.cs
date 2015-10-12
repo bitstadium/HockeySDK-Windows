@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
 {
 #if NET40 || NET35
     using Microsoft.Diagnostics.Tracing;

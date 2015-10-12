@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility
+﻿namespace Microsoft.HockeyApp.Extensibility
 {
     /// <summary>
     /// The reader is platform specific and applies to Silverlight applications only.

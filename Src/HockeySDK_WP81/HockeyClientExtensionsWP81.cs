@@ -11,6 +11,7 @@ using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.HockeyApp;
 
 namespace HockeyApp
 {
@@ -45,7 +46,7 @@ namespace HockeyApp
                 }
             };
 
-            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(appIdentifier);
+            WindowsAppInitializer.InitializeAsync(appIdentifier);
             return @this as IHockeyClientConfigurable;
         }
 

@@ -1,8 +1,8 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
     using Extensibility.Implementation.External;
-    using DpSeverityLevel = Microsoft.ApplicationInsights.DataContracts.SeverityLevel;
+    using DpSeverityLevel = Microsoft.HockeyApp.DataContracts.SeverityLevel;
 
     internal static class SeverityLevelExtensions
     {

@@ -20,12 +20,6 @@
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>72316269</NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyName>Microsoft.ApplicationInsights.PersistenceChannel.Net40.Tests</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>Microsoft.ApplicationInsights.PersistenceChannel.Net40.Tests</RootNamespace>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>

@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
     using System.Threading;

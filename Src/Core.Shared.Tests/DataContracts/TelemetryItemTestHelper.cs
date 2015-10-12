@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.DataContracts
+﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using System.Globalization;
     using System.IO;
@@ -7,8 +7,8 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using DataPlatformModel = Microsoft.Developer.Analytics.DataCollection.Model.v2;    
-    using JsonSerializer = Microsoft.ApplicationInsights.Extensibility.Implementation.JsonSerializer;
-    using JsonWriter = Microsoft.ApplicationInsights.Extensibility.Implementation.JsonWriter;
+    using JsonSerializer = Microsoft.HockeyApp.Extensibility.Implementation.JsonSerializer;
+    using JsonWriter = Microsoft.HockeyApp.Extensibility.Implementation.JsonWriter;
 
     internal static class TelemetryItemTestHelper
     {

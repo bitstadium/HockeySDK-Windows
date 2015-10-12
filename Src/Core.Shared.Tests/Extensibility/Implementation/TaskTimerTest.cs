@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
 #if CORE_PCL || NET45 || WINRT || NET46 

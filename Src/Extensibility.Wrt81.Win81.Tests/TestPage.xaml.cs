@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Windows
+﻿namespace Microsoft.HockeyApp.Windows
 {
     using global::Windows.UI.Xaml.Controls;
 

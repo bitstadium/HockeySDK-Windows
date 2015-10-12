@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility
+﻿namespace Microsoft.HockeyApp.Extensibility
 {
     /// <summary>
     /// The component context reader interface used while reading component related information in a platform specific way.

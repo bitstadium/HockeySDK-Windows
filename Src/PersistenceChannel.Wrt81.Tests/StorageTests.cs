@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.PersistenceChannel.Wrt81.Tests
+﻿namespace Microsoft.HockeyApp.PersistenceChannel.Wrt81.Tests
 {
     using PersistenceChannel.Tests;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

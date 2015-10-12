@@ -38,7 +38,7 @@ using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using HockeyApp.Exceptions;
 using HockeyApp.Model;
-using Microsoft.ApplicationInsights;
+using Microsoft.HockeyApp;
 using System.Globalization;
 
 namespace HockeyApp

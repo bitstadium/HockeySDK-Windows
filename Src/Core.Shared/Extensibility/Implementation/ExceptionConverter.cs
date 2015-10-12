@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
     using System.Collections.Generic;
@@ -9,7 +9,7 @@
         public const int MaxParsedStackLength = 32768;
 
         /// <summary>
-        /// Converts a System.Exception to a Microsoft.ApplicationInsights.Extensibility.Implementation.TelemetryTypes.ExceptionDetails.
+        /// Converts a System.Exception to a ExceptionDetails.
         /// </summary>
         internal static External.ExceptionDetails ConvertToExceptionDetails(
             Exception exception,
@@ -87,7 +87,7 @@
 
 #if !WINRT && !CORE_PCL
         /// <summary>
-        /// Converts a System.Diagnostics.StackFrame to a Microsoft.ApplicationInsights.Extensibility.Implementation.TelemetryTypes.StackFrame.
+        /// Converts a System.Diagnostics.StackFrame to a StackFrame.
         /// </summary>
         private static External.StackFrame GetStackFrame(StackFrame stackFrame, int frameId)
         {

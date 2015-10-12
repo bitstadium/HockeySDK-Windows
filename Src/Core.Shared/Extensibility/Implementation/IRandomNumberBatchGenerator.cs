@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     /// <summary>
     /// Interface for random number generator capable of producing 

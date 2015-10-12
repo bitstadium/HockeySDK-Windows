@@ -2,7 +2,7 @@
 
 #if !Wp80
 
-namespace Microsoft.ApplicationInsights.TestFramework
+namespace Microsoft.HockeyApp.TestFramework
 {
     using System;
     using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace Microsoft.ApplicationInsights.TestFramework
 
         private static void VerifyMethodImplementation(EventSource eventSource, MethodInfo eventMethod)
         {
-            using (var listener = new Microsoft.ApplicationInsights.TestFramework.TestEventListener())
+            using (var listener = new TestEventListener())
             {
                 const long AllKeywords = -1;
                 listener.EnableEvents(eventSource, EventLevel.Verbose, (EventKeywords)AllKeywords);

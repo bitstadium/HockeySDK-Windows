@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.Mocks
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing.Mocks
 {
     using System.Collections.Generic;
     using TestFramework;

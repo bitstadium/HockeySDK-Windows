@@ -20,7 +20,7 @@
 // ReSharper disable RedundantUsingDirective
 #endregion
 
-namespace Microsoft.ApplicationInsights.Extensibility.Implementation.External
+namespace Microsoft.HockeyApp.Extensibility.Implementation.External
 {
     using System.Collections.Generic;
 

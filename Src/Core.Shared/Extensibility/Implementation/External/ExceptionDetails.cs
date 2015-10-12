@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.External
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.External
 {
     using System;
     using Extensibility.Implementation.Platform;

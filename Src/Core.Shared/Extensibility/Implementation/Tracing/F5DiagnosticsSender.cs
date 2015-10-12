@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
 {
     using System.Globalization;
     using Extensibility;

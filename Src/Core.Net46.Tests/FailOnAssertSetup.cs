@@ -2,7 +2,7 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 
-namespace Microsoft.ApplicationInsights
+namespace Microsoft.HockeyApp
 {
     using System;
     using System.Diagnostics;

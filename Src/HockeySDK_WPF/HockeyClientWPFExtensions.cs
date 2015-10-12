@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using Microsoft.HockeyApp.Extensibility;
 
 namespace HockeyApp
 {
@@ -36,7 +37,7 @@ namespace HockeyApp
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
-            Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey = identifier;
+            TelemetryConfiguration.Active.InstrumentationKey = identifier;
             return (IHockeyClientConfigurable)@this;
         }
 

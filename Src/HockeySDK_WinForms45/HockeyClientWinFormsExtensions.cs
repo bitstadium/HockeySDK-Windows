@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using HockeyPlatformHelperWinForms = HockeyApp.HockeyPlatformHelperWPF;
+using Microsoft.HockeyApp.Extensibility;
 
 namespace HockeyApp
 {
@@ -36,7 +37,7 @@ namespace HockeyApp
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             }
 
-            Microsoft.ApplicationInsights.Extensibility.TelemetryConfiguration.Active.InstrumentationKey = identifier;
+            TelemetryConfiguration.Active.InstrumentationKey = identifier;
             return (IHockeyClientConfigurable)@this;
         }
 

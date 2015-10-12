@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Windows
+﻿namespace Microsoft.HockeyApp.Windows
 {
     using System;
 

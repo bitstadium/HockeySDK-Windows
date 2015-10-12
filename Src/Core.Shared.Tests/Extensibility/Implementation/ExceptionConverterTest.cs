@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
     using System.Diagnostics;
@@ -14,7 +14,7 @@
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using Assert = Xunit.Assert;
-    using StackFrame = Microsoft.ApplicationInsights.Extensibility.Implementation.External.StackFrame;
+    using StackFrame = Microsoft.HockeyApp.Extensibility.Implementation.External.StackFrame;
 
     /// <summary>
     /// Tests of exception stack serialization.
@@ -68,15 +68,15 @@
             Assert.True(expDetails.parsedStack.Count < 300);
 
             // We should keep top of stack, and end of stack hence CreateException function should be present
-            Assert.Equal("Microsoft.ApplicationInsights.Extensibility.Implementation.ExceptionConverterTest.FailedFunction", expDetails.parsedStack[0].method);
-            Assert.Equal("Microsoft.ApplicationInsights.Extensibility.Implementation.ExceptionConverterTest.CreateException", expDetails.parsedStack[expDetails.parsedStack.Count - 1].method);
+            Assert.Equal("Microsoft.HockeyApp.Extensibility.Implementation.ExceptionConverterTest.FailedFunction", expDetails.parsedStack[0].method);
+            Assert.Equal("Microsoft.HockeyApp.Extensibility.Implementation.ExceptionConverterTest.CreateException", expDetails.parsedStack[expDetails.parsedStack.Count - 1].method);
 #else
             string stack = expDetails.stack;
             Assert.NotNull(stack);
 
             // We should keep top of stack, and end of stack hence CreateException function should be present
-            Assert.True(stack.Contains("Microsoft.ApplicationInsights.Extensibility.Implementation.ExceptionConverterTest.FailedFunction"));
-            Assert.True(stack.Contains("Microsoft.ApplicationInsights.Extensibility.Implementation.ExceptionConverterTest.CreateException"));
+            Assert.True(stack.Contains("Microsoft.HockeyApp.Extensibility.Implementation.ExceptionConverterTest.FailedFunction"));
+            Assert.True(stack.Contains("Microsoft.HockeyApp.Extensibility.Implementation.ExceptionConverterTest.CreateException"));
 #endif
         }
 

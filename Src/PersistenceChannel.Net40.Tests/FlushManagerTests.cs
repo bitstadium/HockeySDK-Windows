@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.PersistenceChannel.Net40.Tests
+﻿namespace Microsoft.HockeyApp.PersistenceChannel.Net40.Tests
 {
     using System;
     using System.Threading;

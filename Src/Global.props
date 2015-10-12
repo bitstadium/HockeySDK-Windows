@@ -96,7 +96,7 @@
         <RequireRestoreConsent>false</RequireRestoreConsent>
         
         <!-- Set the root namespace for all assemblies in this project hierarchy --> 
-        <RootNamespace>Microsoft.ApplicationInsights</RootNamespace>        
+        <RootNamespace>Microsoft.HockeyApp</RootNamespace>        
       
         <!-- Disable StyleCop by default to prevent StyleCop.MSBuild package from slowing down the debug build -->
         <StyleCopEnabled>false</StyleCopEnabled>

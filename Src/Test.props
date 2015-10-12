@@ -12,6 +12,6 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyName>Microsoft.ApplicationInsights.$(MSBuildProjectName)</AssemblyName>
+    <AssemblyName>Microsoft.HockeyApp.$(MSBuildProjectName)</AssemblyName>
   </PropertyGroup>
 </Project>

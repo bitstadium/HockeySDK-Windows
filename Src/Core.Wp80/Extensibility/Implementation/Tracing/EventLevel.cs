@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
 {
     /// <summary>
     /// EventSource verbosity level implementation for Silverlight.

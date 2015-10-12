@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.HockeyApp;
 
 namespace HockeyApp
 {
@@ -52,7 +53,7 @@ namespace HockeyApp
                 sdkName: Constants.SDKNAME,
                 sdkVersion: Constants.SDKVERSION);
 
-            Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(userID);
+            WindowsAppInitializer.InitializeAsync(userID);
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader);
         }
 

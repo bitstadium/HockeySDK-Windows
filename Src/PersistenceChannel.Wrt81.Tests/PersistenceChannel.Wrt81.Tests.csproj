@@ -27,12 +27,6 @@
     <EnableSigningChecks>false</EnableSigningChecks>
     <NuGetPackageImportStamp>03e31619</NuGetPackageImportStamp>
   </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyName>Microsoft.ApplicationInsights.PersistenceChannel.Wrt81.Tests</AssemblyName>
-  </PropertyGroup>
-  <PropertyGroup>
-    <RootNamespace>Microsoft.ApplicationInsights.PersistenceChannel.Net40.Tests</RootNamespace>
-  </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>

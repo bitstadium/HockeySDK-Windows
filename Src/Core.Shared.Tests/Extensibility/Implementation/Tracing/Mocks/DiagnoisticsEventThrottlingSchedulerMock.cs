@@ -6,7 +6,7 @@
 // <summary></summary>
 // -----------------------------------------------------------------------
 
-namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.Mocks
+namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing.Mocks
 {
     using System;
     using System.Collections.Generic;

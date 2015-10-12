@@ -1,4 +1,4 @@
-namespace Microsoft.ApplicationInsights.DataContracts
+namespace Microsoft.HockeyApp.DataContracts
 {
     /// <summary>
     /// Represents objects that support serialization to JSON.

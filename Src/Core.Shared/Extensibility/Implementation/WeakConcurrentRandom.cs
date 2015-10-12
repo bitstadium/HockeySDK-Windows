@@ -4,7 +4,7 @@
 // </copyright>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
     using System.Threading;

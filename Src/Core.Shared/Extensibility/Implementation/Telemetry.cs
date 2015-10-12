@@ -1,9 +1,9 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using Channel;
     using DataContracts;
 
-    // TODO: Move Telemetry class to Microsoft.ApplicationInsights.DataContracts namespace for discoverability.
+    // TODO: Move Telemetry class to DataContracts namespace for discoverability.
     internal static class Telemetry
     {
         public static void WriteEnvelopeProperties(this ITelemetry telemetry, IJsonWriter json)

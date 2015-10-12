@@ -2,7 +2,7 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 
-namespace Microsoft.ApplicationInsights.Channel
+namespace Microsoft.HockeyApp.Channel
 {
     using System;
     using System.Collections;

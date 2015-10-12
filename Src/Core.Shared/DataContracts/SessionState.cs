@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.DataContracts
+﻿namespace Microsoft.HockeyApp.DataContracts
 {
     /// <summary>
     /// Contains values that identify state of a user session.

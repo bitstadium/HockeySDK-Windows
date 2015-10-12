@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Channel
+﻿namespace Microsoft.HockeyApp.Channel
 {
     using System;
     using System.Collections.Generic;

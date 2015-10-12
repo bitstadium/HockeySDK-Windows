@@ -122,6 +122,10 @@
     <PRIResource Include="Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">
+      <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
+      <Name>Core.Wrt81</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Extensibility.Wrt81\Extensibility.Wrt81.csproj">
       <Project>{2e1127b9-787b-4427-8d92-1e9eb3a79de1}</Project>
       <Name>Extensibility.Wrt81</Name>

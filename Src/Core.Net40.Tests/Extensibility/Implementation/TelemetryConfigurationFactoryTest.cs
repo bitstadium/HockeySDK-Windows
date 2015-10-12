@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using System;
     using System.Collections;
@@ -555,7 +555,7 @@
         private static TelemetryConfiguration CreateTelemetryConfigurationWithDeveloperModeValue(string developerModeValue)
         {
             XElement definition = XDocument.Parse(Configuration(
-    @"<TelemetryChannel Type=""Microsoft.ApplicationInsights.TestFramework.StubTelemetryChannel, Microsoft.ApplicationInsights.TestFramework"">
+    @"<TelemetryChannel Type=""Microsoft.HockeyApp.TestFramework.StubTelemetryChannel, Microsoft.HockeyApp.TestFramework"">
                     <DeveloperMode>" + developerModeValue + @"</DeveloperMode>
                  </TelemetryChannel>")).Root;
 

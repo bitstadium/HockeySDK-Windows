@@ -9,7 +9,7 @@
     <SharedGUID>3f212c88-4c51-4b4d-8e8d-7512b791e4bf</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Microsoft.ApplicationInsights</Import_RootNamespace>
+    <Import_RootNamespace>Microsoft.HockeyApp</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />

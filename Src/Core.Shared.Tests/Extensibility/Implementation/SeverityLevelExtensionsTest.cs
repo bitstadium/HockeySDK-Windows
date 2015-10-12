@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
     using Extensibility.Implementation.External;
 #if NET40 || NET45 || NET35 || NET46
@@ -8,7 +8,7 @@
 #endif
 
     using Assert = Xunit.Assert;
-    using DpSeverityLevel = Microsoft.ApplicationInsights.DataContracts.SeverityLevel;
+    using DpSeverityLevel = DataContracts.SeverityLevel;
     
     [TestClass]
     public class SeverityLevelExtensionsTest

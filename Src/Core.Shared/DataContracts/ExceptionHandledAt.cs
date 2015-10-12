@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.DataContracts
+﻿namespace Microsoft.HockeyApp.DataContracts
 {
     /// <summary>
     /// This enumeration is used by ExceptionTelemetry to identify if and where exception was handled.

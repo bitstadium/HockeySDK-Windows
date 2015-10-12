@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using Extensibility;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

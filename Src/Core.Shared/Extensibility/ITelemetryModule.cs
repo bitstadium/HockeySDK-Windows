@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility
+﻿namespace Microsoft.HockeyApp.Extensibility
 {
     /// <summary>
     /// Represents an object that supports initialization from <see cref="TelemetryConfiguration"/>.

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using Microsoft.ApplicationInsights;
+using Microsoft.HockeyApp;
 
 namespace HockeyApp
 {

@@ -16,7 +16,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <RootNamespace>Microsoft.ApplicationInsights.PersistenceChannel</RootNamespace>
+    <RootNamespace>Microsoft.HockeyApp.PersistenceChannel</RootNamespace>
     <AssemblyName>$(RootNamespace)</AssemblyName>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

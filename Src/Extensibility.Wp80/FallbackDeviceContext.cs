@@ -1,4 +1,4 @@
-﻿namespace Microsoft.ApplicationInsights.Extensibility
+﻿namespace Microsoft.HockeyApp.Extensibility
 {
     using System;
     using System.Xml.Linq;
