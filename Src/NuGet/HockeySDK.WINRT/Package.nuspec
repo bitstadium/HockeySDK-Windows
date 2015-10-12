@@ -36,6 +36,6 @@
     <file src="$configuration$\NuGet\HockeySDK.WINRT\tools\**" target="tools" />
   
     <!-- Application Insights -->
-    <file src="$configuration$\Extensibility.Wrt81\Microsoft.ApplicationInsights.*" target="lib\portable-win81" />
+    <file src="$configuration$\Extensibility.Wrt81\Microsoft.HockeyApp.*" target="lib\portable-win81" />
   </files>
 </package>

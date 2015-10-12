@@ -28,6 +28,6 @@
     <!-- Application Insights -->
     <!-- Binaries for .NET 4.5 projects -->
     <!-- Currently a hack to get it from WPF binaries, because we don't have access to core -->
-    <file src="$configuration$\HockeySDK_WPF45\Microsoft.ApplicationInsights.*" target="lib\net45" />
+    <file src="$configuration$\HockeySDK_WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
   </files>
 </package>

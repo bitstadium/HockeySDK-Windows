@@ -26,7 +26,7 @@
     <file src="$configuration$\NuGet\HockeySDK.WPF\tools\**" target="tools" />
 
     <!-- Application Insights -->
-    <file src="$configuration$\HockeySDK_WPF\Microsoft.ApplicationInsights.dll.*" target="lib\net40" />
-    <file src="$configuration$\HockeySDK_WPF45\Microsoft.ApplicationInsights.dll.*" target="lib\net45" />
+    <file src="$configuration$\HockeySDK_WPF\Microsoft.HockeyApp.*" target="lib\net40" />
+    <file src="$configuration$\HockeySDK_WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
   </files>
 </package>
