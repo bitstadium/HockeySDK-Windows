@@ -6,8 +6,8 @@
     using System.Linq;
     using System.Text;
 
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using DataContracts;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Encapsulates telemetry location information.

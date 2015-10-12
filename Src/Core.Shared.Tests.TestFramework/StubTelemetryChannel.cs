@@ -2,7 +2,7 @@
 {
     using System;
 
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
 
     /// <summary>
     /// A stub of <see cref="ITelemetryChannel"/>.

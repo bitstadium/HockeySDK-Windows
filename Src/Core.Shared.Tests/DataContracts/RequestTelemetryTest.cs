@@ -5,10 +5,10 @@
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.External
 {
     using System;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Platform;
 
     /// <summary>
     /// Additional implementation for ExceptionDetails.

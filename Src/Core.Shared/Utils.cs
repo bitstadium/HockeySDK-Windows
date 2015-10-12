@@ -5,7 +5,7 @@
     using System.Globalization;
     using System.Linq;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// Various utilities.

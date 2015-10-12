@@ -8,13 +8,13 @@
 #endif
     using System.Linq;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using DataContracts;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
+    using TestFramework;
 #if NET35 || NET40
     using Microsoft.Diagnostics.Tracing;
 #endif

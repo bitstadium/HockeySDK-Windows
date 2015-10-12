@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Extensibility.Implementation.External;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

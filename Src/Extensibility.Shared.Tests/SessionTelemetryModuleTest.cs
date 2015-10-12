@@ -6,11 +6,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using Assert = Xunit.Assert;
 

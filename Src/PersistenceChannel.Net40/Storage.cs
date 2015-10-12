@@ -18,8 +18,8 @@ namespace Microsoft.ApplicationInsights.Channel
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
 
     internal class Storage : StorageBase
     {

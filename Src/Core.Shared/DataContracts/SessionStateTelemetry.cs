@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Channel;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Telemetry type used to track user sessions.

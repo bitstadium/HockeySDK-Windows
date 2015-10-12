@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.ApplicationInsights.TestFramework
 {
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
 
     /// <summary>
     /// Required by Windows Runtime, which does not allow generics in public APIs.

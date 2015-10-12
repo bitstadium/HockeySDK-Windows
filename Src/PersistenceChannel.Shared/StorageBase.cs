@@ -10,7 +10,7 @@ namespace Microsoft.ApplicationInsights.Channel
     using System.IO;
     using System.Security.Principal;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
     internal abstract class StorageBase
     {

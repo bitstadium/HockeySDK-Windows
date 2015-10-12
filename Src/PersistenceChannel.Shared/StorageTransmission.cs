@@ -6,7 +6,7 @@
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Extensibility.Implementation;
 
     internal class StorageTransmission : Transmission, IDisposable
     {   

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 
     internal class StubPlatform : IPlatform
     {

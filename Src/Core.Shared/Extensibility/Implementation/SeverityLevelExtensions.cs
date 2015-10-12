@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
     using System;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Extensibility.Implementation.External;
     using DpSeverityLevel = Microsoft.ApplicationInsights.DataContracts.SeverityLevel;
 
     internal static class SeverityLevelExtensions

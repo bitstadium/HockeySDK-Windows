@@ -12,8 +12,8 @@ namespace Microsoft.ApplicationInsights.Channel
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using Windows.Storage.Search;

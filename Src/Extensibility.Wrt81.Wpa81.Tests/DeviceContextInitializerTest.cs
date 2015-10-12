@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
     using System.Text;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
     using global::Windows.Security.Cryptography;

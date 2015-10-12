@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

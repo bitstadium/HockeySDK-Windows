@@ -5,7 +5,7 @@
     using System.Reflection;
     using System.Runtime.CompilerServices;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Extensibility.Implementation.External;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

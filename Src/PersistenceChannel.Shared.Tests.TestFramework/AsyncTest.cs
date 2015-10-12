@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using TestFramework;
 
     /// <summary>
     /// A base class that helps to make unobserved task exceptions more noticeable.

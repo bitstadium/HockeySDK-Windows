@@ -5,9 +5,9 @@
     using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;    
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;    
+    using Extensibility;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;    
 #if WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

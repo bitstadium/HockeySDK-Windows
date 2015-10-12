@@ -9,7 +9,7 @@ namespace Microsoft.ApplicationInsights.Channel
     using System.Net;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// Fetch transmissions from the storage and sends it. 

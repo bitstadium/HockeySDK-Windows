@@ -3,7 +3,7 @@
     using System;
     using System.IO;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
 #if WINRT
     using TaskEx = System.Threading.Tasks.Task;
 #endif

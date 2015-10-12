@@ -3,10 +3,10 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Channel;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// Encapsulates information about a web request handled by the application.

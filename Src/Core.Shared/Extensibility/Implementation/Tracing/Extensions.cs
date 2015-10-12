@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Text;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Extensibility.Implementation;
 
     /// <summary>
     /// Provides a set of extension methods for tracing.

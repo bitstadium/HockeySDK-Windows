@@ -8,7 +8,7 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Platform
     using System.Linq;
     using System.Reflection;
 
-    ////using Microsoft.ApplicationInsights.Platform;
+    ////using Platform;
 
     /// <summary>
     /// Provides access to the <see cref="Current"/> platform.

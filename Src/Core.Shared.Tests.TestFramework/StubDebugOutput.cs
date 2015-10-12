@@ -5,7 +5,7 @@
 namespace Microsoft.ApplicationInsights.TestFramework
 {
     using System;
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Extensibility;
 
     internal class StubDebugOutput : IDebugOutput
     {

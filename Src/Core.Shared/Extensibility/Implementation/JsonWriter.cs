@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 #if WINRT
     using Windows.Foundation.Metadata;
 #endif

@@ -3,7 +3,7 @@
     using System;
     using System.Linq;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
     using Microsoft.Developer.Analytics.DataCollection.Model.v2;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
 
     internal static class TelemetryItemExtensions
     {

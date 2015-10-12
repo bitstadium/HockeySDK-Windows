@@ -3,9 +3,9 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
 
     /// <summary>
     /// Represents a context for sending telemetry to the Application Insights service.

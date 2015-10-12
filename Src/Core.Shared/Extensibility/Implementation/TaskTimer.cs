@@ -8,7 +8,7 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
 #if WINRT || CORE_PCL || NET45 || NET46 || UWP
     using TaskEx = System.Threading.Tasks.Task;

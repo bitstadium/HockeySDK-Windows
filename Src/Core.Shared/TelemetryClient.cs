@@ -6,12 +6,12 @@
     using System.Globalization;
     using System.IO;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Channel;
+    using DataContracts;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
     
 #if WINRT
     using Windows.Foundation.Metadata;

@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
     using System;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 
     /// <summary>
     /// A telemetry context initializer that will gather component context information.

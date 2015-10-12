@@ -5,9 +5,9 @@ namespace Microsoft.ApplicationInsights.DataContracts
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Linq;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Channel;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 
     using BondDependencyKind = Extensibility.Implementation.External.DependencyKind;
 

@@ -5,9 +5,9 @@
     using System.Threading.Tasks;
     using System.Windows;
     
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Channel;
+    using DataContracts;
+    using Extensibility;
 
 #if WINRT
     using global::Windows.UI.Xaml;

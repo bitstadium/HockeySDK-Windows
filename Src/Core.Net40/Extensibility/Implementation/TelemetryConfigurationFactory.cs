@@ -8,9 +8,9 @@
     using System.Linq;
     using System.Reflection;
     using System.Xml.Linq;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation.Platform;
 
     internal class TelemetryConfigurationFactory
     {

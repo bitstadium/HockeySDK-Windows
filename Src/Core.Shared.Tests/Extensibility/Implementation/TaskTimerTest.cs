@@ -9,8 +9,8 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Extensibility.Implementation.Tracing;
+    using TestFramework;
 #if NET35 || NET40
     using Microsoft.Diagnostics.Tracing;
 #endif

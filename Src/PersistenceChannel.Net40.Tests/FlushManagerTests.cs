@@ -3,8 +3,8 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using Channel;
+    using DataContracts;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

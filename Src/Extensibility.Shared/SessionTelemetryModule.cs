@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Globalization;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
 #if SILVERLIGHT
     using Microsoft.Phone.Shell;
 #endif

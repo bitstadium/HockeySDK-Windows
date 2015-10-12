@@ -2,8 +2,8 @@
 {
     using System;
     using System.IO;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.PersistenceChannel.Tests;
+    using Channel;
+    using PersistenceChannel.Tests;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

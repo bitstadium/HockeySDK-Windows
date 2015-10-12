@@ -5,9 +5,9 @@
 #if CORE_PCL || NET45 || WINRT || NET46
     using System.Diagnostics.Tracing;
 #endif
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing.Mocks;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation.Tracing.Mocks;
 #if NET35 || NET40
     using Microsoft.Diagnostics.Tracing;
 #endif

@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing
 {
     using System.Reflection;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using TestFramework;
 #if NET40 || NET35
     using Microsoft.Diagnostics.Tracing;
 #endif

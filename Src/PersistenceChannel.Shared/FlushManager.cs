@@ -10,8 +10,8 @@ namespace Microsoft.ApplicationInsights.Channel
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// This class handles all the logic for flushing the In Memory buffer to the persistent storage. 

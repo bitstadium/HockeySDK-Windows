@@ -7,10 +7,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
 #if NET40 || NET45 || NET35 || NET46
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else

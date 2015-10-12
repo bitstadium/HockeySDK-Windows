@@ -1,8 +1,8 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
     using System;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Channel;
+    using Extensibility.Implementation;
 
     /// <summary>
     /// An <see cref="ITelemetryInitializer"/> that sets <see cref="ITelemetry.Timestamp"/> to <see cref="DateTimeOffset.Now"/>.

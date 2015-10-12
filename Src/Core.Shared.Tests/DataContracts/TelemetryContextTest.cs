@@ -4,8 +4,8 @@
     using System.Globalization;
     using System.IO;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

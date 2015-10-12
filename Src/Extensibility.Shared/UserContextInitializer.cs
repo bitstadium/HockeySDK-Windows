@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
 
     /// <summary>
     /// Tracks anonymous user Id for Store Apps (Windows Store and Windows Phone).

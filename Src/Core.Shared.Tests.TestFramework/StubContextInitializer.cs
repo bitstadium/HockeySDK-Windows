@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.TestFramework
 {
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
+    using DataContracts;
+    using Extensibility;
 
     /// <summary>
     /// A stub of <see cref="IContextInitializer"/>.

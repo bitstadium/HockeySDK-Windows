@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using Assert = Xunit.Assert;
 #if WINRT

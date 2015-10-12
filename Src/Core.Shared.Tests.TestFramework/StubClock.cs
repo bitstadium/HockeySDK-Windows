@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Text;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Extensibility.Implementation;
 
     internal class StubClock : IClock
     {

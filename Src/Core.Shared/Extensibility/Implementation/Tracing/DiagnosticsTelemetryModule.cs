@@ -6,7 +6,7 @@
     using System.Diagnostics.Tracing;
 #endif
     using System.Linq;
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Extensibility;
 
 #if NET40 || NET35
     using Microsoft.Diagnostics.Tracing;

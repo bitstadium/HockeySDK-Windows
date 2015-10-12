@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Extensibility.Implementation.External;
 #if NET40 || NET45 || NET35 || NET46
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else

@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using Channel;
+    using DataContracts;
 
     // TODO: Move Telemetry class to Microsoft.ApplicationInsights.DataContracts namespace for discoverability.
     internal static class Telemetry

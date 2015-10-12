@@ -6,7 +6,7 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

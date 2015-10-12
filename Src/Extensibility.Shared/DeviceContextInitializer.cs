@@ -2,7 +2,7 @@
 {
     using System;
     using System.Globalization;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 
     /// <summary>
     /// A telemetry context initializer that will gather device context information.

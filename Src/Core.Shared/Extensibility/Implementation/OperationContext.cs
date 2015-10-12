@@ -1,8 +1,8 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using DataContracts;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Encapsulates information about an operation. Operation normally reflects an end to end scenario that starts from a user action (e.g. button click).  

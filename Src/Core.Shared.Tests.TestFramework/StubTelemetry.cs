@@ -2,9 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation;
 
     internal sealed class StubTelemetry : ITelemetry, ISupportProperties
     {

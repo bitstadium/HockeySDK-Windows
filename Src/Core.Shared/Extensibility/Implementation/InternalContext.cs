@@ -4,8 +4,8 @@
     using System.Collections.Generic;
     using System.Text;
 
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using DataContracts;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Encapsulates Internal information.

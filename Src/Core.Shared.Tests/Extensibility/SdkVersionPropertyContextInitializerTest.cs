@@ -2,7 +2,7 @@
 {
     using System.Linq;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 #if WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

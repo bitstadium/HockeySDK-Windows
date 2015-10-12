@@ -4,9 +4,9 @@
     using System.IO;
     using System.Reflection;
     using System.Text;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

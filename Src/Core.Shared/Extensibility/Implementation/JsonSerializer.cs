@@ -10,11 +10,11 @@
     using System.IO.Compression;
 #endif
     using System.Text;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation.External;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// Serializes and compress the telemetry items into a JSON string. Compression will be done using GZIP, for Windows Phone 8 compression will be disabled because there

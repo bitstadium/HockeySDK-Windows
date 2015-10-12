@@ -2,9 +2,9 @@
 {
     using System.Collections.Generic;
 
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility;
+    using TestFramework;
     using Microsoft.Developer.Analytics.DataCollection.Model.v2;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

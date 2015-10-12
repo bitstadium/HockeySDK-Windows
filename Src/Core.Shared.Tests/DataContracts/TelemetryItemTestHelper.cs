@@ -3,7 +3,7 @@
     using System.Globalization;
     using System.IO;
     using System.Text;
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using DataPlatformModel = Microsoft.Developer.Analytics.DataCollection.Model.v2;    

@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.ApplicationInsights.PersistenceChannel.Wrt81.Tests
 {
-    using Microsoft.ApplicationInsights.PersistenceChannel.Tests;
+    using PersistenceChannel.Tests;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
     /// <summary>

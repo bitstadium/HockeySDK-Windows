@@ -3,7 +3,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 
     /// <summary>
     /// Initializes SDK Properties: SDK Version and SDKMode.

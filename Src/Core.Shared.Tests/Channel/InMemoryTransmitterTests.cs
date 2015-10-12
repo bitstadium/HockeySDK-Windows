@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Channel
 {
     using System;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using TestFramework;
 #if NET40 || NET45 || NET35 || NET46
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else

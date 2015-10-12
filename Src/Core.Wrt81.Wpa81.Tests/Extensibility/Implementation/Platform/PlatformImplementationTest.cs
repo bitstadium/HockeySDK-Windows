@@ -4,9 +4,9 @@
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility.Implementation;
+    using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using Windows.ApplicationModel;
     using Windows.Storage;

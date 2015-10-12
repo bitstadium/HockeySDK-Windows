@@ -6,7 +6,7 @@
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

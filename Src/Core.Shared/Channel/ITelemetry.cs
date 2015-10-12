@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Channel
 {
     using System;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 
     /// <summary>
     /// The base telemetry type for application insights.

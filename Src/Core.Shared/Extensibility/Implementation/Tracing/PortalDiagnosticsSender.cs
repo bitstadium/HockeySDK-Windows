@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using System.Linq;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
 
     /// <summary>
     /// This class is responsible for sending diagnostics information into portal.

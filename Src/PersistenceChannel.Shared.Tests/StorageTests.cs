@@ -5,9 +5,9 @@
 #if !WINDOWS_PHONE && !WINDOWS_STORE
     using System.Threading.Tasks;
 #endif
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;    
 #else

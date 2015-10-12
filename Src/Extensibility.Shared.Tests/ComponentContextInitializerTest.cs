@@ -2,7 +2,7 @@
 {
     using System;
     using System.Reflection;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using DataContracts;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
     using Assert = Xunit.Assert;

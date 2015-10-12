@@ -4,10 +4,10 @@
     using System.Collections.Generic;
     using System.Globalization;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Channel;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
+    using Extensibility.Implementation.Platform;
 
     /// <summary>
     /// Telemetry type used to track exceptions.

@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using Channel;
+    using DataContracts;
 
     /// <summary>
     /// Represents an object that implements supporting logic for <see cref="TelemetryContext"/>.

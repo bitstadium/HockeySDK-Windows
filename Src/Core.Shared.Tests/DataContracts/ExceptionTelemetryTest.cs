@@ -7,11 +7,11 @@
     using System.Linq;
     using System.Reflection;
     using System.Text;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
+    using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

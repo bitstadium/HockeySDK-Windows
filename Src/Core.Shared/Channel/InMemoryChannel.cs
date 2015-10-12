@@ -7,7 +7,7 @@ namespace Microsoft.ApplicationInsights.Channel
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
     /// <summary>
     /// Represents a communication channel for sending telemetry to Application Insights via HTTPS. There will be a buffer that will not be persisted, to enforce the 

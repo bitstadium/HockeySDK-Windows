@@ -7,7 +7,7 @@ namespace Microsoft.ApplicationInsights.Extensibility
     using System.Threading.Tasks;
     using System.Windows;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Platform;
     using Microsoft.Phone.Info;
 
     using global::Windows.Graphics.Display;

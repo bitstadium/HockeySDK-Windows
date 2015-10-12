@@ -6,10 +6,10 @@
     using System.IO.IsolatedStorage;
     using System.Windows;
     using System.Windows.Resources;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// The Windows Phone 8.0 (Silverlight Runtime) implementation of the <see cref="IPlatform" /> interface.

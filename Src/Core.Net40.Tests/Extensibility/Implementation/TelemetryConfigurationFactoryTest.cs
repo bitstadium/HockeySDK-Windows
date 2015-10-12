@@ -8,11 +8,11 @@
     using System.Net;
     using System.Reflection;
     using System.Xml.Linq;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using DataContracts;
+    using Extensibility;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
 
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;

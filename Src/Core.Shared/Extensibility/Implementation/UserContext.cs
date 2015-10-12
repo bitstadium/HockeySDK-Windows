@@ -2,8 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
+    using DataContracts;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Encapsulates information about a user using an application.

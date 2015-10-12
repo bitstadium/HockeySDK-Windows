@@ -3,7 +3,7 @@
     using System;
     using System.Globalization;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
 
     /// <summary>
     /// An <see cref="ITelemetryInitializer"/> that that populates <see cref="ITelemetry.Sequence"/> property for 

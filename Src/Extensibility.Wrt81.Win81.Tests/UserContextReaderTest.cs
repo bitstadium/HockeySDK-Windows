@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Windows
 {
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Extensibility;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
     [TestClass]

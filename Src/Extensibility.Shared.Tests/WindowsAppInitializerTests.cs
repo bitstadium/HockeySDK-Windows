@@ -2,9 +2,9 @@
 {
     using System;
 
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;    
+    using Extensibility;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;    
     
     using VisualStudio.TestPlatform.UnitTestFramework;
 

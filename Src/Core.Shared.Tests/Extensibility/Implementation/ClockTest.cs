@@ -2,8 +2,8 @@
 {
     using System;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.External;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Extensibility.Implementation.External;
+    using TestFramework;
 #if WINDOWS_PHONE || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else

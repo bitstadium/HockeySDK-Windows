@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
 
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation.Tracing;
 
     using global::Windows.ApplicationModel.Core;
     using global::Windows.UI.Core;

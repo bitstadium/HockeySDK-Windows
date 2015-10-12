@@ -7,10 +7,10 @@
 #if SILVERLIGHT
     using System.Windows;
 #endif
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
+    using Channel;
+    using DataContracts;
+    using Extensibility.Implementation.Platform;
+    using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #if WINRT
     using global::Windows.UI.Xaml;

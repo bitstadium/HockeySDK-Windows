@@ -10,7 +10,7 @@
     using System.Xml;
     using System.Xml.Linq;
 
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Extensibility;
 
     /// <summary>
     /// Various utilities.

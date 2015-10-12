@@ -1,7 +1,7 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility
 {
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.DataContracts;
+    using Channel;
+    using DataContracts;
 
     /// <summary>
     /// Represents an object that initializes <see cref="ITelemetry"/> objects.

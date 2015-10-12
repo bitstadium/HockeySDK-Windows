@@ -3,8 +3,8 @@
     using System;
     using System.Threading.Tasks;
     using System.Windows;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Tracing;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
 
     internal static class PlatformDispatcher
     {

@@ -8,7 +8,7 @@ namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
     using System;
     using System.Diagnostics;
-    using Microsoft.ApplicationInsights.Extensibility;
+    using Extensibility;
 
     internal class DebugOutput : IDebugOutput
     {

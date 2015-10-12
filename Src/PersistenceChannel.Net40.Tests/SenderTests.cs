@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Threading;
-    using Microsoft.ApplicationInsights.Channel;
+    using Channel;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

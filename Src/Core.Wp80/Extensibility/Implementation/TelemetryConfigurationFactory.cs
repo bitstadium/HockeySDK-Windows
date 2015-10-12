@@ -1,9 +1,9 @@
 ﻿namespace Microsoft.ApplicationInsights.Extensibility.Implementation
 {
     using System;
-    using Microsoft.ApplicationInsights.Channel;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
+    using Channel;
+    using Extensibility;
+    using Extensibility.Implementation.Platform;
 
     internal class TelemetryConfigurationFactory
     {
