@@ -9,7 +9,7 @@
     using System.Diagnostics.Tracing;
 #endif
 
-    [EventSource(Name = "Microsoft-ApplicationInsights-Core")]
+    [EventSource(Name = "Microsoft-HockeyApp-Core")]
     internal sealed class CoreEventSource : EventSource
     {
         public static readonly CoreEventSource Log = new CoreEventSource();

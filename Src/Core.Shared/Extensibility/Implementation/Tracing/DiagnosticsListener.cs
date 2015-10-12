@@ -112,7 +112,7 @@
 
         protected override void OnEventSourceCreated(EventSource eventSource)
         {
-            if (eventSource.Name.StartsWith("Microsoft-ApplicationInsights-", StringComparison.Ordinal))
+            if (eventSource.Name.StartsWith("Microsoft-HockeyApp-", StringComparison.Ordinal))
             {
                 this.eventSources.Add(new WeakReference(eventSource));
                 this.EnableEvents(eventSource, this.LogLevel, (EventKeywords)AllKeyword);
