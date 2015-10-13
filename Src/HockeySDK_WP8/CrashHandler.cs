@@ -139,7 +139,7 @@ namespace HockeyApp
                 throw new InvalidOperationException("CrashHandler was already configured!");
             }
 
-            CrashHandler.ConfigureApplicationInsights(identifier);
+            WindowsAppInitializer.InitializeAsync(identifier);
         }
 
         /// <summary>
@@ -379,21 +379,6 @@ namespace HockeyApp
             else
             {
                 return "Unknown";
-            }
-        }
-
-        /// <summary>
-        /// Bootstraps Application Insights SDK
-        /// </summary>
-        /// <param name="applicationInsightsInstrumentationKey"></param>
-        private static void ConfigureApplicationInsights(string applicationInsightsInstrumentationKey)
-        {
-            try
-            {
-                WindowsAppInitializer.InitializeAsync(applicationInsightsInstrumentationKey);
-            }
-            catch (Exception)
-            {
             }
         }
     }

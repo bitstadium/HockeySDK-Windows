@@ -27,7 +27,7 @@
         private static string instrumentationKey = string.Empty;
 
         /// <summary>
-        /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in ApplicationInsights.config.
+        /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>
         public static Task InitializeAsync(
@@ -41,7 +41,7 @@
         }
 
         /// <summary>
-        /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in ApplicationInsights.config.
+        /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
         /// <param name="instrumentationKey">InstrumentationKey obtain from http://portal.azure.com</param>
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>

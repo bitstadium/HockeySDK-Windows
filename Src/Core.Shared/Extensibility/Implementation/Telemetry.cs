@@ -25,7 +25,7 @@
             }
 
             // Format the event name using the following format:
-            // Microsoft.ApplicationInsights[.Dev].<normalized-instrumentation-key>.<event-type>
+            // Microsoft.[ProductName].[Dev].<normalized-instrumentation-key>.<event-type>
             var eventName = string.Format(
                 System.Globalization.CultureInfo.InvariantCulture,
                 "{0}{1}{2}",

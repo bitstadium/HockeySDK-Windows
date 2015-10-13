@@ -338,9 +338,9 @@ namespace Microsoft.HockeyApp.Channel
         {
             IDictionary environment = Environment.GetEnvironmentVariables();
 
-            var folderOption1 = new { RootPath = environment["LOCALAPPDATA"] as string,   AISubFolder = @"Microsoft\ApplicationInsights" };
-            var folderOption2 = new { RootPath = environment["TEMP"] as string,           AISubFolder = @"Microsoft\ApplicationInsights" };
-            var folderOption3 = new { RootPath = environment["ProgramData"] as string,    AISubFolder = @"Microsoft ApplicationInsights" };
+            var folderOption1 = new { RootPath = environment["LOCALAPPDATA"] as string,   AISubFolder = @"Microsoft\HockeyApp" };
+            var folderOption2 = new { RootPath = environment["TEMP"] as string,           AISubFolder = @"Microsoft\HockeyApp" };
+            var folderOption3 = new { RootPath = environment["ProgramData"] as string,    AISubFolder = @"Microsoft HockeyApp" };
 
             foreach (var folderOption in new[] { folderOption1, folderOption2, folderOption3 })
             {

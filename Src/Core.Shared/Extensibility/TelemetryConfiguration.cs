@@ -9,7 +9,7 @@
     using Extensibility.Implementation.Tracing;
 
     /// <summary>
-    /// Encapsulates the global telemetry configuration typically loaded from the ApplicationInsights.config file.
+    /// Encapsulates the global telemetry configuration typically loaded from the configuration file.
     /// </summary>
     /// <remarks>
     /// All <see cref="TelemetryContext"/> objects are initialized using the <see cref="Active"/> 
@@ -27,7 +27,7 @@
         private bool disableTelemetry = false;
 
         /// <summary>
-        /// Gets the active <see cref="TelemetryConfiguration"/> instance loaded from the ApplicationInsights.config file. 
+        /// Gets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
         /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
         /// needed to send telemetry to Application Insights.
         /// </summary>
@@ -125,7 +125,7 @@
         /// information that remains constant during application lifetime. A <see cref="TelemetryClient"/> invokes context 
         /// initializers to obtain initial property values for <see cref="TelemetryContext"/> object during its construction.
         /// The default list of context initializers is provided by the Application Insights NuGet packages and loaded from 
-        /// the ApplicationInsights.config file located in the application directory. 
+        /// the configuration file located in the application directory. 
         /// </remarks>
         public IList<IContextInitializer> ContextInitializers
         {
@@ -140,7 +140,7 @@
         /// about individual <see cref="ITelemetry"/> items, such as <see cref="ITelemetry.Timestamp"/>. A <see cref="TelemetryClient"/>
         /// invokes telemetry initializers each time <see cref="TelemetryClient.Track"/> method is called.
         /// The default list of telemetry initializers is provided by the Application Insights NuGet packages and loaded from 
-        /// the ApplicationInsights.config file located in the application directory. 
+        /// the configuration file located in the application directory. 
         /// </remarks>
         public IList<ITelemetryInitializer> TelemetryInitializers
         {
@@ -153,7 +153,7 @@
         public ITelemetryChannel TelemetryChannel { get; set; }
 
         /// <summary>
-        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the ApplicationInsights.config file.
+        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.
         /// If the configuration file does not exist, the new configuration instance is initialized with minimum defaults 
         /// needed to send telemetry to Application Insights.
         /// </summary>

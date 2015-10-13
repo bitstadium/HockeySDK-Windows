@@ -21,7 +21,7 @@
         }
 
         /// <summary>
-        /// Returns contents of the ApplicationInsights.config file in the application directory.
+        /// Returns contents of the configuration file in the application directory.
         /// </summary>
         public string ReadConfigurationXml()
         {

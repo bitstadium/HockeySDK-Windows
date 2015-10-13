@@ -12,8 +12,8 @@
     /// </summary>
     public sealed class UserContextInitializer : ITelemetryInitializer
     {
-        private const string UserIdSetting = "ApplicationInsightsUserId";
-        private const string UserAcquisitionDateSetting = "ApplicationInsightsUserAcquisitionDate";
+        private const string UserIdSetting = "HockeyAppUserId";
+        private const string UserAcquisitionDateSetting = "HockeyAppUserAcquisitionDate";
         private static object syncRoot = new object();
 
         private string userId;

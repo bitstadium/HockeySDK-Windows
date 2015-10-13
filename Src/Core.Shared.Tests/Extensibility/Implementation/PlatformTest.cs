@@ -56,7 +56,7 @@
 #if !WINDOWS_STORE
         // TODO: Find a way to test Platform.ReadConfigurationXml in Windows 8.1 Store tests
         [TestMethod]
-        public void ReadConfigurationXmlReturnsContentsOfApplicationInsightsConfigFileInApplicationInstallationDirectory()
+        public void ReadConfigurationXmlReturnsContentsOfConfigFileInApplicationInstallationDirectory()
         {
             CreateConfigurationFile("42");
             try
@@ -71,7 +71,7 @@
 #endif
 
         [TestMethod]
-        public void ReadConfigurationXmlIgnoresMissingApplicationInsightsConfigurationFileByReturningEmptyString()
+        public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
         {
             string configuration = PlatformSingleton.Current.ReadConfigurationXml();
             Assert.IsNotNull(configuration);

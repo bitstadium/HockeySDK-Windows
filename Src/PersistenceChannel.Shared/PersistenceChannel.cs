@@ -184,7 +184,7 @@ namespace Microsoft.HockeyApp.Channel
 
         /// <summary>
         /// Gets or sets the amount of time, in seconds, after application is started when the 
-        /// <see cref="PersistenceChannel"/> will send telemetry to ApplicationInsights. Once the specified 
+        /// <see cref="PersistenceChannel"/> will send telemetry to data collector. Once the specified 
         /// amount of time runs out, telemetry will be stored on disk until the application is started again.
         /// </summary>
         [Obsolete("This value is now obsolete and will be removed in next release. Currently it does nothing.")]

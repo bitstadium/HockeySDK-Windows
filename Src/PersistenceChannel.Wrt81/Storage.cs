@@ -5,7 +5,6 @@
 namespace Microsoft.HockeyApp.Channel
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Globalization;
     using System.IO;
@@ -20,6 +19,7 @@ namespace Microsoft.HockeyApp.Channel
 
     internal class Storage : StorageBase
     {
+        private const string DefaultStorageFolderName = "HockeyApp";
         private readonly FixedSizeQueue<string> deletedFilesQueue;
         private Task calculateSizeTask;
         private long storageSize = 0;
@@ -42,7 +42,7 @@ namespace Microsoft.HockeyApp.Channel
             this.deletedFilesQueue = new FixedSizeQueue<string>(10);
             if (string.IsNullOrEmpty(uniqueFolderName))
             {
-                this.storageFolderName = "ApplicationInsights";
+                this.storageFolderName = DefaultStorageFolderName;
             }
             
             this.CapacityInBytes = 10 * 1024 * 1024; // 10 MB

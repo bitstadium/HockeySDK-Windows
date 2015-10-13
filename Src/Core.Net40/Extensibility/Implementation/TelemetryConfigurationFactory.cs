@@ -88,8 +88,8 @@
 
         protected static void LoadFromXml(TelemetryConfiguration configuration, XDocument xml)
         {
-            XElement applicationInsights = xml.Element(XmlNamespace + "ApplicationInsights");
-            LoadInstance(applicationInsights, typeof(TelemetryConfiguration), configuration);
+            XElement element = xml.Element(XmlNamespace + "ApplicationInsights");
+            LoadInstance(element, typeof(TelemetryConfiguration), configuration);
         }
 
         protected static object LoadInstance(XElement definition, Type expectedType, object instance)

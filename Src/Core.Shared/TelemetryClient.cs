@@ -28,7 +28,7 @@
         private ITelemetryChannel channel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TelemetryClient" /> class. Send telemetry with the active configuration, usually loaded from ApplicationInsights.config.
+        /// Initializes a new instance of the <see cref="TelemetryClient" /> class. Send telemetry with the active configuration, usually loaded from configuration file.
         /// </summary>
         public TelemetryClient() : this(TelemetryConfiguration.Active)
         {

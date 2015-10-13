@@ -20,8 +20,8 @@
     /// </summary>
     public sealed class SessionTelemetryModule : ITelemetryInitializer, ITelemetryModule
     {
-        private const string SessionIdSetting = "ApplicationInsightsSessionId";
-        private const string SessionEndSetting = "ApplicationInsightsSessionEnd";
+        private const string SessionIdSetting = "HockeyAppSessionId";
+        private const string SessionEndSetting = "HockeyAppSessionEnd";
 
         private readonly IPlatform platform;
         private readonly IClock clock;

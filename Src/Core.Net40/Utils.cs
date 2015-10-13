@@ -18,11 +18,6 @@
     internal static partial class Utils
     {
         /// <summary>
-        /// The relative path to the cache for our application data.
-        /// </summary>
-        private static readonly string[] RelativeFolderPath = new string[] { "Microsoft", "ApplicationInsights", "Cache" };
-
-        /// <summary>
         /// Gets the input string as a SHA256 Base64 encoded string.
         /// </summary>
         /// <param name="input">The input to hash.</param>

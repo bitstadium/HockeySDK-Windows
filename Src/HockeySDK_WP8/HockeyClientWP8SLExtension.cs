@@ -48,7 +48,7 @@ namespace HockeyApp
                 AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
             }
 
-            HockeyClientWP8SLExtension.ConfigureApplicationInsights(appId);
+            WindowsAppInitializer.InitializeAsync(appId);
             return @this as IHockeyClientConfigurable;
         }
 
@@ -65,21 +65,6 @@ namespace HockeyApp
             LocalizedStrings.CustomResourceManager = manager;
             #pragma warning restore 0618
             return @this;
-        }
-
-        /// <summary>
-        /// Bootstraps Application Insights SDK
-        /// </summary>
-        /// <param name="applicationInsightsInstrumentationKey"></param>
-        private static void ConfigureApplicationInsights(string applicationInsightsInstrumentationKey)
-        {
-            try
-            {
-                WindowsAppInitializer.InitializeAsync(applicationInsightsInstrumentationKey);
-            }
-            catch (Exception)
-            {
-            }
         }
 
         #endregion

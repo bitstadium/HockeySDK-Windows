@@ -32,7 +32,7 @@
 #if !WINDOWS_STORE
         // TODO: Find a way to test ReadConfigurationXml on Windows 8.1
         [TestMethod]
-        public void ReadConfigurationXmlReturnsContentsOfApplicationInsightsConfigFileInApplicationInstallationDirectory()
+        public void ReadConfigurationXmlReturnsContentsOfConfigFileInApplicationInstallationDirectory()
         {
             const string TestFileContent = "42";
             CreateConfigurationFile(TestFileContent);
@@ -45,7 +45,7 @@
 #endif
 
         [TestMethod]
-        public void ReadConfigurationXmlIgnoresMissingApplicationInsightsConfigurationFileByReturningEmptyString()
+        public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
         {
             var platform = new PlatformImplementation();
 
