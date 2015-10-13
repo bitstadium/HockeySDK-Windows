@@ -28,7 +28,7 @@
 
         public string ReadConfigurationXml()
         {
-            StreamResourceInfo streamInfo = Application.GetResourceStream(new Uri("ApplicationInsights.config", UriKind.Relative));
+            StreamResourceInfo streamInfo = Application.GetResourceStream(new Uri("HockeyApp.config", UriKind.Relative));
             if (streamInfo != null)
             {
                 using (StreamReader reader = new StreamReader(streamInfo.Stream))

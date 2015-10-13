@@ -76,28 +76,28 @@
 #if WINRT
             try 
             {
-                StorageFile file = Package.Current.InstalledLocation.GetFileAsync("ApplicationInsights.config").GetAwaiter().GetResult();
+                StorageFile file = Package.Current.InstalledLocation.GetFileAsync(PlatformTest.ConfigurationFileName).GetAwaiter().GetResult();
                 file.DeleteAsync().GetAwaiter().GetResult();
             }
             catch (FileNotFoundException)
             {
             }
 #elif WINDOWS_PHONE_APP
-            File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ApplicationInsights.config"));
+            File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PlatformTest.ConfigurationFileName));
 #else
-            File.Delete(Path.Combine(Environment.CurrentDirectory, "ApplicationInsights.config"));
+            File.Delete(Path.Combine(Environment.CurrentDirectory, PlatformTest.ConfigurationFileName));
 #endif
         }
 
         private static Stream OpenConfigurationFile()
         {
 #if WINRT
-            StorageFile file = Package.Current.InstalledLocation.CreateFileAsync("ApplicationInsights.config", CreationCollisionOption.ReplaceExisting).GetAwaiter().GetResult();
+            StorageFile file = Package.Current.InstalledLocation.CreateFileAsync(PlatformTest.ConfigurationFileName, CreationCollisionOption.ReplaceExisting).GetAwaiter().GetResult();
             return file.OpenStreamForWriteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE_APP
-            return File.OpenWrite(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ApplicationInsights.config"));
+            return File.OpenWrite(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, PlatformTest.ConfigurationFileName));
 #else
-            return File.OpenWrite(Path.Combine(Environment.CurrentDirectory, "ApplicationInsights.config"));
+            return File.OpenWrite(Path.Combine(Environment.CurrentDirectory, PlatformTest.ConfigurationFileName));
 #endif
         }
     }

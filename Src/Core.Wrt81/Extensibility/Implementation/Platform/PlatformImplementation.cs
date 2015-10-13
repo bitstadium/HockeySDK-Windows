@@ -30,7 +30,7 @@
         {
             StorageFile file = Package.Current.InstalledLocation
                 .GetFilesAsync().GetAwaiter().GetResult()
-                .FirstOrDefault(f => f.Name == "ApplicationInsights.config");
+                .FirstOrDefault(f => f.Name == "HockeyApp.config");
 
             if (file != null)
             {

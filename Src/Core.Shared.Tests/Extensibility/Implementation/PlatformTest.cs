@@ -20,6 +20,8 @@
     [TestClass]
     public class PlatformTest
     {
+        internal const string ConfigurationFileName = "HockeyApp.config";
+
         [TestCleanup]
         public void TestCleanup()
         {
@@ -90,24 +92,24 @@
         private static void DeleteConfigurationFile()
         {
 #if WINRT
-            StorageFile file = Package.Current.InstalledLocation.GetFileAsync("ApplicationInsights.config").GetAwaiter().GetResult();
+            StorageFile file = Package.Current.InstalledLocation.GetFileAsync(ConfigurationFileName).GetAwaiter().GetResult();
             file.DeleteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE
-            File.Delete(Path.Combine(Environment.CurrentDirectory, "ApplicationInsights.config"));
+            File.Delete(Path.Combine(Environment.CurrentDirectory, ConfigurationFileName));
 #else
-            File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ApplicationInsights.config"));
+            File.Delete(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationFileName));
 #endif
         }
 
         private static Stream OpenConfigurationFile()
         {
 #if WINRT
-            StorageFile file = Package.Current.InstalledLocation.CreateFileAsync("ApplicationInsights.config").GetAwaiter().GetResult();
+            StorageFile file = Package.Current.InstalledLocation.CreateFileAsync(ConfigurationFileName).GetAwaiter().GetResult();
             return file.OpenStreamForWriteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE
-            return File.OpenWrite(Path.Combine(Environment.CurrentDirectory, "ApplicationInsights.config"));
+            return File.OpenWrite(Path.Combine(Environment.CurrentDirectory, ConfigurationFileName));
 #else
-            return File.OpenWrite(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "ApplicationInsights.config"));
+            return File.OpenWrite(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConfigurationFileName));
 #endif
         }
     }
