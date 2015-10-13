@@ -5,8 +5,8 @@
     <version>2.2.7</version>
     <authors>Bit Stadium GmbH</authors>
     <owners>Bit Stadium GmbH</owners>
-    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows-Private/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows-Private</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows and WindowsPhone apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
