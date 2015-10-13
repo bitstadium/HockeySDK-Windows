@@ -1,47 +1,101 @@
 ![Build Status](https://mseng.visualstudio.com/DefaultCollection/_apis/public/build/definitions/96a62c4a-58c2-4dbb-94b6-5979ebc7f2af/1932/badge)
 
-# Application Insights for Windows Apps
+HockeySDK for Windows
+=========
 
-This repository has code for the WindowsApps for Application Insights. [Application Insights][AILandingPage]
+The official Windows SDK for the HockeyApp service. Supports .NET Framework >= 4.0 as well as Windows Phone and Windows Store Apps.
 
-## Getting Started
+## Introduction
 
-If developing for a .Net project that is supported by one of our platform specific packages, [Web][WebGetStarted] or [Windows Apps][WinAppGetStarted], we strongly recommend to use one of those packages instead of this core library. If your project does not fall into one of those platforms you can use this library for any .Net code. This library should have no depenedencies outside of the .Net framework. If you are building a [Desktop][DesktopGetStarted] or any other .Net project type this library will enable you to utilize Application Insights.
+The HockeySDK for Windows allows users to send crash reports right from within the application.
+When your app crashes, a file with basic information about the environment (device type, OS version, etc.), the reason and the stacktrace of the exception is created. 
+The next time the user starts the app, he is asked to send the crash data to the developer. If he confirms the dialog, the crash log is sent to HockeyApp and then the file deleted from the device.
 
-### Get an Instrumentation Key
+Furthermore it wraps the necessary api calls for sending feedback information to the platform.
 
-To use the Application Insights SDK you will need to provide it with an Instrumentation Key which can be [obtained from the portal][AIKey]. This Instrumentation Key will identify all the data flowing from your application instances as belonging to your account and specific application.
 
-### Add the SDK library
+## Features & Installation via Nuget
+### Windows Phone 8
+<pre>Nuget PM> Install-Package HockeySDK.WP</pre>
 
-We recommend consuming the library as a NuGet package. Make sure to look for the [Microsoft.ApplicationInsights][NuGetCore] package. Use the NuGet package manager to add a reference to your application code. 
+* Automatic crash reporting (store and beta apps)
+* Feedback page (store and beta apps): Let your users send you feedback messages via HockeyApp 
+* Automatic updates (only beta apps): Either all beta users must have developer unlocked phones or you need to either use an Enterprise Certificate to sign your beta apps. See http://msdn.microsoft.com/en-us/library/windowsphone/develop/jj206943(v=vs.105).aspx
+* Authorization using HockeyApp logins
 
-## Branches
+### Windows Phone 7.5
+Deprecated but still available (no Nuget package available -> use the source)
 
-- [master][master] contains the *latest* published release located on [NuGet][NuGetCore].
-- [development][develop] contains the code for the *next* release. 
+* Crash reporting and Feedback (works for beta and store apps)
 
-## Contributing
+### WinRT (Windows 8.1 Store Apps and Windows Phone 8.1 Store Apps)
+<pre>Nuget PM> Install-Package HockeySDK.WinRT</pre>
 
-We strongly welcome and encourage contributions to this project. Please read the [contributor's guide][ContribGuide] located in the ApplicationInsights-Home repository. If making a large change we request that you open an [issue][GitHubIssue] first. We follow the [Git Flow][GitFlow] approach to branching. 
+* Automatic crash reporting
+* Automatic updates (only for Windows Phone 8.1)
+* Sending feedback to the developers
+* Authorization using HockeyApp logins
 
-[AILandingPage]: http://azure.microsoft.com/services/application-insights/
-[ContribGuide]: https://github.com/Microsoft/ApplicationInsights-Home/blob/master/CONTRIBUTING.md
-[GitFlow]: http://nvie.com/posts/a-successful-git-branching-model/
-[GitHubIssue]: https://github.com/Microsoft/ApplicationInsights-dotnet/issues
-[master]: https://github.com/Microsoft/ApplicationInsights-dotnet/tree/master
-[develop]: https://github.com/Microsoft/ApplicationInsights-dotnet/tree/development
-[NuGetCore]: https://www.nuget.org/packages/Microsoft.ApplicationInsights
-[WebGetStarted]: https://azure.microsoft.com/documentation/articles/app-insights-start-monitoring-app-health-usage/
-[WinAppGetStarted]: https://azure.microsoft.com/documentation/articles/app-insights-windows-get-started/
-[DesktopGetStarted]: https://azure.microsoft.com/documentation/articles/app-insights-windows-desktop/
-[AIKey]: https://github.com/Microsoft/ApplicationInsights-Home/wiki#getting-an-application-insights-instrumentation-key
+### WPF
+<pre>Nuget PM> Install-Package HockeySDK.WPF</pre>
 
-## Cloning
-This project references ApplicationInsights-Dotnet repository as a sub-module, so to clone the submodule as well, use this command:  
-git clone https://github.com/Microsoft/ApplicationInsights-WindowsApp.git --recursive
+* Automatic crash reporting
+* Sending feedback to the developers
 
-## Building
-1. Use Visual Studio 2015.
-2. Install HockeyAppTest.pfx certificate into the current user's personal certificate store. Use empty password. 
+### Portable lib (core component) 
+<pre>Nuget PM> Install-Package HockeySDK.Core</pre>
+A basic API wrapper for the HockeyApp API that supports
 
+* Handling of crashes
+* Submitting of crashes to the HockeyApp server
+* Checking for newest app version  
+* Sending feedback to the developers
+
+## Requirements
+
+Before you integrate HockeySDK into your own app, you should add the app to HockeyApp if you haven't already. Read [this faq entry](http://support.hockeyapp.net/kb/about-general-faq/how-to-create-a-new-app) on how to do this.
+
+## Getting started 
+Guides to get you started with HockeySDK can be found in the [HockeyApp Knowledge Base](http://support.hockeyapp.net/kb)
+
+There are also [Demo Apps](https://github.com/bitstadium/HockeySDK-WindowsDemo) on GitHub.
+
+###[HockeyApp for Windows Store Apps and Windows Phone Store Apps](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-store-apps-and-windows-phone-store-apps)
+
+###[HockeyApp for Windows Phone Silverlight Apps (8.0 and 8.1)](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-phone-silverlight-apps-80-and-81)
+
+###[HockeyApp for Windows WPF Apps](http://support.hockeyapp.net/kb/client-integration-android-other-platforms/hockeyapp-for-windows-wpf-apps)
+
+#### Feedback in WPF
+In the WPF SDK there are no UI components for the Feedback-Informations. The SDK offers methods to load Feedbacks from the server by using feedback-tokens. Feedback-tokens must be stored in the client application.
+Creating a new Feedback:
+
+1. `HockeyClient.Current.CreateFeedbackThread()` creates an new IFeedbackThread
+2. `feedbackThread.PostFeedbackMessageAsync(MESSAGE, EMAIL, SUBJECT, USERNAME);` submits a new feedback message on the selected feedback-thread.
+3. The FeedbackThread is created on the server with submitting the first feedback-message (keep that in mind when storing the feedback-token information)
+
+## Using the PCL
+You can use the portable library directly - e.g. when implementing your own custom-platform SDK. To get some hints look at the classes implementing 
+[`IHockeyPlatformHelper`](https://github.com/bitstadium/HockeySDK-Windows/blob/develop/HockeySDK_Portable/IHockeyPlatformHelper.cs) and the extension classes e.g. [`HockeyClientWPFExtensions`](https://github.com/bitstadium/HockeySDK-Windows/blob/develop/HockeySDK_WPF/HockeyClientWPFExtensions.cs).
+
+## Console app
+There is no special SDK for console apps but you can find an example of crashhandling in Hoch.exe (Project [HockeyAppForWindowsConsole](https://github.com/bitstadium/HockeyApp-for-Windows/tree/develop/HockeyAppForWindowsConsole)).
+
+# Support
+
+If you have any questions, problems or suggestions, please contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
+
+## Contributor License
+
+You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
+
+## Release notes
+All release notes can be found in the project directories
+
+* [Hockey-SDK Portable](./Src/HockeySDK_Portable/)
+* [Hockey-SDK Portable .Net4.5](./Src/HockeySDK_Portable45/)
+* [HockeySDK WP8](./Src/HockeySDK_WP8/)
+* [HockeySDK WP7.5](./Src/HockeySDK_WP75/)
+* [HockeySDK WinRT](./Src/HockeySDK_WinRT/)
+* [HockeySDK WPF](./Src/HockeySDK_WPF/)
+* [HockeySDK WPF .Net4.5](./Src/HockeySDK_WPF45/)
