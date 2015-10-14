@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     /// <summary>
     /// meta information for current feedback thread

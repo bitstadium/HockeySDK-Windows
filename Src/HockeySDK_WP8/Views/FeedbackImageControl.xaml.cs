@@ -12,12 +12,12 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using System.IO;
 using System.Windows.Media.Imaging;
-using HockeyApp.ViewModels;
+using Microsoft.HockeyApp.ViewModels;
 using System.Threading.Tasks;
 using Windows.Storage.Streams;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public partial class FeedbackImageControl : UserControl
     {

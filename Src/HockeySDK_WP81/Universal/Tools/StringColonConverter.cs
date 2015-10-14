@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     /// <summary>
     /// xaml helper converter to convert a string to a string with a semicolon at the end (for labels etc.)

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Interface for feedback attachments (documents, images)

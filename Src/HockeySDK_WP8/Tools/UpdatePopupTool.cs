@@ -3,12 +3,12 @@ using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using System.Linq;
-using HockeyApp.Views;
+using Microsoft.HockeyApp.Views;
 using System.Collections.Generic;
 using Microsoft.Phone.Controls;
 using System.ComponentModel;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     public class UpdatePopupTool
     {

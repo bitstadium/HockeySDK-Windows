@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using System.Net;
 using System.IO;
 using System.Reflection;
-using HockeyApp.Extensions;
+using Microsoft.HockeyApp.Extensions;
 using System.Runtime.Serialization.Json;
-using HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Exceptions;
 using System.Runtime.CompilerServices;
 
 //TODO make it work with InternalsVisibleTo (PublicKey ?!) and make class and OnDeserializing internal
 [assembly: InternalsVisibleTo("System.Runtime.Serialization")]
 [assembly: InternalsVisibleTo("System.Runtime.Serialization.Json")]
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     /// <summary>
     /// represents data of a crashlog

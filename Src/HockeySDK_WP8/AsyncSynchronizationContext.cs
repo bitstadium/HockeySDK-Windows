@@ -20,7 +20,7 @@ using System;
 using System.Threading;
 using System.Windows.Controls;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Wrapper around a standard synchronization context, that catches any unhandled exceptions.

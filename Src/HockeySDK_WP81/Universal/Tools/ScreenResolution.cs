@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal class ScreenResolution
     {

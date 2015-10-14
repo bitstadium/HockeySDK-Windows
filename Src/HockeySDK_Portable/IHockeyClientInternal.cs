@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HockeyApp.Internal
+namespace Microsoft.HockeyApp.Internal
 {
     /// <summary>
     /// Full interface of Hockeyclient. Used by platform-specific SDKs

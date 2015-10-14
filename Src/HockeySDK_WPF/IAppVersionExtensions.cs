@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Interface for app version.

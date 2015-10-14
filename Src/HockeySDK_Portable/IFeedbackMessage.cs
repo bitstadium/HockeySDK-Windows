@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Represents a message in a feedback thread

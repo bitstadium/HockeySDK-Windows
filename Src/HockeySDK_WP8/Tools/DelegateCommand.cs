@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     public class DelegateCommand : ICommand
     {

@@ -13,7 +13,7 @@ using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
 
     public class GravatarHelper

@@ -8,7 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public partial class FeedbackMessageListControl : UserControl
     {

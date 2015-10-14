@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
 #pragma warning disable 1998

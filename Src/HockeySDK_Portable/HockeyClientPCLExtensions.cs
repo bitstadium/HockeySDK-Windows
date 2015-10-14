@@ -1,10 +1,10 @@
-﻿using HockeyApp.Internal;
+﻿using Microsoft.HockeyApp.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HockeyApp.PCL
+namespace Microsoft.HockeyApp.PCL
 {
     
     /// <summary>

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// interface for an app version

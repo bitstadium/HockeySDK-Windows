@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// interface for crashlog data

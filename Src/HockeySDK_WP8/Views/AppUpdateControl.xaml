@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="HockeyApp.Views.AppUpdateControl"
+    x:Class="Microsoft.HockeyApp.Views.AppUpdateControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:tools="clr-namespace:HockeyApp.Tools"
+    xmlns:tools="clr-namespace:Microsoft.HockeyApp.Tools"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -15,7 +15,7 @@
     shell:SystemTray.IsVisible="True">
 
     <UserControl.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:Microsoft.HockeyApp"/>
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </UserControl.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->

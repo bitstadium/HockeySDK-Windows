@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 using System.Globalization;
 
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     /// <summary>
     /// static class for utility extension methods

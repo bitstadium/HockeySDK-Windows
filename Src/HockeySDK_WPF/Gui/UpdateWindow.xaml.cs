@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace HockeyApp.Gui
+namespace Microsoft.HockeyApp.Gui
 {
     /// <summary>
     /// Interaction logic for UpdateWindow.xaml

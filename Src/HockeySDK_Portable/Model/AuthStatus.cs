@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
-using HockeyApp.Extensions;
+using Microsoft.HockeyApp.Extensions;
 using System.Threading.Tasks;
 using System.Runtime.Serialization;
 using System.IO;
 using System.Runtime.Serialization.Json;
-using HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Exceptions;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     internal class AuthType
     {

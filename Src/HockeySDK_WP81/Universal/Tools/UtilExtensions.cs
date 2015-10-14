@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using Windows.Storage;
@@ -13,7 +13,7 @@ using Windows.Storage.Streams;
 using Windows.Graphics.Imaging;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal static class UtilExtensions
     {

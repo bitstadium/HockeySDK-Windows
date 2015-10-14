@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Model;
-using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +18,7 @@ using Windows.Storage.Streams;
 using Windows.UI.ViewManagement;
 using Windows.System;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackMessageVM
     {

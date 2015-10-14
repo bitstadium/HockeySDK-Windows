@@ -8,7 +8,7 @@ using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     public class LocalizedAssets
     {

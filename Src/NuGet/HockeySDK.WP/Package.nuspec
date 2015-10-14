@@ -28,9 +28,9 @@
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\HockeySDK_WP8\HockeyApp.*" target="lib\wp8" />
-    <file src="$configuration$\HockeySDK_WP8\de\HockeyApp.*" target="lib\wp8\de" />
-    <file src="$configuration$\HockeySDK_WP8\Microsoft.HockeyApp.*" target="lib\wp8" />
+
+    <file src="$configuration$\HockeySDK_WP8\Microsoft.HockeyApp.Kit*" target="lib\wp8" />
+    <file src="$configuration$\HockeySDK_WP8\de\Microsoft.HockeyApp.Kit.*" target="lib\wp8\de" />
     <file src="$configuration$\NuGet\HockeySDK.WP\content\**" target="content" />
     <file src="$configuration$\NuGet\HockeySDK.WP\tools\**" target="tools" />
 

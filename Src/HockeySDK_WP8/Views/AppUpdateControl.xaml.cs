@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Model;
 using Microsoft.Phone.Reactive;
 using System.IO;
 using Windows.Storage.Streams;
@@ -18,7 +18,7 @@ using Windows.Storage;
 using System.Windows.Media.Animation;
 using Microsoft.Phone.Tasks;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public partial class AppUpdateControl : UserControl
     {

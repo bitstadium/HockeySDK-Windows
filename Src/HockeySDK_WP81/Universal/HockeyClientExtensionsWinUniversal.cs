@@ -1,4 +1,4 @@
-﻿using HockeyApp.Internal;
+﻿using Microsoft.HockeyApp.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Extensions for Win 8.1 Store Apps and Windows Phone 8.1 Store Apps

@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Model;
-using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +19,7 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using Windows.UI.Core;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackMessageVM : VMBase
     {

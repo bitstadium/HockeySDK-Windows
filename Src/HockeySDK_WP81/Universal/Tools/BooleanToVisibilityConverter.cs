@@ -8,7 +8,7 @@ using System.Windows;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     /// <summary>
     /// xaml converter boolean to visibility

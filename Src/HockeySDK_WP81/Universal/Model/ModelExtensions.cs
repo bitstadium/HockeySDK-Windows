@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.Serialization.Json;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     internal static class ModelExtensions
     {

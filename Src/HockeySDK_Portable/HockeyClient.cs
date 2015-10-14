@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,13 +6,13 @@ using System.Net;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
-using HockeyApp.Exceptions;
-using HockeyApp.Extensions;
-using HockeyApp.Internal;
+using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Extensions;
+using Microsoft.HockeyApp.Internal;
 using System.Net.NetworkInformation;
 using System.Threading;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     /// <summary>

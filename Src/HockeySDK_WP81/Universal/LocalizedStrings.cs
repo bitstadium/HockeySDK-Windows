@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     public class LocalizedStrings
     {

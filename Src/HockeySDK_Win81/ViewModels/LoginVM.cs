@@ -1,5 +1,5 @@
-﻿using HockeyApp.Exceptions;
-using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.UI.Popups;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public class LoginVM : VMBase
     {

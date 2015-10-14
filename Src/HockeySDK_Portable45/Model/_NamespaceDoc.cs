@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     /// <summary>
     /// Namespace for HockeyApp SDK models

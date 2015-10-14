@@ -73,9 +73,9 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
-using HockeyApp.Controls;
+using Microsoft.HockeyApp.Controls;
 
-namespace HockeyApp.Controls.NotificationBox
+namespace Microsoft.HockeyApp.Controls.NotificationBox
 {
     public class NotificationBox : ItemsControl
     {

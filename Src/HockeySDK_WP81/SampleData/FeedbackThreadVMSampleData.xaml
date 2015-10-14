@@ -1,4 +1,4 @@
-﻿<ViewModels:FeedbackThreadVM xmlns:ViewModels="using:HockeyApp.ViewModels" xmlns:Model="using:HockeyApp.Model" 
+﻿<ViewModels:FeedbackThreadVM xmlns:ViewModels="using:Microsoft.HockeyApp.ViewModels" xmlns:Model="using:Microsoft.HockeyApp.Model" 
 xmlns:Imaging="using:Windows.UI.Xaml.Media.Imaging" xmlns:Xaml="using:Windows.UI.Xaml" Email="Aliquam maecenas integer curabitur" IsNotBusy="True" 
 IsBusy="False" Subject="Dis adipiscing quisque cras" Username="Vestibulum nam sed praesent">
 	<ViewModels:FeedbackThreadVM.Messages>

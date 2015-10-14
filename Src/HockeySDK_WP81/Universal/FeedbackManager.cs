@@ -4,16 +4,16 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.Generic;
-using HockeyApp.Model;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
 using System.IO;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Graphics.Imaging;
-using HockeyApp.ViewModels;
+using Microsoft.HockeyApp.ViewModels;
 
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Provides the methods to integrate HockeyApp Feedback in your app

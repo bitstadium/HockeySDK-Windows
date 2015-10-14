@@ -9,7 +9,7 @@
   </PropertyGroup>
   
   <PropertyGroup>
-    <RootNamespace>$(RootNamespace).Extensibility.Windows</RootNamespace>
+    <RootNamespace>$(RootNamespace).Extensibility</RootNamespace>
 	<AssemblyName>$(RootNamespace)</AssemblyName>
     <DocumentationFile>$(OutputPath)\$(AssemblyName).XML</DocumentationFile>
   </PropertyGroup>

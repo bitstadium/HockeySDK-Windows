@@ -1,5 +1,5 @@
-﻿using HockeyApp.ViewModels;
-using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.ViewModels;
+using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +9,15 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Core;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Windows.UI.Xaml.Navigation;
-using HockeyApp.Views;
+using Microsoft.HockeyApp.Views;
 using Windows.Storage;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.Foundation;
 using Windows.Graphics.Display;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal partial class FeedbackManager
     {

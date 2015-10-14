@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal static class CanvasExtensions
     {

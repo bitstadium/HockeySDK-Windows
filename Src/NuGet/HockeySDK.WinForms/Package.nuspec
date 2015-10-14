@@ -22,7 +22,6 @@
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\HockeySDK_WinForms45\HockeyApp.*" target="lib\net45" />
     <file src="$configuration$\NuGet\HockeySDK.WinForms\tools\**" target="tools" />
     
     <!-- Application Insights -->

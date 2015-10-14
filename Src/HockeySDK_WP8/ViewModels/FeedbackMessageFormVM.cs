@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Microsoft.Phone.Tasks;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Model;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Collections.ObjectModel;
-using HockeyApp.Views;
+using Microsoft.HockeyApp.Views;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public class FeedbackMessageFormVM: VMBase
     {

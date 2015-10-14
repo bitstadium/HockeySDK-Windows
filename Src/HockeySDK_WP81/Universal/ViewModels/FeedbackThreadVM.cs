@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Windows.Storage;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using HockeyApp.Common;
+using Microsoft.HockeyApp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using HockeyApp.Views;
+using Microsoft.HockeyApp.Views;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackThreadVM : VMBase
     {

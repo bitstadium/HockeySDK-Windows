@@ -7,14 +7,14 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.ViewModels;
+using Microsoft.HockeyApp.ViewModels;
 using System.Windows.Input;
 using System.Threading.Tasks;
 using Microsoft.Phone.Tasks;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Model;
 using System.Windows.Media;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public partial class FeedbackMessageFormControl : UserControl
     {

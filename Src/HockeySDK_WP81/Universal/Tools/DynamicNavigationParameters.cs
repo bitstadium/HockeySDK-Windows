@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.Reflection;
 using System.Diagnostics.CodeAnalysis;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal class DynamicNavigationParameters : DynamicObject, IDynamicMetaObjectProvider
     {

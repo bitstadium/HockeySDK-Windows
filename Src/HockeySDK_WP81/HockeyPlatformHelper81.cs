@@ -1,11 +1,11 @@
-﻿using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal partial class HockeyPlatformHelper81
     {

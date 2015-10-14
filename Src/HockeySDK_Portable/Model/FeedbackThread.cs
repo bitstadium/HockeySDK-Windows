@@ -5,11 +5,11 @@ using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using HockeyApp.Extensions;
+using Microsoft.HockeyApp.Extensions;
 using System.IO;
-using HockeyApp.Internal;
+using Microsoft.HockeyApp.Internal;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     /// <summary>
     /// represents a feedback thread on hockeyapp with one or more messages

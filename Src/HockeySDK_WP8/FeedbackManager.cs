@@ -1,5 +1,5 @@
 ﻿using System.Windows.Navigation;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System;
 using System.IO.IsolatedStorage;
 using System.Linq;
@@ -7,13 +7,13 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Collections.Generic;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Model;
 using System.IO;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Provides the methods to integrate HockeyApp Feedback in your app. Don't use directly. Use HockeyClient.Current - extension methods

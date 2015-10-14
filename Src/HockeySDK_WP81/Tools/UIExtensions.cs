@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal static class UIExtensions
     {

@@ -1,6 +1,6 @@
-﻿using HockeyApp.Exceptions;
-using HockeyApp.Internal;
-using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Internal;
+using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal class CrashHandler
     {

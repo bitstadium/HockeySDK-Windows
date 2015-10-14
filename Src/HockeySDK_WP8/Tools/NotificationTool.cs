@@ -78,9 +78,9 @@ using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using System.Windows.Threading;
 using Microsoft.Phone.Controls;
-using HockeyApp.Controls.NotificationBox;
+using Microsoft.HockeyApp.Controls.NotificationBox;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     public class NotificationTool
     {

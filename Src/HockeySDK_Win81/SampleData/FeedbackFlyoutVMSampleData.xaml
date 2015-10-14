@@ -1,4 +1,4 @@
-﻿<ViewModels:FeedbackFlyoutVM xmlns:ViewModels="using:HockeyApp.ViewModels" xmlns:Model="using:HockeyApp.Model" FlyoutTitle="Vestibulum aliquam cras nam sed" IsNotBusy="True" IsBusy="False" MinWidth="913.63">
+﻿<ViewModels:FeedbackFlyoutVM xmlns:ViewModels="using:Microsoft.HockeyApp.ViewModels" xmlns:Model="using:Microsoft.HockeyApp.Model" FlyoutTitle="Vestibulum aliquam cras nam sed" IsNotBusy="True" IsBusy="False" MinWidth="913.63">
 	<ViewModels:FeedbackFlyoutVM.FeedbackThreadList>
 		<ViewModels:FeedbackThreadVM Email="Adipiscing dis maecenas praesent" IsNotBusy="True" IsNewThreadNot="True" IsNewThread="False" IsBusy="False" Subject="Aenean duis" Username="Accumsan bibendum">
 			<ViewModels:FeedbackThreadVM.Messages>

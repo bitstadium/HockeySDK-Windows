@@ -1,4 +1,4 @@
-﻿namespace HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
     using System;
     using System.Threading.Tasks;

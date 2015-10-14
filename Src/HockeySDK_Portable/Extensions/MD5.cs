@@ -6,11 +6,11 @@
 // * Copyright (c) Microsoft Corporation.  All rights reserved.
 // **************************************************************
 
-using HockeyApp.Util;
+using Microsoft.HockeyApp.Util;
 using System;
 using System.Text;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     // Simple struct for the (a,b,c,d) which is used to compute the mesage digest.    
@@ -46,7 +46,7 @@ namespace HockeyApp
     }
 }
 
-namespace HockeyApp.Util
+namespace Microsoft.HockeyApp.Util
 {
     /// <summary>
     /// MD5 digest algorithm

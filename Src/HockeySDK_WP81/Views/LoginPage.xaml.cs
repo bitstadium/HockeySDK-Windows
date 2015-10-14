@@ -1,8 +1,8 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Exceptions;
-using HockeyApp.Model;
-using HockeyApp.Tools;
-using HockeyApp.ViewModels;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

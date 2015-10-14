@@ -1,18 +1,18 @@
-﻿<UserControl x:Class="HockeyApp.Views.FeedbackThreadView"
+﻿<UserControl x:Class="Microsoft.HockeyApp.Views.FeedbackThreadView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:HockeyApp.ViewModels"
-             xmlns:loc="using:HockeyApp"
-             xmlns:tools="using:HockeyApp.Tools"  >
+             xmlns:vm="clr-namespace:Microsoft.HockeyApp.ViewModels"
+             xmlns:loc="using:Microsoft.HockeyApp"
+             xmlns:tools="using:Microsoft.HockeyApp.Tools"  >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <loc:LocalizedStrings x:Key="LocalizedStrings" />
                     <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-                    <SolidColorBrush Color="#389BE8" x:Key="HockeyAppBlue"/>
+                    <SolidColorBrush Color="#389BE8" x:Key="Microsoft.HockeyAppBlue"/>
                     <Style TargetType="HyperlinkButton">
                         <Setter Property="Template">
                             <Setter.Value>

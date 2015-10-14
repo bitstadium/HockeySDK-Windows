@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace HockeyApp.Extensions
+namespace Microsoft.HockeyApp.Extensions
 {
     /// <summary>
     /// Hlper class to implement async locking

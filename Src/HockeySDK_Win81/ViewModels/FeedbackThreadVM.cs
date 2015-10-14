@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackThreadVM
     {

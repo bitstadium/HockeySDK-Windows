@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HockeyApp.Views.FeedbackMessageFormControl"
+﻿<UserControl x:Class="Microsoft.HockeyApp.Views.FeedbackMessageFormControl"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,11 +7,11 @@
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
-    xmlns:tools="clr-namespace:HockeyApp.Tools"
+    xmlns:tools="clr-namespace:Microsoft.HockeyApp.Tools"
     d:DesignHeight="720" d:DesignWidth="480">
 
     <UserControl.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:Microsoft.HockeyApp"/>
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
 
         

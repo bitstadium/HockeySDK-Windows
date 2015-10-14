@@ -1,4 +1,4 @@
-﻿using HockeyApp.Gui;
+﻿using Microsoft.HockeyApp.Gui;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal class UpdateManager:IUpdateManager
     {

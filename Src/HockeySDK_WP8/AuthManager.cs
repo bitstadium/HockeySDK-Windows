@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using Microsoft.Phone.Tasks;
 using System;
 using System.Collections.Generic;
@@ -10,11 +10,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Microsoft.Phone.Controls;
 using System.Windows;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Policy if an exisitng locally saved token should be revalidated

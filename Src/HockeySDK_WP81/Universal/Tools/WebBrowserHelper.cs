@@ -8,7 +8,7 @@ using System.Windows;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     internal static class WebBrowserHelper
     {

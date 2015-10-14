@@ -18,7 +18,7 @@
     <NoWarn>2008</NoWarn>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\HockeySDK_Portable\HockeyAppPCL.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\HockeySDK_Portable\Microsoft.HockeyAppPCL.dll</PackageVersionFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>

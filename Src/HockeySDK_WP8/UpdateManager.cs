@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +8,7 @@ using System.Net.Browser;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Microsoft.Phone.Reactive;
 using Windows.Phone.Management.Deployment;
 using System.Windows;
@@ -18,7 +18,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.Phone.Tasks;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     public enum UpdateCheckFrequency

@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.IO.IsolatedStorage;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Globalization;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     public static class UtilExtensions
     {

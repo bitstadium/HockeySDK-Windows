@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using HockeyApp.Extensions;
+using Microsoft.HockeyApp.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HockeyApp.Model
+namespace Microsoft.HockeyApp.Model
 {
     /// <summary>
     /// represents an attachment to a feedback message

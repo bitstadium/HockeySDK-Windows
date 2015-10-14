@@ -1,4 +1,4 @@
-﻿<Window x:Class="HockeyApp.Gui.UpdateWindow"
+﻿<Window x:Class="Microsoft.HockeyApp.Gui.UpdateWindow"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,7 +7,7 @@
              Height="400" Width="700" BorderBrush="#3F3F46" BorderThickness="1" ShowInTaskbar="False"
              >
     <Window.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:Microsoft.HockeyApp"/>
         <Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" x:Key="UpdateIcon">
             <Grid>
                 <Grid Width="256" Height="256" Visibility="Collapsed" />

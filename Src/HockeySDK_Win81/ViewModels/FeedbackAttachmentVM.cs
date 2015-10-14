@@ -1,4 +1,4 @@
-﻿using HockeyApp.Common;
+﻿using Microsoft.HockeyApp.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ using Windows.Storage.Streams;
 using System.IO;
 using Windows.Storage;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackAttachmentVM
     {

@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Model;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Windows.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackThreadVM
     {

@@ -1,7 +1,7 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Model;
-using HockeyApp.Tools;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,7 +19,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackMessageVM
     {

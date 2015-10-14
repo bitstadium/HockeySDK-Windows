@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Tools;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.IO;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Controls;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackAttachmentVM
     {

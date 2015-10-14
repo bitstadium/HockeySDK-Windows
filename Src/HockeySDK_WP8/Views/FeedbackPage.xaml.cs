@@ -7,9 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.ViewModels;
+using Microsoft.HockeyApp.ViewModels;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
 
     public enum FeedbackViewState

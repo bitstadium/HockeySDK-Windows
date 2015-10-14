@@ -29,18 +29,18 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Diagnostics;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
-using HockeyApp.Exceptions;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Model;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     /// <summary>

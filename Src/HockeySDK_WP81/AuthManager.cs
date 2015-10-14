@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml;
-using HockeyApp.Views;
+using Microsoft.HockeyApp.Views;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal partial class AuthManager
     {

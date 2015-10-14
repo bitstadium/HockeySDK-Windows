@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
     public static class WebBrowserHelper
     {

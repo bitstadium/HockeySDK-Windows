@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HockeyApp.Extensions
+namespace Microsoft.HockeyApp.Extensions
 {
     /// <summary>
     /// static extension class for mix extensions on pcl lib

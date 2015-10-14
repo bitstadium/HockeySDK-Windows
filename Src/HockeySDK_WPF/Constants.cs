@@ -2,7 +2,7 @@
 using System.IO;
 using System.Globalization;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal class Constants
     {

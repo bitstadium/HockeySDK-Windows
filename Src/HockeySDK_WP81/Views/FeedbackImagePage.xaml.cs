@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Tools;
-using HockeyApp.ViewModels;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +27,7 @@ using Windows.UI.Xaml.Shapes;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public sealed partial class FeedbackImagePage : Page
     {

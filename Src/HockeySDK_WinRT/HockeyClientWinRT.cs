@@ -1,4 +1,4 @@
-﻿using HockeyApp.Internal;
+﻿using Microsoft.HockeyApp.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.HockeyApp;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     [Obsolete("Please use HockeyClient.Current and applicable Extension methods")]
     public class HockeyClientWinRT

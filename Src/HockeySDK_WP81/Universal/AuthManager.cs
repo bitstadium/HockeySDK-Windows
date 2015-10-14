@@ -1,6 +1,6 @@
-﻿using HockeyApp.Exceptions;
-using HockeyApp.Model;
-using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +22,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     /// <summary>

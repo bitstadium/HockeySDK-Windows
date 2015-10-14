@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using Microsoft.Phone.Net.NetworkInformation;
 using Microsoft.Phone.Reactive;
 using System;
@@ -12,11 +12,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using HockeyApp.Views;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
+using Microsoft.HockeyApp.Tools;
 using Microsoft.Phone.Controls;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public class FeedbackPageVM : VMBase
     {

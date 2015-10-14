@@ -7,7 +7,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Provides access to string resources.

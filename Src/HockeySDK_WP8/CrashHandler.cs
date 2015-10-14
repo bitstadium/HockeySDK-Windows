@@ -32,16 +32,16 @@ using Microsoft.Phone.Info;
 using Microsoft.Phone.Reactive;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System.Windows.Controls;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
-using HockeyApp.Exceptions;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Model;
 using Microsoft.HockeyApp;
 using System.Globalization;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
 
     /// <summary>
@@ -207,7 +207,7 @@ namespace HockeyApp
                         string[] filenames = store.GetFileNames(Path.Combine(Constants.CrashDirectoryName, Constants.CrashFilePrefix + "*.log"));
                         if (filenames.Length > 0)
                         {
-                            Debugger.Log(0, "HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
+                            Debugger.Log(0, "Microsoft.HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
                             if (sendAutomatically)
                             {
                                 var __ = SendCrashesAsync(store, filenames);
@@ -274,7 +274,7 @@ namespace HockeyApp
                         string[] filenames = store.GetFileNames(Path.Combine(Constants.CrashDirectoryName, Constants.CrashFilePrefix + "*.log"));
                         if (filenames.Length > 0)
                         {
-                            Debugger.Log(0, "HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
+                            Debugger.Log(0, "Microsoft.HockeyApp", filenames.Aggregate((a, b) => a + " | " + b).ToString());
                             if (sendAutomatically)
                             {
                                 await SendCrashesAsync(store, filenames);

@@ -1,6 +1,6 @@
-﻿using HockeyApp.Common;
-using HockeyApp.Model;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Common;
+using Microsoft.HockeyApp.Model;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -11,7 +11,7 @@ using System.Windows.Input;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public class FeedbackFlyoutVM : VMBase
     {

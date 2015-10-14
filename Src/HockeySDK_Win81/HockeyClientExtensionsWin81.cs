@@ -1,7 +1,7 @@
-﻿using HockeyApp.Internal;
-using HockeyApp.ViewModels;
-using HockeyApp.Tools;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Internal;
+using Microsoft.HockeyApp.ViewModels;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
 using Microsoft.HockeyApp;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     public static class HockeyClientExtensionsWin81
     {

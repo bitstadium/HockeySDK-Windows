@@ -1,4 +1,4 @@
-﻿using HockeyApp.Tools;
+﻿using Microsoft.HockeyApp.Tools;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -9,7 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public class FeedbackImageVM :VMBase
     {

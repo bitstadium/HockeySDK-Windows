@@ -1,6 +1,6 @@
-﻿using HockeyApp.Internal;
-using HockeyApp.Tools;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Internal;
+using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +13,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.HockeyApp;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// Static extension class containing the main extension methods for controlling the HockeySDK client

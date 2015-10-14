@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.IO;
 using System.Net.NetworkInformation;
@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Globalization;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal class CrashHandler
     {

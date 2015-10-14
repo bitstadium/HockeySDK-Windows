@@ -1,4 +1,4 @@
-﻿using HockeyApp.Internal;
+﻿using Microsoft.HockeyApp.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Microsoft.HockeyApp.Extensibility;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// HockeyClientWPFExtensions class.

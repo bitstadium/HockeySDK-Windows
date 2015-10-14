@@ -74,7 +74,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace HockeyApp.Controls.NotificationBox
+namespace Microsoft.HockeyApp.Controls.NotificationBox
 {
     public class NotificationBoxItem : Button
     {

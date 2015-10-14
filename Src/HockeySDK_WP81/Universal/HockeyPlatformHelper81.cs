@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;
 using Windows.Security.ExchangeActiveSyncProvisioning;
 using Windows.UI.Core;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal partial class HockeyPlatformHelper81 : IHockeyPlatformHelper
     {

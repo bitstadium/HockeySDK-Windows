@@ -1,12 +1,12 @@
-﻿using HockeyApp.Internal;
+﻿using Microsoft.HockeyApp.Internal;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HockeyPlatformHelperWinForms = HockeyApp.HockeyPlatformHelperWPF;
+using HockeyPlatformHelperWinForms = Microsoft.HockeyApp.HockeyPlatformHelperWPF;
 using Microsoft.HockeyApp.Extensibility;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// HockeyClient Extension for WinForms.

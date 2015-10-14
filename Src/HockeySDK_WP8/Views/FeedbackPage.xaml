@@ -1,5 +1,5 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="HockeyApp.Views.FeedbackPage"
+    x:Class="Microsoft.HockeyApp.Views.FeedbackPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
@@ -11,12 +11,12 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="PortraitOrLandscape"
     Orientation="Portrait"
-    xmlns:tools="clr-namespace:HockeyApp.Tools"
+    xmlns:tools="clr-namespace:Microsoft.HockeyApp.Tools"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
     
     <phone:PhoneApplicationPage.Resources>
-        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:HockeyApp"/>
+        <local:LocalizedStrings x:Key="LocalizedStrings" xmlns:local="clr-namespace:Microsoft.HockeyApp"/>
         <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot is the root grid where all page content is placed-->

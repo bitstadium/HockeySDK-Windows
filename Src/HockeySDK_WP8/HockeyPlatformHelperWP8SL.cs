@@ -8,10 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Search;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Tools;
 using System.Windows;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal class HockeyPlatformHelperWP8SL : IHockeyPlatformHelper
     {

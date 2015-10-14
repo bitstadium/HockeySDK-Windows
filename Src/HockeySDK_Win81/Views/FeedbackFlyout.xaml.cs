@@ -1,4 +1,4 @@
-﻿using HockeyApp.ViewModels;
+﻿using Microsoft.HockeyApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +14,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public sealed partial class FeedbackFlyout : SettingsFlyout
     {

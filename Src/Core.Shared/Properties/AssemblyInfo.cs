@@ -17,7 +17,7 @@ using System.Runtime.InteropServices;
 
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.TestFramework" + AssemblyInfo.PublicKey)]
 
-[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Windows" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Windows.NuGet.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Wp80.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Wrt81.Wpa81.Tests" + AssemblyInfo.PublicKey)]

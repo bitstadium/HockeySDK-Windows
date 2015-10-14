@@ -7,13 +7,13 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using HockeyApp.ViewModels;
-using HockeyApp.Model;
+using Microsoft.HockeyApp.ViewModels;
+using Microsoft.HockeyApp.Model;
 using System.Threading.Tasks;
 using Microsoft.Phone.Net.NetworkInformation;
-using HockeyApp.Exceptions;
+using Microsoft.HockeyApp.Exceptions;
 
-namespace HockeyApp.Views
+namespace Microsoft.HockeyApp.Views
 {
     public partial class LoginPage : PhoneApplicationPage
     {

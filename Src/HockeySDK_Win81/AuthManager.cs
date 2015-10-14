@@ -1,6 +1,6 @@
-﻿using HockeyApp.Tools;
-using HockeyApp.ViewModels;
-using HockeyApp.Views;
+﻿using Microsoft.HockeyApp.Tools;
+using Microsoft.HockeyApp.ViewModels;
+using Microsoft.HockeyApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls.Primitives;
 
-namespace HockeyApp
+namespace Microsoft.HockeyApp
 {
     internal partial class AuthManager
     {

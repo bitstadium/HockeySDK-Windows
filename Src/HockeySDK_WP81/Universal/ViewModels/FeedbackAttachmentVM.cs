@@ -1,4 +1,4 @@
-﻿using HockeyApp.Model;
+﻿using Microsoft.HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using Windows.Storage.Streams;
@@ -8,13 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using HockeyApp.Common;
+using Microsoft.HockeyApp.Common;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using HockeyApp.Views;
-using HockeyApp.Tools;
+using Microsoft.HockeyApp.Views;
+using Microsoft.HockeyApp.Tools;
 
-namespace HockeyApp.ViewModels
+namespace Microsoft.HockeyApp.ViewModels
 {
     public partial class FeedbackAttachmentVM : VMBase
     {

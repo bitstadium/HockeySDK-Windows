@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 
-namespace HockeyApp.Tools
+namespace Microsoft.HockeyApp.Tools
 {
 
     public class BooleanToVisibilityConverter : IValueConverter

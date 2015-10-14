@@ -9,8 +9,8 @@
     <ProjectGuid>{265092EA-A2DF-4A30-B361-EDC66DFB9656}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HockeyApp</RootNamespace>
-    <AssemblyName>HockeyApp</AssemblyName>
+    <RootNamespace>Microsoft.HockeyApp</RootNamespace>
+    <AssemblyName>Microsoft.HockeyApp.Kit</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
