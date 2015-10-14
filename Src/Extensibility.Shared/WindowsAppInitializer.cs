@@ -30,12 +30,7 @@
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>
-        public static Task InitializeAsync(
-            WindowsCollectors collectors =
-            WindowsCollectors.Metadata |
-            WindowsCollectors.Session |
-            WindowsCollectors.PageView |
-            WindowsCollectors.UnhandledException)
+        public static Task InitializeAsync(WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView)
         {
             return InitializeAsync(string.Empty, collectors);
         }
@@ -45,9 +40,7 @@
         /// <param name="instrumentationKey">InstrumentationKey obtain from http://portal.azure.com</param>
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>
-        public static Task InitializeAsync(
-            string instrumentationKey,
-            WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView | WindowsCollectors.UnhandledException)
+        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView)
         {
 #if WINRT
             if (collectors.HasFlag(WindowsCollectors.PageView) || 
