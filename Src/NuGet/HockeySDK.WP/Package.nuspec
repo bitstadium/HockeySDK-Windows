@@ -15,7 +15,7 @@
     <tags>crash reports reporting feedback WP8 WP81SL windows phone hockeyapp</tags>
     <dependencies>
       <group targetFramework="wp8">
-        <dependency id="HockeySDK.Core" version="3.0.0" />
+        <dependency id="HockeySDK.Core" version="$version$" />
         <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
       </group>
       <group targetFramework="net40">

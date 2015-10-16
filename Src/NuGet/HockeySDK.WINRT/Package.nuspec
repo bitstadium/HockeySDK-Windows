@@ -14,7 +14,7 @@
     <language>en-US</language>
     <tags>crash reports reporting feedback windows hockeyapp</tags>
     <dependencies>
-       <dependency id="HockeySDK.Core" version="3.0.0" />
+       <dependency id="HockeySDK.Core" version="$version$" />
     </dependencies>
   </metadata>
 
