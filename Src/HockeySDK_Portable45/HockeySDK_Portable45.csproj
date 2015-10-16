@@ -100,6 +100,9 @@
     <Compile Include="..\HockeySDK_Portable\Model\FeedbackThread.cs">
       <Link>Model\FeedbackThread.cs</Link>
     </Compile>
+    <Compile Include="..\HockeySDK_Portable\Properties\AssemblyCommonInfo.cs">
+      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_Portable\SDKConstants.cs">
       <Link>SDKConstants.cs</Link>
     </Compile>
@@ -107,7 +110,6 @@
     <Compile Include="Extensions\TaskEx.cs" />
     <Compile Include="Extensions\PortableExtensions45.cs" />
     <Compile Include="Model\_NamespaceDoc.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

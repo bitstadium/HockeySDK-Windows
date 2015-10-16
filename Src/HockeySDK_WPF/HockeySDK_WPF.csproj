@@ -58,6 +58,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\HockeySDK_Portable\Properties\AssemblyCommonInfo.cs">
+      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="CrashHandler.cs" />
     <Compile Include="DownloadProgressInformation.cs" />
@@ -75,7 +79,6 @@
     <Compile Include="IAppVersionExtensions.cs" />
     <Compile Include="IUpdateManager.cs" />
     <Compile Include="LocalizedStrings.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UpdateManager.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>

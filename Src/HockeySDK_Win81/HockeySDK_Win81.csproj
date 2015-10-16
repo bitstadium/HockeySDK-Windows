@@ -24,6 +24,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
+    <Compile Include="..\HockeySDK_Portable\Properties\AssemblyCommonInfo.cs">
+      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    </Compile>
     <Compile Include="..\HockeySDK_WP81\Common\RelayCommand.cs">
       <Link>Common\RelayCommand.cs</Link>
     </Compile>
@@ -100,7 +103,6 @@
     <Compile Include="Views\LoginDialog.xaml.cs">
       <DependentUpon>LoginDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>

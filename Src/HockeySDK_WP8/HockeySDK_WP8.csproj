@@ -30,6 +30,10 @@
     <ToolkitRevision>2</ToolkitRevision>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\HockeySDK_Portable\Properties\AssemblyCommonInfo.cs">
+      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AsyncSynchronizationContext.cs" />
     <Compile Include="AuthManager.cs" />
     <Compile Include="Constants.cs" />
@@ -42,7 +46,6 @@
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="ManifestHelper.cs" />
     <Compile Include="Model\ThreadMetaInfos.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="HockeyAppStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

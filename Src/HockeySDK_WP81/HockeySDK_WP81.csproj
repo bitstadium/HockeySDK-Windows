@@ -26,6 +26,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
+    <Compile Include="..\HockeySDK_Portable\Properties\AssemblyCommonInfo.cs">
+      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    </Compile>
     <Compile Include="AuthManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />
@@ -34,7 +37,6 @@
     <Compile Include="FeedbackManager.cs" />
     <Compile Include="HockeyClientExtensionsWP81.cs" />
     <Compile Include="HockeyPlatformHelper81.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\UIExtensions.cs" />
     <Compile Include="Tools\UtilExtensions.cs" />
     <Compile Include="Universal\HockeyPlatformHelper81.cs" />

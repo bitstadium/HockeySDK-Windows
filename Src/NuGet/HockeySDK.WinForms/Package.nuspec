@@ -2,21 +2,20 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HockeySDK.WinForms</id>
-    <version>2.1.0-beta6</version>
-    <authors>Bit Stadium GmbH</authors>
-    <owners>Bit Stadium GmbH</owners>
-    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows-Private/LICENSE.txt</licenseUrl>
-    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows-Private</projectUrl>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <copyright>$copyright$</copyright>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=510709</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates. Includes a CrashReporter for WinForms projects.</description>
     <language>en-US</language>
     <releaseNotes>Optimizations for Feedback</releaseNotes>
-    <copyright>Copyright (c) 2014 Bit Stadium GmbH</copyright>
     <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
-
     <dependencies>
-       <dependency id="HockeySDK.Core" version="[2.1.0-beta6]" />
+       <dependency id="HockeySDK.Core" version="3.0.0" />
     </dependencies>
   </metadata>
 

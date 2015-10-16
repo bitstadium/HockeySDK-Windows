@@ -108,8 +108,8 @@
       Semantic Version. See http://semver.org for full details. 
       Update for every public release. 
     -->
-    <SemanticVersionMajor>1</SemanticVersionMajor>
-    <SemanticVersionMinor>2</SemanticVersionMinor>
+    <SemanticVersionMajor>3</SemanticVersionMajor>
+    <SemanticVersionMinor>0</SemanticVersionMinor>
     <SemanticVersionPatch>0</SemanticVersionPatch>
 
     <!-- 
