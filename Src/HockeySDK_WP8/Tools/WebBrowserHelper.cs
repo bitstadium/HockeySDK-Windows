@@ -1,25 +1,22 @@
-﻿using Microsoft.Phone.Controls;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-
-namespace Microsoft.HockeyApp.Tools
+﻿namespace Microsoft.HockeyApp.Tools
 {
+    using System;
+    using System.IO;
+    using System.Text;
+    using System.Windows;
+
     public static class WebBrowserHelper
     {
-
         private static string cssStyles;
+
         internal static string CssStyles
         {
             get
             {
                 if (cssStyles == null) {
-                    cssStyles = new StreamReader(Application.GetResourceStream(new Uri("/HockeyApp;component/Assets/wp8releasenotes.css", UriKind.Relative)).Stream).ReadToEnd();
+                    cssStyles = new StreamReader(Application.GetResourceStream(new Uri("/" + WebBrowserHelper.AssemblyNameWithoutExtension + ";component/Assets/wp8releasenotes.css", UriKind.Relative)).Stream).ReadToEnd();
                 }
+
                 return cssStyles;
             }
         }
@@ -36,5 +33,19 @@ namespace Microsoft.HockeyApp.Tools
             return builder.ToString();
         }
 
+        private static string assemblyNameWithoutExtension;
+
+        public static string AssemblyNameWithoutExtension
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(assemblyNameWithoutExtension))
+                {
+                    assemblyNameWithoutExtension = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+                }
+                
+                return assemblyNameWithoutExtension;
+            }
+        }
     }
 }

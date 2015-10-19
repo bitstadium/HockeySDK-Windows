@@ -60,7 +60,7 @@ namespace Microsoft.HockeyApp
         /// <param name="navigationService"></param>
         public void NavigateToFeedbackUI(NavigationService navigationService = null)
         {
-            ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/HockeyApp;component/Views/FeedbackPage.xaml", UriKind.Relative));
+            ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/" + WebBrowserHelper.AssemblyNameWithoutExtension + ";component/Views/FeedbackPage.xaml", UriKind.Relative));
         }
         
         /// <summary>

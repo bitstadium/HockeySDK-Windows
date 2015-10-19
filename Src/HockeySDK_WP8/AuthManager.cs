@@ -189,7 +189,7 @@ namespace Microsoft.HockeyApp
 
             if (needsLogin)
             {
-                navigationService.Navigate(new Uri("/HockeyApp;component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
+                navigationService.Navigate(new Uri("/" + WebBrowserHelper.AssemblyNameWithoutExtension +  ";component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
                                                                 + "&appsecret=" + HttpUtility.UrlEncode(appSecret)
                                                                 + "&email=" + HttpUtility.UrlEncode(email ?? "")
                                                                 + "&validationmode=" + HttpUtility.UrlEncode(authValidationMode.ToString() ?? ""), UriKind.Relative));
@@ -220,7 +220,7 @@ namespace Microsoft.HockeyApp
 
             if (needsLogin)
             {
-                ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/HockeyApp;component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
+                ((PhoneApplicationFrame)Application.Current.RootVisual).Navigate(new Uri("/" + WebBrowserHelper.AssemblyNameWithoutExtension + ";component/Views/LoginPage.xaml?authmode=" + HttpUtility.UrlEncode(authMode.ToString())
                                                                 + "&appsecret=" + HttpUtility.UrlEncode(appSecret)
                                                                 + "&email=" + HttpUtility.UrlEncode(email ?? "")
                                                                 + "&validationmode=" + HttpUtility.UrlEncode(authValidationMode.ToString() ?? ""), UriKind.Relative));
