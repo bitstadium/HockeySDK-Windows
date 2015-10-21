@@ -12,7 +12,7 @@
                 <ResourceDictionary>
                     <loc:LocalizedStrings x:Key="LocalizedStrings" />
                     <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-                    <SolidColorBrush Color="#389BE8" x:Key="Microsoft.HockeyAppBlue"/>
+                    <SolidColorBrush Color="#389BE8" x:Key="HockeyAppBlue"/>
                     <Style TargetType="HyperlinkButton">
                         <Setter Property="Template">
                             <Setter.Value>

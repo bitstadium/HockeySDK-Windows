@@ -38,5 +38,12 @@ namespace Microsoft.HockeyApp.Tools
             return builder.ToString();
         }
 
+        public static string AssemblyNameWithoutExtension
+        {
+            get
+            {
+                return "Microsoft.HockeyApp.Kit";
+            }
+        }
     }
 }

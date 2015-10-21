@@ -42,10 +42,11 @@ namespace Microsoft.HockeyApp
 
         internal ResourceWrapper()
         {
-            InternalResourceLoader = ResourceLoader.GetForViewIndependentUse("HockeyApp/Resources");
+            
+            InternalResourceLoader = ResourceLoader.GetForViewIndependentUse(Tools.WebBrowserHelper.AssemblyNameWithoutExtension +  "/Resources");
             try
-            {   //try to load HockeyApp.resw if available in project!
-                CustomResourceLoader = ResourceLoader.GetForViewIndependentUse("HockeyApp");
+            {   //try to load .resw if available in project!
+                CustomResourceLoader = ResourceLoader.GetForViewIndependentUse(Tools.WebBrowserHelper.AssemblyNameWithoutExtension);
             }
             catch (Exception) { }
         }

@@ -26,7 +26,7 @@
                 <ResourceDictionary>
                     <loc:LocalizedStrings x:Key="LocalizedStrings" />
                     <tools:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
-                    <SolidColorBrush Color="#389BE8" x:Key="Microsoft.HockeyAppBlue"/>
+                    <SolidColorBrush Color="#389BE8" x:Key="HockeyAppBlue"/>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         	<Style x:Key="ThreadListBoxStyle" TargetType="ListBox">

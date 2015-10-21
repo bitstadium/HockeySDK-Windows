@@ -23,18 +23,19 @@
     <file src="$configuration$\HockeySDK_Win81\Microsoft.HockeyApp.Kit.dll" target="lib\portable-win81" />
     <file src="$configuration$\HockeySDK_Win81\Microsoft.HockeyApp.Kit.pri" target="lib\portable-win81" />
     <file src="$configuration$\HockeySDK_Win81\Microsoft.HockeyApp.Kit.pdb" target="lib\portable-win81" />
-    <file src="$configuration$\HockeySDK_Win81\Microsoft.HockeyApp.Kit.xr.xml" target="lib\portable-win81\HockeyApp" />
-    <file src="$configuration$\HockeySDK_Win81\Views\*.xbf" target="lib\portable-win81\HockeyApp\Views" />
-    <file src="$configuration$\HockeySDK_Win81\Assets\*.*" target="lib\portable-win81\HockeyApp\Assets" />
+    <file src="$configuration$\HockeySDK_Win81\Microsoft.HockeyApp.Kit.xr.xml" target="lib\portable-win81\Microsoft.HockeyApp.Kit" />
+    <file src="$configuration$\HockeySDK_Win81\Views\*.xbf" target="lib\portable-win81\Microsoft.HockeyApp.Kit\Views" />
+    <file src="$configuration$\HockeySDK_Win81\Assets\*.*" target="lib\portable-win81\Microsoft.HockeyApp.Kit\Assets" />
     <file src="$configuration$\HockeySDK_WP81\Microsoft.HockeyApp.Kit.dll" target="lib\portable-wpa81" />
     <file src="$configuration$\HockeySDK_WP81\Microsoft.HockeyApp.Kit.pri" target="lib\portable-wpa81" />
     <file src="$configuration$\HockeySDK_WP81\Microsoft.HockeyApp.Kit.pdb" target="lib\portable-wpa81" />
-    <file src="$configuration$\HockeySDK_WP81\Microsoft.HockeyApp.Kit.xr.xml" target="lib\portable-wpa81\HockeyApp" />
-    <file src="$configuration$\HockeySDK_WP81\Views\*.xbf" target="lib\portable-wpa81\HockeyApp\Views" />
-    <file src="$configuration$\HockeySDK_WP81\Assets\*.*" target="lib\portable-wpa81\HockeyApp\Assets" />
+    <file src="$configuration$\HockeySDK_WP81\Microsoft.HockeyApp.Kit.xr.xml" target="lib\portable-wpa81\Microsoft.HockeyApp.Kit" />
+    <file src="$configuration$\HockeySDK_WP81\Views\*.xbf" target="lib\portable-wpa81\Microsoft.HockeyApp.Kit\Views" />
+    <file src="$configuration$\HockeySDK_WP81\Assets\*.*" target="lib\portable-wpa81\Microsoft.HockeyApp.Kit\Assets" />
     <file src="$configuration$\NuGet\HockeySDK.WINRT\tools\**" target="tools" />
   
     <!-- Application Insights -->
     <file src="$configuration$\Extensibility.Wrt81\Microsoft.HockeyApp.*" target="lib\portable-win81" />
+    <file src="$configuration$\Extensibility.Wrt81\Microsoft.HockeyApp.*" target="lib\portable-wpa81" />
   </files>
 </package>
