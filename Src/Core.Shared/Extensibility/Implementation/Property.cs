@@ -135,6 +135,33 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
             }
         }
 
+        /// <summary>
+        /// Sanitizes the collection and each individual item in the collection.
+        /// </summary>
+        /// <typeparam name="TType">The type of the items in the collection.</typeparam>
+        /// <param name="collection">The collection to sanitize.</param>
+        /// <param name="sanitize">The sanitize callback (used to avoid defining a new interface).</param>
+        public static void SanitizeCollection<TType>(this IList<TType> collection, Action<TType> sanitize)
+        {
+            if (collection == null)
+            {
+                return;
+            }
+
+            for (int i = 0; i < collection.Count; i++)
+            {
+                if (collection[i] == null)
+                {
+                    collection.RemoveAt(i);
+                    i--;
+                }
+                else
+                {
+                    sanitize(collection[i]);
+                }
+            }
+        }
+
         private static string TrimAndTruncate(string value, int maxLength)
         {
             if (value != null)
