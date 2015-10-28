@@ -1,19 +1,19 @@
-﻿using Microsoft.HockeyApp.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.HockeyApp.Exceptions;
-using Microsoft.HockeyApp.Extensions;
-using Microsoft.HockeyApp.Internal;
-using System.Net.NetworkInformation;
-using System.Threading;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using Microsoft.HockeyApp.Model;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Text;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Microsoft.HockeyApp.Exceptions;
+    using Microsoft.HockeyApp.Extensions;
+    using Microsoft.HockeyApp.Internal;
+    using System.Net.NetworkInformation;
+    using System.Threading;
+
 
     /// <summary>
     /// Implements the HockeyClient singleton
@@ -183,12 +183,15 @@ namespace Microsoft.HockeyApp
         /// UserID of current app user (if provided)
         /// </summary>
         public string UserID { get; set; }
+        
         /// <summary>
         /// Contact information for current user
         /// </summary>
         public string ContactInformation { get; set; }
+        
         //Operating system (set by platform-specific SDK if used)
         private string _os;
+
         /// <summary>
         /// Name of platform OS
         /// </summary>
@@ -207,6 +210,7 @@ namespace Microsoft.HockeyApp
 
         
         private string _osVersion;
+        
         /// <summary>
         /// Operating system version (set by platform-specific SDK if used)
         /// </summary>
@@ -224,6 +228,7 @@ namespace Microsoft.HockeyApp
         }
 
         private string _device;
+        
         /// <summary>
         /// Device (set by platform-specific SDK if used)
         /// </summary>
@@ -241,6 +246,7 @@ namespace Microsoft.HockeyApp
         }
 
         private string _oem;
+        
         /// <summary>
         /// Oem of Device (set by platform-specific SDK if used)
         /// </summary>
@@ -261,10 +267,12 @@ namespace Microsoft.HockeyApp
         /// unique user id provided by platform (set by platform-specific SDK if used)
         /// </summary>
         public string Uuid { get; set; }
+        
         /// <summary>
         /// Authorized user id (set during login process)
         /// </summary>
         public string Auid { get; internal set; }
+        
         /// <summary>
         /// Identified user id (set during login process)
         /// </summary>
@@ -425,8 +433,6 @@ namespace Microsoft.HockeyApp
         }
 
         #endregion
-
-        #region API functions
 
         #region Crashes
 
@@ -796,7 +802,6 @@ namespace Microsoft.HockeyApp
             return status;
         }
 
-        #endregion
         #endregion
 
         #region PlatformHelper

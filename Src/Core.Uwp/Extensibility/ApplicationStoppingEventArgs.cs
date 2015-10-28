@@ -3,10 +3,10 @@
     using System;
     using System.Globalization;
     using System.Threading.Tasks;
-    using Microsoft.HockeyApp.Extensibility.Implementation.Tracing;
+    using Implementation.Tracing;
 
     /// <summary>
-    /// Encapsulates arguments of the <see cref="IApplicationLifecycle.Stopping"/> event.
+    /// Encapsulates arguments of the event.
     /// </summary>
 #if WINRT
     internal

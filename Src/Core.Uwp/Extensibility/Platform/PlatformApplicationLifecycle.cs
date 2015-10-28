@@ -6,7 +6,7 @@
     using Windows.ApplicationModel.Core;
 
     /// <summary>
-    /// WinRT-specific logic of <see cref="IApplicationLifecycle"/> provider.
+    /// WinRT-specific logic of provider.
     /// </summary>
     internal partial class PlatformApplicationLifecycle
     {

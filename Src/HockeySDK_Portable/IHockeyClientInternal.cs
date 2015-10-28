@@ -1,13 +1,11 @@
-﻿using Microsoft.HockeyApp.Model;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.HockeyApp.Internal
+﻿namespace Microsoft.HockeyApp.Internal
 {
+    using Model;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// Full interface of Hockeyclient. Used by platform-specific SDKs
     /// </summary>
