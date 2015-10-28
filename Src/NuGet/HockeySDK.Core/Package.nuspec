@@ -10,10 +10,10 @@
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
-    <description>Use the HockeyApp platform from Windows and WindowsPhone apps. Collect crash reports, provide feedback-functionality and automatic updates.</description>
+    <description>HockeyApp core library. This package is a dependent package for all other HockeyApp packages. Please install the platform specific package for the best experience.</description>
     <language>en-US</language>
     <releaseNotes>For the release notes please follow http://go.microsoft.com/fwlink/?LinkId=535037</releaseNotes>
-    <tags>crash reports reporting feedback WPF WP8 SL5 windows phone hockeyapp UWP universal</tags>
+    <tags>HockeyApp; Windows; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
       <group targetFramework="portable-net40+sl5">
         <dependency id="Microsoft.Bcl.Async" version="1.0.168" />

@@ -10,10 +10,10 @@
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Use the HockeyApp platform from Windows apps. Collect crash reports, provide feedback-functionality and automatic updates. Includes a CrashReporter for WinForms projects.</description>
+    <description>HockeyApp SDK for WinForms applications. Use HockeyApp to collect crash reports, feedback, and manage beta distribution.</description>
     <language>en-US</language>
-    <releaseNotes>Optimizations for Feedback</releaseNotes>
-    <tags>crash reports reporting feedback WPF windows hockeyapp</tags>
+    <releaseNotes></releaseNotes>
+    <tags>HockeyApp; Windows; WinForms;Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
        <dependency id="HockeySDK.Core" version="$version$" />
     </dependencies>

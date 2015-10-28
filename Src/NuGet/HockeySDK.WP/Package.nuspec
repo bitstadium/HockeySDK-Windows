@@ -10,9 +10,9 @@
     <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
     <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Use HockeyApp in your WindowsPhone apps. Collect crash reports, provide a feedback-functionality and enable automatic updates for beta versions.</description>
+    <description>HockeyApp SDK for Windows Phone applications. Use HockeyApp to collect crash reports, feedback, and manage beta distribution.</description>
     <language>en-US</language>
-    <tags>crash reports reporting feedback WP8 WP81SL windows phone hockeyapp</tags>
+    <tags>HockeyApp; Windows; Windows Phone; UWP; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
       <group targetFramework="wp8">
         <dependency id="HockeySDK.Core" version="$version$" />
