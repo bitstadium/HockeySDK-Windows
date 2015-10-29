@@ -8,8 +8,9 @@
     using Channel;
     using DataContracts;
     using Extensibility;
+    using Microsoft.HockeyApp.Extensibility.Implementation.Platform;
 
-#if WINRT
+#if WINRT || UWP
     using global::Windows.UI.Xaml;
 #endif
 
@@ -61,7 +62,7 @@
         internal void ApplicationOnUnhandledException(object sender, object e)
         {
             LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
-#if WINRT
+#if WINRT || UWP
             UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
             Exception eventException = args.Exception;
 #elif SILVERLIGHT

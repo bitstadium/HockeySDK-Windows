@@ -12,9 +12,9 @@
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
-#if WINRT
-    using Windows.ApplicationModel;
-    using Windows.Storage;
+#if WINRT || UWP
+    using global::Windows.ApplicationModel;
+    using global::Windows.Storage;
 #endif
 
     [TestClass]

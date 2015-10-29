@@ -92,7 +92,7 @@
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyName>Microsoft.ApplicationInsights.Core.Uwp.Tests</AssemblyName>
+    <AssemblyName>Microsoft.HockeyApp.Core.Uwp.Tests</AssemblyName>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>false</SignAssembly>
@@ -131,7 +131,7 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Uwp\Core.Uwp.csproj">
+    <ProjectReference Include="..\HockeySDK_UWP\HockeySDK_UWP.csproj">
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Core.Uwp</Name>
     </ProjectReference>

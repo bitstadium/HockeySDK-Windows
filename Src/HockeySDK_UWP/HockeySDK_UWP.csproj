@@ -38,6 +38,9 @@
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs">
       <Link>Extensibility\Platform\PlatformImplementation.cs</Link>
     </Compile>
+    <Compile Include="..\PersistenceChannel.Wrt81\Storage.cs">
+      <Link>Storage.cs</Link>
+    </Compile>
     <Compile Include="DataContracts\CrashTelemetry.cs" />
     <Compile Include="DataContracts\CrashTelemetryBinary.cs" />
     <Compile Include="DataContracts\CrashTelemetryHeader.cs" />
@@ -69,12 +72,16 @@
     <Compile Include="Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="Extensibility\Implementation\External\Tags.cs" />
     <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
-    <Compile Include="Extensibility\Implementation\IPlatformDispatcher.cs" />
     <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
     <Compile Include="Extensibility\PlatformHacks.cs" />
     <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />
     <Compile Include="Extensibility\Platform\PlatformDispatcher.cs" />
+    <Compile Include="HockeyClient.cs" />
+    <Compile Include="IHockeyClient.cs" />
+    <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="TimeSpanEx.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="UserContextReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
@@ -82,6 +89,8 @@
     </SDKReference>
   </ItemGroup>
   <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
+  <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
+  <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -2,8 +2,8 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Windows.ApplicationModel;
-    using Windows.ApplicationModel.Core;
+    using global::Windows.ApplicationModel;
+    using global::Windows.ApplicationModel.Core;
 
     /// <summary>
     /// WinRT-specific logic of provider.
@@ -16,16 +16,11 @@
 
         public PlatformApplicationLifecycle()
         {
-            this.Dispatcher = new PlatformDispatcher();
         }
-
-        private IPlatformDispatcher Dispatcher { get; set; }
 
         internal void Initialize()
         {   
-            IPlatformDispatcher platformDispatcher = this.Dispatcher;
-
-            ExceptionHandler.Start(() => platformDispatcher.RunAsync(() => this.OnStarted(null)));
+            ExceptionHandler.Start(() => PlatformDispatcher.RunAsync(() => this.OnStarted(null)));
             CoreApplication.Resuming += (sender, e) => this.OnStarted(e);
             CoreApplication.Suspending += (sender, e) => this.OnStopping(new ApplicationStoppingEventArgs(RunWithDeferral(e)));        
         }

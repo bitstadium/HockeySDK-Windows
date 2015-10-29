@@ -4,12 +4,11 @@
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using Channel;
     using Extensibility;
-    using Extensibility.Implementation;
-    using Extensibility.Implementation.External;
-    using Windows.ApplicationModel;
-    using Windows.Storage;
+    using External;
+    using Implementation;
+    using global::Windows.ApplicationModel;
+    using global::Windows.Storage;
 
     /// <summary>
     /// Windows Runtime (Phone and Store) implementation of the <see cref="IPlatform"/> interface.

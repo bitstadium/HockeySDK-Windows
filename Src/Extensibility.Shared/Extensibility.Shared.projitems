@@ -18,7 +18,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContextReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IComponentContextReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDeviceContextReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)IPlatformDispatcher.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PageViewTelemetryModule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SessionTelemetryModule.cs" />

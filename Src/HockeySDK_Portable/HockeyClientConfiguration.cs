@@ -1,12 +1,7 @@
-﻿using Microsoft.HockeyApp.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using System;
+
     /// <summary>
     /// Interface used during initial fluent configuration of HockeyClient
     /// </summary>

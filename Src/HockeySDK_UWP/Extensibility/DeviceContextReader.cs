@@ -9,13 +9,13 @@ namespace Microsoft.HockeyApp.Extensibility
 
     using Implementation.Platform;
 
-    using Windows.ApplicationModel.Core;
-    using Windows.Graphics.Display;
-    using Windows.Networking.Connectivity;
-    using Windows.Security.Cryptography;
-    using Windows.Security.Cryptography.Core;
-    using Windows.Storage.Streams;
-    using Windows.System.Profile;
+    using global::Windows.ApplicationModel.Core;
+    using global::Windows.Graphics.Display;
+    using global::Windows.Networking.Connectivity;
+    using global::Windows.Security.Cryptography;
+    using global::Windows.Security.Cryptography.Core;
+    using global::Windows.Storage.Streams;
+    using global::Windows.System.Profile;
 
     /// <summary>
     /// The reader is platform specific and applies to Windows Phone WinRT applications only.
@@ -220,11 +220,10 @@ namespace Microsoft.HockeyApp.Extensibility
         
         private static async Task<string> GetScreenResolutionInternal()
         {
-            var dispatcher = new PlatformDispatcher();
             string screenResolution = null;
             while (screenResolution == null)
             {
-                await dispatcher.RunAsync(() =>
+                await PlatformDispatcher.RunAsync(() =>
                 {
                     double actualHeight = CoreApplication.MainView.CoreWindow.Bounds.Height;
                     double actualWidth = CoreApplication.MainView.CoreWindow.Bounds.Width;

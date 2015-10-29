@@ -9,13 +9,14 @@
     using System.Threading.Tasks;
     using DataContracts;
     using Extensibility;
+    using HockeyApp;
     using Implementation.Tracing;
-    using Microsoft.HockeyApp;
+    using Microsoft.HockeyApp.Extensibility.Implementation.Platform;
 #if SILVERLIGHT
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-#elif WINRT
+#elif WINRT || UWP
     using global::Windows.Foundation;
     using global::Windows.UI.Core;
     using global::Windows.UI.Xaml;

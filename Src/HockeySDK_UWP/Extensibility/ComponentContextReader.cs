@@ -1,19 +1,13 @@
 namespace Microsoft.HockeyApp.Extensibility
 {
     using System.Globalization;
-
-    using Windows.ApplicationModel;
+    using global::Windows.ApplicationModel;
 
     /// <summary>
     /// The reader is platform specific and applies to Windows Phone WinRT applications only.
     /// </summary>
     internal partial class ComponentContextReader
     {
-        /// <summary>
-        /// The default application version we will be returning if no application version is found.
-        /// </summary>
-        internal const string UnknownComponentVersion = "Unknown";
-
         /// <summary>
         /// The version for this component.
         /// </summary>

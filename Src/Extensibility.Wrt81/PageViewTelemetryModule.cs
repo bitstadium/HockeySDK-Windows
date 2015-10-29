@@ -1,6 +1,5 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
-    using System;
     using System.Threading.Tasks;
     using global::Windows.UI.Core;
     using global::Windows.UI.Xaml;

@@ -5,7 +5,7 @@ namespace Microsoft.HockeyApp.Extensibility
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Windows.Devices.Enumeration.Pnp;
+    using global::Windows.Devices.Enumeration.Pnp;
 
     internal static class PlatformHacks
     {

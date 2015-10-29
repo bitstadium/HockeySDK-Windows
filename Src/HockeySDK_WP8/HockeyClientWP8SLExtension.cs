@@ -1,14 +1,13 @@
-﻿using Microsoft.HockeyApp.Internal;
-using System;
-using System.Resources;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.HockeyApp;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using Microsoft.HockeyApp.Internal;
+    using System;
+    using System.Resources;
+    using System.Threading.Tasks;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Navigation;
+
     /// <summary>
     /// Static extension class containing the main extension methods for controlling the HockeySDK client
     /// </summary>

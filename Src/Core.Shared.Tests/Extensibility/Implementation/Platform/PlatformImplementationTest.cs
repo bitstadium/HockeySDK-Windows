@@ -3,10 +3,10 @@
     using System;
     using System.IO;
     using System.Text;
-#if WINDOWS_PHONE_APP || WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE_APP || WINDOWS_PHONE || WINDOWS_STORE || UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-    using Windows.ApplicationModel;
-    using Windows.Storage;
+    using global::Windows.ApplicationModel;
+    using global::Windows.Storage;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
