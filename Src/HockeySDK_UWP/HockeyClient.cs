@@ -1,7 +1,5 @@
 ﻿namespace Microsoft.HockeyApp
 {
-    using Windows.ApplicationModel;
-
     /// <summary>
     ///  Send information to the HockeyApp service.
     /// </summary>

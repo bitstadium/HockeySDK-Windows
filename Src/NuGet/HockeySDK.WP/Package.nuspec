@@ -34,5 +34,8 @@
 
     <!-- Application Insights -->
     <file src="$configuration$\Extensibility.Wp80\Microsoft.HockeyApp.*" target="lib\wp8" />
+
+    <!-- UWP -->
+    <file src="$configuration$\HockeySDK_UWP\Microsoft.HockeyApp.Kit.*" target="lib\uap10.0" />
   </files>
 </package>

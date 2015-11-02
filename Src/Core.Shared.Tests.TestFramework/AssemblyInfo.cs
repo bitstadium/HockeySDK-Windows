@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wrt81.Win81.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wp80.Tests" + AssemblyInfo.PublicKey)]        
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wrt81.Wpa81.Tests" + AssemblyInfo.PublicKey)]
-[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Uwp.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.Tests" + AssemblyInfo.PublicKey)]
 
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Wp80.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Wrt81.Wpa81.Tests" + AssemblyInfo.PublicKey)]

@@ -22,6 +22,9 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'">
     <DefineConstants>TRACE;CODE_ANALYSIS;CODE_ANALYSIS;CODE_ANALYSIS;UWP;UTC</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Microsoft.HockeyApp.Kit</AssemblyName>
+  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
