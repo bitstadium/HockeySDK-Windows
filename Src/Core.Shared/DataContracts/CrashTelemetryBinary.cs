@@ -1,5 +1,10 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading;
+    using Microsoft.HockeyApp.Channel;
+    using Microsoft.HockeyApp.Extensibility.Implementation;
     using Microsoft.HockeyApp.Extensibility.Implementation.External;
 
     /// <summary>
@@ -23,7 +28,7 @@
         /// <param name="binary">The binary.</param>
         internal CrashTelemetryBinary(CrashDataBinary binary)
         {
-            this.Data = binary ??new CrashDataBinary();
+            this.Data = binary ?? new CrashDataBinary();
         }
 
         /// <summary>

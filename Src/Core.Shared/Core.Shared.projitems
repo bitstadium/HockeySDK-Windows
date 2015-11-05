@@ -9,7 +9,7 @@
     <SharedGUID>c1aaa703-5e32-45c0-a69d-f46d1c659ae4</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>Microsoft.ApplicationInsights</Import_RootNamespace>
+    <Import_RootNamespace>Microsoft.HockeyApp</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Channel\InMemoryChannel.cs" />
@@ -19,6 +19,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Channel\TelemetryBuffer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Channel\Transmission.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryBinary.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryHeader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryThread.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryThreadFrame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\EventTelemetry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\ExceptionHandledAt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\ExceptionTelemetry.cs" />
@@ -38,11 +43,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\TraceTelemetry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\IContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\IDebugOutput.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\AdapterList.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\ComponentContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\DebugOutput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\DeviceContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\ExceptionConverter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Clock.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\CrashData.g.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\CrashDataBinary.g.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\CrashDataHeaders.g.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\CrashDataThread.g.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\CrashDataThreadFrame.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\PerformanceCounterData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\StackFrame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\External\SessionStateData.cs" />

@@ -38,7 +38,9 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.External
         public IList<CrashDataThread> threads { get; set; } 
 
 
-        public IList<CrashDataBinary> binaries { get; set; } 
+        public IList<CrashDataBinary> binaries { get; set; }
+
+        public string handledAt { get; set; }
 
         public CrashData()
             : this("AI.CrashData", "CrashData")

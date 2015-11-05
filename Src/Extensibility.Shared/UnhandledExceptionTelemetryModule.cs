@@ -61,6 +61,10 @@
         /// </summary>
         internal void ApplicationOnUnhandledException(object sender, object e)
         {
+#if DEBUG
+            global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
+            global::System.Diagnostics.Debugger.Break();
+#endif
             LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
 #if WINRT || UWP
             UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
@@ -69,17 +73,23 @@
             ApplicationUnhandledExceptionEventArgs args = (ApplicationUnhandledExceptionEventArgs)e;
             Exception eventException = args.ExceptionObject;
 #endif
+
+#if UWP
+            var exceptionTelemetry = new CrashTelemetry(eventException);
+#else
             var exceptionTelemetry = new ExceptionTelemetry(eventException);
+#endif
+
             exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
 
-            this.client.TrackException(exceptionTelemetry);
+            this.client.Track(exceptionTelemetry);
             this.client.Flush();
         }
 
         private TelemetryClient CreateClient()
         {
             TelemetryClient client = new TelemetryClient(TelemetryConfiguration.Active);
-            client.Channel = new InMemoryChannel();
+            client.Channel = new PersistenceChannel();
 
             string endpoints = TelemetryConfiguration.Active.TelemetryChannel.EndpointAddress;
             if (!string.IsNullOrEmpty(endpoints))

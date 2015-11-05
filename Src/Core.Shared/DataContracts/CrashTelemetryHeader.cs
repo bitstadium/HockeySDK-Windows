@@ -1,7 +1,11 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using System;
-    using Extensibility.Implementation.External;
+    using System.Collections.Generic;
+    using System.Threading;
+    using Microsoft.HockeyApp.Channel;
+    using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Microsoft.HockeyApp.Extensibility.Implementation.External;
 
     /// <summary>
     /// The type used to specify header properties of a crash.

@@ -1,8 +1,11 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
+    using System;
     using System.Collections.Generic;
-    using Extensibility.Implementation.External;
+    using System.Threading;
+    using Microsoft.HockeyApp.Channel;
     using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Microsoft.HockeyApp.Extensibility.Implementation.External;
 
     /// <summary>
     /// The type used to specify thread properties of a crash.

@@ -2,10 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-    using Extensibility.Implementation;
-    using Extensibility.Implementation.External;
-    using HockeyApp.DataContracts;
-    using HockeyApp.Channel;
+    using System.Threading;
+    using Microsoft.HockeyApp.Channel;
+    using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Microsoft.HockeyApp.Extensibility.Implementation.External;
 
     /// <summary>
     /// Telemetry type used to track crashes.
@@ -13,7 +13,7 @@
     internal sealed partial class CrashTelemetry : ITelemetry
     {
         internal const string TelemetryName = "Crash";
-         
+
         internal readonly string BaseType = typeof(CrashData).Name;
         internal readonly CrashData Data;
         private readonly CrashTelemetryHeaders headers;
@@ -58,7 +58,7 @@
 
             this.context = new TelemetryContext(new Dictionary<string, string>(), new Dictionary<string, string>());
         }
-        
+
         /// <summary>
         /// Gets or sets date and time when event was recorded.
         /// </summary>
@@ -68,7 +68,7 @@
         /// Gets or sets the value that defines absolute order of the telemetry item.
         /// </summary>
         public string Sequence { get; set; }
-        
+
         /// <summary>
         /// Gets the context associated with the current telemetry item.
         /// </summary>
@@ -99,6 +99,23 @@
         public IList<CrashTelemetryBinary> Binaries
         {
             get { return this.adapterBinaries; }
+        }
+
+        /// <summary>
+        /// Gets or sets the value indicated where the exception was handled.
+        /// </summary>
+        public ExceptionHandledAt HandledAt
+        {
+            get
+            {
+                ExceptionHandledAt result;
+                return Enum.TryParse<ExceptionHandledAt>(this.Data.handledAt, out result) ? result : ExceptionHandledAt.Unhandled;
+            }
+
+            set
+            {
+                this.Data.handledAt = value.ToString();
+            }
         }
 
         /// <summary>

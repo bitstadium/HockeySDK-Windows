@@ -1,6 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
-    using Extensibility.Implementation;
+    using Microsoft.HockeyApp.Extensibility.Implementation;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;

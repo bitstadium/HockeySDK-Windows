@@ -108,7 +108,7 @@
                 LazyInitializer.EnsureInitialized(
                     ref WindowsAppInitializer.unhandledExceptionModule,
                     () => new UnhandledExceptionTelemetryModule());
-#if WINDOWS_PHONE
+#if WINDOWS_PHONE || UWP
                 WindowsAppInitializer.unhandledExceptionModule.Initialize(configuration);
 #endif
                 TelemetryModules.Instance.Modules.Add(WindowsAppInitializer.unhandledExceptionModule);

@@ -258,6 +258,11 @@
                 PerformanceCounterTelemetry performanceCounterTelemetry = telemetryItem as PerformanceCounterTelemetry;
                 SerializePerformanceCounter(performanceCounterTelemetry, jsonWriter);
             }
+            else if (telemetryItem is CrashTelemetry)
+            {
+                CrashTelemetry crashTelemetry = telemetryItem as CrashTelemetry;
+                SerializeCrash(crashTelemetry, jsonWriter);
+            }
             else
             {   
                 string msg = string.Format(CultureInfo.InvariantCulture, "Unknown telemtry type: {0}", telemetryItem.GetType());                
@@ -604,6 +609,165 @@
             }
 
             writer.WriteEndObject();
+        }
+
+        /// <summary>
+        /// Serializes the crash.
+        /// </summary>
+        /// <param name="telemetry">The telemetry.</param>
+        /// <param name="writer">The writer.</param>
+        private static void SerializeCrash(CrashTelemetry telemetry, JsonWriter writer)
+        {
+            writer.WriteStartObject();
+
+            telemetry.WriteTelemetryName(writer, CrashTelemetry.TelemetryName);
+            telemetry.WriteEnvelopeProperties(writer);
+            writer.WritePropertyName("data");
+            {
+                writer.WriteStartObject();
+
+                writer.WriteProperty("baseType", telemetry.BaseType);
+                writer.WritePropertyName("baseData");
+                {
+                    writer.WriteStartObject();
+
+                    writer.WriteProperty("ver", telemetry.Data.ver);
+
+                    // write headers
+                    writer.WritePropertyName("headers");
+                    {
+                        writer.WriteStartObject();
+
+                        writer.WriteProperty("id", telemetry.Headers.Id);
+                        writer.WriteProperty("process", telemetry.Headers.Process);
+                        writer.WriteProperty("processId", telemetry.Headers.ProcessId);
+                        writer.WriteProperty("parentProcess", telemetry.Headers.ParentProcess);
+                        writer.WriteProperty("parentProcessId", telemetry.Headers.ParentProcessId);
+                        writer.WriteProperty("crashThread", telemetry.Headers.CrashThreadId);
+                        writer.WriteProperty("applicationPath", telemetry.Headers.ApplicationPath);
+                        writer.WriteProperty("applicationIdentifier", telemetry.Headers.ApplicationId);
+                        writer.WriteProperty("exceptionType", telemetry.Headers.ExceptionType);
+                        writer.WriteProperty("exceptionCode", telemetry.Headers.ExceptionCode);
+                        writer.WriteProperty("exceptionAddress", telemetry.Headers.ExceptionAddress);
+                        writer.WriteProperty("exceptionReason", telemetry.Headers.ExceptionReason);
+
+                        writer.WriteEndObject();
+                    }
+
+                    // write threads
+                    writer.WritePropertyName("threads");
+                    {
+                        writer.WriteStartArray();
+                        JsonSerializer.SerializeCrashThreads(telemetry.Threads, writer);
+                        writer.WriteEndArray();
+                    }
+
+                    // write threads
+                    writer.WritePropertyName("binaries");
+                    {
+                        writer.WriteStartArray();
+                        JsonSerializer.SerializeCrashBinaries(telemetry.Binaries, writer);
+                        writer.WriteEndArray();
+                    }
+
+                    writer.WriteEndObject();
+                }
+
+                writer.WriteEndObject();
+            }
+
+            writer.WriteEndObject();
+        }
+
+        /// <summary>
+        /// Serializes the crash threads.
+        /// </summary>
+        /// <param name="threads">The threads.</param>
+        /// <param name="writer">The writer.</param>
+        private static void SerializeCrashThreads(IList<CrashTelemetryThread> threads, JsonWriter writer)
+        {
+            bool first = true;
+            foreach (CrashTelemetryThread thread in threads)
+            {
+                if (first == false)
+                {
+                    writer.WriteComma();
+                }
+
+                first = false;
+
+                writer.WriteStartObject();
+
+                writer.WriteProperty("id", thread.Id);
+                writer.WritePropertyName("frames");
+                {
+                    writer.WriteStartArray();
+
+                    JsonSerializer.SerializeCrashThreadFrames(thread.Frames, writer);
+
+                    writer.WriteEndArray();
+                }
+
+                writer.WriteEndObject();
+            }
+        }
+
+        /// <summary>
+        /// Serializes the crash thread frames.
+        /// </summary>
+        /// <param name="frames">The frames.</param>
+        /// <param name="writer">The writer.</param>
+        private static void SerializeCrashThreadFrames(IList<CrashTelemetryThreadFrame> frames, JsonWriter writer)
+        {
+            bool first = true;
+            foreach (CrashTelemetryThreadFrame frame in frames)
+            {
+                if (first == false)
+                {
+                    writer.WriteComma();
+                }
+
+                first = false;
+
+                writer.WriteStartObject();
+
+                writer.WriteProperty("address", frame.Address);
+                writer.WriteProperty("symbol", frame.Symbol);
+                writer.WriteProperty("registers", frame.Registers);
+
+                writer.WriteEndObject();
+            }
+        }
+
+        /// <summary>
+        /// Serializes the crash binaries.
+        /// </summary>
+        /// <param name="binaries">The binaries.</param>
+        /// <param name="writer">The writer.</param>
+        private static void SerializeCrashBinaries(IList<CrashTelemetryBinary> binaries, JsonWriter writer)
+        {
+            bool first = true;
+            foreach (CrashTelemetryBinary binary in binaries)
+            {
+                if (first == false)
+                {
+                    writer.WriteComma();
+                }
+
+                first = false;
+
+                writer.WriteStartObject();
+
+                writer.WriteProperty("startAddress", binary.StartAddress);
+                writer.WriteProperty("endAddress", binary.EndAddress);
+                writer.WriteProperty("name", binary.Name);
+                writer.WriteProperty("cpuType", binary.CpuType);
+                writer.WriteProperty("cpuSubType", binary.CpuSubType);
+                writer.WriteProperty("uuid", binary.Uuid);
+                writer.WriteProperty("path", binary.Path);
+
+                writer.WriteEndObject();
+            }
         }
 
         #endregion Serialize methods for each ITelemetry implementation

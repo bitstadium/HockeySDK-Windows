@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Threading;
     using Channel;
     using Extensibility.Implementation;
     using Extensibility.Implementation.External;
@@ -69,8 +68,16 @@
         /// </summary>
         public ExceptionHandledAt HandledAt
         {
-            get { return this.ValidateExceptionHandledAt(this.Data.handledAt); }
-            set { this.Data.handledAt = value.ToString(); }
+            get
+            {
+                ExceptionHandledAt result;
+                return Enum.TryParse<ExceptionHandledAt>(this.Data.handledAt, out result) ? result : ExceptionHandledAt.Unhandled;
+            }
+
+            set
+            {
+                this.Data.handledAt = value.ToString();
+            }
         }
         
         /// <summary>
@@ -99,13 +106,13 @@
         }
 
         /// <summary>
-        /// Gets a dictionary of application-defined property names and values providing additional information about this exception.
+        /// Gets properties.
         /// </summary>
         public IDictionary<string, string> Properties
         {
             get { return this.Data.properties; }
         }
-
+        
         /// <summary>
         /// Gets or sets Exception severity level.
         /// </summary>
@@ -180,17 +187,6 @@
             }
             
             this.Data.exceptions = exceptions;
-        }
-
-        private ExceptionHandledAt ValidateExceptionHandledAt(string value)
-        {
-            ExceptionHandledAt exceptionHandledAt = ExceptionHandledAt.Unhandled;
-            if (Enum.IsDefined(typeof(ExceptionHandledAt), value) == true)
-            {
-                exceptionHandledAt = (ExceptionHandledAt)Enum.Parse(typeof(ExceptionHandledAt), value);
-            }
-
-            return exceptionHandledAt;
         }
     }
 }
