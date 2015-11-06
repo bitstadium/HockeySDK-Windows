@@ -40,14 +40,6 @@
             configuration.ContextInitializers.Add(new SdkVersionPropertyContextInitializer());
             configuration.TelemetryInitializers.Add(new TimestampPropertyInitializer());
 
-            // Load customizations from the ApplicationsInsights.config file
-            string text = PlatformSingleton.Current.ReadConfigurationXml();
-            string instrumentationKey = this.GetInstrumentationKeyFromConfigFile(text);
-            if (!string.IsNullOrEmpty(instrumentationKey))
-            {
-                configuration.InstrumentationKey = instrumentationKey;
-            }
-
             // Creating the default channel if no channel configuration supplied
             configuration.TelemetryChannel = configuration.TelemetryChannel ?? new InMemoryChannel();
         }

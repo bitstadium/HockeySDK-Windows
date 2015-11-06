@@ -62,28 +62,27 @@
         internal void ApplicationOnUnhandledException(object sender, object e)
         {
 #if DEBUG
-            global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
-            global::System.Diagnostics.Debugger.Break();
+                global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
 #endif
-            LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
+                LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
 #if WINRT || UWP
-            UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
-            Exception eventException = args.Exception;
+                UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
+                Exception eventException = args.Exception;
 #elif SILVERLIGHT
-            ApplicationUnhandledExceptionEventArgs args = (ApplicationUnhandledExceptionEventArgs)e;
-            Exception eventException = args.ExceptionObject;
+                ApplicationUnhandledExceptionEventArgs args = (ApplicationUnhandledExceptionEventArgs)e;
+                Exception eventException = args.ExceptionObject;
 #endif
 
 #if UWP
-            var exceptionTelemetry = new CrashTelemetry(eventException);
+                var exceptionTelemetry = new CrashTelemetry(eventException);
 #else
-            var exceptionTelemetry = new ExceptionTelemetry(eventException);
+                var exceptionTelemetry = new ExceptionTelemetry(eventException);
 #endif
 
-            exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
+                exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
 
-            this.client.Track(exceptionTelemetry);
-            this.client.Flush();
+                this.client.Track(exceptionTelemetry);
+                this.client.Flush();
         }
 
         private TelemetryClient CreateClient()

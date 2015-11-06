@@ -25,6 +25,7 @@
         private static PageViewTelemetryModule pageViewModule = null;
         private static UnhandledExceptionTelemetryModule unhandledExceptionModule = null;
         private static string instrumentationKey = string.Empty;
+        private static string endpointAddress = string.Empty;
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
@@ -32,15 +33,16 @@
         /// </summary>
         public static Task InitializeAsync(WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView)
         {
-            return InitializeAsync(string.Empty, collectors);
+            return InitializeAsync(string.Empty, collectors, null);
         }
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
         /// <param name="instrumentationKey">InstrumentationKey obtain from http://portal.azure.com</param>
+        /// <param name="endpointAddress">The HTTP address where the telemetry is sent</param>
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>
-        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView)
+        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView, string endpointAddress = null)
         {
 #if WINRT
             if (collectors.HasFlag(WindowsCollectors.PageView) || 
@@ -58,6 +60,11 @@
             if (!string.IsNullOrEmpty(instrumentationKey))
             {
                 WindowsAppInitializer.instrumentationKey = instrumentationKey;
+            }
+
+            if (!string.IsNullOrEmpty(endpointAddress))
+            {
+                WindowsAppInitializer.endpointAddress = endpointAddress;
             }
 
             WindowsAppInitializer.collectors = collectors;
@@ -81,6 +88,11 @@
             }
 
             configuration.TelemetryChannel = new PersistenceChannel();
+            if (!string.IsNullOrEmpty(endpointAddress)) 
+            {
+                configuration.TelemetryChannel.EndpointAddress = endpointAddress;
+            }
+
             TelemetryConfigurationFactory.Instance.Initialize(configuration);
             TelemetryConfiguration.Active = configuration;
 
