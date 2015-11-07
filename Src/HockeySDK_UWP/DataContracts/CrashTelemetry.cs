@@ -80,6 +80,8 @@
                 this.Binaries.Add(crashBinary);
                 seenBinaries.Add(nativeIamgeBase);
             }
+
+            this.StackTrace = exception.StackTrace;
         }
     }
 }

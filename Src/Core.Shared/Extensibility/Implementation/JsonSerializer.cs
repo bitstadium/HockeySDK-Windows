@@ -671,6 +671,8 @@
                     }
 
                     writer.WriteEndObject();
+
+                    writer.WriteProperty("stackTrace", telemetry.StackTrace);
                 }
 
                 writer.WriteEndObject();

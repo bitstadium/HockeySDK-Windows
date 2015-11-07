@@ -74,13 +74,24 @@
 #endif
 
 #if UWP
-                var exceptionTelemetry = new CrashTelemetry(eventException);
+                ITelemetry exceptionTelemetry;
+                if (UserContextReader.IsNativeEnvironment(eventException))
+                {
+                    var crashTelemetry = new CrashTelemetry(eventException);
+                    crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
+                    exceptionTelemetry = crashTelemetry;
+                } 
+                else
+                {
+                    var crashTelemetry = new ExceptionTelemetry(eventException);
+                    crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
+                    exceptionTelemetry = crashTelemetry;
+
+                }
 #else
                 var exceptionTelemetry = new ExceptionTelemetry(eventException);
-#endif
-
                 exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
-
+#endif
                 this.client.Track(exceptionTelemetry);
                 this.client.Flush();
         }

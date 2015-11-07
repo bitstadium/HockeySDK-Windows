@@ -118,6 +118,11 @@
             }
         }
 
+        public string StackTrace
+        {
+            get; set;
+        }
+
         /// <summary>
         /// Sanitizes the properties based on constraints.
         /// </summary>
