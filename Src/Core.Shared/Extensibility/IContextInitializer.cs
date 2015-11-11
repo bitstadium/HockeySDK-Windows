@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility
 {
+    using System.Threading.Tasks;
     using Channel;
     using DataContracts;
 
@@ -17,6 +18,6 @@
         /// <summary>
         /// Initializes the given <see cref="TelemetryContext"/>.
         /// </summary>
-        void Initialize(TelemetryContext context);
+        Task Initialize(TelemetryContext context);
     }
 }

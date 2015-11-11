@@ -19,7 +19,7 @@
         /// Initializes the given <see cref="TelemetryContext" />.
         /// </summary>
         /// <param name="context">The telemetry context to initialize.</param>
-        public async void Initialize(TelemetryContext context)
+        public async Task Initialize(TelemetryContext context)
         {
             if (context == null)
             {

@@ -3,6 +3,7 @@
     using System.Linq;
     using System.Reflection;
     using System.Threading;
+    using System.Threading.Tasks;
     using DataContracts;
 
     /// <summary>
@@ -16,7 +17,7 @@
         /// <summary>
         /// Adds a telemetry property for the version of SDK.
         /// </summary>
-        public void Initialize(TelemetryContext context)
+        public async Task Initialize(TelemetryContext context)
         {
             var version = LazyInitializer.EnsureInitialized(ref this.sdkVersion, this.GetAssemblyVersion);
             if (string.IsNullOrEmpty(context.Internal.SdkVersion))

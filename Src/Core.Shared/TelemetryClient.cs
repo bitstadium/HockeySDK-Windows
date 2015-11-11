@@ -6,6 +6,7 @@
     using System.Globalization;
     using System.IO;
     using System.Threading;
+    using System.Threading.Tasks;
     using Channel;
     using DataContracts;
     using Extensibility;
@@ -55,7 +56,15 @@
         /// </summary>
         public TelemetryContext Context
         {
-            get { return LazyInitializer.EnsureInitialized(ref this.context, this.CreateInitializedContext); }
+            get
+            {
+                return LazyInitializer.EnsureInitialized(ref this.context, () =>
+                {
+                    // ToDo: Validate that this blocking call is not causing performance issues.
+                    return this.CreateInitializedContext().Result;
+                });
+            }
+
             internal set { this.context = value; }
         }
 
@@ -438,12 +447,12 @@
             this.Channel.Flush();
         }
 
-        private TelemetryContext CreateInitializedContext()
+        private async Task<TelemetryContext> CreateInitializedContext()
         {
             var context = new TelemetryContext();
             foreach (IContextInitializer initializer in this.configuration.ContextInitializers)
             {
-                initializer.Initialize(context);
+                await initializer.Initialize(context);
             }
 
             return context;

@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.TestFramework
 {
+    using System.Threading.Tasks;
     using DataContracts;
     using Extensibility;
 
@@ -24,7 +25,7 @@
         /// <summary>
         /// Implements the <see cref="IContextInitializer.Initialize"/> method by invoking the <see cref="OnInitialize"/> callback.
         /// </summary>
-        public void Initialize(TelemetryContext context)
+        public async Task Initialize(TelemetryContext context)
         {
             this.OnInitialize(context);
         }
