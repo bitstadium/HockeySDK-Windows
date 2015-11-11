@@ -122,28 +122,28 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Gets the device OEM.
         /// </summary>
         /// <returns>The discovered OEM.</returns>
-        public virtual string GetOemName()
+        public virtual Task<string> GetOemName()
         {
-            if (this.deviceManufacturer != null)
+            if (this.deviceManufacturer == null)
             {
-                return this.deviceManufacturer;
+                this.deviceManufacturer = DeviceStatus.DeviceManufacturer;
             }
 
-            return this.deviceManufacturer = DeviceStatus.DeviceManufacturer;
+            return Task.FromResult(this.deviceManufacturer);
         }
 
         /// <summary>
         /// Gets the device model.
         /// </summary>
         /// <returns>The discovered device model.</returns>
-        public virtual string GetDeviceModel()
+        public virtual Task<string> GetDeviceModel()
         {
-            if (this.deviceName != null)
+            if (this.deviceName == null)
             {
-                return this.deviceName;
+                this.deviceName = DeviceStatus.DeviceName;
             }
 
-            return this.deviceName = DeviceStatus.DeviceName;
+            return Task.FromResult(this.deviceName);
         }
         
         /// <summary>

@@ -34,13 +34,13 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Gets the device OEM.
         /// </summary>
         /// <returns>The discovered OEM.</returns>
-        string GetOemName();
+        Task<string> GetOemName();
 
         /// <summary>
         /// Gets the device model.
         /// </summary>
         /// <returns>The discovered device model.</returns>
-        string GetDeviceModel();
+        Task<string> GetDeviceModel();
 
         /// <summary>
         /// Gets the network type.

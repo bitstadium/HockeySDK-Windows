@@ -134,10 +134,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Wp80\Core.Wp80.csproj">
-      <Project>{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}</Project>
-      <Name>Core.Wp80</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Extensibility.Wp80\Extensibility.Wp80.csproj">
       <Project>{afc48348-7368-47be-85e6-6707ca42e2e5}</Project>
       <Name>Extensibility.Wp80</Name>

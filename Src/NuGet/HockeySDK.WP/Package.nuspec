@@ -14,26 +14,13 @@
     <language>en-US</language>
     <tags>HockeyApp; Windows; Windows Phone; UWP; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
-      <group targetFramework="wp8">
-        <dependency id="HockeySDK.Core" version="$version$" />
-        <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
-      </group>
-      <group targetFramework="net40">
-        <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
-        <dependency id="Microsoft.Diagnostics.Tracing.EventSource.Redist" version="1.1.24"/>
-      </group>
     </dependencies>
   </metadata>
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\HockeySDK_WP8\Microsoft.HockeyApp.Kit*" target="lib\wp8" />
-    <file src="$configuration$\HockeySDK_WP8\de\Microsoft.HockeyApp.Kit.*" target="lib\wp8\de" />
     <file src="$configuration$\NuGet\HockeySDK.WP\content\**" target="content" />
     <file src="$configuration$\NuGet\HockeySDK.WP\tools\**" target="tools" />
-
-    <!-- Application Insights -->
-    <file src="$configuration$\Extensibility.Wp80\Microsoft.HockeyApp.*" target="lib\wp8" />
 
     <!-- Universal Windows -->
     <file src="$configuration$\HockeySDK_UWP\Microsoft.HockeyApp.Kit.*" target="lib\uap10.0" />

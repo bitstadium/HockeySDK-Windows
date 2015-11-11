@@ -41,6 +41,9 @@
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs">
       <Link>Extensibility\Platform\PlatformImplementation.cs</Link>
     </Compile>
+    <Compile Include="..\Extensibility.Wrt81\DeviceContextInitializer.cs">
+      <Link>DeviceContextInitializer.cs</Link>
+    </Compile>
     <Compile Include="..\PersistenceChannel.Wrt81\Storage.cs">
       <Link>Storage.cs</Link>
     </Compile>

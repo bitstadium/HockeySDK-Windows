@@ -54,12 +54,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Net40\Core.Net40.csproj">
-      <Project>{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}</Project>
-      <Name>Core.Net40</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Storage.cs" />
   </ItemGroup>
   <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />

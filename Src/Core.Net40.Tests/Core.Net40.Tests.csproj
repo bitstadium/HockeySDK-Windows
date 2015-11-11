@@ -80,10 +80,6 @@
       <Project>{804af8fd-87f5-48ae-90c8-70433018b76e}</Project>
       <Name>Core.Net40.Tests.TestFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core.Net40\Core.Net40.csproj">
-      <Project>{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}</Project>
-      <Name>Core.Net40</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

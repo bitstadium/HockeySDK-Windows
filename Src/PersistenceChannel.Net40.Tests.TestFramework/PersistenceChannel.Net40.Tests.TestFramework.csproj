@@ -20,10 +20,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Net40\Core.Net40.csproj">
-      <Project>{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}</Project>
-      <Name>Core.Net40</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PersistenceChannel.Net40\PersistenceChannel.Net40.csproj">
       <Project>{1efa40a6-a835-4668-a41f-cb2660b93bfc}</Project>
       <Name>PersistenceChannel.Net40</Name>

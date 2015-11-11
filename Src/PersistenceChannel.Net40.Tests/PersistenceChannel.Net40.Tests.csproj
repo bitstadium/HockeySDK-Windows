@@ -46,10 +46,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Net40\Core.Net40.csproj">
-      <Project>{cd752cd2-6711-4ad7-b5c8-f8c23cf076b1}</Project>
-      <Name>Core.Net40</Name>
-    </ProjectReference>
     <ProjectReference Include="..\PersistenceChannel.Net40.Tests.TestFramework\PersistenceChannel.Net40.Tests.TestFramework.csproj">
       <Project>{1b08742a-b1ff-410a-8f46-bbcab0062d30}</Project>
       <Name>PersistenceChannel.Net40.Tests.TestFramework</Name>

@@ -184,49 +184,46 @@ namespace Microsoft.HockeyApp.Extensibility
                                         });
         }
 
-        public virtual string GetOemName()
+        public virtual Task<string> GetOemName()
         {
-            if (this.deviceManufacturer != null)
+            if (this.deviceManufacturer == null)
             {
-                return this.deviceManufacturer;
+                try
+                {
+                    EasClientDeviceInformation deviceInfo = new EasClientDeviceInformation();
+                    this.deviceManufacturer = deviceInfo.SystemManufacturer;
+                }
+                catch (Exception exception)
+                {
+                    CoreEventSource.Log.LogVerbose("Fail reading Device Manufacture: " + exception.ToString());
+                    this.deviceManufacturer = string.Empty;
+                }
             }
 
-            try
-            {
-                EasClientDeviceInformation deviceInfo = new EasClientDeviceInformation();
-                this.deviceManufacturer = deviceInfo.SystemManufacturer;
-            }
-            catch (Exception exception)
-            {
-                CoreEventSource.Log.LogVerbose("Fail reading Device Manufacture: " + exception.ToString());
-                this.deviceManufacturer = string.Empty;
-            }
-
-            return this.deviceManufacturer;
+            return Task.FromResult(this.deviceManufacturer);
         }
 
         /// <summary>
         /// Gets the device model.
         /// </summary>
         /// <returns>The discovered device model.</returns>
-        public virtual string GetDeviceModel()
+        public virtual Task<string> GetDeviceModel()
         {
-            if (this.deviceName != null)
+            if (this.deviceName == null)
             {
-                return this.deviceName;
+                try
+                {
+                    EasClientDeviceInformation deviceInfo = new EasClientDeviceInformation();
+                    this.deviceName = deviceInfo.SystemProductName;
+                }
+                catch (Exception exception)
+                {
+                    CoreEventSource.Log.LogVerbose("Fail reading Device name: " + exception.ToString());
+                    this.deviceName = string.Empty;
+                }
             }
 
-            try
-            {
-                EasClientDeviceInformation deviceInfo = new EasClientDeviceInformation();
-                return this.deviceName = deviceInfo.SystemProductName;
-            }
-            catch (Exception exception)
-            {
-                CoreEventSource.Log.LogVerbose("Fail reading Device name: " + exception.ToString());
-                this.deviceName = string.Empty;
-                return this.deviceName;
-            }
+            return Task.FromResult(this.deviceName);
         }
         
         /// <summary>

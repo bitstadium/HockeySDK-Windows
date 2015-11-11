@@ -38,6 +38,7 @@
             this.Headers.CrashThreadId = Environment.CurrentManagedThreadId;
             this.Headers.ExceptionType = exception.GetType().FullName;
             this.Headers.ExceptionReason = exception.Message;
+            this.Headers.ApplicationPath = "N/A";
 
             CrashTelemetryThread thread = new CrashTelemetryThread
                                                 {

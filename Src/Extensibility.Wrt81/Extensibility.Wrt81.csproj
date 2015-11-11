@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComponentContextReader.cs" />
+    <Compile Include="DeviceContextInitializer.cs" />
     <Compile Include="DeviceContextReader.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="PlatformDispatcher.cs" />

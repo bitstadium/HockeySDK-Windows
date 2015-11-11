@@ -14,7 +14,6 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)ComponentContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ComponentContextReader.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)DeviceContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContextReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IComponentContextReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)IDeviceContextReader.cs" />

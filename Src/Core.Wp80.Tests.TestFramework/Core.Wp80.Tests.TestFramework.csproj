@@ -26,12 +26,6 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
-    <ProjectReference Include="..\Core.Wp80\Core.Wp80.csproj">
-      <Project>{3a820d7a-f63c-460d-b2bd-ddac9433b4e9}</Project>
-      <Name>Core.Wp80</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

@@ -171,18 +171,18 @@ namespace Microsoft.HockeyApp.Extensibility
                                         });
         }
 
-        public virtual string GetOemName()
+        public async Task<string> GetOemName()
         {
-            return string.Empty;
+            return await PlatformHacks.GetDeviceManufacturerAsync();
         }
 
         /// <summary>
         /// Gets the device model.
         /// </summary>
         /// <returns>The discovered device model.</returns>
-        public virtual string GetDeviceModel()
+        public async Task<string> GetDeviceModel()
         {
-            return string.Empty;
+            return await PlatformHacks.GetDeviceModelAsync();
         }
 
         public async Task<string> GetScreenResolutionAsync()
