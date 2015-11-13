@@ -42,6 +42,10 @@
             // ToDo: Clarify what does ApplicationPath and Process needs to contain.
             this.Headers.ApplicationPath = "N/A";
             this.Headers.Process = "N/A";
+            this.headers.ApplicationId = "N/A";
+            this.headers.ParentProcess = "N/A";
+            this.headers.ExceptionCode = "N/A";
+            this.headers.ExceptionAddress = "N/A";
 
             CrashTelemetryThread thread = new CrashTelemetryThread
                                                 {
@@ -60,8 +64,8 @@
                                                             };
                 thread.Frames.Add(crashFrame);
 
-                long nativeIamgeBase = frame.GetNativeImageBase().ToInt64();
-                if (seenBinaries.Contains(nativeIamgeBase) == true)
+                long nativeImageBase = frame.GetNativeImageBase().ToInt64();
+                if (seenBinaries.Contains(nativeImageBase) == true)
                 {
                     continue;
                 }
@@ -75,14 +79,15 @@
 
                 CrashTelemetryBinary crashBinary = new CrashTelemetryBinary
                                                         {
-                                                            StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeIamgeBase),
+                                                            StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
+                                                            EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
                                                             Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
                                                             Path = codeView.PdbPath,
                                                             Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null
                                                         };
 
                 this.Binaries.Add(crashBinary);
-                seenBinaries.Add(nativeIamgeBase);
+                seenBinaries.Add(nativeImageBase);
             }
 
             this.StackTrace = exception.StackTrace;
