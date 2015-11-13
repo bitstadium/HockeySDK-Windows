@@ -37,7 +37,16 @@
         /// <summary>
         /// Gets or sets the operating system name.
         /// </summary>
-        public string OperatingSystem
+        public string DeviceOS
+        {
+            get { return this.tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOS); }
+            set { this.tags.SetStringValueOrRemove(ContextTagKeys.Keys.DeviceOS, value); }
+        }
+
+        /// <summary>
+        /// Gets or sets the operating system version.
+        /// </summary>
+        public string DeviceOSVersion
         {
             get { return this.tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOSVersion); }
             set { this.tags.SetStringValueOrRemove(ContextTagKeys.Keys.DeviceOSVersion, value); }
@@ -112,7 +121,7 @@
             writer.WriteStartObject();
             writer.WriteProperty("type", this.Type);
             writer.WriteProperty("id", Utils.PopulateRequiredStringValue(this.Id, "id", typeof(DeviceContext).FullName));
-            writer.WriteProperty("osVersion", this.OperatingSystem);
+            writer.WriteProperty("osVersion", this.DeviceOSVersion);
             writer.WriteProperty("oemName", this.OemName);
             writer.WriteProperty("model", this.Model);
             writer.WriteProperty("network", this.NetworkType);

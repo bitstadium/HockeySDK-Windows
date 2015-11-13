@@ -28,7 +28,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Gets the operating system version.
         /// </summary>
         /// <returns>The discovered operating system.</returns>
-        Task<string> GetOperatingSystemAsync();
+        Task<string> GetOperatingSystemVersionAsync();
 
         /// <summary>
         /// Gets the device OEM.
@@ -53,5 +53,11 @@ namespace Microsoft.HockeyApp.Extensibility
         /// </summary>
         /// <returns>The discovered locale.</returns>
         string GetHostSystemLocale();
+
+        /// <summary>
+        /// Gets operating system name.
+        /// </summary>
+        /// <returns></returns>
+        string GetOperatingSystemName();
     }
 }

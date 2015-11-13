@@ -54,15 +54,15 @@
         public void OperatingSystemIsNullByDefaultToAvoidSendingItToEndpointUnnecessarily()
         {
             var context = new DeviceContext(new Dictionary<string, string>());
-            Assert.Null(context.OperatingSystem);
+            Assert.Null(context.DeviceOSVersion);
         }
 
         [TestMethod]
         public void OperatingSystemCanBeChangedByUserToSpecifyACustomValue()
         {
             var context = new DeviceContext(new Dictionary<string, string>());
-            context.OperatingSystem = "test value";
-            Assert.Equal("test value", context.OperatingSystem);
+            context.DeviceOSVersion = "test value";
+            Assert.Equal("test value", context.DeviceOSVersion);
         }
 
         [TestMethod]

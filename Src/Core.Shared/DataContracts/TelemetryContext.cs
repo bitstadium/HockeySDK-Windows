@@ -6,6 +6,7 @@
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
+    using Extensibility.Implementation.External;
 
     /// <summary>
     /// Represents a context for sending telemetry to the Application Insights service.
@@ -132,6 +133,8 @@
         {
             writer.WriteProperty("iKey", this.InstrumentationKey);
             writer.WriteProperty("tags", this.Tags);
+            writer.WriteProperty("osVer", this.Tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOSVersion));
+            writer.WriteProperty("os", this.Tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOS));
         }
 
         internal void Initialize(TelemetryContext source, string instrumentationKey)

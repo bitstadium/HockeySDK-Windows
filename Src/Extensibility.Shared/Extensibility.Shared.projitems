@@ -24,5 +24,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WindowsAppInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)WindowsCollectors.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WindowsStoreSystemInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DeviceContextInitializer.cs" />
   </ItemGroup>
 </Project>

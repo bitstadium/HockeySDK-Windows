@@ -38,7 +38,10 @@
             this.Headers.CrashThreadId = Environment.CurrentManagedThreadId;
             this.Headers.ExceptionType = exception.GetType().FullName;
             this.Headers.ExceptionReason = exception.Message;
+
+            // ToDo: Clarify what does ApplicationPath and Process needs to contain.
             this.Headers.ApplicationPath = "N/A";
+            this.Headers.Process = "N/A";
 
             CrashTelemetryThread thread = new CrashTelemetryThread
                                                 {
