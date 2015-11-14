@@ -19,7 +19,7 @@ namespace Microsoft.HockeyApp.Channel
     /// <summary>
     /// Represents a communication channel for sending telemetry to Application Insights via HTTPS.
     /// </summary>
-    public sealed class PersistenceChannel : ITelemetryChannel
+    internal sealed class PersistenceChannel : ITelemetryChannel
     {
         internal readonly TelemetryBuffer TelemetryBuffer;
         internal PersistenceTransmitter Transmitter;

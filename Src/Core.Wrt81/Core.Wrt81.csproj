@@ -52,7 +52,6 @@
     <Compile Include="Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="Extensibility\Implementation\External\Tags.cs" />
     <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
-    <Compile Include="TimeSpanEx.cs" />
     <Compile Include="Extensibility\Implementation\Platform\PlatformImplementation.cs" />
   </ItemGroup>
   <ItemGroup>

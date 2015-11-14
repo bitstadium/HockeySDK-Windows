@@ -1,5 +1,6 @@
-﻿namespace System
+﻿namespace Microsoft.HockeyApp
 {
+    using System;
     using System.Globalization;
 
     internal static class TimeSpanEx

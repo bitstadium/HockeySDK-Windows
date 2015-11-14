@@ -17,7 +17,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
     /// <summary>
     /// Runs a task after a certain delay and log any error.
     /// </summary>
-    public class TaskTimer : IDisposable
+    internal class TaskTimer : IDisposable
     {
         /// <summary>
         /// Represents an infinite time span.

@@ -17,7 +17,7 @@
     /// Windows app Initializer is TelemetryConfiguration and TelemetryModules 
     /// Bootstrap the WindowsApps SDK.
     /// </summary>
-    public static class WindowsAppInitializer
+    internal static class WindowsAppInitializer
     {
         private static WindowsCollectors collectors;
         private static TimeSpan defaultDelayTime = TimeSpan.FromSeconds(2);

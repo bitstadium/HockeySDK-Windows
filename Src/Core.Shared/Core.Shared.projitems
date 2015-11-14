@@ -99,7 +99,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\DiagnosticsTelemetryModule.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\EventMetaData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\EventSourceKeywords.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\Extensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\F5DiagnosticsSender.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\IDiagnoisticsEventThrottling.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\Tracing\IDiagnoisticsEventThrottlingManager.cs" />
@@ -124,6 +123,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TelemetryClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TimeSpanEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
   </ItemGroup>
 </Project>

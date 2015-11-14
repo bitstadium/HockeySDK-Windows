@@ -3,7 +3,7 @@
     /// <summary>
     /// This enumeration is used by ExceptionTelemetry and TraceTelemetry to identify severity level.
     /// </summary>
-    public enum SeverityLevel
+    internal enum SeverityLevel
     {
         /// <summary>
         /// Verbose severity level.

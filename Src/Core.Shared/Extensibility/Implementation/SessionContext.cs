@@ -7,7 +7,7 @@
     /// <summary>
     /// Encapsulates information about a user session.
     /// </summary>
-    public sealed class SessionContext : IJsonSerializable
+    internal sealed class SessionContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

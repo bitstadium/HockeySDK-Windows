@@ -9,7 +9,7 @@
     /// <summary>
     /// Telemetry type used to track user sessions.
     /// </summary>
-    public sealed class SessionStateTelemetry : ITelemetry
+    internal sealed class SessionStateTelemetry : ITelemetry
     {
         internal const string TelemetryName = "SessionState";
 

@@ -10,7 +10,7 @@
     /// Encapsulates logic for serializing objects to JSON. 
     /// </summary>
     /// <seealso cref="IJsonSerializable"/>.
-    public interface IJsonWriter
+    internal interface IJsonWriter
     {
         /// <summary>
         /// Writes opening/left square bracket.

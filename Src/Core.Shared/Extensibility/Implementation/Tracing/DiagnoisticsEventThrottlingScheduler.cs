@@ -11,9 +11,10 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Globalization;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
-
     using Implementation;
 
 #if WINRT || CORE_PCL || NET45 || NET46 || UWP
@@ -95,8 +96,30 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
             }
             catch (Exception exc)
             {
-                CoreEventSource.Log.DiagnoisticsEventThrottlingSchedulerDisposeTimerFailure(exc.ToInvariantString());
+                CoreEventSource.Log.DiagnoisticsEventThrottlingSchedulerDisposeTimerFailure(ConvertExceptionToInvariantString(exc));
             }
+        }
+
+        /// <summary>
+        /// Returns a culture-independent string representation of the given <paramref name="exception"/> object, 
+        /// appropriate for diagnostics tracing.
+        /// </summary>
+        internal static string ConvertExceptionToInvariantString(Exception exception)
+        {
+#if !WINRT && !CORE_PCL && !UWP
+            CultureInfo originalUICulture = Thread.CurrentThread.CurrentUICulture;
+            try
+            {
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+#endif
+                return exception.ToString();
+#if !WINRT && !CORE_PCL && !UWP
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentUICulture = originalUICulture;
+            }
+#endif
         }
 
         private static TaskTimer InternalCreateAndStartTimer(

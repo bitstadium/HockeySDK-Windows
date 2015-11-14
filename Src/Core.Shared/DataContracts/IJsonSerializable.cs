@@ -3,7 +3,7 @@ namespace Microsoft.HockeyApp.DataContracts
     /// <summary>
     /// Represents objects that support serialization to JSON.
     /// </summary>
-    public interface IJsonSerializable
+    internal interface IJsonSerializable
     {
         /// <summary>
         /// Writes JSON representation of the object to the specified <paramref name="writer"/>.

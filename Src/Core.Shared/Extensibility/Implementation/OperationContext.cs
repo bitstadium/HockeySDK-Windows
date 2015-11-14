@@ -7,7 +7,7 @@
     /// <summary>
     /// Encapsulates information about an operation. Operation normally reflects an end to end scenario that starts from a user action (e.g. button click).  
     /// </summary>
-    public sealed class OperationContext : IJsonSerializable
+    internal sealed class OperationContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using global::Windows.UI.Xaml;
 
-    public sealed partial class UnhandledExceptionTelemetryModule
+    internal sealed partial class UnhandledExceptionTelemetryModule
     {
         internal Task InitializeAsync()
         {

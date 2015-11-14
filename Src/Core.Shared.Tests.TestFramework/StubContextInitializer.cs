@@ -7,7 +7,7 @@
     /// <summary>
     /// A stub of <see cref="IContextInitializer"/>.
     /// </summary>
-    public sealed class StubContextInitializer : IContextInitializer
+    internal sealed class StubContextInitializer : IContextInitializer
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StubContextInitializer"/> class.

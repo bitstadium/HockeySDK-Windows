@@ -16,7 +16,7 @@
     /// passing an instance of the <see cref="RequestTelemetry"/> class to the <see cref="TelemetryClient.TrackRequest(RequestTelemetry)"/> 
     /// method.
     /// </remarks>
-    public sealed class RequestTelemetry : ITelemetry, ISupportProperties
+    internal sealed class RequestTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Request";
 

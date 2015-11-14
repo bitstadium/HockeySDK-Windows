@@ -6,7 +6,7 @@
     /// Windows auto collectors provide automatic collection of telemetry context and automatic collection of telemetry data points for Windows Applications.
     /// </summary>
     [Flags]
-    public enum WindowsCollectors  
+    internal enum WindowsCollectors  
     {
         /// <summary>
         /// Collector to auto populate TelemetryContext for all telemetry.

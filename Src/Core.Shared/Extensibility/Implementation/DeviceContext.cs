@@ -7,7 +7,7 @@
     /// <summary>
     /// Encapsulates information about a device where an application is running.
     /// </summary>
-    public sealed class DeviceContext : IJsonSerializable
+    internal sealed class DeviceContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

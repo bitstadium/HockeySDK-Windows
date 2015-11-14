@@ -17,7 +17,7 @@
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
     /// </summary>
-    public sealed partial class UnhandledExceptionTelemetryModule : ITelemetryModule, IDisposable
+    internal sealed partial class UnhandledExceptionTelemetryModule : ITelemetryModule, IDisposable
     {
         private Task initialized;
         private TelemetryClient client;
@@ -75,7 +75,7 @@
 
 #if UWP
                 ITelemetry exceptionTelemetry;
-                if (UserContextReader.IsNativeEnvironment(eventException))
+                if (DeviceContextReader.IsNativeEnvironment(eventException))
                 {
                     var crashTelemetry = new CrashTelemetry(eventException);
                     crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;

@@ -7,7 +7,7 @@
     /// <summary>
     /// An <see cref="ITelemetryInitializer"/> that sets <see cref="ITelemetry.Timestamp"/> to <see cref="DateTimeOffset.Now"/>.
     /// </summary>
-    public sealed class TimestampPropertyInitializer : ITelemetryInitializer
+    internal sealed class TimestampPropertyInitializer : ITelemetryInitializer
     {
         /// <summary>
         /// Sets <see cref="ITelemetry.Timestamp"/> to <see cref="DateTimeOffset.Now"/>.

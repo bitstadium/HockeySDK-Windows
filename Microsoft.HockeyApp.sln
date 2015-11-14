@@ -13,15 +13,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WinForms45", "Src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WP81", "Src\HockeySDK_WP81\HockeySDK_WP81.csproj", "{3A24597D-D3CF-4C4C-9330-B5A391A3905B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable", "Src\HockeySDK_Portable\HockeySDK_Portable.csproj", "{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WinRT", "Src\HockeySDK_WinRT\HockeySDK_WinRT.csproj", "{15C4A313-6BB0-4606-A05C-8487631CE5E4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF45", "Src\HockeySDK_WPF45\HockeySDK_WPF45.csproj", "{C9612531-2077-4662-B8A4-092E06D5069B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.Core.NuGet", "src\NuGet\HockeySDK.Core\HockeySDK.Core.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}"
 	ProjectSection(ProjectDependencies) = postProject
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96} = {DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}
 		{643606BA-84A8-483F-A582-49E472B8701E} = {643606BA-84A8-483F-A582-49E472B8701E}
 	EndProjectSection
 EndProject
@@ -29,11 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WinForms.NuGet", 
 	ProjectSection(ProjectDependencies) = postProject
 		{C9612531-2077-4662-B8A4-092E06D5069B} = {C9612531-2077-4662-B8A4-092E06D5069B}
 		{265092EA-A2DF-4A30-B361-EDC66DFB9656} = {265092EA-A2DF-4A30-B361-EDC66DFB9656}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WP.NuGet", "src\NuGet\HockeySDK.WP\HockeySDK.WP.NuGet.csproj", "{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3A24597D-D3CF-4C4C-9330-B5A391A3905B} = {3A24597D-D3CF-4C4C-9330-B5A391A3905B}
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WINRT.NuGet", "src\NuGet\HockeySDK.WINRT\HockeySDK.WINRT.NuGet.csproj", "{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}"
@@ -117,9 +109,9 @@ Global
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{9181dca1-c390-44b2-ae4e-93333977a7b3}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{0927e682-4a56-46b6-8125-94fa066b2f57}*SharedItemsImports = 4
-		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
-		Src\Core.Shared\Core.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
+		Src\Core.Shared\Core.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
+		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{6869a04b-18b5-40f9-bf56-8b1a06484116}*SharedItemsImports = 13
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{db22ab6f-c72e-44da-b0fe-e2ffaa02cd59}*SharedItemsImports = 13
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{4cad12ee-32a9-4206-8379-7857f093ba2d}*SharedItemsImports = 4
@@ -178,14 +170,6 @@ Global
 		{3A24597D-D3CF-4C4C-9330-B5A391A3905B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3A24597D-D3CF-4C4C-9330-B5A391A3905B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{3A24597D-D3CF-4C4C-9330-B5A391A3905B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{DD8A28B6-572B-4C4F-8F73-3D4A7D4F7F96}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -218,14 +202,6 @@ Global
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -427,7 +403,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{9A331B4F-B619-48D6-8598-0CDBDBEBA629} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
-		{D90076F7-CC99-4C68-BDF6-F6585F3B41A5} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{BBA0FB1C-9C69-4773-8A43-7B2A522593E6} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 		{AC97D2F7-7D94-4153-9A4C-4E53A69E838B} = {5116D6F6-6065-48C7-BE05-71EED997F2F9}
 	EndGlobalSection

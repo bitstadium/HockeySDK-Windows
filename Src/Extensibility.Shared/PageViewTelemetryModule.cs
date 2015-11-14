@@ -28,7 +28,7 @@
     /// <summary>
     /// A module that deals in PageView events and will create PageViewTelemetry objects when triggered.
     /// </summary>
-    public sealed partial class PageViewTelemetryModule : ITelemetryModule, IDisposable
+    internal sealed partial class PageViewTelemetryModule : ITelemetryModule, IDisposable
     {
         internal Task Initialization;
 

@@ -6,7 +6,7 @@
     /// <summary>
     /// The base telemetry type for application insights.
     /// </summary>
-    public interface ITelemetry
+    internal interface ITelemetry
     {
         /// <summary>
         /// Gets or sets date and time when telemetry was recorded.

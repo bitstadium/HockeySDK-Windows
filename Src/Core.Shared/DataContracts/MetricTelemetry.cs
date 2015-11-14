@@ -10,7 +10,7 @@
     /// <summary>
     /// Telemetry type used to track metrics.
     /// </summary>
-    public sealed class MetricTelemetry : ITelemetry, ISupportProperties
+    internal sealed class MetricTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Metric";
 

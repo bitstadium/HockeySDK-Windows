@@ -7,7 +7,7 @@
     /// <summary>
     /// Unhandled exception telemetry module for WinRT.
     /// </summary>
-    public sealed partial class UnhandledExceptionTelemetryModule
+    internal sealed partial class UnhandledExceptionTelemetryModule
     {
         internal Task InitializeAsync(CoreDispatcher dispatcher = null)
         {

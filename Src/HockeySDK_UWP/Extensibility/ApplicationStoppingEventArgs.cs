@@ -11,7 +11,7 @@
 #if WINRT
     internal
 #else
-    public 
+    internal 
 #endif
     class ApplicationStoppingEventArgs : EventArgs
     {

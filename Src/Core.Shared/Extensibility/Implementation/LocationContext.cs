@@ -12,7 +12,7 @@
     /// <summary>
     /// Encapsulates telemetry location information.
     /// </summary>
-    public sealed class LocationContext : IJsonSerializable
+    internal sealed class LocationContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

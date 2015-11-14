@@ -23,7 +23,7 @@ namespace Microsoft.HockeyApp.Extensibility
     /// <summary>
     /// The reader is platform specific and will contain different implementations for reading specific data based on the platform its running on.
     /// </summary>
-    internal class DeviceContextReader : IDeviceContextReader
+    internal partial class DeviceContextReader : IDeviceContextReader
     {
         private const string ModelNameKey = "System.Devices.ModelName";
         private const string ManufacturerKey = "System.Devices.Manufacturer";
@@ -33,11 +33,6 @@ namespace Microsoft.HockeyApp.Extensibility
         private const string DeviceDriverProviderKey = DeviceDriverKey + ",9";
         private const string RootContainer = "{00000000-0000-0000-FFFF-FFFFFFFFFFFF}";
         private const string RootContainerQuery = "System.Devices.ContainerId:=\"" + RootContainer + "\"";
-
-        /// <summary>
-        /// The singleton instance for our reader.
-        /// </summary>
-        private static IDeviceContextReader instance;
 
         /// <summary>
         /// The number of milliseconds to wait before asynchronously retrying an operation.
@@ -268,7 +263,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// </summary>
         /// <example>Computer.Desktop, Computer.Tablet</example>
         /// <returns>The category of this device.</returns>
-        public static async Task<string> GetDeviceCategoryAsync()
+        internal static async Task<string> GetDeviceCategoryAsync()
         {
             var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { DisplayPrimaryCategoryKey });
             return (string)rootContainer.Properties[DisplayPrimaryCategoryKey];
@@ -278,7 +273,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Get the processor architecture of this computer.
         /// </summary>
         /// <returns>The processor architecture of this computer.</returns>
-        public static ProcessorArchitecture GetProcessorArchitecture()
+        internal static ProcessorArchitecture GetProcessorArchitecture()
         {
             try
             {
@@ -332,7 +327,7 @@ namespace Microsoft.HockeyApp.Extensibility
     /// <summary>
     /// Processor Architecture
     /// </summary>
-    public enum ProcessorArchitecture : ushort
+    internal enum ProcessorArchitecture : ushort
     {
         /// <summary>
         /// INTEL

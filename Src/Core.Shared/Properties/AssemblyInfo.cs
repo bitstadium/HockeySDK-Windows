@@ -31,6 +31,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Net45.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Wrt81.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Wp80.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit" + AssemblyInfo.PublicKey)]
 
 // This is for RDD
 #if PUBLIC_RELEASE

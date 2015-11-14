@@ -36,7 +36,7 @@
                     return string.Empty;
                 };
 
-                Extensions.ToInvariantString(exception);
+                DiagnoisticsEventThrottlingScheduler.ConvertExceptionToInvariantString(exception);
 
                 Assert.Same(CultureInfo.InvariantCulture, stackTraceCulture);
             }
@@ -44,7 +44,7 @@
             [TestMethod]
             public void RestoresOriginalUICultureToPreserveGlobalStateOfApplication()
             {
-                Extensions.ToInvariantString(new Exception());
+                DiagnoisticsEventThrottlingScheduler.ConvertExceptionToInvariantString(new Exception());
                 Assert.Same(this.originalUICulture, Thread.CurrentThread.CurrentUICulture);
             }
 #endif

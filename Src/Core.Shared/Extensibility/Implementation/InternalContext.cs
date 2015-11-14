@@ -10,7 +10,7 @@
     /// <summary>
     /// Encapsulates Internal information.
     /// </summary>
-    public sealed class InternalContext : IJsonSerializable
+    internal sealed class InternalContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

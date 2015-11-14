@@ -7,7 +7,7 @@
     /// <summary>
     /// A telemetry context initializer that will gather component context information.
     /// </summary>
-    public class ComponentContextInitializer : IContextInitializer
+    internal class ComponentContextInitializer : IContextInitializer
     {       
         /// <summary>
         /// Initializes the given <see cref="TelemetryContext" />.

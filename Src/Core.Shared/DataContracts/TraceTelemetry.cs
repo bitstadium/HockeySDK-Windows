@@ -11,7 +11,7 @@
     /// Telemetry type used for log messages.
     /// Contains a time and message and optionally some additional metadata.
     /// </summary>
-    public sealed class TraceTelemetry : ITelemetry, ISupportProperties
+    internal sealed class TraceTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Message";
 

@@ -5,7 +5,7 @@
     using Microsoft.HockeyApp.Extensibility;
 
     [TestClass]
-    public class UserContextReaderTest
+    public class DeviceContextReaderTest
     {
         [TestMethod]
         public void TestIsNativeEnvironment()
@@ -16,7 +16,7 @@
             }
             catch (Exception ex)
             {
-                Assert.IsFalse(UserContextReader.IsNativeEnvironment(ex));
+                Assert.IsFalse(DeviceContextReader.IsNativeEnvironment(ex));
             }
         }
     }

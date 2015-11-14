@@ -13,7 +13,7 @@
     /// during its construction or generate <see cref="ITelemetry"/> objects during its lifetime.
     /// </remarks>
     //// TODO: Decide whether ISupportContext serves multiple TelemetryContext instances or only one and who controls its lifetime.
-    public interface IContextInitializer
+    internal interface IContextInitializer
     {
         /// <summary>
         /// Initializes the given <see cref="TelemetryContext"/>.

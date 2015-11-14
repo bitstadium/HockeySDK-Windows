@@ -11,7 +11,7 @@
     /// <summary>
     /// Represents a context for sending telemetry to the Application Insights service.
     /// </summary>
-    public sealed class TelemetryContext : IJsonSerializable
+    internal sealed class TelemetryContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> properties;
         private readonly IDictionary<string, string> tags;
@@ -60,7 +60,7 @@
         /// <summary>
         /// Gets the object describing the component tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
-        public ComponentContext Component 
+        internal ComponentContext Component 
         {
             get { return LazyInitializer.EnsureInitialized(ref this.component, () => new ComponentContext(this.Tags)); }
         }
@@ -68,7 +68,7 @@
         /// <summary>
         /// Gets the object describing the device tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
-        public DeviceContext Device
+        internal DeviceContext Device
         {
             get { return LazyInitializer.EnsureInitialized(ref this.device, () => new DeviceContext(this.Tags)); }
         }
@@ -76,7 +76,7 @@
         /// <summary>
         /// Gets the object describing a user session tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
-        public SessionContext Session
+        internal SessionContext Session
         {
             get { return LazyInitializer.EnsureInitialized(ref this.session, () => new SessionContext(this.Tags)); }
         }
@@ -84,7 +84,7 @@
         /// <summary>
         /// Gets the object describing a user tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
-        public UserContext User
+        internal UserContext User
         {
             get { return LazyInitializer.EnsureInitialized(ref this.user, () => new UserContext(this.Tags)); }
         }
@@ -92,7 +92,7 @@
         /// <summary>
         /// Gets the object describing a operation tracked by this <see cref="TelemetryContext"/>.
         /// </summary>
-        public OperationContext Operation
+        internal OperationContext Operation
         {
             get { return LazyInitializer.EnsureInitialized(ref this.operation, () => new OperationContext(this.Tags)); }
         }
@@ -100,7 +100,7 @@
         /// <summary>
         /// Gets the object describing a location tracked by this <see cref="TelemetryContext" />.
         /// </summary>
-        public LocationContext Location
+        internal LocationContext Location
         {
             get { return LazyInitializer.EnsureInitialized(ref this.location, () => new LocationContext(this.Tags)); }
         }

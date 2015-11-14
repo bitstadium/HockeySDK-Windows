@@ -10,7 +10,7 @@
     /// <summary>
     /// Tracks anonymous user Id for Store Apps (Windows Store and Windows Phone).
     /// </summary>
-    public sealed class UserContextInitializer : ITelemetryInitializer
+    internal sealed class UserContextInitializer : ITelemetryInitializer
     {
         private const string UserIdSetting = "HockeyAppUserId";
         private const string UserAcquisitionDateSetting = "HockeyAppUserAcquisitionDate";

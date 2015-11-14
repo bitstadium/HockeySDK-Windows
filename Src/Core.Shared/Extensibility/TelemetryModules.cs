@@ -31,6 +31,6 @@
         /// <summary>
         /// Gets the telemetry modules collection.
         /// </summary>
-        public IList<ITelemetryModule> Modules { get; private set; }        
+        internal IList<ITelemetryModule> Modules { get; private set; }        
     }
 }

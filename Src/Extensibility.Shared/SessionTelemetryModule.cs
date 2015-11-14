@@ -18,7 +18,7 @@
     /// <summary>
     /// Tracks user sessions for Store Apps (Windows Store and Windows Phone).
     /// </summary>
-    public sealed class SessionTelemetryModule : ITelemetryInitializer, ITelemetryModule
+    internal sealed class SessionTelemetryModule : ITelemetryInitializer, ITelemetryModule
     {
         private const string SessionIdSetting = "HockeyAppSessionId";
         private const string SessionEndSetting = "HockeyAppSessionEnd";

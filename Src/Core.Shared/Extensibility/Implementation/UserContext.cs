@@ -8,7 +8,7 @@
     /// <summary>
     /// Encapsulates information about a user using an application.
     /// </summary>
-    public sealed class UserContext : IJsonSerializable
+    internal sealed class UserContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> tags;
 

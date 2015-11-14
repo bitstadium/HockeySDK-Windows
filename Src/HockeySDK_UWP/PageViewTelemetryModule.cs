@@ -5,7 +5,7 @@
     /// <summary>
     /// Windows RunTime page view telemetry module.
     /// </summary>
-    public sealed partial class PageViewTelemetryModule
+    internal sealed partial class PageViewTelemetryModule
     {
         /// <summary>
         /// Initialize method is called after all configuration properties have been loaded from the configuration.

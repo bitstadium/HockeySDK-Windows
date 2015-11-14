@@ -3,7 +3,7 @@
     /// <summary>
     /// This enumeration is used by ExceptionTelemetry to identify if and where exception was handled.
     /// </summary>
-    public enum ExceptionHandledAt
+    internal enum ExceptionHandledAt
     {
         /// <summary>
         /// Exception was not handled. Application crashed.

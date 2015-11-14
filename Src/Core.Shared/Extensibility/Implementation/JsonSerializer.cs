@@ -21,7 +21,7 @@
     /// is API support for it. 
     /// </summary>    
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public static class JsonSerializer
+    internal static class JsonSerializer
     {   
         private static readonly UTF8Encoding TransmissionEncoding = new UTF8Encoding(false);
 

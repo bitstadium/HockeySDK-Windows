@@ -7,7 +7,7 @@
     /// <summary>
     /// A stub of <see cref="ITelemetryChannel"/>.
     /// </summary>
-    public sealed class StubTelemetryChannel : ITelemetryChannel
+    internal sealed class StubTelemetryChannel : ITelemetryChannel
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StubTelemetryChannel"/> class.

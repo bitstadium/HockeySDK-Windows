@@ -15,7 +15,7 @@
     /// All <see cref="TelemetryContext"/> objects are initialized using the <see cref="Active"/> 
     /// telemetry configuration provided by this class.
     /// </remarks>
-    public sealed class TelemetryConfiguration : IDisposable
+    internal sealed class TelemetryConfiguration : IDisposable
     {
         private static object syncRoot = new object();
         private static TelemetryConfiguration active;
@@ -127,7 +127,7 @@
         /// The default list of context initializers is provided by the Application Insights NuGet packages and loaded from 
         /// the configuration file located in the application directory. 
         /// </remarks>
-        public IList<IContextInitializer> ContextInitializers
+        internal IList<IContextInitializer> ContextInitializers
         {
             get { return this.contextInitializers; }
         }
@@ -142,7 +142,7 @@
         /// The default list of telemetry initializers is provided by the Application Insights NuGet packages and loaded from 
         /// the configuration file located in the application directory. 
         /// </remarks>
-        public IList<ITelemetryInitializer> TelemetryInitializers
+        internal IList<ITelemetryInitializer> TelemetryInitializers
         {
             get { return this.telemetryInitializers; }
         }
@@ -150,7 +150,7 @@
         /// <summary>
         /// Gets or sets the telemetry channel.
         /// </summary>
-        public ITelemetryChannel TelemetryChannel { get; set; }
+        internal ITelemetryChannel TelemetryChannel { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.

@@ -16,7 +16,7 @@
     /// passing an instance of the <see cref="PageViewTelemetry"/> class to the <see cref="TelemetryClient.TrackPageView(PageViewTelemetry)"/> 
     /// method.
     /// </remarks>
-    public sealed class PageViewTelemetry : ITelemetry, ISupportProperties
+    internal sealed class PageViewTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "PageView";
 

@@ -21,7 +21,7 @@
     /// <summary>
     /// Send events, metrics and other telemetry to the Application Insights service.
     /// </summary>
-    public sealed class TelemetryClient
+    internal sealed class TelemetryClient
     {
         private readonly TelemetryConfiguration configuration;
         private readonly IDebugOutput debugOutput;
@@ -54,7 +54,7 @@
         /// <summary>
         /// Gets the current context that will be used to augment telemetry you send.
         /// </summary>
-        public TelemetryContext Context
+        internal TelemetryContext Context
         {
             get
             {
@@ -65,7 +65,7 @@
                 });
             }
 
-            internal set { this.context = value; }
+            set { this.context = value; }
         }
 
         /// <summary>
@@ -139,7 +139,7 @@
         /// Send an <see cref="EventTelemetry"/> for display in Diagnostic Search and aggregation in Metrics Explorer.
         /// </summary>
         /// <param name="telemetry">An event log item.</param>
-        public void TrackEvent(EventTelemetry telemetry)
+        internal void TrackEvent(EventTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -156,7 +156,7 @@
 #if WINRT
         [DefaultOverload]
 #endif
-        public void TrackTrace(string message)
+        internal void TrackTrace(string message)
         {
             this.TrackTrace(new TraceTelemetry(message));
         }
@@ -166,7 +166,7 @@
         /// </summary>
         /// <param name="message">Message to display.</param>
         /// <param name="severityLevel">Trace severity level.</param>
-        public void TrackTrace(string message, SeverityLevel severityLevel)
+        internal void TrackTrace(string message, SeverityLevel severityLevel)
         {
             this.TrackTrace(new TraceTelemetry(message, severityLevel));
         }
@@ -176,7 +176,7 @@
         /// </summary>
         /// <param name="message">Message to display.</param>
         /// <param name="properties">Named string values you can use to search and classify events.</param>
-        public void TrackTrace(string message, IDictionary<string, string> properties)
+        internal void TrackTrace(string message, IDictionary<string, string> properties)
         {
             TraceTelemetry telemetry = new TraceTelemetry(message);
 
@@ -194,7 +194,7 @@
         /// <param name="message">Message to display.</param>
         /// <param name="severityLevel">Trace severity level.</param>
         /// <param name="properties">Named string values you can use to search and classify events.</param>
-        public void TrackTrace(string message, SeverityLevel severityLevel, IDictionary<string, string> properties)
+        internal void TrackTrace(string message, SeverityLevel severityLevel, IDictionary<string, string> properties)
         {
             TraceTelemetry telemetry = new TraceTelemetry(message, severityLevel);
 
@@ -210,7 +210,7 @@
         /// Send a trace message for display in Diagnostic Search.
         /// </summary>
         /// <param name="telemetry">Message with optional properties.</param>
-        public void TrackTrace(TraceTelemetry telemetry)
+        internal void TrackTrace(TraceTelemetry telemetry)
         {
             telemetry = telemetry ?? new TraceTelemetry();
             this.Track(telemetry);
@@ -225,7 +225,7 @@
 #if WINRT
         [DefaultOverload]
 #endif
-        public void TrackMetric(string name, double value, IDictionary<string, string> properties = null)
+        internal void TrackMetric(string name, double value, IDictionary<string, string> properties = null)
         {
             var telemetry = new MetricTelemetry(name, value);
             if (properties != null && properties.Count > 0)
@@ -239,7 +239,7 @@
         /// <summary>
         /// Send a <see cref="MetricTelemetry"/> for aggregation in Metric Explorer.
         /// </summary>
-        public void TrackMetric(MetricTelemetry telemetry)
+        internal void TrackMetric(MetricTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -258,7 +258,7 @@
 #if WINRT
         [DefaultOverload]
 #endif
-        public void TrackException(Exception exception, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
+        internal void TrackException(Exception exception, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
         {
             if (exception == null)
             {
@@ -283,7 +283,7 @@
         /// <summary>
         /// Send an <see cref="ExceptionTelemetry"/> for display in Diagnostic Search.
         /// </summary>
-        public void TrackException(ExceptionTelemetry telemetry)
+        internal void TrackException(ExceptionTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -305,7 +305,7 @@
         /// <param name="startTime">The time when the dependency was called.</param>
         /// <param name="duration">The time taken by the external dependency to handle the call.</param>
         /// <param name="success">True if the dependency call was handled successfully.</param>
-        public void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success)
+        internal void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success)
         {
             this.TrackDependency(new DependencyTelemetry(dependencyName, commandName, startTime, duration, success));
         }
@@ -313,7 +313,7 @@
         /// <summary>
         /// Send information about external dependency call in the application.
         /// </summary>
-        public void TrackDependency(DependencyTelemetry telemetry)
+        internal void TrackDependency(DependencyTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -327,7 +327,7 @@
         /// This method is an internal part of Application Insights infrastructure. Do not call.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public void Track(ITelemetry telemetry)
+        internal void Track(ITelemetry telemetry)
         {
             // TALK TO YOUR TEAM MATES BEFORE CHANGING THIS.
             // This method needs to be public so that we can build and ship new telemetry types without having to ship core.
@@ -395,7 +395,7 @@
 #if WINRT
         [DefaultOverload]
 #endif
-        public void TrackPageView(string name)
+        internal void TrackPageView(string name)
         {
             this.Track(new PageViewTelemetry(name));
         }
@@ -403,7 +403,7 @@
         /// <summary>
         /// Send information about the page viewed in the application.
         /// </summary>
-        public void TrackPageView(PageViewTelemetry telemetry)
+        internal void TrackPageView(PageViewTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -421,7 +421,7 @@
         /// <param name="duration">The time taken by the application to handle the request.</param>
         /// <param name="responseCode">The response status code.</param>
         /// <param name="success">True if the request was handled successfully by the application.</param>
-        public void TrackRequest(string name, DateTimeOffset startTime, TimeSpan duration, string responseCode, bool success)
+        internal void TrackRequest(string name, DateTimeOffset startTime, TimeSpan duration, string responseCode, bool success)
         {
             this.Track(new RequestTelemetry(name, startTime, duration, responseCode, success));
         }
@@ -429,7 +429,7 @@
         /// <summary>
         /// Send information about a request handled by the application.
         /// </summary>
-        public void TrackRequest(RequestTelemetry request)
+        internal void TrackRequest(RequestTelemetry request)
         {
             if (request == null)
             {
