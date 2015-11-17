@@ -118,8 +118,14 @@ namespace HockeyApp
         {
             get
             {
-                if(_appPackageName == null) {
-                    _appPackageName = Assembly.GetEntryAssembly().EntryPoint.DeclaringType.Namespace;
+                if (_appPackageName == null) {
+                    if (Assembly.GetExecutingAssembly().EntryPoint != null) {
+                        _appPackageName = Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace;
+                    } else if (Assembly.GetEntryAssembly().EntryPoint != null) {
+                        _appPackageName = Assembly.GetEntryAssembly().EntryPoint.DeclaringType.Namespace;
+                    } else {
+                        _appPackageName = "unknown";
+                    }
                 }
                 return _appPackageName;
             }
