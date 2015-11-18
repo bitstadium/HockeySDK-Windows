@@ -2,6 +2,7 @@
 {
     using System.Linq;
     using System.Reflection;
+    using System.Threading.Tasks;
     using DataContracts;
 #if WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_STORE
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
@@ -26,21 +27,21 @@
         }
 
         [TestMethod]
-        public void InitializeSetsSdkVersionPropertyOfGivenTelemetry()
+        public async Task InitializeSetsSdkVersionPropertyOfGivenTelemetry()
         {
             var initializer = new SdkVersionPropertyContextInitializer();
             var telemetryContext = new TelemetryContext();
-            initializer.Initialize(telemetryContext);
+            await initializer.Initialize(telemetryContext);
 
             Assert.NotNull(telemetryContext.Internal.SdkVersion);
         }
 
         [TestMethod]
-        public void InitializeSetsSdkVersionValueAsAssemblyVersion()
+        public async Task InitializeSetsSdkVersionValueAsAssemblyVersion()
         {
             var initializer = new SdkVersionPropertyContextInitializer();
             var telemetryContext = new TelemetryContext();
-            initializer.Initialize(telemetryContext);
+            await initializer.Initialize(telemetryContext);
             
             string expectedSdkVersion;
 #if !WINRT

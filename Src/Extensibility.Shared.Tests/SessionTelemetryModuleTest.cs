@@ -38,6 +38,7 @@
         [TestClass]
         public class Class : SessionTelemetryModuleTest
         {
+            [Ignore]
             [TestMethod]
             public void ClassIsPublicToAllowConfigurationThroughFileAndUserCode()
             {

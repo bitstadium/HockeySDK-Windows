@@ -247,7 +247,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string SDKVersion
         {
-            get { return Constants.SDKVERSION; }
+            get { return HockeyConstants.SDKVERSION; }
         }
 
         /// <summary>
@@ -255,8 +255,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string SDKName
         {
-            get
-            { return Constants.SDKNAME; }
+            get { return HockeyConstants.SDKNAME; }
         }
 
         /// <summary>
@@ -264,7 +263,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string UserAgentString
         {
-            get { return Constants.USER_AGENT_STRING; }
+            get { return HockeyConstants.USER_AGENT_STRING; }
         }
 
         private string _productID = null;

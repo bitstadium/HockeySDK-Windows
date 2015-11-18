@@ -74,7 +74,7 @@ namespace Microsoft.HockeyApp.Channel
         /// </summary>
         /// <remarks>
         /// Q: Why flushManager knows about the endpoint? 
-        /// A: Storage stores <see cref="Transmission"/> objects and Transmission objects contain the endpoint address.
+        /// A: Storage stores Transmission objects and Transmission objects contain the endpoint address.
         /// </remarks>
         internal Uri EndpointAddress { get; set; }
 

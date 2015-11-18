@@ -34,6 +34,7 @@
             PlatformSingleton.Current = null;
         }
 
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowConfigurationThroughFileAndUserCode()
         {

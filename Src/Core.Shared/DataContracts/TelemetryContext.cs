@@ -108,7 +108,7 @@
         /// <summary>
         /// Gets a dictionary of application-defined property values.
         /// </summary>
-        public IDictionary<string, string> Properties
+        internal IDictionary<string, string> Properties
         {
             get { return this.properties; }
         }

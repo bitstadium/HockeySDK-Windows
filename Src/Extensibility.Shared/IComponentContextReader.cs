@@ -17,9 +17,9 @@
         string GetVersion();
 
         /// <summary>
-        /// Gets the full name of the package.
+        /// Gets the application id, which is then namespace name for App class.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Namespace name for App class.</returns>
         string GetApplicationId();
     }
 }

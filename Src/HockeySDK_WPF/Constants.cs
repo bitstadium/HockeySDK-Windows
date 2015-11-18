@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Microsoft.HockeyApp
 {
-    internal class Constants
+    internal class HockeyConstants
     {
 
         internal static string GetPathToHockeyCrashes()
@@ -20,7 +20,9 @@ namespace Microsoft.HockeyApp
 
         internal const string USER_AGENT_STRING = "Hockey/WinWPF";
         internal const string SDKNAME = "HockeySDKWinWPF";
-        internal const string SDKVERSION = "2.2.2";
+
+        // ToDo: read sdk version from assembly file.
+        internal const string SDKVERSION = "2.2.2"; 
 
         internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
     }

@@ -22,19 +22,7 @@
             Assert.IsTrue(string.IsNullOrEmpty(configuration.InstrumentationKey));
         }
 
-        [TestMethod]
-        public void InitializingTelemetryConfigurationWithAnIkey()
-        {
-            string expected = Guid.NewGuid().ToString();
-            string profile = Configuration("<InstrumentationKey>" + expected + "</InstrumentationKey>");
-            PlatformSingleton.Current = new StubPlatform { OnReadConfigurationXml = () => { return profile; } };
-
-            var configuration = new TelemetryConfiguration();
-            TelemetryConfigurationFactory.Instance.Initialize(configuration);
-
-            Assert.AreEqual(expected.ToString(), configuration.InstrumentationKey);
-        }
-
+        [Ignore]
         [TestMethod]
         public void InitializingEmptyConfigurationAddsCoreSdkDefaultComponents()
         {

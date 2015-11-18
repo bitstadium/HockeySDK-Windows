@@ -31,7 +31,7 @@ namespace Microsoft.HockeyApp
         /// <summary>
         /// Gets path to hockey crashes.
         /// </summary>
-        public string GetPathToHockeyCrashes { get { return Constants.GetPathToHockeyCrashes(); } }
+        public string GetPathToHockeyCrashes { get { return HockeyConstants.GetPathToHockeyCrashes(); } }
 
         private CrashHandler _crashHandler = null;
 
@@ -74,9 +74,9 @@ namespace Microsoft.HockeyApp
                 apiBase: apiBase,
                 userID: userID,
                 contactInformation: contactInformation,
-                userAgentName: Constants.USER_AGENT_STRING,
-                sdkName: Constants.SDKNAME,
-                sdkVersion: Constants.SDKVERSION,
+                userAgentName: HockeyConstants.USER_AGENT_STRING,
+                sdkName: HockeyConstants.SDKNAME,
+                sdkVersion: HockeyConstants.SDKVERSION,
                 os: Environment.OSVersion.Platform.ToString(),
                 osVersion: Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack);
             this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader, keepRunning);

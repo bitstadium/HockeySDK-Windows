@@ -27,7 +27,7 @@
         private bool disableTelemetry = false;
 
         /// <summary>
-        /// Gets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
+        /// Gets or sets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
         /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
         /// needed to send telemetry to Application Insights.
         /// </summary>

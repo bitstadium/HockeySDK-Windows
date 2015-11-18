@@ -88,18 +88,6 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
             this.Dispose(true);
         }
 
-        private static void DisposeTimer(IDisposable timer)
-        {
-            try
-            {
-                timer.Dispose();
-            }
-            catch (Exception exc)
-            {
-                CoreEventSource.Log.DiagnoisticsEventThrottlingSchedulerDisposeTimerFailure(ConvertExceptionToInvariantString(exc));
-            }
-        }
-
         /// <summary>
         /// Returns a culture-independent string representation of the given <paramref name="exception"/> object, 
         /// appropriate for diagnostics tracing.
@@ -120,6 +108,18 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
                 Thread.CurrentThread.CurrentUICulture = originalUICulture;
             }
 #endif
+        }
+
+        private static void DisposeTimer(IDisposable timer)
+        {
+            try
+            {
+                timer.Dispose();
+            }
+            catch (Exception exc)
+            {
+                CoreEventSource.Log.DiagnoisticsEventThrottlingSchedulerDisposeTimerFailure(ConvertExceptionToInvariantString(exc));
+            }
         }
 
         private static TaskTimer InternalCreateAndStartTimer(

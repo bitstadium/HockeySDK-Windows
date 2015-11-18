@@ -31,6 +31,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WINRT.NuGet", "src\NuGet\HockeySDK.WINRT\HockeySDK.WINRT.NuGet.csproj", "{BBA0FB1C-9C69-4773-8A43-7B2A522593E6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{15C4A313-6BB0-4606-A05C-8487631CE5E4} = {15C4A313-6BB0-4606-A05C-8487631CE5E4}
+		{D076FB25-D286-48F5-80C9-F55FFA576B77} = {D076FB25-D286-48F5-80C9-F55FFA576B77}
 		{3A24597D-D3CF-4C4C-9330-B5A391A3905B} = {3A24597D-D3CF-4C4C-9330-B5A391A3905B}
 		{F1FEF39B-3CED-4985-B7A5-BD4977392228} = {F1FEF39B-3CED-4985-B7A5-BD4977392228}
 	EndProjectSection
@@ -109,9 +110,9 @@ Global
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{9181dca1-c390-44b2-ae4e-93333977a7b3}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{0927e682-4a56-46b6-8125-94fa066b2f57}*SharedItemsImports = 4
-		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
+		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{6869a04b-18b5-40f9-bf56-8b1a06484116}*SharedItemsImports = 13
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{db22ab6f-c72e-44da-b0fe-e2ffaa02cd59}*SharedItemsImports = 13
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{4cad12ee-32a9-4206-8379-7857f093ba2d}*SharedItemsImports = 4

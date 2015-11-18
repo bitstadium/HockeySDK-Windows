@@ -63,7 +63,7 @@ namespace Microsoft.HockeyApp
             try
             {
                 string crashID = Guid.NewGuid().ToString();
-                String filename = String.Format(CultureInfo.InvariantCulture, "{0}{1}.log", Constants.CrashFilePrefix, crashID);
+                String filename = String.Format(CultureInfo.InvariantCulture, "{0}{1}.log", HockeyConstants.CrashFilePrefix, crashID);
 
                 CrashLogInformation logInfo = new CrashLogInformation()
                 {
@@ -76,7 +76,7 @@ namespace Microsoft.HockeyApp
                 };
 
                 ICrashData crash = HockeyClient.Current.AsInternal().CreateCrashData(e, logInfo);
-                using (FileStream stream = File.Create(Path.Combine(Constants.GetPathToHockeyCrashes(), filename)))
+                using (FileStream stream = File.Create(Path.Combine(HockeyConstants.GetPathToHockeyCrashes(), filename)))
                 {
                     crash.Serialize(stream);
                     stream.Flush();
@@ -93,7 +93,7 @@ namespace Microsoft.HockeyApp
 
         internal string[] GetCrashFiles()
         {
-            return Directory.GetFiles(Constants.GetPathToHockeyCrashes(), Constants.CrashFilePrefix + "*.log");
+            return Directory.GetFiles(HockeyConstants.GetPathToHockeyCrashes(), HockeyConstants.CrashFilePrefix + "*.log");
         }
 
         internal void DeleteAllCrashes()

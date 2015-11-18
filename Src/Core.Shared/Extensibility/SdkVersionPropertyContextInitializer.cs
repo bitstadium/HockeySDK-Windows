@@ -14,6 +14,7 @@
         private const string SDKVersion = "SDKVersion";
         private string sdkVersion;
 
+#pragma warning disable 1998
         /// <summary>
         /// Adds a telemetry property for the version of SDK.
         /// </summary>
@@ -25,6 +26,7 @@
                 context.Internal.SdkVersion = version;
             }
         }
+#pragma warning restore 1998
 
         private string GetAssemblyVersion()
         {

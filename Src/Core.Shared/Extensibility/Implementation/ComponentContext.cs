@@ -31,7 +31,7 @@
         }
 
         /// <summary>
-        ///  Gets or sets bundle/package identifier in reverse domain name notation. e.g. net.hockeyapp.sdk.ios
+        ///  Gets or sets bundle/package identifier in reverse domain name notation.
         /// </summary>
         public string ApplicationId
         {

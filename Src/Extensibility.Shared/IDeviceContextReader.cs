@@ -57,7 +57,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Gets operating system name.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Operating system name.</returns>
         string GetOperatingSystemName();
     }
 }

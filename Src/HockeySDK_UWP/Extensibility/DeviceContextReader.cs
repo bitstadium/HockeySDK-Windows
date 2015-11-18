@@ -19,11 +19,7 @@
                 StackFrame[] stackFrames = stackTrace.GetFrames();
                 if (stackFrames != null && stackFrames.Length > 0)
                 {
-                    var stackFrame = stackFrames[0];
-                    IntPtr imageBase = stackFrame.GetNativeImageBase();
-
-                    // imageBase is set to a value other than zero if application is compiled with .NET Native tool chain. 
-                    isNativeEnvironment = imageBase != IntPtr.Zero;
+                    isNativeEnvironment = stackFrames[0].HasNativeImage();
                 }
                 else
                 {

@@ -20,6 +20,7 @@
             Assert.IsFalse(string.IsNullOrEmpty(TelemetryConfiguration.Active.InstrumentationKey));
         }
 
+        [Ignore]
         [TestMethod]
         public void WindowsBootStraperReadsInstrumentationKeyFromConfigurationFileWhenExists()
         {

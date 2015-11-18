@@ -39,7 +39,6 @@
     <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\ContextTagKeys.cs" />
     <Compile Include="Extensibility\Implementation\External\DependencyKind.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\DeviceContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\InternalContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\LocationContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\OperationContextData.cs" />

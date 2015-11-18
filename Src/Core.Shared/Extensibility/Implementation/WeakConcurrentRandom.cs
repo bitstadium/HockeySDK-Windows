@@ -9,6 +9,9 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
     using System;
     using System.Threading;
 
+    /// <summary>
+    /// Random generator creating “sufficiently random” integers, which is faster than to initializes a new instance of the GUID structure, and uses 8 bytes only for the id instead of 16.
+    /// </summary>
     internal class WeakConcurrentRandom
     {
         /// <summary>

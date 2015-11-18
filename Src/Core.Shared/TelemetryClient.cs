@@ -52,26 +52,25 @@
         }
 
         /// <summary>
-        /// Gets the current context that will be used to augment telemetry you send.
+        /// Gets or sets the current context that will be used to augment telemetry you send.
         /// </summary>
         internal TelemetryContext Context
         {
             get
             {
-                return LazyInitializer.EnsureInitialized(ref this.context, () =>
-                {
-                    // ToDo: Validate that this blocking call is not causing performance issues.
-                    return this.CreateInitializedContext().Result;
-                });
+                return LazyInitializer.EnsureInitialized(ref this.context, () => { return this.CreateInitializedContext().Result; });
             }
 
-            set { this.context = value; }
+            set
+            {
+                this.context = value;
+            }
         }
 
         /// <summary>
         /// Gets or sets the default instrumentation key for all <see cref="ITelemetry"/> objects logged in this <see cref="TelemetryClient"/>.
         /// </summary>
-        public string InstrumentationKey
+        internal string InstrumentationKey
         {
             get { return this.Context.InstrumentationKey; }
             set { this.Context.InstrumentationKey = value; }
@@ -442,7 +441,7 @@
         /// <summary>
         /// Flushes the in-memory buffer. 
         /// </summary>
-        public void Flush()
+        internal void Flush()
         {
             this.Channel.Flush();
         }

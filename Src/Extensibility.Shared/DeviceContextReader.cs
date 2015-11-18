@@ -1,12 +1,10 @@
 namespace Microsoft.HockeyApp.Extensibility
 {
+    using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Threading;
-    using System;
     using System.Linq;
     using System.Reflection;
-    using System.Runtime.InteropServices;
     using System.Text;
     using System.Threading.Tasks;
     using Implementation.Tracing;
@@ -44,6 +42,36 @@ namespace Microsoft.HockeyApp.Extensibility
         /// </summary>
         internal DeviceContextReader()
         {
+        }
+
+        /// <summary>
+        /// Processor Architecture.
+        /// </summary>
+        internal enum ProcessorArchitecture : ushort
+        {
+            INTEL = 0,
+
+            MIPS = 1,
+
+            ALPHA = 2,
+
+            PPC = 3,
+
+            SHX = 4,
+
+            ARM = 5,
+
+            IA64 = 6,
+
+            ALPHA64 = 7,
+
+            MSIL = 8,
+
+            AMD64 = 9,
+
+            IA32_ON_WIN64 = 10,
+
+            UNKNOWN = 0xFFFF
         }
 
         /// <summary>
@@ -162,7 +190,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Get the name of the manufacturer of this computer.
         /// </summary>
-        /// <example>Microsoft Corporation</example>
+        /// <example>Microsoft Corporation.</example>
         /// <returns>The name of the manufacturer of this computer.</returns>
         public async Task<string> GetOemName()
         {
@@ -173,7 +201,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Get the name of the model of this computer.
         /// </summary>
-        /// <example>Surface with Windows 8</example>
+        /// <example>Precision WorkStation T7500.</example>
         /// <returns>The name of the model of this computer.</returns>
         public async Task<string> GetDeviceModel()
         {
@@ -261,7 +289,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Get the device category this computer belongs to.
         /// </summary>
-        /// <example>Computer.Desktop, Computer.Tablet</example>
+        /// <example>Computer.Desktop, Computer.Tablet.</example>
         /// <returns>The category of this device.</returns>
         internal static async Task<string> GetDeviceCategoryAsync()
         {
@@ -277,8 +305,8 @@ namespace Microsoft.HockeyApp.Extensibility
         {
             try
             {
-                var sysInfo = new _SYSTEM_INFO();
-                GetNativeSystemInfo(ref sysInfo);
+                var sysInfo = new NativeMethods._SYSTEM_INFO();
+                NativeMethods.GetNativeSystemInfo(ref sysInfo);
 
                 return Enum.IsDefined(typeof(ProcessorArchitecture), sysInfo.wProcessorArchitecture)
                     ? (ProcessorArchitecture)sysInfo.wProcessorArchitecture
@@ -303,90 +331,5 @@ namespace Microsoft.HockeyApp.Extensibility
 
             public string Version { get; set; }
         }
-
-        [DllImport("kernel32.dll")]
-        static extern void GetNativeSystemInfo(ref _SYSTEM_INFO lpSystemInfo);
-
-        [StructLayout(LayoutKind.Sequential)]
-        struct _SYSTEM_INFO
-        {
-            public ushort wProcessorArchitecture;
-            public ushort wReserved;
-            public uint dwPageSize;
-            public IntPtr lpMinimumApplicationAddress;
-            public IntPtr lpMaximumApplicationAddress;
-            public UIntPtr dwActiveProcessorMask;
-            public uint dwNumberOfProcessors;
-            public uint dwProcessorType;
-            public uint dwAllocationGranularity;
-            public ushort wProcessorLevel;
-            public ushort wProcessorRevision;
-        };
-    }
-
-    /// <summary>
-    /// Processor Architecture
-    /// </summary>
-    internal enum ProcessorArchitecture : ushort
-    {
-        /// <summary>
-        /// INTEL
-        /// </summary>
-        INTEL = 0,
-
-        /// <summary>
-        /// MIPS
-        /// </summary>
-        MIPS = 1,
-
-        /// <summary>
-        /// ALPHA
-        /// </summary>
-        ALPHA = 2,
-
-        /// <summary>
-        /// PPC
-        /// </summary>
-        PPC = 3,
-
-        /// <summary>
-        /// SHX
-        /// </summary>
-        SHX = 4,
-
-        /// <summary>
-        /// ARM
-        /// </summary>
-        ARM = 5,
-
-        /// <summary>
-        /// IA64
-        /// </summary>
-        IA64 = 6,
-
-        /// <summary>
-        /// ALPHA64
-        /// </summary>
-        ALPHA64 = 7,
-
-        /// <summary>
-        /// MSIL
-        /// </summary>
-        MSIL = 8,
-
-        /// <summary>
-        /// AMD64
-        /// </summary>
-        AMD64 = 9,
-
-        /// <summary>
-        /// IA32 ON WIN64
-        /// </summary>
-        IA32_ON_WIN64 = 10,
-
-        /// <summary>
-        /// Unknown
-        /// </summary>
-        UNKNOWN = 0xFFFF
     }
 }

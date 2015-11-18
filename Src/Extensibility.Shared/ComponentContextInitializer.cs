@@ -8,7 +8,8 @@
     /// A telemetry context initializer that will gather component context information.
     /// </summary>
     internal class ComponentContextInitializer : IContextInitializer
-    {       
+    {
+#pragma warning disable 1998
         /// <summary>
         /// Initializes the given <see cref="TelemetryContext" />.
         /// </summary>
@@ -24,5 +25,6 @@
             context.Component.Version = componentContextReader.GetVersion();
             context.Component.ApplicationId = componentContextReader.GetApplicationId();
         }
+#pragma warning restore 1998
     }
 }

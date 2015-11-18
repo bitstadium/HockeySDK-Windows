@@ -26,5 +26,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)WindowsCollectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserContextReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
   </ItemGroup>
 </Project>

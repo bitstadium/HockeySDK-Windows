@@ -4,7 +4,6 @@ namespace Microsoft.HockeyApp.Extensibility
     using System.Threading;
     using global::Windows.ApplicationModel;
 
-
     /// <summary>
     /// The reader is platform specific and will contain different implementations for reading specific data based on the platform its running on.
     /// </summary>
@@ -99,9 +98,9 @@ namespace Microsoft.HockeyApp.Extensibility
         }
 
         /// <summary>
-        /// Gets the full name of the package.
+        /// Gets the application identifier, which is the namespace name for App class.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Namespace name for App class.</returns>
         public string GetApplicationId()
         {
             if (this.fullPackageName == null)

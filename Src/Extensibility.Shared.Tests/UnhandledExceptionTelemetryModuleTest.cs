@@ -39,6 +39,7 @@
             this.channel.Dispose();
         }
 
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowUsersConfigureItProgrammatically()
         {

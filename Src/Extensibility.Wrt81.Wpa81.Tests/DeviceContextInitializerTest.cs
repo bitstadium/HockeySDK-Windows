@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility
 {
     using System.Text;
+    using System.Threading.Tasks;
     using DataContracts;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 
@@ -17,14 +18,14 @@
     public partial class DeviceContextInitializerTest
     {
         [TestMethod]
-        public void ReadingDeviceUniqueIdYieldsCorrectValue()
+        public async Task ReadingDeviceUniqueIdYieldsCorrectValue()
         {
             DeviceContextInitializer source = new DeviceContextInitializer();
             var telemetryContext = new TelemetryContext();
 
             Assert.Null(telemetryContext.Device.Id);
 
-            source.Initialize(telemetryContext);
+            await source.Initialize(telemetryContext);
 
             string id = telemetryContext.Device.Id;
 

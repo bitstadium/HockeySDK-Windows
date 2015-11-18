@@ -22,6 +22,7 @@
         /// </summary>
         public TelemetryContextAction OnInitialize { get; set; }
 
+#pragma warning disable 1998
         /// <summary>
         /// Implements the <see cref="IContextInitializer.Initialize"/> method by invoking the <see cref="OnInitialize"/> callback.
         /// </summary>
@@ -29,5 +30,6 @@
         {
             this.OnInitialize(context);
         }
+#pragma warning restore 1998
     }
 }
