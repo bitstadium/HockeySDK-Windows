@@ -5,17 +5,17 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuGet", "NuGet", "{5116D6F6-6065-48C7-BE05-71EED997F2F9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Portable45", "Src\HockeySDK_Portable45\HockeySDK_Portable45.csproj", "{643606BA-84A8-483F-A582-49E472B8701E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.Portable45", "Src\Kit.Portable45\Kit.Portable45.csproj", "{643606BA-84A8-483F-A582-49E472B8701E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_Win81", "Src\HockeySDK_Win81\HockeySDK_Win81.csproj", "{F1FEF39B-3CED-4985-B7A5-BD4977392228}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.Win81", "Src\Kit.Win81\Kit.Win81.csproj", "{F1FEF39B-3CED-4985-B7A5-BD4977392228}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WinForms45", "Src\HockeySDK_WinForms45\HockeySDK_WinForms45.csproj", "{265092EA-A2DF-4A30-B361-EDC66DFB9656}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.WinForms45", "Src\Kit.WinForms45\Kit.WinForms45.csproj", "{265092EA-A2DF-4A30-B361-EDC66DFB9656}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WP81", "Src\HockeySDK_WP81\HockeySDK_WP81.csproj", "{3A24597D-D3CF-4C4C-9330-B5A391A3905B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.WP81", "Src\Kit.WP81\Kit.WP81.csproj", "{3A24597D-D3CF-4C4C-9330-B5A391A3905B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WinRT", "Src\HockeySDK_WinRT\HockeySDK_WinRT.csproj", "{15C4A313-6BB0-4606-A05C-8487631CE5E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.WinRT", "Src\Kit.WinRT\Kit.WinRT.csproj", "{15C4A313-6BB0-4606-A05C-8487631CE5E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_WPF45", "Src\HockeySDK_WPF45\HockeySDK_WPF45.csproj", "{C9612531-2077-4662-B8A4-092E06D5069B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.WPF45", "Src\Kit.WPF45\Kit.WPF45.csproj", "{C9612531-2077-4662-B8A4-092E06D5069B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.Core.NuGet", "src\NuGet\HockeySDK.Core\HockeySDK.Core.NuGet.csproj", "{C6EF75AB-0FF0-4C98-9F01-96E6492C95A2}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -81,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Net45.Tests.TestFramew
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Net46.Tests.TestFramework", "Src\Core.Net46.Tests.TestFramework\Core.Net46.Tests.TestFramework.csproj", "{D7D4E3F5-EC0D-47C9-90CC-56F612976122}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Uwp.Tests.TestFramework", "Src\Core.Uwp.Tests.TestFramework\Core.Uwp.Tests.TestFramework.csproj", "{48B9CED7-8CAF-4605-A74F-54693B16EF52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP.Tests.TestFramework", "Src\Kit.UWP.Tests.TestFramework\Kit.UWP.Tests.TestFramework.csproj", "{48B9CED7-8CAF-4605-A74F-54693B16EF52}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Tests.TestFramework", "Src\Core.Wrt81.Tests.TestFramework\Core.Wrt81.Tests.TestFramework.csproj", "{9F9C3D52-ABB9-461A-B1B6-A01BB5CECD93}"
 EndProject
@@ -95,9 +95,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Win81.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Wpa81.Tests", "Src\Core.Wrt81.Wpa81.Tests\Core.Wrt81.Wpa81.Tests.csproj", "{6587B432-E16A-4D26-93E1-BF12449FDB32}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_UWP", "Src\HockeySDK_UWP\HockeySDK_UWP.csproj", "{D076FB25-D286-48F5-80C9-F55FFA576B77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP", "Src\Kit.UWP\Kit.UWP.csproj", "{D076FB25-D286-48F5-80C9-F55FFA576B77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK_UWP.Tests", "Src\HockeySDK_UWP.Tests\HockeySDK_UWP.Tests.csproj", "{DCBF9F18-0903-4311-B533-9C41AB2E9728}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP.Tests", "Src\Kit.UWP.Tests\Kit.UWP.Tests.csproj", "{DCBF9F18-0903-4311-B533-9C41AB2E9728}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

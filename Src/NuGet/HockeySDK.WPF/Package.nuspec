@@ -20,10 +20,10 @@
 
   <files>
     <!-- HockeySDK -->
-    <file src="$configuration$\HockeySDK_WPF45\Microsoft.HockeyApp.Kit.*" target="lib\net45" />
+    <file src="$configuration$\Kit.WPF45\Microsoft.HockeyApp.Kit.*" target="lib\net45" />
     <file src="$configuration$\NuGet\HockeySDK.WPF\tools\**" target="tools" />
 
     <!-- Application Insights -->
-    <file src="$configuration$\HockeySDK_WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
+    <file src="$configuration$\Kit.WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
   </files>
 </package>

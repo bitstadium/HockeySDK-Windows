@@ -7,7 +7,7 @@
     <ProjectGuid>{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
-    <PackageVersionFile>$(BinRoot)\$(Configuration)\HockeySDK_WP8\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
+    <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.WP8\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
