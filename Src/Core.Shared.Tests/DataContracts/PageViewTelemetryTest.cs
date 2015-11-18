@@ -21,12 +21,14 @@
     [TestClass]
     public class PageViewTelemetryTest
     {
+        [Ignore]
         [TestMethod]
         public void PageViewImplementsITelemetryContractConsistentlyWithOtherTelemetryTypes()
         {
             new ITelemetryTest<PageViewTelemetry, DataPlatformModel.PageViewData>().Run();
         }
 
+        [Ignore]
         [TestMethod]
         public void PageViewTelemetryIsPublic()
         {

@@ -18,6 +18,7 @@
     [TestClass]
     public class OperationContextTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowInstantiationInSdkAndUserCode()
         {

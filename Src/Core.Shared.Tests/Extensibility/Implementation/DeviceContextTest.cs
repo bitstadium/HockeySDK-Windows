@@ -14,6 +14,7 @@
     [TestClass]
     public class DeviceContextTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowInstantiationInSdkAndUserCode()
         {

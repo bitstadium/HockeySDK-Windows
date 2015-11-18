@@ -136,7 +136,7 @@
             writer.WriteProperty("osVer", this.Tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOSVersion));
             writer.WriteProperty("os", this.Tags.GetTagValueOrNull(ContextTagKeys.Keys.DeviceOS));
             writer.WriteProperty("appVer", this.Tags.GetTagValueOrNull(ContextTagKeys.Keys.ApplicationVersion));
-            writer.WriteProperty("appId", "N/A");
+            writer.WriteProperty("appId", this.Component.ApplicationId);
         }
 
         internal void Initialize(TelemetryContext source, string instrumentationKey)

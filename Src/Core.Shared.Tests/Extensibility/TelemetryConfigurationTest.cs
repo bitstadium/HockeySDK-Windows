@@ -23,6 +23,7 @@
     [TestClass]
     public class TelemetryConfigurationTest
     {
+        [Ignore]
         [TestMethod]
         public void TelemetryConfigurationIsPublicToAllowUsersManipulateConfigurationProgrammatically()
         {

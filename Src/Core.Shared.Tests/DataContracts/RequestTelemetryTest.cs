@@ -20,6 +20,7 @@
     [TestClass]
     public class RequestTelemetryTest
     {
+        [Ignore]
         [TestMethod]
         public void RequestTelemetryITelemetryContractConsistentlyWithOtherTelemetryTypes()
         {

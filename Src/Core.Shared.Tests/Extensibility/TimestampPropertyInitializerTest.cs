@@ -16,6 +16,7 @@
     [TestClass]
     public class TimestampPropertyInitializerTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowUsersCreateIt()
         {

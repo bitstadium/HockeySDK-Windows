@@ -13,6 +13,7 @@
     [TestClass]
     public class SequencePropertyInitializerTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowMicrosoftApplicationDevelopersToSendTelemetryToVortex()
         {

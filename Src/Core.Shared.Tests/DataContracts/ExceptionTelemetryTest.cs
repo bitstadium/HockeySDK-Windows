@@ -24,12 +24,14 @@
     [TestClass]
     public class ExceptionTelemetryTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicAndCanBeUsedByCustomersDirectly()
         {
             Assert.True(typeof(ExceptionTelemetry).GetTypeInfo().IsPublic);
         }
 
+        [Ignore]
         [TestMethod]
         public void ExceptionTelemetryImplementsITelemetryContract()
         {

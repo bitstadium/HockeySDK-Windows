@@ -20,6 +20,7 @@
     [TestClass]
     public class LocationContextTests
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowSpecifyingCustomLocationContextPropertiesInUserCode()
         {

@@ -17,6 +17,7 @@
     [TestClass]
     public class ComponentContextTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToEnableInstantiatingItInSdkAndUserCode()
         {

@@ -21,6 +21,7 @@
     [TestClass]
     public class UserContextTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowSpecifyingCustomUserContextPropertiesInUserCode()
         {

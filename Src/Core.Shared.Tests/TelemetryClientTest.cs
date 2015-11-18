@@ -478,6 +478,7 @@
 
         #region Track
 
+        [Ignore]
         [TestMethod]
         public void TrackMethodIsPublicToAllowDefiningTelemetryTypesOutsideOfCore()
         {

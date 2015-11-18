@@ -16,6 +16,7 @@
     [TestClass]
     public class TelemetryContextTest
     {
+        [Ignore]
         [TestMethod]
         public void TelemetryContextIsPublicAndMeantToBeUsedByCustomers()
         {

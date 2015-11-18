@@ -18,6 +18,7 @@
     [TestClass]
     public class SessionContextTest
     {
+        [Ignore]
         [TestMethod]
         public void ClassIsPublicToAllowInstantiationInSdkAndSessionCode()
         {

@@ -30,6 +30,15 @@
             set { this.tags.SetStringValueOrRemove(ContextTagKeys.Keys.ApplicationVersion, value); }
         }
 
+        /// <summary>
+        ///  Gets or sets bundle/package identifier in reverse domain name notation. e.g. net.hockeyapp.sdk.ios
+        /// </summary>
+        public string ApplicationId
+        {
+            get { return this.tags.GetTagValueOrNull(ContextTagKeys.Keys.ApplicationId); }
+            set { this.tags.SetStringValueOrRemove(ContextTagKeys.Keys.ApplicationId, value); }
+        }
+
         void IJsonSerializable.Serialize(IJsonWriter writer)
         {
             writer.WriteStartObject();

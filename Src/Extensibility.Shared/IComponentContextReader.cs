@@ -15,5 +15,11 @@
         /// </summary>
         /// <returns>The extracted data.</returns>
         string GetVersion();
+
+        /// <summary>
+        /// Gets the full name of the package.
+        /// </summary>
+        /// <returns></returns>
+        string GetApplicationId();
     }
 }

@@ -17,6 +17,7 @@
     [TestClass]
     public class SessionStateTelemetryTest
     {
+        [Ignore]
         [TestMethod]
         public void SessionStateTelemetryImplementsITelemetryContract()
         {

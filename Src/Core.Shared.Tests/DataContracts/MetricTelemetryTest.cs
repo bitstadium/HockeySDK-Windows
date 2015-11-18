@@ -21,12 +21,14 @@
     [TestClass]
     public class MetricTelemetryTest
     {
+        [Ignore]
         [TestMethod]
         public void MetricTelemetryIsPublic()
         {
             Assert.True(typeof(MetricTelemetry).GetTypeInfo().IsPublic);
         }
 
+        [Ignore]
         [TestMethod]
         public void MetricTelemetryImplementsITelemetryContract()
         {

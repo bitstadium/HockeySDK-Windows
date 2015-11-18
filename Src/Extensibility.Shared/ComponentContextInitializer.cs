@@ -20,7 +20,9 @@
                 throw new ArgumentNullException("context");
             }
 
-            context.Component.Version = ComponentContextReader.Instance.GetVersion();
+            var componentContextReader = ComponentContextReader.Instance;
+            context.Component.Version = componentContextReader.GetVersion();
+            context.Component.ApplicationId = componentContextReader.GetApplicationId();
         }
     }
 }
