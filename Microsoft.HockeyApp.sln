@@ -97,7 +97,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81.Wpa81.Tests", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP", "Src\Kit.UWP\Kit.UWP.csproj", "{D076FB25-D286-48F5-80C9-F55FFA576B77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP.Tests2", "Src\Kit.UWP.Tests2\Kit.UWP.Tests2.csproj", "{FD553E7C-C90D-4112-8D90-5B0078B03336}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.UWP.Tests", "Src\Kit.UWP.Tests\Kit.UWP.Tests.csproj", "{FD553E7C-C90D-4112-8D90-5B0078B03336}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

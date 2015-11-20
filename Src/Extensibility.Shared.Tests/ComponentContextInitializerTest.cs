@@ -14,18 +14,11 @@
     [TestClass]
     public partial class ComponentContextInitializerTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ComponentContextInitializerClassIsPublicToEnableInstantiation()
-        {
-            Assert.True(typeof(ComponentContextInitializer).GetTypeInfo().IsPublic);
-        }
-
         [TestMethod]
         public void CallingInitializeOnComponentContextInitializerWithNullThrowsArgumentNullException()
         {
             ComponentContextInitializer source = new ComponentContextInitializer();
-            Assert.Throws<ArgumentNullException>(() => source.Initialize(null).Wait());
+            Assert.Throws<AggregateException>(() => source.Initialize(null).Wait());
         }
 
         [TestMethod]
