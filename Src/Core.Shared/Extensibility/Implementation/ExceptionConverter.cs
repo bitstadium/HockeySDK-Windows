@@ -18,7 +18,7 @@
             External.ExceptionDetails exceptionDetails = External.ExceptionDetails.CreateWithoutStackInfo(
                                                                                                                 exception,
                                                                                                                 parentExceptionDetails);
-#if !WINRT && !CORE_PCL
+#if !WINRT && !CORE_PCL && !WINDOWS_UWP
             var stack = new StackTrace(exception, true);
 
             var frames = stack.GetFrames();

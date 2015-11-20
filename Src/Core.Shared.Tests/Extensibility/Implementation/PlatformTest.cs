@@ -55,23 +55,6 @@
             Assert.AreSame(platform, PlatformSingleton.Current);
         }
         
-#if !WINDOWS_STORE
-        // TODO: Find a way to test Platform.ReadConfigurationXml in Windows 8.1 Store tests
-        [TestMethod]
-        public void ReadConfigurationXmlReturnsContentsOfConfigFileInApplicationInstallationDirectory()
-        {
-            CreateConfigurationFile("42");
-            try
-            {
-                Assert.AreEqual("42", PlatformSingleton.Current.ReadConfigurationXml());
-            }
-            finally
-            {
-                DeleteConfigurationFile();
-            }
-        }
-#endif
-
         [TestMethod]
         public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
         {

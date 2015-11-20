@@ -29,21 +29,6 @@
             GC.SuppressFinalize(this);
         }
 
-#if !WINDOWS_STORE
-        // TODO: Find a way to test ReadConfigurationXml on Windows 8.1
-        [TestMethod]
-        public void ReadConfigurationXmlReturnsContentsOfConfigFileInApplicationInstallationDirectory()
-        {
-            const string TestFileContent = "42";
-            CreateConfigurationFile(TestFileContent);
-            var platform = new PlatformImplementation();
-
-            string s = platform.ReadConfigurationXml();
-            
-            Assert.AreEqual(TestFileContent, s);
-        }
-#endif
-
         [TestMethod]
         public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
         {
