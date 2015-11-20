@@ -127,7 +127,6 @@ Global
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{ff8678db-8ff0-4507-a793-2ff896fc7ad7}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{c1aaa703-5e32-45c0-a69d-f46d1c659ae4}*SharedItemsImports = 13
 		Src\Core.Shared.Tests.TestFramework\Core.Shared.Tests.TestFramework.projitems*{d7d4e3f5-ec0d-47c9-90cc-56f612976122}*SharedItemsImports = 4
-		Src\Core.Shared.Tests.TestFramework\Core.Shared.Tests.TestFramework.projitems*{fd553e7c-c90d-4112-8d90-5b0078b03336}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{fd553e7c-c90d-4112-8d90-5b0078b03336}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{c4a0db5b-0988-4e04-b9b8-bcf3b0842000}*SharedItemsImports = 13
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{48d96f13-d9f7-4db8-a738-e03f82e45bbb}*SharedItemsImports = 4

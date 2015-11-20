@@ -8,8 +8,6 @@
     <ProjectGuid>{FD553E7C-C90D-4112-8D90-5B0078B03336}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Kit.UWP.Tests2</RootNamespace>
-    <AssemblyName>Kit.UWP.Tests2</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -28,7 +26,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <DebugType>full</DebugType>
     <PlatformTarget>x86</PlatformTarget>
@@ -36,18 +33,7 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
-    <Optimize>true</Optimize>
-    <NoWarn>;2008</NoWarn>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-    <ErrorReport>prompt</ErrorReport>
-    <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
-  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
   <ItemGroup>
     <!--A reference to the entire .Net Framework and Windows SDK are automatically included-->
     <None Include="project.json" />
@@ -74,17 +60,6 @@
     <None Include="HockeyAppTest.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform">
-      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v1">
-      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v1.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v2">
-      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v2.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Properties\UnitTestApp.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -99,12 +74,26 @@
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Kit.UWP</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Kit.Uwp.Tests.TestFramework\Kit.Uwp.Tests.TestFramework.csproj">
+      <Project>{48b9ced7-8caf-4605-a74f-54693b16ef52}</Project>
+      <Name>Core.Uwp.Tests.TestFramework</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform">
+      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v1">
+      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v1.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v2">
+      <HintPath>..\_External\DataPlatform\portable-net40+wp8+win81+wpa81\Microsoft.ApplicationInsights.TelemetryTypes.DataPlatform.v2.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
-  <Import Project="..\Core.Shared.Tests.TestFramework\Core.Shared.Tests.TestFramework.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

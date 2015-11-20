@@ -19,6 +19,8 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Kit.UWP.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.UWP.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Kit.UWP.Tests2" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.UWP.Tests2" + AssemblyInfo.PublicKey)]
+
 
 
 
