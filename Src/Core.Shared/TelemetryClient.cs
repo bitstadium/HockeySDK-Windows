@@ -13,8 +13,8 @@
     using Extensibility.Implementation;
     using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.Tracing;
-    
-#if WINRT
+
+#if WINRT || WINDOWS_UWP
     using Windows.Foundation.Metadata;
 #endif
 
@@ -106,15 +106,15 @@
         public bool IsEnabled()
         {
             return !this.configuration.DisableTelemetry;
-        }        
-                
+        }
+
         /// <summary>
         /// Send an <see cref="EventTelemetry"/> for display in Diagnostic Search and aggregation in Metrics Explorer.
         /// </summary>
         /// <param name="eventName">A name for the event.</param>
         /// <param name="properties">Named string values you can use to search and classify events.</param>
         /// <param name="metrics">Measurements associated with this event.</param>
-#if WINRT
+#if WINRT || WINDOWS_UWP
         [DefaultOverload]
 #endif
         public void TrackEvent(string eventName, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
@@ -152,7 +152,7 @@
         /// Send a trace message for display in Diagnostic Search.
         /// </summary>
         /// <param name="message">Message to display.</param>
-#if WINRT
+#if WINRT || WINDOWS_UWP
         [DefaultOverload]
 #endif
         internal void TrackTrace(string message)
@@ -221,7 +221,7 @@
         /// <param name="name">Metric name.</param>
         /// <param name="value">Metric value.</param>
         /// <param name="properties">Named string values you can use to classify and filter metrics.</param>
-#if WINRT
+#if WINRT || WINDOWS_UWP
         [DefaultOverload]
 #endif
         internal void TrackMetric(string name, double value, IDictionary<string, string> properties = null)
@@ -254,7 +254,7 @@
         /// <param name="exception">The exception to log.</param>
         /// <param name="properties">Named string values you can use to classify and search for this exception.</param>
         /// <param name="metrics">Additional values associated with this exception.</param>
-#if WINRT
+#if WINRT || WINDOWS_UWP
         [DefaultOverload]
 #endif
         internal void TrackException(Exception exception, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
@@ -391,7 +391,7 @@
         /// Send information about the page viewed in the application.
         /// </summary>
         /// <param name="name">Name of the page.</param>
-#if WINRT
+#if WINRT || WINDOWS_UWP
         [DefaultOverload]
 #endif
         internal void TrackPageView(string name)

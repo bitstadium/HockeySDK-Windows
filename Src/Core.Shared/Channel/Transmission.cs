@@ -9,14 +9,14 @@ namespace Microsoft.HockeyApp.Channel
     using System.Globalization;
     using System.IO;
     using System.Net;
-#if CORE_PCL || UWP
+#if CORE_PCL || WINDOWS_UWP
     using System.Net.Http;
     using System.Net.Http.Headers;
 #endif
     using System.Threading;
     using System.Threading.Tasks;
     using Extensibility.Implementation;
-#if WINRT || CORE_PCL || NET45 || NET46 || UWP
+#if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 
@@ -29,7 +29,7 @@ namespace Microsoft.HockeyApp.Channel
         internal const string ContentEncodingHeader = "Content-Encoding";
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
-#if CORE_PCL || UWP
+#if CORE_PCL || WINDOWS_UWP
         private readonly HttpClient client;
 #endif
         private int isSending;
@@ -60,7 +60,7 @@ namespace Microsoft.HockeyApp.Channel
             this.ContentEncoding = contentEncoding;
             this.Timeout = timeout == default(TimeSpan) ? DefaultTimeout : timeout;
             this.Id = WeakConcurrentRandom.Instance.Next().ToString(CultureInfo.InvariantCulture);
-#if CORE_PCL || UWP
+#if CORE_PCL || WINDOWS_UWP
             this.client = new HttpClient() { Timeout = this.Timeout };
 #endif
         }
@@ -138,7 +138,7 @@ namespace Microsoft.HockeyApp.Channel
 
             try
             {
-#if CORE_PCL || UWP
+#if CORE_PCL || WINDOWS_UWP
                 using (MemoryStream contentStream = new MemoryStream(this.Content))
                 {
                     HttpRequestMessage request = this.CreateRequestMessage(this.EndpointAddress, contentStream);
@@ -164,7 +164,7 @@ namespace Microsoft.HockeyApp.Channel
             }
         }
 
-#if CORE_PCL || UWP
+#if CORE_PCL || WINDOWS_UWP
         /// <summary>
         /// Creates an http request for sending a transmission.
         /// </summary>

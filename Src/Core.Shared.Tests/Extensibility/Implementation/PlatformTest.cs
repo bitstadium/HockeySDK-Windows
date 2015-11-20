@@ -7,12 +7,12 @@
     using Channel;
     using Extensibility.Implementation.Platform;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
-#if WINRT || UWP
+#if WINRT || WINDOWS_UWP
     using global::Windows.ApplicationModel;
     using global::Windows.Storage;
 #endif
@@ -91,7 +91,7 @@
         
         private static void DeleteConfigurationFile()
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             StorageFile file = Package.Current.InstalledLocation.GetFileAsync(ConfigurationFileName).GetAwaiter().GetResult();
             file.DeleteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE
@@ -103,7 +103,7 @@
 
         private static Stream OpenConfigurationFile()
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             StorageFile file = Package.Current.InstalledLocation.CreateFileAsync(ConfigurationFileName).GetAwaiter().GetResult();
             return file.OpenStreamForWriteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE

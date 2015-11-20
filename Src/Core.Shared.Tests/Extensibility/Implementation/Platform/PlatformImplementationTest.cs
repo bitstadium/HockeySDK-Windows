@@ -3,7 +3,7 @@
     using System;
     using System.IO;
     using System.Text;
-#if WINDOWS_PHONE_APP || WINDOWS_PHONE || WINDOWS_STORE || UWP
+#if WINDOWS_PHONE_APP || WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using global::Windows.ApplicationModel;
     using global::Windows.Storage;
@@ -73,7 +73,7 @@
 
         private static void DeleteConfigurationFile()
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             try 
             {
                 StorageFile file = Package.Current.InstalledLocation.GetFileAsync(PlatformTest.ConfigurationFileName).GetAwaiter().GetResult();
@@ -91,7 +91,7 @@
 
         private static Stream OpenConfigurationFile()
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             StorageFile file = Package.Current.InstalledLocation.CreateFileAsync(PlatformTest.ConfigurationFileName, CreationCollisionOption.ReplaceExisting).GetAwaiter().GetResult();
             return file.OpenStreamForWriteAsync().GetAwaiter().GetResult();
 #elif WINDOWS_PHONE_APP

@@ -3,7 +3,7 @@ namespace Microsoft.HockeyApp.TestFramework
 {
     using System;
     using System.Collections.Generic;
-#if WINRT || NET45
+#if WINRT || WINDOWS_UWP || NET45
     using System.Diagnostics.Tracing;
 #endif
     using System.Threading;

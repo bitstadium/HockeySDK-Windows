@@ -6,7 +6,7 @@ namespace Microsoft.HockeyApp.DataContracts
     /// <summary>
     /// This exception is used to notify the user that the set of inner exceptions has been trimmed because it exceeded our allowed send limit.
     /// </summary>
-#if !Wp80 && !WINRT && !CORE_PCL && !UWP
+#if !Wp80 && !WINRT && !CORE_PCL && !WINDOWS_UWP
     [Serializable]
 #endif
     internal class InnerExceptionCountExceededException : 
@@ -36,7 +36,7 @@ namespace Microsoft.HockeyApp.DataContracts
             : base(message, innerException)
         {
         }
-#if !Wp80 && !WINRT && !CORE_PCL && !UWP
+#if !Wp80 && !WINRT && !CORE_PCL && !WINDOWS_UWP
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InnerExceptionCountExceededException"/> class with serialized data.

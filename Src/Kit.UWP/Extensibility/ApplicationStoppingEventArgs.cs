@@ -8,7 +8,7 @@
     /// <summary>
     /// Encapsulates arguments of the event.
     /// </summary>
-#if WINRT
+#if WINRT || WINDOWS_UWP
     internal
 #else
     internal 

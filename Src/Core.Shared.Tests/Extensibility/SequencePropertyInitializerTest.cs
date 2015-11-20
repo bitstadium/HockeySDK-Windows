@@ -3,7 +3,7 @@
     using System;
     using System.Reflection;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -13,13 +13,6 @@
     [TestClass]
     public class SequencePropertyInitializerTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowMicrosoftApplicationDevelopersToSendTelemetryToVortex()
-        {
-            Assert.True(typeof(SequencePropertyInitializer).GetTypeInfo().IsPublic);
-        }
-
         [TestMethod]
         public void ClassImplementsITelemetryInitializerBecauseSequenceChangesForEachTelemetry()
         {

@@ -12,7 +12,7 @@
     using Extensibility.Implementation.Platform;
     using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using global::Windows.UI.Xaml;
 #endif
     using Assert = Xunit.Assert;

@@ -4,7 +4,7 @@
     using System.Reflection;
     using System.Threading.Tasks;
     using DataContracts;
-#if WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_PHONE_APP || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -44,7 +44,7 @@
             await initializer.Initialize(telemetryContext);
             
             string expectedSdkVersion;
-#if !WINRT
+#if !WINRT && !WINDOWS_UWP
             expectedSdkVersion = typeof(SdkVersionPropertyContextInitializer).Assembly.GetCustomAttributes(false)
                     .OfType<AssemblyFileVersionAttribute>()
                     .First()

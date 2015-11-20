@@ -6,7 +6,7 @@ namespace Microsoft.HockeyApp.TestFramework
 {
     using System;
     using System.Collections.Generic;
-#if CORE_PCL || NET45 || WINRT || UWP || NET46 || WINDOWS_UWP
+#if CORE_PCL || NET45 || WINRT || WINDOWS_UWP || NET46 || WINDOWS_UWP
     using System.Diagnostics.Tracing;
 #endif
     using System.Globalization;
@@ -69,7 +69,7 @@ namespace Microsoft.HockeyApp.TestFramework
                 return "Test String";
             }
 
-#if WINRT || UWP || WINDOWS_UWP
+#if WINRT || WINDOWS_UWP || WINDOWS_UWP
             if (parameter.ParameterType.GetTypeInfo().IsValueType)
 #else
             if (parameter.ParameterType.IsValueType)
@@ -104,7 +104,7 @@ namespace Microsoft.HockeyApp.TestFramework
 
         private static void VerifyEventApplicationName(MethodInfo eventMethod, EventWrittenEventArgs actualEvent)
         {
-#if !WINRT && !UWP && !WINDOWS_UWP
+#if !WINRT && !WINDOWS_UWP
             string expectedApplicationName = AppDomain.CurrentDomain.FriendlyName;
 #else
             string expectedApplicationName = string.Empty;
@@ -134,7 +134,7 @@ namespace Microsoft.HockeyApp.TestFramework
 
         private static IEnumerable<MethodInfo> GetEventMethods(EventSource eventSource)
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             IEnumerable<MethodInfo> methods = eventSource.GetType().GetRuntimeMethods();
 #else
             MethodInfo[] methods = eventSource.GetType().GetMethods();

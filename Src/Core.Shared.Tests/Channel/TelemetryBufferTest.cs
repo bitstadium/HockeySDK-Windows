@@ -18,9 +18,9 @@
 #endif
     using Assert = Xunit.Assert;
 #if !NET35
-    using EnvironmentEx = System.Environment;    
+    using EnvironmentEx = System.Environment;
 #endif
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

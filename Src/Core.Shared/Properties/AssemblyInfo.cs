@@ -13,7 +13,14 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wrt81.Win81.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wp80.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Core.Wrt81.Wpa81.Tests" + AssemblyInfo.PublicKey)]
+
+// ToDo: Remove obsolete Assembly names for UWP.Tests
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Kit.UWP.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.UWP.Tests" + AssemblyInfo.PublicKey)]
+[assembly: InternalsVisibleTo("Kit.UWP.Tests2" + AssemblyInfo.PublicKey)]
+
+
 
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.TestFramework" + AssemblyInfo.PublicKey)]
 

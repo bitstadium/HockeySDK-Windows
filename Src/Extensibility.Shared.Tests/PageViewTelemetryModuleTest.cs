@@ -13,7 +13,7 @@
 #endif
     using Microsoft.HockeyApp.Windows;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using global::Windows.UI.Xaml;
     using global::Windows.UI.Xaml.Controls;
 #endif
@@ -26,7 +26,7 @@
 
         public PageViewTelemetryModuleTest()
         {
-#if WINRT     
+#if WINRT || WINDOWS_UWP
             PlatformDispatcher.RunAsync(() => { Window.Current.Content = this.frame = new Frame(); }).GetAwaiter().GetResult();
 #else
             PlatformDispatcher.RunAsync(() => { this.frame = (Frame)Application.Current.RootVisual; }).GetAwaiter().GetResult();
@@ -35,7 +35,7 @@
 
         protected static UIElement RootUIElement
         {
-#if WINRT
+#if WINRT || WINDOWS_UWP
             get { return Window.Current.Content; }
 #else
             get { return Application.Current.RootVisual; }
@@ -142,8 +142,8 @@
                 Task dontWait = PlatformDispatcher.RunAsync(() =>
                 {
                     this.frame.Navigated += (s, e) => { tcs.TrySetResult(null); };
-#if WINRT
-                this.frame.Navigate(typeof(TestPage));
+#if WINRT || WINDOWS_UWP
+                    this.frame.Navigate(typeof(TestPage));
 #else
                     this.frame.Navigate(new Uri("/TestPage.xaml", UriKind.RelativeOrAbsolute));
 #endif

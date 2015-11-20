@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Reflection;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,13 +14,6 @@
     [TestClass]
     public class DeviceContextTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowInstantiationInSdkAndUserCode()
-        {
-            Assert.True(typeof(DeviceContext).GetTypeInfo().IsPublic);
-        }
-        
         [TestMethod]
         public void TypeIsNullByDefaultToAvoidSendingItToEndpointUnnecessarily()
         {

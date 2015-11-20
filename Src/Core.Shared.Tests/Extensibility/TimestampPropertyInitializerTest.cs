@@ -6,7 +6,7 @@
     using Channel;
     using Extensibility;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,13 +16,6 @@
     [TestClass]
     public class TimestampPropertyInitializerTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowUsersCreateIt()
-        {
-            Assert.True(typeof(TimestampPropertyInitializer).GetTypeInfo().IsPublic);
-        }
-
         [TestMethod]
         public void ClassImplementsITelemetryInitializerToSupportTelemetryContext()
         {

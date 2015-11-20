@@ -4,7 +4,7 @@
     using System.IO;
     using System.Threading.Tasks;
     using Channel;
-#if WINRT || NET45
+#if WINRT || WINDOWS_UWP || NET45
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

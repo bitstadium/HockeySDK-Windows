@@ -10,7 +10,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
 
     using Extensibility.Implementation.Tracing;
 
-#if WINRT || CORE_PCL || NET45 || NET46 || UWP
+#if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

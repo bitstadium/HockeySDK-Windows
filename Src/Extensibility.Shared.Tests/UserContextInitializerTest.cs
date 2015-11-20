@@ -10,7 +10,7 @@
     using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using Assert = Xunit.Assert;
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

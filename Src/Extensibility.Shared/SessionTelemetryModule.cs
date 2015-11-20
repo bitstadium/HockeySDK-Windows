@@ -11,7 +11,7 @@
 #if SILVERLIGHT
     using Microsoft.Phone.Shell;
 #endif
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using global::Windows.ApplicationModel.Core;
 #endif
 
@@ -104,7 +104,7 @@
                 PhoneApplicationService.Current.Deactivated += this.HandleApplicationStoppingEvent;
                 PhoneApplicationService.Current.Closing += this.HandleApplicationStoppingEvent;
 #endif
-#if WINRT
+#if WINRT || WINDOWS_UWP
                 CoreApplication.Resuming += this.HandleApplicationStartedEvent;
                 CoreApplication.Suspending += this.HandleApplicationStoppingEvent;
 #endif

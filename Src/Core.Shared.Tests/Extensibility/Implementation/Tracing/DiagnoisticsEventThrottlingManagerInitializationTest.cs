@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;

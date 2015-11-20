@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-#if CORE_PCL || NET45 || WINRT || NET46
+#if CORE_PCL || NET45 || NET46 || WINRT || WINDOWS_UWP
     using System.Diagnostics.Tracing;
 #endif
     using Channel;
@@ -11,7 +11,7 @@
 #if NET35 || NET40
     using Microsoft.Diagnostics.Tracing;
 #endif
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;

@@ -6,7 +6,7 @@
     using Extensibility;
     using TestFramework;
     using Microsoft.Developer.Analytics.DataCollection.Model.v2;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;

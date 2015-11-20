@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Reflection;
     using Extensibility.Implementation.External;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -17,13 +17,6 @@
     [TestClass]
     public class ComponentContextTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToEnableInstantiatingItInSdkAndUserCode()
-        {
-            Assert.True(typeof(ComponentContext).GetTypeInfo().IsPublic);
-        }
-        
         [TestMethod]
         public void VersionIsNullByDefaultToAvoidSendingItToEndpointUnnecessarily()
         {

@@ -10,7 +10,7 @@
     using Extensibility;
     using Extensibility.Implementation;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,21 +21,6 @@
     [TestClass]
     public class EventTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void EventTelemetryIsPublic()
-        {
-            Assert.True(typeof(EventTelemetry).GetTypeInfo().IsPublic);
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void EventTelemetryImplementsITelemetryContract()
-        {
-            var test = new ITelemetryTest<EventTelemetry, DataPlatformModel.EventData>();
-            test.Run();
-        }
-
         [TestMethod]
         public void EventTelemetryReturnsNonNullContext()
         {

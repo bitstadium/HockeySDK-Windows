@@ -13,7 +13,7 @@
     using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.External;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -24,21 +24,6 @@
     [TestClass]
     public class ExceptionTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicAndCanBeUsedByCustomersDirectly()
-        {
-            Assert.True(typeof(ExceptionTelemetry).GetTypeInfo().IsPublic);
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void ExceptionTelemetryImplementsITelemetryContract()
-        {
-            var test = new ITelemetryTest<ExceptionTelemetry, DataPlatformModel.ExceptionData>();
-            test.Run();
-        }
-
         [TestMethod]
         public void ExceptionTelemetryReturnsNonNullContext()
         {

@@ -10,7 +10,7 @@
     using Extensibility;
     using Microsoft.HockeyApp.Extensibility.Implementation.Platform;
 
-#if WINRT || UWP
+#if WINRT || WINDOWS_UWP
     using global::Windows.UI.Xaml;
 #endif
 
@@ -65,7 +65,7 @@
                 global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
 #endif
                 LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
-#if WINRT || UWP
+#if WINRT || WINDOWS_UWP
                 UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
                 Exception eventException = args.Exception;
 #elif SILVERLIGHT
@@ -73,7 +73,7 @@
                 Exception eventException = args.ExceptionObject;
 #endif
 
-#if UWP
+#if WINDOWS_UWP
                 ITelemetry exceptionTelemetry;
                 if (DeviceContextReader.IsNativeEnvironment(eventException))
                 {
@@ -89,7 +89,7 @@
 
                 }
 #else
-                var exceptionTelemetry = new ExceptionTelemetry(eventException);
+            var exceptionTelemetry = new ExceptionTelemetry(eventException);
                 exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
 #endif
                 this.client.Track(exceptionTelemetry);

@@ -100,3 +100,4 @@ namespace Core.Uwp.Tests
         }
     }
 }
+;

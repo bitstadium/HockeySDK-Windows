@@ -24,7 +24,6 @@
         /// <param name="endpointAddress">The http address where the telemetry is sent.</param>
         public void Configure(string appId, string endpointAddress)
         {
-            // Initializing collectors with WindowsCollectors.UnhandledException for UWP - in UWP we will use Application Insights pipeline for crash collection.
             WindowsAppInitializer.InitializeAsync(appId, WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView | WindowsCollectors.UnhandledException, endpointAddress);
         }
     }

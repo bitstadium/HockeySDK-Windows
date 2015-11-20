@@ -7,7 +7,7 @@
     using System.Reflection;
     using System.Text;
     using DataContracts;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,13 +20,6 @@
     [TestClass]
     public class LocationContextTests
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowSpecifyingCustomLocationContextPropertiesInUserCode()
-        {
-            Assert.True(typeof(LocationContext).GetTypeInfo().IsPublic);
-        }
-
         [TestMethod]
         public void IpIsNullByDefaultToAvoidSendingItToEndpointUnnecessarily()
         {

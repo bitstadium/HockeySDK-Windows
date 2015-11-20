@@ -6,7 +6,7 @@
     using System.IO;
     using System.Reflection;
     using DataContracts;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,13 +18,6 @@
     [TestClass]
     public class OperationContextTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowInstantiationInSdkAndUserCode()
-        {
-            Assert.True(typeof(OperationContext).GetTypeInfo().IsPublic);
-        }
-        
         [TestMethod]
         public void IdIsNullByDefaultToAvoidSendingItToEndpointUnnecessarily()
         {

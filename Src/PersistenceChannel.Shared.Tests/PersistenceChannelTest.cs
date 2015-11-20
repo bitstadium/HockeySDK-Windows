@@ -13,8 +13,8 @@
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
-    
-#if WINRT
+
+#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

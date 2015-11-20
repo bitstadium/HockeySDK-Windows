@@ -6,7 +6,7 @@
     using System.Runtime.CompilerServices;
 
     using Extensibility.Implementation.External;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -48,7 +48,7 @@
             var exp = this.CreateException(42);
 
             ExceptionDetails expDetails = ExceptionConverter.ConvertToExceptionDetails(exp, null);
-#if !WINRT
+#if !WINRT && !WINDOWS_UWP
             Assert.Equal(43, expDetails.parsedStack.Count);
 #else
             Assert.NotNull(expDetails.stack);
@@ -64,7 +64,7 @@
             ExceptionDetails expDetails = ExceptionConverter.ConvertToExceptionDetails(exp, null);
             
             Assert.False(expDetails.hasFullStack);
-#if !WINRT
+#if !WINRT && !WINDOWS_UWP
             Assert.True(expDetails.parsedStack.Count < 300);
 
             // We should keep top of stack, and end of stack hence CreateException function should be present
@@ -80,7 +80,7 @@
 #endif
         }
 
-#if !WINRT
+#if !WINRT && !WINDOWS_UWP
         [TestMethod]
         public void CheckThatFileNameAndLineAreCorrectIfAvailable()
         {

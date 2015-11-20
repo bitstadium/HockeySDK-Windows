@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
-#if CORE_PCL || NET45 || WINRT || NET46
+#if CORE_PCL || NET45 || NET46 || WINRT || WINDOWS_UWP
     using System.Diagnostics.Tracing;
 #endif
     using System.Linq;

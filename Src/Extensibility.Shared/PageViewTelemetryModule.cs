@@ -16,7 +16,7 @@
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Media;
-#elif WINRT || UWP
+#elif WINRT || WINDOWS_UWP
     using global::Windows.Foundation;
     using global::Windows.UI.Core;
     using global::Windows.UI.Xaml;

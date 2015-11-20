@@ -10,7 +10,7 @@
     using Extensibility;
     using Extensibility.Implementation;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -21,21 +21,6 @@
     [TestClass]
     public class TraceTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublic()
-        {
-            Assert.True(typeof(TraceTelemetry).GetTypeInfo().IsPublic);
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void TraceTelemetryImplementsITelemetryContract()
-        {
-            var test = new ITelemetryTest<TraceTelemetry, DataPlatformModel.MessageData>();
-            test.Run();
-        }
-
         [TestMethod]
         public void ConstructorInitializesDefaultTraceTelemetryInstance()
         {

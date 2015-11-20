@@ -4,7 +4,7 @@
     using System.IO;
     using System.Net;
     using System.Threading.Tasks;
-#if WINRT || NET45 || UWP || NET46 || WINDOWS_UWP
+#if WINRT || NET45 || NET46 || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 
@@ -24,7 +24,7 @@
         public Func<AsyncCallback, object, IAsyncResult> OnBeginGetResponse;
         public Func<IAsyncResult, WebResponse> OnEndGetResponse;
 
-#if WINRT
+#if WINRT || WINDOWS_UWP
         public Func<Task<Stream>> OnGetRequestStreamAsync;
         public Func<Task<WebResponse>> OnGetResponseAsync;
 #endif
@@ -50,7 +50,7 @@
             this.OnEndGetRequestStream = asyncResult => this.requestStream = new StubStream();
             this.OnBeginGetResponse = (callback, state) => TaskEx.FromResult<object>(null).AsAsyncResult(callback, this);
             this.OnEndGetResponse = asyncResult => this.response = new StubWebResponse();
-#if WINRT
+#if WINRT || WINDOWS_UWP
             this.OnGetRequestStreamAsync = () => Task.Factory.FromAsync(this.OnBeginGetRequestStream, this.OnEndGetRequestStream, null);
             this.OnGetResponseAsync = () => Task.Factory.FromAsync(this.OnBeginGetResponse, this.OnEndGetResponse, null);
 #endif
@@ -84,7 +84,7 @@
             this.OnAbort();
         }
 
-#if WINRT
+#if WINRT || WINDOWS_UWP
         public override Task<Stream> GetRequestStreamAsync()
         {
             return this.OnGetRequestStreamAsync();

@@ -44,6 +44,7 @@
         /// </summary>
         public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView, string endpointAddress = null)
         {
+            // ToDo: Clarify whether we need to this for UWP
 #if WINRT
             if (collectors.HasFlag(WindowsCollectors.PageView) || 
                 collectors.HasFlag(WindowsCollectors.UnhandledException))
@@ -120,7 +121,7 @@
                 LazyInitializer.EnsureInitialized(
                     ref WindowsAppInitializer.unhandledExceptionModule,
                     () => new UnhandledExceptionTelemetryModule());
-#if WINDOWS_PHONE || UWP
+#if WINDOWS_PHONE || WINDOWS_UWP
                 WindowsAppInitializer.unhandledExceptionModule.Initialize(configuration);
 #endif
                 TelemetryModules.Instance.Modules.Add(WindowsAppInitializer.unhandledExceptionModule);
@@ -136,9 +137,7 @@
         private static void ViewOnActivated(CoreApplicationView sender, IActivatedEventArgs args)
         {
             // Waiting that the initialization of the module and configuration is done before initializing the modules
-            TelemetryConfiguration configuration =
-                WindowsAppInitializer.configurationTask.Task.ConfigureAwait(false).GetAwaiter().GetResult();
-
+            TelemetryConfiguration configuration = WindowsAppInitializer.configurationTask.Task.ConfigureAwait(false).GetAwaiter().GetResult();
             try
             {
                 CoreDispatcher dispatcher = sender.Dispatcher;

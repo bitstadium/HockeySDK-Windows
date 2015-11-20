@@ -22,7 +22,7 @@
             string name;
             try
             {
-#if !WINRT && !CORE_PCL && !UWP
+#if !WINRT && !CORE_PCL && !WINDOWS_UWP
                 name = AppDomain.CurrentDomain.FriendlyName;
 #else
                 name = string.Empty;

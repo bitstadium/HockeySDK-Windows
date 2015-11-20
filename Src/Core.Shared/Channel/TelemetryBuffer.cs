@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
     using Extensibility.Implementation.Tracing;
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

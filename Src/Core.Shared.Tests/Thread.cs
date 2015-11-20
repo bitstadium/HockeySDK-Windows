@@ -1,6 +1,6 @@
 ﻿namespace System.Threading
 {
-#if WINRT
+#if WINRT || WINDOWS_UWP
 
     public class Thread
     {

@@ -17,7 +17,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
     using System.Threading.Tasks;
     using Implementation;
 
-#if WINRT || CORE_PCL || NET45 || NET46 || UWP
+#if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 
@@ -94,14 +94,14 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
         /// </summary>
         internal static string ConvertExceptionToInvariantString(Exception exception)
         {
-#if !WINRT && !CORE_PCL && !UWP
+#if !WINRT && !CORE_PCL && !WINDOWS_UWP
             CultureInfo originalUICulture = Thread.CurrentThread.CurrentUICulture;
             try
             {
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
 #endif
                 return exception.ToString();
-#if !WINRT && !CORE_PCL && !UWP
+#if !WINRT && !CORE_PCL && !WINDOWS_UWP
             }
             finally
             {

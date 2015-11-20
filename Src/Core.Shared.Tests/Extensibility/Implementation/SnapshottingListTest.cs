@@ -14,7 +14,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #endif
     using Assert = Xunit.Assert;
-#if WINRT
+#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
 #endif
 

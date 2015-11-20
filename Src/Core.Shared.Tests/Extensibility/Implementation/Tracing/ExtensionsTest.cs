@@ -4,7 +4,7 @@
     using System.Globalization;
     using System.Threading;
     using TestFramework;
-#if WINDOWS_PHONE || WINDOWS_STORE
+#if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,7 +16,7 @@
         [TestClass]
         public class ToInvariantString
         {
-#if !WINRT
+#if !WINRT && !WINDOWS_UWP
             private CultureInfo originalUICulture = Thread.CurrentThread.CurrentUICulture;
 
             [TestCleanup]
