@@ -85,9 +85,7 @@
     <None Include="..\Core.Net40.Tests\app.config">
       <Link>app.config</Link>
     </None>
-    <None Include="..\Core.Net40.Tests\packages.config">
-      <Link>packages.config</Link>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
