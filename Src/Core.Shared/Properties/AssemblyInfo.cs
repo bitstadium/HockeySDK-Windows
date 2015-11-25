@@ -21,11 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: InternalsVisibleTo("Kit.UWP.Tests2" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Kit.UWP.Tests2" + AssemblyInfo.PublicKey)]
 
-
-
-
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.TestFramework" + AssemblyInfo.PublicKey)]
-
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Windows.NuGet.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.Extensibility.Wp80.Tests" + AssemblyInfo.PublicKey)]
