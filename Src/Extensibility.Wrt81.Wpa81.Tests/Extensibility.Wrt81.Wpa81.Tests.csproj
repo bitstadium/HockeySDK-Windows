@@ -13,7 +13,6 @@
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
     <AppxBundle>Never</AppxBundle>
     <IsTargetingWindowsPhonePlatform>true</IsTargetingWindowsPhonePlatform>
     <AllowCrossPlatformRetargeting>False</AllowCrossPlatformRetargeting>
@@ -22,6 +21,10 @@
     <!-- Disable FxCop due to errors it encounters while resolving internal types from Microsoft.ApplicationInsights.winmd -->
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <NuGetPackageImportStamp>b7db04f9</NuGetPackageImportStamp>
+    <PackageCertificateKeyFile>HockeyAppTest.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F479CF5F67B399C79732FC89955B7C1C407204C5</PackageCertificateThumbprint>
+    <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
+    <EnableSigningChecks>false</EnableSigningChecks>
   </PropertyGroup>
   <PropertyGroup>
     <AppXPackage>True</AppXPackage>
