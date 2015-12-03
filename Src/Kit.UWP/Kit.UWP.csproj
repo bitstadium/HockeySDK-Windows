@@ -71,7 +71,7 @@
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
   </ItemGroup>
   <ItemGroup>
-    <FilesToSign Include="$(OutputPath)\$(AssemblyName)">
+    <FilesToSign Include="$(OutputPath)\$(AssemblyName).dll">
       <Authenticode>Microsoft</Authenticode>
       <StrongName>StrongName</StrongName>
     </FilesToSign>
