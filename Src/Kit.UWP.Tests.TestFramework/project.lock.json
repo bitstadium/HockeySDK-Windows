@@ -3,6 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -1538,6 +1539,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -3163,6 +3165,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -4760,6 +4763,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -6390,6 +6394,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -7987,6 +7992,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -9617,6 +9623,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.CSharp/4.0.0": {
         "dependencies": {
           "System.Runtime": "[4.0.20, )",
@@ -11215,6 +11222,19 @@
     }
   },
   "libraries": {
+    "MicroBuild.Core/0.1.1": {
+      "sha512": "VKqyU5JGy5bE1xbO1ADedg/8rHBC5Czjr4bA0uINvDYYPBjE1CKiTyK5Fo5rz7DPiWnomEaL1HXmuTuMitSEDw==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "MicroBuild.Core.nuspec",
+        "build/MicroBuild.Core.props",
+        "build/MicroBuild.Core.targets",
+        "build/MicroBuild.Plugin.props",
+        "package/services/metadata/core-properties/485fff040d74425883631ff01961514b.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
     "Microsoft.CSharp/4.0.0": {
       "sha512": "oWqeKUxHXdK6dL2CFjgMcaBISbkk+AqEg+yvJHE4DElNzS4QaTsCflgkkqZwVlWby1Dg9zo9n+iCAMFefFdJ/A==",
       "type": "Package",

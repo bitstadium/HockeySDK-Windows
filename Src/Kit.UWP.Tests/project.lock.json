@@ -3,6 +3,7 @@
   "version": 1,
   "targets": {
     "UAP,Version=v10.0": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -1579,6 +1580,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -3245,6 +3247,7 @@
       }
     },
     "UAP,Version=v10.0/win10-arm-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -4883,6 +4886,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -6554,6 +6558,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x86-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -8192,6 +8197,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -9863,6 +9869,7 @@
       }
     },
     "UAP,Version=v10.0/win10-x64-aot": {
+      "MicroBuild.Core/0.1.1": {},
       "Microsoft.Bcl/1.1.8": {
         "dependencies": {
           "Microsoft.Bcl.Build": "[1.0.14, )"
@@ -11502,6 +11509,19 @@
     }
   },
   "libraries": {
+    "MicroBuild.Core/0.1.1": {
+      "sha512": "VKqyU5JGy5bE1xbO1ADedg/8rHBC5Czjr4bA0uINvDYYPBjE1CKiTyK5Fo5rz7DPiWnomEaL1HXmuTuMitSEDw==",
+      "type": "Package",
+      "files": [
+        "_rels/.rels",
+        "MicroBuild.Core.nuspec",
+        "build/MicroBuild.Core.props",
+        "build/MicroBuild.Core.targets",
+        "build/MicroBuild.Plugin.props",
+        "package/services/metadata/core-properties/485fff040d74425883631ff01961514b.psmdcp",
+        "[Content_Types].xml"
+      ]
+    },
     "Microsoft.Bcl/1.1.8": {
       "sha512": "gM+PUzd8ONxJpcPJeNppCJPklDhDuPUMVQkxvK4fe0rd9WyqBNPh4+UFx3Uv8zuG4C1Gapu1c25sfotE7TQtig==",
       "type": "Package",
