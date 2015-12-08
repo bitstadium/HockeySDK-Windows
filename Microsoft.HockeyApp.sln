@@ -110,9 +110,9 @@ Global
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{9181dca1-c390-44b2-ae4e-93333977a7b3}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{0927e682-4a56-46b6-8125-94fa066b2f57}*SharedItemsImports = 4
-		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
-		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\Core.Shared\Core.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
+		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
+		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{6869a04b-18b5-40f9-bf56-8b1a06484116}*SharedItemsImports = 13
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{db22ab6f-c72e-44da-b0fe-e2ffaa02cd59}*SharedItemsImports = 13
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{4cad12ee-32a9-4206-8379-7857f093ba2d}*SharedItemsImports = 4
@@ -564,9 +564,7 @@ Global
 		{E1F01DCB-5479-4B09-8208-037F84B71D72}.Release|x86.Build.0 = Release|Any CPU
 		{E1F01DCB-5479-4B09-8208-037F84B71D72}.Release|x86.Deploy.0 = Release|Any CPU
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.ActiveCfg = Debug|ARM
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.Build.0 = Debug|ARM
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.Deploy.0 = Debug|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|ARM.ActiveCfg = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.Build.0 = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|Mixed Platforms.Deploy.0 = Debug|x86
@@ -575,9 +573,7 @@ Global
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x86.Build.0 = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Debug|x86.Deploy.0 = Debug|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Any CPU.ActiveCfg = Release|x86
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.ActiveCfg = Release|ARM
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.Build.0 = Release|ARM
-		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.Deploy.0 = Release|ARM
+		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|ARM.ActiveCfg = Release|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.ActiveCfg = Release|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.Build.0 = Release|x86
 		{DC80A5B2-4643-4C45-8C1E-280B4D57C312}.Release|Mixed Platforms.Deploy.0 = Release|x86

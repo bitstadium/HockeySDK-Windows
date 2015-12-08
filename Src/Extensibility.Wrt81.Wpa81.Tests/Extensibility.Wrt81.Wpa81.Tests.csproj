@@ -26,14 +26,12 @@
     <!-- Disabling cert validation based on https://msdn.microsoft.com/en-us/library/windows/apps/br230260(v=vs.110).aspx -->
     <EnableSigningChecks>false</EnableSigningChecks>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' " />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' " />
   <PropertyGroup>
     <AppXPackage>True</AppXPackage>
     <AppxPackageIncludePrivateSymbols>true</AppxPackageIncludePrivateSymbols>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'" />
   <ItemGroup>
     <Compile Include="DeviceContextInitializerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -103,9 +101,6 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <Import Project="..\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

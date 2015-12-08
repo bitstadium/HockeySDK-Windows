@@ -13,11 +13,6 @@ namespace Microsoft.HockeyApp
     /// </summary>
     public static class HockeyClientWinFormsExtensions
     {
-        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
-
         /// <summary>
         /// Configures HockeyClient.
         /// </summary>

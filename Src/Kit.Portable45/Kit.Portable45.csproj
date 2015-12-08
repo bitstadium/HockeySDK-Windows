@@ -19,6 +19,9 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
+    <Compile Include="..\Core.Shared\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Kit.Portable40\Exceptions\WebTransferException.cs">
       <Link>Exceptions\WebTransferException.cs</Link>
     </Compile>
@@ -99,9 +102,6 @@
     </Compile>
     <Compile Include="..\Kit.Portable40\Model\FeedbackThread.cs">
       <Link>Model\FeedbackThread.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
-      <Link>Properties\AssemblyCommonInfo.cs</Link>
     </Compile>
     <Compile Include="..\Kit.Portable40\SDKConstants.cs">
       <Link>SDKConstants.cs</Link>

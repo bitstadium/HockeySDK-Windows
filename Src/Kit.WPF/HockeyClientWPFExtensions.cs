@@ -17,11 +17,6 @@ namespace Microsoft.HockeyApp
     /// </summary>
     public static class HockeyClientWPFExtensions
     {
-        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
-
         #region Configure
 
         /// <summary>

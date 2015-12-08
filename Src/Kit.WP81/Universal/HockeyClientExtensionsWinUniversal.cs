@@ -130,20 +130,6 @@ namespace Microsoft.HockeyApp
 
         #endregion
 
-        #region Internal
-
-        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
-
-        internal static IHockeyClientInternal AsInternal(this IHockeyClientConfigurable @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
         #endregion
-
-        #endregion
-
     }
 }

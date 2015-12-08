@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.IO;
-using System.Reflection;
 using Microsoft.HockeyApp.Extensions;
 using System.Runtime.Serialization.Json;
 using Microsoft.HockeyApp.Exceptions;
 using System.Runtime.CompilerServices;
 
-//TODO make it work with InternalsVisibleTo (PublicKey ?!) and make class and OnDeserializing internal
-[assembly: InternalsVisibleTo("System.Runtime.Serialization")]
-[assembly: InternalsVisibleTo("System.Runtime.Serialization.Json")]
+// Need to provide InternalsVisibleTo System.Runtime.Serialization to allow serialization of internal DataContracts/DataMembers in partial trust.
+// In Silverlight you cannot use Reflection to call a non-public setter on a class unless you are in the scope of the class. 
+// This has a side-effect in serialization because it requires having public setters for all properties that must be serialized. Well that is not really the case. You can make them internal and use the InternalsVisibleTo attribute to expose those internals to the Microsoft serialization assemblies like this
+[assembly: InternalsVisibleTo("System.Runtime.Serialization" + AssemblyInfo.SystemRuntimeSerializationPublicKey)]
+[assembly: InternalsVisibleTo("System.Runtime.Serialization.Json" + AssemblyInfo.SystemRuntimeSerializationPublicKey)]
 
 namespace Microsoft.HockeyApp.Model
 {
