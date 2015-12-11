@@ -12,8 +12,8 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 #endif
 
-[assembly: AssemblyDescription("Application Insights SDK Persistence channel")]
-[assembly: AssemblyProduct("Application Insights SDK Windows Persistence channel")]
+[assembly: AssemblyDescription("HockeyApp .NET SDK")]
+[assembly: AssemblyProduct("HockeyApp .NET SDK")]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Net40.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Net45.Tests" + AssemblyInfo.PublicKey)]
 [assembly: InternalsVisibleTo("Microsoft.HockeyApp.PersistenceChannel.Wrt81.Tests" + AssemblyInfo.PublicKey)]
