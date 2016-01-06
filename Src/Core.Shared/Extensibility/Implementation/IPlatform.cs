@@ -23,7 +23,6 @@
         /// Use this locality for data you want the system to automatically copy across the user's PCs. Windows Store apps are licensed to a user, and a user is allowed
         /// to install a single app on many PCs. This locality causes your package's data to be the same across all the user's PCs using an eventual consistency model.
         /// </summary>
-        /// <returns></returns>
         IDictionary<string, object> GetRoamingApplicationSettings();
 
         /// <summary>

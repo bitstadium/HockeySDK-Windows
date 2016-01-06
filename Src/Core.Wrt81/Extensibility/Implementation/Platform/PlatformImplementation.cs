@@ -13,7 +13,7 @@
     /// <summary>
     /// Windows Runtime (Phone and Store) implementation of the <see cref="IPlatform"/> interface.
     /// </summary>
-    internal class PlatformImplementation :  IPlatform
+    internal class PlatformImplementation : IPlatform
     {
         public PlatformImplementation()
         {
