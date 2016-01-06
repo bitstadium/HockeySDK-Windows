@@ -15,9 +15,16 @@
     internal interface IPlatform
     {
         /// <summary>
-        /// Returns a dictionary that can be used to access per-user/per-application settings shared by all application instances.
+        /// Use this locality for data you need to persist. The system will never destroy whatever data you put here unless the user uninstalls the package.
         /// </summary>
-        IDictionary<string, object> GetApplicationSettings();
+        IDictionary<string, object> GetLocalApplicationSettings();
+
+        /// <summary>
+        /// Use this locality for data you want the system to automatically copy across the user's PCs. Windows Store apps are licensed to a user, and a user is allowed
+        /// to install a single app on many PCs. This locality causes your package's data to be the same across all the user's PCs using an eventual consistency model.
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<string, object> GetRoamingApplicationSettings();
 
         /// <summary>
         /// Returns contents of the configuration file in the application directory.

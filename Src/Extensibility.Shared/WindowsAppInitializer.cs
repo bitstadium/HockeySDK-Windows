@@ -42,7 +42,7 @@
         /// <param name="endpointAddress">The HTTP address where the telemetry is sent</param>
         /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
         /// </summary>
-        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView, string endpointAddress = null)
+        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, string endpointAddress = null)
         {
             // ToDo: Clarify whether we need to this for UWP
 #if WINRT

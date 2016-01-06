@@ -129,7 +129,7 @@
 
         private bool GetPreviousSession(out string previousSessionId, out DateTimeOffset previousSessionEnd)
         {
-            IDictionary<string, object> settings = this.platform.GetApplicationSettings();
+            IDictionary<string, object> settings = this.platform.GetLocalApplicationSettings();
 
             object storedSessionId;
             object storedSessionEnd;
@@ -152,7 +152,7 @@
 
         private void SaveSessionState()
         {
-            IDictionary<string, object> settings = this.platform.GetApplicationSettings();
+            IDictionary<string, object> settings = this.platform.GetLocalApplicationSettings();
             settings[SessionIdSetting] = this.sessionId;
             settings[SessionEndSetting] = this.clock.Time.ToString("o", CultureInfo.InvariantCulture);
         }

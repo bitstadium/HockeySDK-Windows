@@ -13,18 +13,22 @@
     /// <summary>
     /// Windows Runtime (Phone and Store) implementation of the <see cref="IPlatform"/> interface.
     /// </summary>
-    internal class PlatformImplementation : 
-        IPlatform
+    internal class PlatformImplementation :  IPlatform
     {
         public PlatformImplementation()
         {
         }
 
-        public IDictionary<string, object> GetApplicationSettings()
+        public IDictionary<string, object> GetLocalApplicationSettings()
         {
             return ApplicationData.Current.LocalSettings.Values;
         }
-        
+
+        public IDictionary<string, object> GetRoamingApplicationSettings()
+        {
+            return ApplicationData.Current.RoamingSettings.Values;
+        }
+
         public string ReadConfigurationXml()
         {
             StorageFile file = Package.Current.InstalledLocation

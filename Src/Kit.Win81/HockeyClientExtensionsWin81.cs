@@ -26,8 +26,9 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="this"></param>
         /// <param name="appIdentifier">Your unique app id from HockeyApp.</param>
+        /// <param name="endpointAddress">The HTTP address where the telemetry is sent</param>
         /// <returns>Configurable Hockey client. Configure additional settings by calling methods on the returned IHockeyClientConfigurable</returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appIdentifier)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appIdentifier, string endpointAddress)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelper81();
             @this.AsInternal().AppIdentifier = appIdentifier;
@@ -42,7 +43,7 @@ namespace Microsoft.HockeyApp
                 }
             };
 
-            WindowsAppInitializer.InitializeAsync(appIdentifier);
+            WindowsAppInitializer.InitializeAsync(appIdentifier, WindowsCollectors.Metadata | WindowsCollectors.Session, endpointAddress);
             return @this as IHockeyClientConfigurable;
         }
 

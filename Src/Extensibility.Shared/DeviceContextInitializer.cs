@@ -34,17 +34,17 @@ namespace Microsoft.HockeyApp.Extensibility
             await this.InitializeDeviceOSVersion(reader, context);
             await this.InitializeDeviceManufacturer(reader, context);
             await this.InitializeDeviceModel(reader, context);
-            this.InitializeDeviceType(reader, context);
+            await this.InitializeDeviceType(reader, context);
             this.InitializeDeviceId(reader, context);
             this.InitializeNetworkType(reader, context);
             this.InitializeDeviceOS(reader, context);
         }
 
-        private void InitializeDeviceType(IDeviceContextReader reader, TelemetryContext context)
+        private async Task InitializeDeviceType(IDeviceContextReader reader, TelemetryContext context)
         {
             if (deviceType == null)
             {
-                deviceType = reader.GetDeviceType();
+                deviceType = await reader.GetDeviceType();
             }
 
             context.Device.Type = deviceType;

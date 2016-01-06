@@ -12,10 +12,14 @@
     /// <summary>
     /// The .NET 4.0 and 4.5 implementation of the <see cref="IPlatform"/> interface.
     /// </summary>
-    internal class PlatformImplementation : 
-        IPlatform
+    internal class PlatformImplementation : IPlatform
     {
-        public IDictionary<string, object> GetApplicationSettings()
+        public IDictionary<string, object> GetLocalApplicationSettings()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IDictionary<string, object> GetRoamingApplicationSettings()
         {
             throw new NotImplementedException();
         }

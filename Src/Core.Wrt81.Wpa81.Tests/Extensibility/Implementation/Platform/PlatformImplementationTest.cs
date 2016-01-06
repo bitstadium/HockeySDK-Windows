@@ -26,7 +26,7 @@
             try
             {
                 var platform = new PlatformImplementation();
-                IDictionary<string, object> settings = platform.GetApplicationSettings();
+                IDictionary<string, object> settings = platform.GetLocalApplicationSettings();
 
                 // Can't use object reference equality here because ApplicationData.Current.LocalSettings.Values returns a new instance every time
                 Assert.Equal(testValue, settings[testKey]);

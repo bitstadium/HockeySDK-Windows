@@ -16,7 +16,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Gets the type of the device.
         /// </summary>
         /// <returns>The type for this device as a hard-coded string.</returns>
-        string GetDeviceType();
+        Task<string> GetDeviceType();
 
         /// <summary>
         /// Gets the device unique identifier.

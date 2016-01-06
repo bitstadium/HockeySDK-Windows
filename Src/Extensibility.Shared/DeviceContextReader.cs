@@ -82,14 +82,14 @@ namespace Microsoft.HockeyApp.Extensibility
         }
 
         /// <summary>
-        /// Gets the type of the device.
+        /// Get the device category this computer belongs to.
         /// </summary>
-        /// <returns>The type for this device as a hard-coded string.</returns>
-        public virtual string GetDeviceType()
+        /// <example>Computer.Desktop, Computer.Tablet.</example>
+        /// <returns>The category of this device.</returns>
+        public async virtual Task<string> GetDeviceType()
         {
-            // The RawPixelsPerViewPixel property only exists on phone devices
-            PropertyInfo propertyInfo = Implementation.TypeExtensions.GetProperties(typeof(DisplayInformation)).FirstOrDefault(item => string.Compare(item.Name, "RawPixelsPerViewPixel", StringComparison.Ordinal) == 0);
-            return propertyInfo != null ? "Phone" : "Other";
+            var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { DisplayPrimaryCategoryKey });
+            return (string)rootContainer.Properties[DisplayPrimaryCategoryKey];
         }
 
         /// <summary>
@@ -270,7 +270,7 @@ namespace Microsoft.HockeyApp.Extensibility
 
             return result;
         }
-    
+
         /// <summary>
         /// Gets the host system locale.
         /// </summary>
@@ -284,17 +284,6 @@ namespace Microsoft.HockeyApp.Extensibility
         {
             // currently SDK supports Windows only, so we are hardcoding this value.
             return "Windows";
-        }
-
-        /// <summary>
-        /// Get the device category this computer belongs to.
-        /// </summary>
-        /// <example>Computer.Desktop, Computer.Tablet.</example>
-        /// <returns>The category of this device.</returns>
-        internal static async Task<string> GetDeviceCategoryAsync()
-        {
-            var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { DisplayPrimaryCategoryKey });
-            return (string)rootContainer.Properties[DisplayPrimaryCategoryKey];
         }
 
         /// <summary>

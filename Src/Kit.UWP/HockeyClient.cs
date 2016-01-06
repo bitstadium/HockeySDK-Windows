@@ -24,7 +24,7 @@
         /// <param name="endpointAddress">The http address where the telemetry is sent.</param>
         public void Configure(string appId, string endpointAddress)
         {
-            WindowsAppInitializer.InitializeAsync(appId, WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView | WindowsCollectors.UnhandledException, endpointAddress);
+            WindowsAppInitializer.InitializeAsync(appId, WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException, endpointAddress);
         }
     }
 }

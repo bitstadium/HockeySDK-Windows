@@ -14,7 +14,12 @@
         public Func<string> OnReadConfigurationXml = () => null;
         public Func<Exception, ExceptionDetails, ExceptionDetails> OnGetExceptionDetails = (e, p) => new ExceptionDetails();
 
-        public IDictionary<string, object> GetApplicationSettings()
+        public IDictionary<string, object> GetLocalApplicationSettings()
+        {
+            return this.OnGetApplicationSettings();
+        }
+
+        public IDictionary<string, object> GetRoamingApplicationSettings()
         {
             return this.OnGetApplicationSettings();
         }
