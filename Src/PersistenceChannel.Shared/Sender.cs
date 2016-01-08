@@ -22,9 +22,10 @@ namespace Microsoft.HockeyApp.Channel
         protected readonly AutoResetEvent DelayHandler;
 
         /// <summary>
-        /// When storage is empty it will be queried again after this interval. 
+        /// When storage is empty it will be queried again after this interval.
+        /// Decreasing to 5 sec to send first data (users and sessions). 
         /// </summary>
-        private readonly TimeSpan sendingIntervalOnNoData = TimeSpan.FromSeconds(10);
+        private readonly TimeSpan sendingIntervalOnNoData = TimeSpan.FromSeconds(5);
 
         /// <summary>
         /// Holds the maximum time for the exponential back-off algorithm. The sending interval will grow on every HTTP Exception until this max value.
@@ -90,7 +91,10 @@ namespace Microsoft.HockeyApp.Channel
 
             if (startSending)
             {
-                Task.Factory.StartNew(this.SendLoop, TaskCreationOptions.LongRunning)
+                // It is currently possible for the long - running task to be executed(and thereby block during WaitOne) on the UI thread when
+                // called by a task scheduled on the UI thread. Explicitly specifying TaskScheduler.Default 
+                // when calling StartNew guarantees that Sender never blocks the main thread.
+                Task.Factory.StartNew(this.SendLoop, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)
                     .ContinueWith(t => CoreEventSource.Log.LogVerbose("Sender: Failure in SendLoop: Exception: " + t.Exception.ToString()), TaskContinuationOptions.OnlyOnFaulted);
             }
         }

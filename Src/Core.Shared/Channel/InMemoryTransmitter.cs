@@ -43,8 +43,11 @@ namespace Microsoft.HockeyApp.Channel
             this.buffer = buffer;
             this.buffer.OnFull = this.OnBufferFull;
 
-            // Starting the Runner
-            Task.Factory.StartNew(this.Runner, TaskCreationOptions.LongRunning)
+            // It is currently possible for the long - running InMemoryTransmitter.Runner
+            // task to be executed(and thereby block during WaitOne) on the UI thread when
+            // called by a task scheduled on the UI thread. Explicitly specifying TaskScheduler.Default 
+            // when calling StartNew guarantees that InMemoryTransmitter.Runner never blocks the main thread.
+            Task.Factory.StartNew(this.Runner, CancellationToken.None, TaskCreationOptions.LongRunning, TaskScheduler.Default)
                 .ContinueWith(
                     task => 
                     {

@@ -44,6 +44,15 @@
         /// </summary>
         public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, string endpointAddress = null)
         {
+            Guid instrumentationKeyGuid;
+            if (!Guid.TryParse(instrumentationKey, out instrumentationKeyGuid))
+            {
+                throw new ArgumentException(String.Format("instrumentationKey {0} is incorrect. It must be a string representation of a GUID", instrumentationKey));
+            }
+
+            // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
+            instrumentationKey = instrumentationKeyGuid.ToString("D");
+
             // ToDo: Clarify whether we need to this for UWP
 #if WINRT
             if (collectors.HasFlag(WindowsCollectors.PageView) || 

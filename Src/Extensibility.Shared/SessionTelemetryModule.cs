@@ -177,6 +177,11 @@
             this.sessionId = Guid.NewGuid().ToString();
 
             this.Track(SessionState.Start, this.sessionId, this.clock.Time);
+
+            // Without calling TelemetryClient.Flush we have up to 50 delay for the user to see the data (30 sec interval to write to temp file, 10 sec interval to read data from the file)
+            // As (1) this is important statistic, it tracks users and session and (2) it is important onboarding experience, calling Flush to remove 30 sec write interval.
+            // ToDo: Investigate whether it affects performance.
+            this.client.Flush();
         }
 
         private void Track(SessionState state, string id, DateTimeOffset timestamp)
