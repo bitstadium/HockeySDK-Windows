@@ -47,7 +47,7 @@
             Guid instrumentationKeyGuid;
             if (!Guid.TryParse(instrumentationKey, out instrumentationKeyGuid))
             {
-                throw new ArgumentException(String.Format("instrumentationKey {0} is incorrect. It must be a string representation of a GUID", instrumentationKey));
+                throw new ArgumentException(string.Format(System.Globalization.CultureInfo.InvariantCulture, "instrumentationKey {0} is incorrect. It must be a string representation of a GUID", instrumentationKey));
             }
 
             // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
