@@ -33,7 +33,7 @@ Deprecated but still available (no Nuget package available -> use the source)
 ### Build process (available for Microsoft Employees only)
 1. Run https://mseng.visualstudio.com/DefaultCollection/AppInsights/_build#favDefinitionId=2471&_a=completed in order to perform an automated build with unit tests.
 2. Run https://mseng.visualstudio.com/DefaultCollection/AppInsights/_build#favDefinitionId=2560&_a=completed in order to create signed binaries.
-3. Signed build output: \\vscsstor\CIDrops\HockeyApp\HockeySDK-Windows-Private\strongly-signed\
+3. Signed build output: \\\\vscsstor\CIDrops\HockeyApp\HockeySDK-Windows-Private\strongly-signed\
 
 ### Contributor License
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
