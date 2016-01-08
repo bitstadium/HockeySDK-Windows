@@ -26,9 +26,8 @@ Deprecated but still available (no Nuget package available -> use the source)
 
 ## Onboarding instructions 
 1. Add nuget package: <pre>Install-Package HockeySDK.UWP</pre>
-2. Open your App.xaml.cs file and add the using directive for HockeyApp at the top: <pre>using HockeyApp</pre>
-3. In the App constructor add the following line: <pre>HockeyClient.Current.Configure(“Your_App_ID”)</pre>
-4. Enable Internet(Client) Capability in package manifest
+2. In the App class constructor add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
+3. Enable Internet(Client) Capability in package manifest
 
 ## Contributing
 ### Build process (available for Microsoft Employees only)
