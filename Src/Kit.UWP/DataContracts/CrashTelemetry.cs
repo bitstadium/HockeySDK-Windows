@@ -53,41 +53,45 @@
                                                 };
             this.Threads.Add(thread);
 
-            HashSet<long> seenBinaries = new HashSet<long>();
-
-            StackTrace stackTrace = new StackTrace(exception, true);
-            foreach (StackFrame frame in stackTrace.GetFrames())
+            // we can extract stack frames only if application is compiled with native tool chain.
+            if (Microsoft.HockeyApp.Extensibility.DeviceContextReader.IsNativeEnvironment(exception))
             {
-                CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
-                                                            {
-                                                                Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
-                                                            };
-                thread.Frames.Add(crashFrame);
+                HashSet<long> seenBinaries = new HashSet<long>();
 
-                long nativeImageBase = frame.GetNativeImageBase().ToInt64();
-                if (seenBinaries.Contains(nativeImageBase) == true)
+                StackTrace stackTrace = new StackTrace(exception, true);
+                foreach (StackFrame frame in stackTrace.GetFrames())
                 {
-                    continue;
+                    CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
+                    {
+                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
+                    };
+                    thread.Frames.Add(crashFrame);
+
+                    long nativeImageBase = frame.GetNativeImageBase().ToInt64();
+                    if (seenBinaries.Contains(nativeImageBase) == true)
+                    {
+                        continue;
+                    }
+
+                    PEImageReader reader = new PEImageReader(frame.GetNativeImageBase());
+                    PEImageReader.CodeViewDebugData codeView = reader.Parse();
+                    if (codeView == null)
+                    {
+                        continue;
+                    }
+
+                    CrashTelemetryBinary crashBinary = new CrashTelemetryBinary
+                    {
+                        StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
+                        EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
+                        Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
+                        Path = codeView.PdbPath,
+                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null
+                    };
+
+                    this.Binaries.Add(crashBinary);
+                    seenBinaries.Add(nativeImageBase);
                 }
-
-                PEImageReader reader = new PEImageReader(frame.GetNativeImageBase());
-                PEImageReader.CodeViewDebugData codeView = reader.Parse();
-                if (codeView == null)
-                {
-                    continue;
-                }
-
-                CrashTelemetryBinary crashBinary = new CrashTelemetryBinary
-                                                        {
-                                                            StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
-                                                            EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
-                                                            Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
-                                                            Path = codeView.PdbPath,
-                                                            Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null
-                                                        };
-
-                this.Binaries.Add(crashBinary);
-                seenBinaries.Add(nativeImageBase);
             }
 
             this.StackTrace = exception.StackTrace;

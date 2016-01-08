@@ -75,21 +75,11 @@
 
 #if WINDOWS_UWP
                 ITelemetry exceptionTelemetry;
-                if (DeviceContextReader.IsNativeEnvironment(eventException))
-                {
-                    var crashTelemetry = new CrashTelemetry(eventException);
-                    crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
-                    exceptionTelemetry = crashTelemetry;
-                } 
-                else
-                {
-                    var crashTelemetry = new ExceptionTelemetry(eventException);
-                    crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
-                    exceptionTelemetry = crashTelemetry;
-
-                }
+                var crashTelemetry = new CrashTelemetry(eventException);
+                crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
+                exceptionTelemetry = crashTelemetry;
 #else
-            var exceptionTelemetry = new ExceptionTelemetry(eventException);
+                var exceptionTelemetry = new ExceptionTelemetry(eventException);
                 exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
 #endif
                 this.client.Track(exceptionTelemetry);
