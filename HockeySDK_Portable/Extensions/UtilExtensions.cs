@@ -75,6 +75,7 @@ namespace HockeyApp
 
         /// <summary>
         /// UriEscapeDataString can only handle 60 000 characters. This method can handle unlimited length
+        /// http://stackoverflow.com/questions/6695208/uri-escapedatastring-invalid-uri-the-uri-string-is-too-long
         /// </summary>
 
         public static string EscapeLongDataString(this string longString)
