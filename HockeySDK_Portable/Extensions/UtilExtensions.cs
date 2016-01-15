@@ -80,7 +80,7 @@ namespace HockeyApp
 
         public static string EscapeLongDataString(this string longString)
         {
-            const int limit = 65520;
+            const int limit = 32766;
 
             var sb = new StringBuilder();
             var loops = longString.Length / limit;
