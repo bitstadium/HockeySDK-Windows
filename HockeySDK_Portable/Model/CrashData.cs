@@ -125,7 +125,7 @@ namespace HockeyApp.Model
         public async Task SendDataAsync()
         {
             string rawData = "";
-            rawData += "raw=" + Uri.EscapeDataString(this.Log);
+            rawData += "raw=" + this.Log.EscapeLongDataString();
             if (this.UserID != null)
             {
                 rawData += "&userID=" + Uri.EscapeDataString(this.UserID);
@@ -136,7 +136,7 @@ namespace HockeyApp.Model
             }
             if (this.Description != null)
             {
-                rawData += "&description=" + Uri.EscapeDataString(this.Description);
+                rawData += "&description=" + this.Description.EscapeLongDataString();
             }
 
             rawData += "&sdk=" + Uri.EscapeDataString(this.SDKName);
@@ -175,12 +175,13 @@ namespace HockeyApp.Model
             }
 
         }
+    }
 
-        /// <summary>
-        /// serialize data to a stream
-        /// </summary>
-        /// <param name="outputStream"></param>
-        public void Serialize(Stream outputStream)
+    /// <summary>
+    /// serialize data to a stream
+    /// </summary>
+    /// <param name="outputStream"></param>
+    public void Serialize(Stream outputStream)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));
             serializer.WriteObject(outputStream, this);

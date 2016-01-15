@@ -72,5 +72,26 @@ namespace HockeyApp
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString(CultureInfo.InvariantCulture) + suf[place];
         }
+
+        /// <summary>
+        /// UriEscapeDataString can only handle 60 000 characters. This method can handle unlimited length
+        /// http://stackoverflow.com/questions/6695208/uri-escapedatastring-invalid-uri-the-uri-string-is-too-long
+        /// </summary>
+
+        public static string EscapeLongDataString(this string longString)
+        {
+            const int limit = 32766;
+
+            var sb = new StringBuilder();
+            var loops = longString.Length / limit;
+
+            for (var i = 0; i <= loops; i++)
+            {
+                sb.Append(i < loops
+                    ? Uri.EscapeDataString(longString.Substring(limit * i, limit))
+                    : Uri.EscapeDataString(longString.Substring(limit * i)));
+            }
+            return sb.ToString();
+        }
     }
 }
