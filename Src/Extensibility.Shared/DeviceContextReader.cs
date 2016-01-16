@@ -15,6 +15,7 @@ namespace Microsoft.HockeyApp.Extensibility
     using global::Windows.Networking.Connectivity;
     using global::Windows.Security.Cryptography;
     using global::Windows.Security.Cryptography.Core;
+    using global::Windows.Security.ExchangeActiveSyncProvisioning;
     using global::Windows.Storage.Streams;
     using global::Windows.System.Profile;
 
@@ -203,10 +204,14 @@ namespace Microsoft.HockeyApp.Extensibility
         /// </summary>
         /// <example>Precision WorkStation T7500.</example>
         /// <returns>The name of the model of this computer.</returns>
-        public async Task<string> GetDeviceModel()
+        public string GetDeviceModel()
         {
-            var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { ModelNameKey });
-            return (string)rootContainer.Properties[ModelNameKey];
+            // Inspired from https://www.suchan.cz/2015/08/uwp-quick-tip-getting-device-os-and-app-info/
+            // on phones the SystemProductName contains the phone name in non-readable format like RM-940_nam_att_200. 
+            // To convert this name to readable format, like Lumia 1520, we are using the mapping api on Breeze service.
+            // All other API available like AnalyticsInfo.DeviceForm, PnpObject are not providing the expected values.
+            // On Lumia 950 AnalyticsInfo.DeviceForm returns Unknown, PnpOjbect returns P6211
+            return new EasClientDeviceInformation().SystemProductName;
         }
 
         public async Task<string> GetScreenResolutionAsync()

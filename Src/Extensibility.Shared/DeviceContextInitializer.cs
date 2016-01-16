@@ -33,8 +33,8 @@ namespace Microsoft.HockeyApp.Extensibility
             var reader = new DeviceContextReader();
             await this.InitializeDeviceOSVersion(reader, context);
             await this.InitializeDeviceManufacturer(reader, context);
-            await this.InitializeDeviceModel(reader, context);
             await this.InitializeDeviceType(reader, context);
+            this.InitializeDeviceModel(reader, context);
             this.InitializeDeviceId(reader, context);
             this.InitializeNetworkType(reader, context);
             this.InitializeDeviceOS(reader, context);
@@ -100,11 +100,11 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.OemName = deviceManufacturer;
         }
 
-        private async Task InitializeDeviceModel(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeDeviceModel(IDeviceContextReader reader, TelemetryContext context)
         {
             if (deviceModel == null)
             {
-                deviceModel = await reader.GetDeviceModel();
+                deviceModel = reader.GetDeviceModel();
             }
 
             context.Device.Model = deviceModel;
