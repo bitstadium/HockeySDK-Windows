@@ -40,7 +40,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Gets the device model.
         /// </summary>
         /// <returns>The discovered device model.</returns>
-        Task<string> GetDeviceModel();
+        string GetDeviceModel();
 
         /// <summary>
         /// Gets the network type.
