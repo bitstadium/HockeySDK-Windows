@@ -174,6 +174,16 @@
             }
 
             this.isFirstSession = !previousSessionFound;
+
+#if WINDOWS_UWP
+            if (global::Windows.ApplicationModel.Package.Current.IsDevelopmentMode)
+            {
+                // In emulator mode we don't send a user as a new user ever. Because if we do - during onboarding experience new users chart will show
+                // more users than total users. ToDo: do better new user detection on on server side: If we see that user is coming from emulator, we need to 
+                // set its isFirst flag only the first time on the server.
+                this.isFirstSession = false;
+            }
+#endif
             this.sessionId = Guid.NewGuid().ToString();
 
             this.Track(SessionState.Start, this.sessionId, this.clock.Time);
