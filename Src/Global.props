@@ -75,9 +75,6 @@
         <OutputPath>$(BinRoot)\$(Configuration)\$(RelativeOutputPathBase)</OutputPath>
         <OutputPath>$([System.IO.Path]::GetFullPath( $(OutputPath) ))\</OutputPath>
 
-        <!-- Collect all NuGet packages in the same folder for convenience during testing -->
-        <PackageOutputDir>$(BinRoot)\$(Configuration)\NuGet</PackageOutputDir>
-      
         <AppxPackageDir>$(OutputPath)</AppxPackageDir>
 
         <IntermediateOutputPath>$(BaseIntermediateOutputPath)\$(Configuration)\$(RelativeOutputPathBase)</IntermediateOutputPath>
