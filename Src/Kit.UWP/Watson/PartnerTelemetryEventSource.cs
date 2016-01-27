@@ -69,9 +69,9 @@ namespace Microsoft.Diagnostics.Telemetry2
     {
         /// <summary>  
         /// Partner must update this constant to the assigned provider group ID.  
-        /// For example, PartnerProviderGuid = "12345678-9abc-def0-1234-56789abcdef0";  
+        /// Guid is generated using EtGuid.exe Microsoft.HockeyApp.HockeyAppEventSource, see http://blogs.msdn.com/b/dcook/archive/2015/09/08/etw-provider-names-and-guids.aspx
         /// </summary>  
-        private const string PartnerProviderGuid = "7CBDFA07-762F-418E-BDC5-2C69834718D8";
+        private const string PartnerProviderGuid = "0417dd39-fc0e-54e8-feac-65e835bce897";
 
         /// <summary>  
         /// Keyword 0x0000100000000000 is reserved for future definition by UTC. Do  
