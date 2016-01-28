@@ -86,7 +86,8 @@
                         EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
                         Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
                         Path = codeView.PdbPath,
-                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null
+                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
+                        CpuType = Extensibility.DeviceContextReader.GetProcessorArchitecture()
                     };
 
                     this.Binaries.Add(crashBinary);

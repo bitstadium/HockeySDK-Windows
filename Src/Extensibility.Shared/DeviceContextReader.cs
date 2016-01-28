@@ -38,41 +38,13 @@ namespace Microsoft.HockeyApp.Extensibility
         /// </summary>
         private const int AsyncRetryIntervalInMilliseconds = 100;
 
+        private static ushort? processorArchitecture;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceContextReader"/> class.
         /// </summary>
         internal DeviceContextReader()
         {
-        }
-
-        /// <summary>
-        /// Processor Architecture.
-        /// </summary>
-        internal enum ProcessorArchitecture : ushort
-        {
-            INTEL = 0,
-
-            MIPS = 1,
-
-            ALPHA = 2,
-
-            PPC = 3,
-
-            SHX = 4,
-
-            ARM = 5,
-
-            IA64 = 6,
-
-            ALPHA64 = 7,
-
-            MSIL = 8,
-
-            AMD64 = 9,
-
-            IA32_ON_WIN64 = 10,
-
-            UNKNOWN = 0xFFFF
         }
 
         /// <summary>
@@ -294,23 +266,25 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Get the processor architecture of this computer.
         /// </summary>
-        /// <returns>The processor architecture of this computer.</returns>
-        internal static ProcessorArchitecture GetProcessorArchitecture()
+        /// <returns>The processor architecture of this computer. https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx </returns>
+        internal static ushort GetProcessorArchitecture()
         {
-            try
+            if (!processorArchitecture.HasValue)
             {
-                var sysInfo = new NativeMethods._SYSTEM_INFO();
-                NativeMethods.GetNativeSystemInfo(ref sysInfo);
-
-                return Enum.IsDefined(typeof(ProcessorArchitecture), sysInfo.wProcessorArchitecture)
-                    ? (ProcessorArchitecture)sysInfo.wProcessorArchitecture
-                    : ProcessorArchitecture.UNKNOWN;
+                try
+                {
+                    var sysInfo = new NativeMethods._SYSTEM_INFO();
+                    NativeMethods.GetNativeSystemInfo(ref sysInfo);
+                    processorArchitecture = sysInfo.wProcessorArchitecture;
+                }
+                catch
+                {
+                    // unknown architecture.
+                    processorArchitecture = 0xffff;
+                }
             }
-            catch
-            {
-            }
 
-            return ProcessorArchitecture.UNKNOWN;
+            return processorArchitecture.Value;
         }
 
         private static TValue GetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)

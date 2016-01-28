@@ -25,7 +25,6 @@
         public void Configure(string appId, string endpointAddress = null)
         {
             WindowsAppInitializer.InitializeAsync(appId, WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException, endpointAddress);
-            Watson.WatsonIntegration.Integrate(appId);
         }
     }
 }
