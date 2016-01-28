@@ -27,5 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DeviceContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UserContextReader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NativeMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Watson\PartnerTelemetryEventSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Watson\WatsonIntegration.cs" />
   </ItemGroup>
 </Project>

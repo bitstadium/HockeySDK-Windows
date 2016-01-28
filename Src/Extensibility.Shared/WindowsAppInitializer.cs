@@ -53,6 +53,8 @@
             // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
             instrumentationKey = instrumentationKeyGuid.ToString("D");
 
+            Watson.WatsonIntegration.Integrate(instrumentationKey);
+
             // ToDo: Clarify whether we need to this for UWP
 #if WINRT
             if (collectors.HasFlag(WindowsCollectors.PageView) || 
