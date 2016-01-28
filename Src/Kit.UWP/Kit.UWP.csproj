@@ -69,12 +69,15 @@
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="Watson\PartnerTelemetryEventSource.cs" />
+    <Compile Include="Watson\WatsonIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
   <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
