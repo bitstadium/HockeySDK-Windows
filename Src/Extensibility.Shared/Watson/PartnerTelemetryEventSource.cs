@@ -69,9 +69,10 @@ namespace Microsoft.HockeyApp.Watson
     {
         /// <summary>  
         /// Partner must update this constant to the assigned provider group ID.  
-        /// Guid is generated using EtGuid.exe Microsoft.HockeyApp.HockeyAppEventSource, see http://blogs.msdn.com/b/dcook/archive/2015/09/08/etw-provider-names-and-guids.aspx
+        /// ToDo: Guid must be generated using EtGuid.exe Microsoft.HockeyApp.HockeyAppEventSource, see http://blogs.msdn.com/b/dcook/archive/2015/09/08/etw-provider-names-and-guids.aspx.
+        /// Currently, for prototype using Windows Internal Group Guid provided by sorino@microsoft.com. 
         /// </summary>  
-        private const string PartnerProviderGuid = "0417dd39-fc0e-54e8-feac-65e835bce897";
+        private const string PartnerProviderGuid = "4f50731a-89cf-4782-b3e0-dce8c90476ba";
 
         /// <summary>  
         /// Keyword 0x0000100000000000 is reserved for future definition by UTC. Do  
