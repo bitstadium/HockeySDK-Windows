@@ -61,7 +61,7 @@
                 // In order to prevent a deadlock, we are calling async method from sync using Task.Run to offload a work to a ThreadPool
                 // thread which does not have a SynchronizationContext and there is no real risk for a deadlock.
                 // http://stackoverflow.com/questions/28305968/use-task-run-in-synchronous-method-to-avoid-deadlock-waiting-on-async-method
-                LazyInitializer.EnsureInitialized(ref this.context, () => { return Task.Run(() => { return this.CreateInitializedContextAsync().Result; }).Result; });
+                LazyInitializer.EnsureInitialized(ref this.context, () => { return Task.Run(async () => { return await this.CreateInitializedContextAsync(); }).Result; });
                 return this.context;
             }
 
