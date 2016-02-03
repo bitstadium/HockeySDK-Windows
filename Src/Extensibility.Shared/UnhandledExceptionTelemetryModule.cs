@@ -64,7 +64,8 @@
 #if DEBUG
                 global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
 #endif
-                LazyInitializer.EnsureInitialized(ref this.client, this.CreateClient);
+                LazyInitializer.EnsureInitialized(ref this.client, () => { return new TelemetryClient(); });
+
 #if WINRT || WINDOWS_UWP
                 UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
                 Exception eventException = args.Exception;
@@ -84,20 +85,6 @@
 #endif
                 this.client.Track(exceptionTelemetry);
                 this.client.Flush();
-        }
-
-        private TelemetryClient CreateClient()
-        {
-            TelemetryClient client = new TelemetryClient(TelemetryConfiguration.Active);
-            client.Channel = new PersistenceChannel();
-
-            string endpoints = TelemetryConfiguration.Active.TelemetryChannel.EndpointAddress;
-            if (!string.IsNullOrEmpty(endpoints))
-            {
-                client.Channel.EndpointAddress = endpoints;
-            }
-
-            return client;
         }
     }
 }

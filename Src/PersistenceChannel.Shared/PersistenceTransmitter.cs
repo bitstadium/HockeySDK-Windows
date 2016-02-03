@@ -32,24 +32,9 @@ namespace Microsoft.HockeyApp.Channel
         private StorageBase storage;
 
         /// <summary>
-        /// Cancels the sending. 
-        /// </summary>
-        private CancellationTokenSource sendingCancellationTokenSource;
-
-        /// <summary>
-        /// A mutex that will be used as a name mutex to synchronize transmitters from different channels and different processes.
-        /// </summary>
-        private Mutex mutex;
-
-        /// <summary>
         /// The number of times this object was disposed.
         /// </summary>
         private int disposeCount = 0;
-
-        /// <summary>
-        /// Mutex is released once the thread that acquired it is ended. This event keeps the long running thread that acquire the mutex alive until dispose is called.    
-        /// </summary>
-        private AutoResetEvent eventToKeepMutexThreadAlive;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PersistenceTransmitter"/> class.
@@ -60,28 +45,12 @@ namespace Microsoft.HockeyApp.Channel
         internal PersistenceTransmitter(StorageBase storage, int sendersCount, bool createSenders = true)
         {
             this.storage = storage;
-            this.sendingCancellationTokenSource = new CancellationTokenSource();
-            this.eventToKeepMutexThreadAlive = new AutoResetEvent(false);
-            try
-            {
-                this.mutex = new Mutex(initiallyOwned: false, name: this.storage.FolderName);
-            }
-            catch (Exception e)
-            {
-                string errorMsg = string.Format(CultureInfo.InvariantCulture, "PersistenceTransmitter: Failed to construct the mutex: {0}", e);
-                CoreEventSource.Log.LogVerbose(errorMsg);
-            }
-
             if (createSenders)
             {
-                Task.Factory.StartNew(() => this.AcquireMutex(() => this.CreateSenders(sendersCount)), TaskCreationOptions.LongRunning)
-                .ContinueWith(
-                    task =>
-                    {
-                        string msg = string.Format(CultureInfo.InvariantCulture, "PersistenceTransmitter: Unhandled exception in CreateSenders: {0}", task.Exception);
-                        CoreEventSource.Log.LogVerbose(msg);
-                    },
-                    TaskContinuationOptions.OnlyOnFaulted);
+                for (int i = 0; i < sendersCount; i++)
+                {
+                    this.senders.Add(new Sender(this.storage, this));
+                }
             }
         }
 
@@ -112,25 +81,6 @@ namespace Microsoft.HockeyApp.Channel
         {
             if (Interlocked.Increment(ref this.disposeCount) == 1)
             {
-                this.sendingCancellationTokenSource.Cancel();
-                this.sendingCancellationTokenSource.Dispose();
-
-#if NET35
-               if (this.mutex != null)
-               {
-                    this.mutex.Close();
-               }
-
-               this.eventToKeepMutexThreadAlive.Close();
-#else
-                if (this.mutex != null)
-                {
-                    this.mutex.Dispose();
-                }
-
-                this.eventToKeepMutexThreadAlive.Dispose();
-#endif
-
                 this.StopSenders();
             }
         }
@@ -152,65 +102,6 @@ namespace Microsoft.HockeyApp.Channel
             catch (Exception exception)
             {
                 CoreEventSource.Log.LogVerbose("Failed sending event in developer mode Exception:" + exception);
-            }
-        }
-
-        /// <summary>
-        /// Make sure that <paramref name="action"/> happens only once even if it is executed on different processes. 
-        /// On every given time only one channel will acquire the mutex, even if the channel is on a different process.        
-        /// This method is using a named mutex to achieve that. Once the mutex is acquired <paramref name="action"/> will be executed.
-        /// </summary>
-        /// <param name="action">The action to perform once the mutex is acquired.</param>
-        private void AcquireMutex(Action action)
-        {
-            if (this.mutex == null)
-            {
-                // if mutex is null, nothing will be sent. Telemetries will be enqueued and persisted 
-                // but nothing will be sent until app is reopened and Mutex is successfully constructed. 
-                return;
-            }
-
-            while (!this.sendingCancellationTokenSource.IsCancellationRequested)
-            {
-                try
-                {
-                    this.mutex.WaitOne();
-
-                    if (this.sendingCancellationTokenSource.IsCancellationRequested)
-                    {
-                        return;
-                    }
-
-                    if (action != null)
-                    {
-                        action();
-                    }
-
-                    // Prevents the thread from quiting. Once this thread ends the Mutex will be released and another transmitter 
-                    // (from a different process for example) will acquire the mutex.
-                    this.eventToKeepMutexThreadAlive.WaitOne();
-                    return;
-                }
-                catch (AbandonedMutexException)
-                {
-                    CoreEventSource.Log.LogVerbose("Another process/thread abandon the Mutex, try to acquire it and become the active transmitter.");
-                }
-                catch (ObjectDisposedException)
-                {
-                    // if mutex or the auto reset event are disposed, just quit.
-                    return; 
-                }
-            }
-        }
-
-        /// <summary>
-        /// Create senders to send telemetries. 
-        /// </summary>
-        private void CreateSenders(int sendersCount)
-        {
-            for (int i = 0; i < sendersCount; i++)
-            {
-                this.senders.Add(new Sender(this.storage, this));
             }
         }
 

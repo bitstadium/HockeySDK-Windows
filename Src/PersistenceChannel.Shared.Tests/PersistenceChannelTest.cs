@@ -122,5 +122,64 @@
                 Assert.AreEqual(telemetry, actual.First());
             }
         }
+
+        [TestClass]
+        public class ConstructorTest : PersistenceChannelTest
+        {
+            /// <summary>
+            /// Testing that creating multiple instances of PersistenceChannel and Disposing them is not causing a deadlock.
+            /// </summary>
+            [Owner("mihailsm")]
+            [TestMethod]
+            public void TestPersistenceChannelConstructorAndDisposeOnDeadlock()
+            {
+                List<Task> taskList = new List<Task>();
+                for (int i = 0; i < 500; i++)
+                {
+                    var task = new Task(Action);
+                    task.Start();
+                    taskList.Add(task);
+                }
+
+                var completed = Task.WaitAll(taskList.ToArray(), 5000);
+                Assert.IsTrue(completed, "tasks did not finish. Potential deadlock problem.");
+            }
+
+            private void Action()
+            {
+                var channel = new PersistenceChannel();
+                channel.Dispose();
+            }
+        }
+
+        [TestClass]
+        public class TelemetryClientConstructorTest : PersistenceChannelTest
+        {
+            /// <summary>
+            /// Testing that creating multiple instances of TelemetryClient and TelemetryChannel is not causing a deadlock.
+            /// </summary>
+            [Owner("mihailsm")]
+            [TestMethod]
+            public void TestTelemetryClientConstructorOnDeadlock()
+            {
+                List<Task> taskList = new List<Task>();
+                for (int i = 0; i < 50; i++)
+                {
+                    var task = new Task(Action);
+                    task.Start();
+                    taskList.Add(task);
+                }
+
+                var completed = Task.WaitAll(taskList.ToArray(), 5000);
+                Assert.IsTrue(completed, "tasks did not finish. Potential deadlock problem.");
+            }
+
+            private void Action()
+            {
+                var client = new TelemetryClient();
+                client.Channel = new PersistenceChannel();
+                var context = client.Context;
+            }
+        }
     }
 }
