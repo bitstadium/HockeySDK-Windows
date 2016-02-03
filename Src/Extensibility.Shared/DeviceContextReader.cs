@@ -266,7 +266,7 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <summary>
         /// Get the processor architecture of this computer.
         /// </summary>
-        /// <returns>The processor architecture of this computer. https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx </returns>
+        /// <returns>The processor architecture of this computer. </returns>
         internal static ushort GetProcessorArchitecture()
         {
             if (!processorArchitecture.HasValue)
@@ -284,6 +284,7 @@ namespace Microsoft.HockeyApp.Extensibility
                 }
             }
 
+            // https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx
             return processorArchitecture.Value;
         }
 
