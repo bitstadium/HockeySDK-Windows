@@ -208,5 +208,24 @@ namespace Microsoft.HockeyApp.Watson
         {
             return;
         }
+
+
+        [Event(1, Keywords = TelemetryKeyword)]
+        public void WriteIntegratationEvent(string hockeyAppIKey)
+        {
+            this.Write("HockeyAppWatsonIdentification", new HockeyAppIdentity() { PartA_iKey = hockeyAppIKey, HockeyAppCorrelationGuid = System.Guid.NewGuid().ToString() });
+        }
+    }
+
+    [EventData]
+    internal class HockeyAppIdentity
+    {
+        internal string PartA_iKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets a GUID in HockeyApp UTC event as well.
+        /// This GUID will permit Watson team to join, in the future, if they end up posting directly to Watson from inside the UWP app.
+        /// </summary>
+        internal string HockeyAppCorrelationGuid { get; set; }
     }
 }
