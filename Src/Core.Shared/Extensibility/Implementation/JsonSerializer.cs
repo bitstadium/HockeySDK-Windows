@@ -670,6 +670,14 @@
                         writer.WriteEndArray();
                     }
 
+                    // write threads
+                    writer.WritePropertyName("attachments");
+                    {
+                        writer.WriteStartObject();
+                        writer.WriteProperty("description", telemetry.Attachments.Description);
+                        writer.WriteEndObject();
+                    }
+
                     writer.WriteEndObject();
 
                     writer.WriteProperty("stackTrace", telemetry.StackTrace);

@@ -68,7 +68,6 @@
     <Compile Include="HockeyClient.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
-    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">

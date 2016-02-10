@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -47,6 +48,19 @@
             this.headers.ExceptionCode = "N/A";
             this.headers.ExceptionAddress = "N/A";
 
+            var description = string.Empty;
+            if (TelemetryConfiguration.Active.DescriptionLoader != null)
+            {
+                try
+                {
+                    this.Attachments.Description = TelemetryConfiguration.Active.DescriptionLoader(exception);
+                }
+                catch (Exception)
+                {
+                    CoreEventSource.Log.LogVerbose("DescriptionLoader callback fired an exception: " + exception);
+                }
+            }
+
             CrashTelemetryThread thread = new CrashTelemetryThread
                                                 {
                                                     Id = Environment.CurrentManagedThreadId
@@ -54,7 +68,7 @@
             this.Threads.Add(thread);
 
             // we can extract stack frames only if application is compiled with native tool chain.
-            if (Microsoft.HockeyApp.Extensibility.DeviceContextReader.IsNativeEnvironment(exception))
+            if (Extensibility.DeviceContextReader.IsNativeEnvironment(exception))
             {
                 HashSet<long> seenBinaries = new HashSet<long>();
 

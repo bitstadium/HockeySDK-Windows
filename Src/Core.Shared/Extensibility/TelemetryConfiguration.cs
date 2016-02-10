@@ -1,4 +1,4 @@
-﻿namespace Microsoft.HockeyApp.Extensibility
+﻿namespace Microsoft.HockeyApp
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using DataContracts;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
+    using Microsoft.HockeyApp.Extensibility;
 
     /// <summary>
     /// Encapsulates the global telemetry configuration typically loaded from the configuration file.
@@ -15,7 +16,7 @@
     /// All <see cref="TelemetryContext"/> objects are initialized using the <see cref="Active"/> 
     /// telemetry configuration provided by this class.
     /// </remarks>
-    internal sealed class TelemetryConfiguration : IDisposable
+    public sealed class TelemetryConfiguration : IDisposable
     {
         private static object syncRoot = new object();
         private static TelemetryConfiguration active;
@@ -27,36 +28,16 @@
         private bool disableTelemetry = false;
 
         /// <summary>
-        /// Gets or sets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
-        /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
-        /// needed to send telemetry to Application Insights.
+        /// Initializes a new instance of the <see cref="TelemetryConfiguration" /> class.
         /// </summary>
-        public static TelemetryConfiguration Active
+        public TelemetryConfiguration()
         {
-            get 
-            { 
-                if (active == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (active == null)
-                        {
-                            active = new TelemetryConfiguration();
-                            TelemetryConfigurationFactory.Instance.Initialize(active);
-                        }
-                    }
-                }
-
-                return active;
-            }
-
-            internal set 
-            {
-                lock (syncRoot)
-                {
-                    active = value;
-                }
-            }
+            this.Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session;
+#if WINDOWS_UWP
+            // only for UWP we are using Application Insights exception telemetry pipeline. For all other platforms we are using HockeyApp exception pipeline.
+            // ToDo: Refactor this code in future to use single pipeline.
+            this.Collectors |= WindowsCollectors.UnhandledException;
+#endif
         }
 
         /// <summary>
@@ -87,13 +68,70 @@
         }
 
         /// <summary>
+        /// Gets or sets Windows Collectors.
+        /// </summary>
+        public WindowsCollectors Collectors
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets Endpoint address.
+        /// </summary>
+        public string EndpointAddress
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets a callback that is called when an unhandled exception happens and the returns a string that is added as additional description of the exception.
+        /// </summary>
+        public Func<Exception, string> DescriptionLoader
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
+        /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
+        /// needed to send telemetry to Application Insights.
+        /// </summary>
+        internal static TelemetryConfiguration Active
+        {
+            get
+            {
+                if (active == null)
+                {
+                    lock (syncRoot)
+                    {
+                        if (active == null)
+                        {
+                            active = new TelemetryConfiguration();
+                            TelemetryConfigurationFactory.Instance.Initialize(active);
+                        }
+                    }
+                }
+
+                return active;
+            }
+
+            set
+            {
+                lock (syncRoot)
+                {
+                    active = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Gets or sets a value indicating whether sending of telemetry to Application Insights is disabled.
         /// </summary>
         /// <remarks>
         /// This disable tracking setting value is used by default by all <see cref="TelemetryClient"/> instances
         /// created in the application. 
         /// </remarks>
-        public bool DisableTelemetry
+        internal bool DisableTelemetry
         {
             get
             {

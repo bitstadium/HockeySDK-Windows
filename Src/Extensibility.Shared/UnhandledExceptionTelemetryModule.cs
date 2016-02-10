@@ -19,7 +19,6 @@
     /// </summary>
     internal sealed partial class UnhandledExceptionTelemetryModule : ITelemetryModule, IDisposable
     {
-        private Task initialized;
         private TelemetryClient client;
 
         /// <summary>
@@ -30,18 +29,13 @@
         }
         
         internal bool AlwaysHandleExceptions { get; set; }
-
-        internal Task Initialized
-        {
-            get { return this.initialized; }
-        }
         
         /// <summary>
         /// Unsubscribe from the <see cref="Application.UnhandledException"/> event.
         /// </summary>
         public void Dispose()
         {
-            PlatformDispatcher.RunAsync(() => Application.Current.UnhandledException -= this.ApplicationOnUnhandledException).Wait();
+            Application.Current.UnhandledException -= this.ApplicationOnUnhandledException;
         }
 
         /// <summary>
@@ -49,7 +43,7 @@
         /// </summary>
         public void Initialize(TelemetryConfiguration configuration)
         {
-            LazyInitializer.EnsureInitialized(ref this.initialized, () => this.InitializeAsync());
+            Application.Current.UnhandledException += this.ApplicationOnUnhandledException;
         }
         
         /// <summary>
