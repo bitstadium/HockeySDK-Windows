@@ -191,19 +191,6 @@
         internal ITelemetryChannel TelemetryChannel { get; set; }
 
         /// <summary>
-        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.
-        /// If the configuration file does not exist, the new configuration instance is initialized with minimum defaults 
-        /// needed to send telemetry to Application Insights.
-        /// </summary>
-        public static TelemetryConfiguration CreateDefault()
-        {
-            var configuration = new TelemetryConfiguration();
-            TelemetryConfigurationFactory.Instance.Initialize(configuration);
-
-            return configuration;
-        }
-
-        /// <summary>
         /// Releases resources used by the current instance of the <see cref="TelemetryConfiguration"/> class.
         /// </summary>
         public void Dispose()
@@ -212,7 +199,20 @@
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
-        
+
+        /// <summary>
+        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.
+        /// If the configuration file does not exist, the new configuration instance is initialized with minimum defaults 
+        /// needed to send telemetry to Application Insights.
+        /// </summary>
+        internal static TelemetryConfiguration CreateDefault()
+        {
+            var configuration = new TelemetryConfiguration();
+            TelemetryConfigurationFactory.Instance.Initialize(configuration);
+
+            return configuration;
+        }
+
         private void Dispose(bool disposing)
         {
             if (disposing)
