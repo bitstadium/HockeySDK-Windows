@@ -41,33 +41,6 @@
         }
 
         /// <summary>
-        /// Gets or sets the default instrumentation key for the application.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">The new value is null.</exception>
-        /// <remarks>
-        /// This instrumentation key value is used by default by all <see cref="TelemetryClient"/> instances
-        /// created in the application. This value can be overwritten by setting the <see cref="TelemetryContext.InstrumentationKey"/>
-        /// property of the <see cref="TelemetryClient.Context"/>.
-        /// </remarks>
-        public string InstrumentationKey
-        {
-            get
-            {
-                return this.instrumentationKey;
-            }
-
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("value");
-                }
-
-                this.instrumentationKey = value;
-            }
-        }
-
-        /// <summary>
         /// Gets or sets Windows Collectors.
         /// </summary>
         public WindowsCollectors Collectors
@@ -121,6 +94,33 @@
                 {
                     active = value;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the default instrumentation key for the application.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">The new value is null.</exception>
+        /// <remarks>
+        /// This instrumentation key value is used by default by all <see cref="TelemetryClient"/> instances
+        /// created in the application. This value can be overwritten by setting the <see cref="TelemetryContext.InstrumentationKey"/>
+        /// property of the <see cref="TelemetryClient.Context"/>.
+        /// </remarks>
+        internal string InstrumentationKey
+        {
+            get
+            {
+                return this.instrumentationKey;
+            }
+
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("value");
+                }
+
+                this.instrumentationKey = value;
             }
         }
 
