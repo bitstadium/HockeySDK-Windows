@@ -8,7 +8,8 @@
     using Channel;
     using DataContracts;
     using Extensibility;
-    using Microsoft.HockeyApp.Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
 
 #if WINRT || WINDOWS_UWP
     using global::Windows.UI.Xaml;
@@ -55,6 +56,8 @@
         /// </summary>
         internal void ApplicationOnUnhandledException(object sender, object e)
         {
+            try
+            {
 #if DEBUG
                 global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
 #endif
@@ -79,6 +82,11 @@
 #endif
                 this.client.Track(exceptionTelemetry);
                 this.client.Flush();
+            }
+            catch (Exception ex)
+            {
+                CoreEventSource.Log.LogError("HockeySDK: An exeption occured in UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException: " + ex);
+            }
         }
     }
 }

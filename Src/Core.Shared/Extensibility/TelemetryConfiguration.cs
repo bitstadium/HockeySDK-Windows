@@ -57,6 +57,14 @@
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the internal diagnostics is enabled.
+        /// </summary>
+        public bool EnableDiagnostics
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets a callback that is called when an unhandled exception happens and the returns a string that is added as additional description of the exception.
         /// </summary>
         public Func<Exception, string> DescriptionLoader

@@ -1,12 +1,14 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
     using Extensibility.Windows;
 
     using global::Windows.ApplicationModel.Activation;
@@ -21,6 +23,7 @@
     {
         private static PageViewTelemetryModule pageViewModule = null;
         private static UnhandledExceptionTelemetryModule unhandledExceptionModule = null;
+        private static DiagnosticsListener listener;
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
@@ -54,6 +57,11 @@
             if (configuration == null)
             {
                 configuration = new TelemetryConfiguration();
+            }
+
+            if (configuration.EnableDiagnostics)
+            {
+                EnableDiagnostics();
             }
 
             configuration.InstrumentationKey = instrumentationKey;
@@ -136,5 +144,11 @@
             }
         }
 #endif
+
+        private static void EnableDiagnostics()
+        {
+            var diagnosticSenders = new List<IDiagnosticsSender>() { new F5DiagnosticsSender() };
+            listener = new DiagnosticsListener(diagnosticSenders);
+        }
     }
 }

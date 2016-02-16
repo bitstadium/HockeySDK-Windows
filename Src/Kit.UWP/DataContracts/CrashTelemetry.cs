@@ -55,63 +55,57 @@
                 {
                     this.Attachments.Description = TelemetryConfiguration.Active.DescriptionLoader(exception);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    CoreEventSource.Log.LogVerbose("DescriptionLoader callback fired an exception: " + exception);
+                    CoreEventSource.Log.LogError("HockeySDK: An exception occured in TelemetryConfiguration.Active.DescriptionLoader callback : " + ex);
                 }
             }
 
-            CrashTelemetryThread thread = new CrashTelemetryThread
-                                                {
-                                                    Id = Environment.CurrentManagedThreadId
-                                                };
+            CrashTelemetryThread thread = new CrashTelemetryThread { Id = Environment.CurrentManagedThreadId };
             this.Threads.Add(thread);
+            HashSet<long> seenBinaries = new HashSet<long>();
 
-            // we can extract stack frames only if application is compiled with native tool chain.
-            if (Extensibility.DeviceContextReader.IsNativeEnvironment(exception))
+            StackTrace stackTrace = new StackTrace(exception, true);
+            var frames = stackTrace.GetFrames();
+
+            // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
+            // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
+            // and we can extract the frame addresses or not.
+            if (frames != null && frames.Length > 0 && frames[0].HasNativeImage())
             {
-                HashSet<long> seenBinaries = new HashSet<long>();
-
-                StackTrace stackTrace = new StackTrace(exception, true);
-                var frames = stackTrace.GetFrames();
-
-                // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
-                if (frames != null)
+                foreach (StackFrame frame in stackTrace.GetFrames())
                 {
-                    foreach (StackFrame frame in stackTrace.GetFrames())
+                    CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
                     {
-                        CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
-                        {
-                            Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
-                        };
-                        thread.Frames.Add(crashFrame);
+                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
+                    };
+                    thread.Frames.Add(crashFrame);
 
-                        long nativeImageBase = frame.GetNativeImageBase().ToInt64();
-                        if (seenBinaries.Contains(nativeImageBase) == true)
-                        {
-                            continue;
-                        }
-
-                        PEImageReader reader = new PEImageReader(frame.GetNativeImageBase());
-                        PEImageReader.CodeViewDebugData codeView = reader.Parse();
-                        if (codeView == null)
-                        {
-                            continue;
-                        }
-
-                        CrashTelemetryBinary crashBinary = new CrashTelemetryBinary
-                        {
-                            StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
-                            EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
-                            Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
-                            Path = codeView.PdbPath,
-                            Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
-                            CpuType = Extensibility.DeviceContextReader.GetProcessorArchitecture()
-                        };
-
-                        this.Binaries.Add(crashBinary);
-                        seenBinaries.Add(nativeImageBase);
+                    long nativeImageBase = frame.GetNativeImageBase().ToInt64();
+                    if (seenBinaries.Contains(nativeImageBase) == true)
+                    {
+                        continue;
                     }
+
+                    PEImageReader reader = new PEImageReader(frame.GetNativeImageBase());
+                    PEImageReader.CodeViewDebugData codeView = reader.Parse();
+                    if (codeView == null)
+                    {
+                        continue;
+                    }
+
+                    CrashTelemetryBinary crashBinary = new CrashTelemetryBinary
+                    {
+                        StartAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
+                        EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", nativeImageBase),
+                        Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
+                        Path = codeView.PdbPath,
+                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
+                        CpuType = Extensibility.DeviceContextReader.GetProcessorArchitecture()
+                    };
+
+                    this.Binaries.Add(crashBinary);
+                    seenBinaries.Add(nativeImageBase);
                 }
             }
 
