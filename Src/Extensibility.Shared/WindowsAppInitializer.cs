@@ -64,8 +64,6 @@
                 EnableDiagnostics();
             }
 
-            Watson.WatsonIntegration.Integrate(instrumentationKey);
-
             configuration.InstrumentationKey = instrumentationKey;
             if (configuration.Collectors.HasFlag(WindowsCollectors.Metadata))
             {
