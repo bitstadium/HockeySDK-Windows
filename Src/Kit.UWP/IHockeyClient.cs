@@ -1,5 +1,8 @@
 ﻿namespace Microsoft.HockeyApp
 {
+    using System;
+    using Microsoft.HockeyApp.Extensibility;
+
     /// <summary>
     /// Public Interface for HockeyClient. 
     /// </summary>
@@ -9,7 +12,7 @@
         /// Bootstraps HockeyApp SDK.
         /// </summary>
         /// <param name="appId">App ID.</param>
-        /// <param name="endpointAddress">The http address where the telemetry is sent.</param>
-        void Configure(string appId, string endpointAddress = null);
+        /// <param name="configuration">Telemetry configuration.</param>
+        void Configure(string appId, TelemetryConfiguration configuration = null);
     }
 }

@@ -79,11 +79,11 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
                             {
                                 foreach (Exception e in ((AggregateException)exception).InnerExceptions)
                                 {
-                                    CoreEventSource.Log.LogError(e.ToString());
+                                    CoreEventSource.Log.LogError("HockeySDK: An exception occured in TaskTimer.OnStart: " + e);
                                 }
                             }
 
-                            CoreEventSource.Log.LogError(exception.ToString());
+                            CoreEventSource.Log.LogError("HockeySDK: An exception occured in TaskTimer.OnStart: " + exception);
                         }
                     },
                     CancellationToken.None,

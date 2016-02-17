@@ -8,7 +8,8 @@
     using Channel;
     using DataContracts;
     using Extensibility;
-    using Microsoft.HockeyApp.Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
 
 #if WINRT || WINDOWS_UWP
     using global::Windows.UI.Xaml;
@@ -19,7 +20,6 @@
     /// </summary>
     internal sealed partial class UnhandledExceptionTelemetryModule : ITelemetryModule, IDisposable
     {
-        private Task initialized;
         private TelemetryClient client;
 
         /// <summary>
@@ -30,18 +30,13 @@
         }
         
         internal bool AlwaysHandleExceptions { get; set; }
-
-        internal Task Initialized
-        {
-            get { return this.initialized; }
-        }
         
         /// <summary>
         /// Unsubscribe from the <see cref="Application.UnhandledException"/> event.
         /// </summary>
         public void Dispose()
         {
-            PlatformDispatcher.RunAsync(() => Application.Current.UnhandledException -= this.ApplicationOnUnhandledException).Wait();
+            Application.Current.UnhandledException -= this.ApplicationOnUnhandledException;
         }
 
         /// <summary>
@@ -49,7 +44,7 @@
         /// </summary>
         public void Initialize(TelemetryConfiguration configuration)
         {
-            LazyInitializer.EnsureInitialized(ref this.initialized, () => this.InitializeAsync());
+            Application.Current.UnhandledException += this.ApplicationOnUnhandledException;
         }
         
         /// <summary>
@@ -61,6 +56,8 @@
         /// </summary>
         internal void ApplicationOnUnhandledException(object sender, object e)
         {
+            try
+            {
 #if DEBUG
                 global::System.Diagnostics.Debug.WriteLine("UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException started successfully");
 #endif
@@ -85,6 +82,11 @@
 #endif
                 this.client.Track(exceptionTelemetry);
                 this.client.Flush();
+            }
+            catch (Exception ex)
+            {
+                CoreEventSource.Log.LogError("HockeySDK: An exeption occured in UnhandledExceptionTelemetryModule.ApplicationOnUnhandledException: " + ex);
+            }
         }
     }
 }

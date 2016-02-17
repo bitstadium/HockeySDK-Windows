@@ -8,12 +8,7 @@
     /// <summary>
     /// Encapsulates arguments of the event.
     /// </summary>
-#if WINRT || WINDOWS_UWP
-    internal
-#else
-    internal 
-#endif
-    class ApplicationStoppingEventArgs : EventArgs
+    internal class ApplicationStoppingEventArgs : EventArgs
     {
         internal static new readonly ApplicationStoppingEventArgs Empty = new ApplicationStoppingEventArgs(asyncMethod => asyncMethod());
 
@@ -43,11 +38,10 @@
             }
             catch (Exception exception)
             {
-                string message = string.Format(
+                CoreEventSource.Log.LogError(string.Format(
                     CultureInfo.InvariantCulture,
-                    "Unexpected excption when handling IApplicationLifecycle.Stopping event:{0}",
-                    exception.ToString());
-                CoreEventSource.Log.LogError(message);
+                    "HockeySDK: Unexpected excption when handling IApplicationLifecycle.Stopping event:{0}",
+                    exception.ToString()));
             }            
         }
     }

@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
     using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -47,18 +48,31 @@
             this.headers.ExceptionCode = "N/A";
             this.headers.ExceptionAddress = "N/A";
 
-            CrashTelemetryThread thread = new CrashTelemetryThread
-                                                {
-                                                    Id = Environment.CurrentManagedThreadId
-                                                };
-            this.Threads.Add(thread);
-
-            // we can extract stack frames only if application is compiled with native tool chain.
-            if (Microsoft.HockeyApp.Extensibility.DeviceContextReader.IsNativeEnvironment(exception))
+            var description = string.Empty;
+            if (TelemetryConfiguration.Active.DescriptionLoader != null)
             {
-                HashSet<long> seenBinaries = new HashSet<long>();
+                try
+                {
+                    this.Attachments.Description = TelemetryConfiguration.Active.DescriptionLoader(exception);
+                }
+                catch (Exception ex)
+                {
+                    CoreEventSource.Log.LogError("HockeySDK: An exception occured in TelemetryConfiguration.Active.DescriptionLoader callback : " + ex);
+                }
+            }
 
-                StackTrace stackTrace = new StackTrace(exception, true);
+            CrashTelemetryThread thread = new CrashTelemetryThread { Id = Environment.CurrentManagedThreadId };
+            this.Threads.Add(thread);
+            HashSet<long> seenBinaries = new HashSet<long>();
+
+            StackTrace stackTrace = new StackTrace(exception, true);
+            var frames = stackTrace.GetFrames();
+
+            // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
+            // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
+            // and we can extract the frame addresses or not.
+            if (frames != null && frames.Length > 0 && frames[0].HasNativeImage())
+            {
                 foreach (StackFrame frame in stackTrace.GetFrames())
                 {
                     CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame

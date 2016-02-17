@@ -37,8 +37,7 @@
             }
             catch (Exception exception)
             {
-                CoreEventSource.Log.LogVerbose(
-                    "Got an exception from an action using the UI dispatcher: " + exception);
+                CoreEventSource.Log.LogVerbose("Got an exception from an action using the UI dispatcher: " + exception);
                 return Task.FromResult((object)null);
             }
         }

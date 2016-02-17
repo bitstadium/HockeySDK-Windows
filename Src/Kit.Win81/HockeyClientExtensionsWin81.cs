@@ -43,7 +43,7 @@ namespace Microsoft.HockeyApp
                 }
             };
 
-            WindowsAppInitializer.InitializeAsync(appIdentifier, WindowsCollectors.Metadata | WindowsCollectors.Session, endpointAddress);
+            WindowsAppInitializer.InitializeAsync(appIdentifier, new TelemetryConfiguration() { Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, EndpointAddress = endpointAddress });
             return @this as IHockeyClientConfigurable;
         }
 

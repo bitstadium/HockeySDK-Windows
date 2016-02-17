@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
+    using System.Globalization;
     using Channel;
     using DataContracts;
 
@@ -8,7 +9,7 @@
     {
         public static void WriteEnvelopeProperties(this ITelemetry telemetry, IJsonWriter json)
         {
-            json.WriteProperty("time", telemetry.Timestamp.ToString("o", System.Globalization.CultureInfo.InvariantCulture));
+            json.WriteProperty("time", telemetry.Timestamp.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
             json.WriteProperty("seq", telemetry.Sequence);
             ((IJsonSerializable)telemetry.Context).Serialize(json);
         }

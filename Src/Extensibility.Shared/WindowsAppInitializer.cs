@@ -1,12 +1,14 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
     using System.Threading;
     using System.Threading.Tasks;
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
+    using Extensibility.Implementation.Tracing;
     using Extensibility.Windows;
 
     using global::Windows.ApplicationModel.Activation;
@@ -19,30 +21,25 @@
     /// </summary>
     internal static class WindowsAppInitializer
     {
-        private static WindowsCollectors collectors;
-        private static TimeSpan defaultDelayTime = TimeSpan.FromSeconds(2);
-        private static TaskCompletionSource<TelemetryConfiguration> configurationTask = null;
         private static PageViewTelemetryModule pageViewModule = null;
         private static UnhandledExceptionTelemetryModule unhandledExceptionModule = null;
-        private static string instrumentationKey = string.Empty;
-        private static string endpointAddress = string.Empty;
+        private static DiagnosticsListener listener;
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
-        /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
+        /// <param name="instrumentationKey">Telemetry configuration.</param>
         /// </summary>
-        public static Task InitializeAsync(WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.PageView)
+        public static Task InitializeAsync(string instrumentationKey)
         {
-            return InitializeAsync(string.Empty, collectors, null);
+            return InitializeAsync(instrumentationKey, null);
         }
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
-        /// <param name="instrumentationKey">InstrumentationKey obtain from http://portal.azure.com</param>
-        /// <param name="endpointAddress">The HTTP address where the telemetry is sent</param>
-        /// <param name="collectors">Enumeration flag <see cref="WindowsCollectors"/> specifying automatic collectors. By default enable all collectors.</param>
+        /// <param name="instrumentationKey">Telemetry configuration.</param>
+        /// <param name="configuration">Telemetry configuration.</param>
         /// </summary>
-        public static Task InitializeAsync(string instrumentationKey, WindowsCollectors collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, string endpointAddress = null)
+        public static Task InitializeAsync(string instrumentationKey, TelemetryConfiguration configuration)
         {
             Guid instrumentationKeyGuid;
             if (!Guid.TryParse(instrumentationKey, out instrumentationKeyGuid))
@@ -52,47 +49,25 @@
 
             // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
             instrumentationKey = instrumentationKeyGuid.ToString("D");
+            return Task.Delay(TimeSpan.FromSeconds(2)).ContinueWith(t => Initalize(instrumentationKey, configuration));
+        }
+
+        private static void Initalize(string instrumentationKey, TelemetryConfiguration configuration)
+        {
+            if (configuration == null)
+            {
+                configuration = new TelemetryConfiguration();
+            }
+
+            if (configuration.EnableDiagnostics)
+            {
+                EnableDiagnostics();
+            }
 
             Watson.WatsonIntegration.Integrate(instrumentationKey);
 
-            // ToDo: Clarify whether we need to this for UWP
-#if WINRT
-            if (collectors.HasFlag(WindowsCollectors.PageView) || 
-                collectors.HasFlag(WindowsCollectors.UnhandledException))
-            {
-                CoreApplicationView view = CoreApplication.GetCurrentView();
-                if (view != null)
-                {
-                    view.Activated += ViewOnActivated;
-                    configurationTask = new TaskCompletionSource<TelemetryConfiguration>();
-                    defaultDelayTime = TimeSpan.FromMilliseconds(500);
-                }
-            }
-#endif
-            if (!string.IsNullOrEmpty(instrumentationKey))
-            {
-                WindowsAppInitializer.instrumentationKey = instrumentationKey;
-            }
-
-            if (!string.IsNullOrEmpty(endpointAddress))
-            {
-                WindowsAppInitializer.endpointAddress = endpointAddress;
-            }
-
-            WindowsAppInitializer.collectors = collectors;
-
-            return Task.Delay(defaultDelayTime).ContinueWith(t => Initalize());
-        }
-
-        private static void Initalize()
-        {
-            TelemetryConfiguration configuration = new TelemetryConfiguration
-            {
-                // default value of the iKey is string.empty
-                InstrumentationKey = WindowsAppInitializer.instrumentationKey
-            };
-
-            if (WindowsAppInitializer.collectors.HasFlag(WindowsCollectors.Metadata))
+            configuration.InstrumentationKey = instrumentationKey;
+            if (configuration.Collectors.HasFlag(WindowsCollectors.Metadata))
             {
                 configuration.ContextInitializers.Add(new DeviceContextInitializer());
                 configuration.ContextInitializers.Add(new ComponentContextInitializer());
@@ -100,26 +75,24 @@
             }
 
             configuration.TelemetryChannel = new PersistenceChannel();
-            if (!string.IsNullOrEmpty(endpointAddress)) 
+            if (!string.IsNullOrEmpty(configuration.EndpointAddress)) 
             {
-                configuration.TelemetryChannel.EndpointAddress = endpointAddress;
+                configuration.TelemetryChannel.EndpointAddress = configuration.EndpointAddress;
             }
 
             TelemetryConfigurationFactory.Instance.Initialize(configuration);
             TelemetryConfiguration.Active = configuration;
 
-            if (WindowsAppInitializer.collectors.HasFlag(WindowsCollectors.Session))
+            if (configuration.Collectors.HasFlag(WindowsCollectors.Session))
             {
                 SessionTelemetryModule sessionModule = new SessionTelemetryModule();
                 sessionModule.Initialize(configuration);
                 TelemetryModules.Instance.Modules.Add(sessionModule);
             }
 
-            if (WindowsAppInitializer.collectors.HasFlag(WindowsCollectors.PageView))
+            if (configuration.Collectors.HasFlag(WindowsCollectors.PageView))
             {
-                LazyInitializer.EnsureInitialized(
-                    ref WindowsAppInitializer.pageViewModule,
-                    () => new PageViewTelemetryModule());
+                LazyInitializer.EnsureInitialized(ref WindowsAppInitializer.pageViewModule, () => new PageViewTelemetryModule());
 
 #if WINDOWS_PHONE
                 WindowsAppInitializer.pageViewModule.Initialize(configuration);
@@ -127,28 +100,30 @@
                 TelemetryModules.Instance.Modules.Add(WindowsAppInitializer.pageViewModule);
             }
 
-            if (WindowsAppInitializer.collectors.HasFlag(WindowsCollectors.UnhandledException))
+            if (configuration.Collectors.HasFlag(WindowsCollectors.UnhandledException))
             {
-                LazyInitializer.EnsureInitialized(
-                    ref WindowsAppInitializer.unhandledExceptionModule,
-                    () => new UnhandledExceptionTelemetryModule());
+                LazyInitializer.EnsureInitialized(ref WindowsAppInitializer.unhandledExceptionModule, () => new UnhandledExceptionTelemetryModule());
 #if WINDOWS_PHONE || WINDOWS_UWP
                 WindowsAppInitializer.unhandledExceptionModule.Initialize(configuration);
 #endif
                 TelemetryModules.Instance.Modules.Add(WindowsAppInitializer.unhandledExceptionModule);
             }
 
-            if (WindowsAppInitializer.configurationTask != null)
+#if WINRT
+            if (configuration.Collectors.HasFlag(WindowsCollectors.PageView) || configuration.Collectors.HasFlag(WindowsCollectors.UnhandledException))
             {
-                WindowsAppInitializer.configurationTask.TrySetResult(configuration);
+                CoreApplicationView view = CoreApplication.GetCurrentView();
+                if (view != null)
+                {
+                    view.Activated += ViewOnActivated;
+                }
             }
+#endif
         }
 
 #if WINRT
         private static void ViewOnActivated(CoreApplicationView sender, IActivatedEventArgs args)
         {
-            // Waiting that the initialization of the module and configuration is done before initializing the modules
-            TelemetryConfiguration configuration = WindowsAppInitializer.configurationTask.Task.ConfigureAwait(false).GetAwaiter().GetResult();
             try
             {
                 CoreDispatcher dispatcher = sender.Dispatcher;
@@ -160,7 +135,7 @@
 
                 if (WindowsAppInitializer.unhandledExceptionModule != null)
                 {
-                    Task donAwaitTask = WindowsAppInitializer.unhandledExceptionModule.InitializeAsync(dispatcher);
+                    WindowsAppInitializer.unhandledExceptionModule.Initialize(null);
                 }
 
                 sender.Activated -= ViewOnActivated;
@@ -171,5 +146,11 @@
             }
         }
 #endif
+
+        private static void EnableDiagnostics()
+        {
+            var diagnosticSenders = new List<IDiagnosticsSender>() { new F5DiagnosticsSender() };
+            listener = new DiagnosticsListener(diagnosticSenders);
+        }
     }
 }

@@ -57,6 +57,7 @@
             this.adapterBinaries.SyncPrivateToPublic();
 
             this.context = new TelemetryContext(new Dictionary<string, string>(), new Dictionary<string, string>());
+            this.Attachments = new Attachments();
         }
 
         /// <summary>
@@ -99,6 +100,11 @@
         public IList<CrashTelemetryBinary> Binaries
         {
             get { return this.adapterBinaries; }
+        }
+
+        public Attachments Attachments
+        {
+            get;
         }
 
         /// <summary>

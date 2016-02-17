@@ -15,7 +15,7 @@
             {
                 // Do not use await here because ASP.NET does not allow that and throws
                 asyncMethod().ContinueWith(
-                    task => CoreEventSource.Log.LogError(task.Exception.ToString()),
+                    task => CoreEventSource.Log.LogError("HockeySDK: An exception occured in ExceptionHandler.Start: " + task.Exception),
                     TaskContinuationOptions.OnlyOnFaulted);
             }
             catch (Exception exp)

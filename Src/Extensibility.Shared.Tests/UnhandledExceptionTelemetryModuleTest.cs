@@ -45,15 +45,5 @@
         {
             Assert.True(typeof(UnhandledExceptionTelemetryModule).GetTypeInfo().IsPublic);
         }
-        
-        [TestMethod]
-        public async Task InitializeInitializesModuleAsynchronously()
-        {
-            using (var module = new UnhandledExceptionTelemetryModule())
-            {
-                module.Initialize(new TelemetryConfiguration() { TelemetryChannel = new StubTelemetryChannel() });
-                await module.Initialized;
-            }
-        }
     }
 }

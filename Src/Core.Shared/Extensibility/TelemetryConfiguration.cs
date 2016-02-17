@@ -1,4 +1,4 @@
-﻿namespace Microsoft.HockeyApp.Extensibility
+﻿namespace Microsoft.HockeyApp
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using DataContracts;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
+    using Microsoft.HockeyApp.Extensibility;
 
     /// <summary>
     /// Encapsulates the global telemetry configuration typically loaded from the configuration file.
@@ -15,7 +16,7 @@
     /// All <see cref="TelemetryContext"/> objects are initialized using the <see cref="Active"/> 
     /// telemetry configuration provided by this class.
     /// </remarks>
-    internal sealed class TelemetryConfiguration : IDisposable
+    public sealed class TelemetryConfiguration : IDisposable
     {
         private static object syncRoot = new object();
         private static TelemetryConfiguration active;
@@ -27,14 +28,59 @@
         private bool disableTelemetry = false;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="TelemetryConfiguration" /> class.
+        /// </summary>
+        public TelemetryConfiguration()
+        {
+            this.Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session;
+#if WINDOWS_UWP
+            // only for UWP we are using Application Insights exception telemetry pipeline. For all other platforms we are using HockeyApp exception pipeline.
+            // ToDo: Refactor this code in future to use single pipeline.
+            this.Collectors |= WindowsCollectors.UnhandledException;
+#endif
+        }
+
+        /// <summary>
+        /// Gets or sets Windows Collectors.
+        /// </summary>
+        public WindowsCollectors Collectors
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets Endpoint address.
+        /// </summary>
+        public string EndpointAddress
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the internal diagnostics is enabled.
+        /// </summary>
+        public bool EnableDiagnostics
+        {
+            get; set;
+        }
+
+        /// <summary>
+        /// Gets or sets a callback that is called when an unhandled exception happens and the returns a string that is added as additional description of the exception.
+        /// </summary>
+        public Func<Exception, string> DescriptionLoader
+        {
+            get; set;
+        }
+
+        /// <summary>
         /// Gets or sets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
         /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
         /// needed to send telemetry to Application Insights.
         /// </summary>
-        public static TelemetryConfiguration Active
+        internal static TelemetryConfiguration Active
         {
-            get 
-            { 
+            get
+            {
                 if (active == null)
                 {
                     lock (syncRoot)
@@ -50,7 +96,7 @@
                 return active;
             }
 
-            internal set 
+            set
             {
                 lock (syncRoot)
                 {
@@ -68,7 +114,7 @@
         /// created in the application. This value can be overwritten by setting the <see cref="TelemetryContext.InstrumentationKey"/>
         /// property of the <see cref="TelemetryClient.Context"/>.
         /// </remarks>
-        public string InstrumentationKey
+        internal string InstrumentationKey
         {
             get
             {
@@ -93,7 +139,7 @@
         /// This disable tracking setting value is used by default by all <see cref="TelemetryClient"/> instances
         /// created in the application. 
         /// </remarks>
-        public bool DisableTelemetry
+        internal bool DisableTelemetry
         {
             get
             {
@@ -153,19 +199,6 @@
         internal ITelemetryChannel TelemetryChannel { get; set; }
 
         /// <summary>
-        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.
-        /// If the configuration file does not exist, the new configuration instance is initialized with minimum defaults 
-        /// needed to send telemetry to Application Insights.
-        /// </summary>
-        public static TelemetryConfiguration CreateDefault()
-        {
-            var configuration = new TelemetryConfiguration();
-            TelemetryConfigurationFactory.Instance.Initialize(configuration);
-
-            return configuration;
-        }
-
-        /// <summary>
         /// Releases resources used by the current instance of the <see cref="TelemetryConfiguration"/> class.
         /// </summary>
         public void Dispose()
@@ -174,7 +207,20 @@
             this.Dispose(true);
             GC.SuppressFinalize(this);
         }
-        
+
+        /// <summary>
+        /// Creates a new <see cref="TelemetryConfiguration"/> instance loaded from the configuration file.
+        /// If the configuration file does not exist, the new configuration instance is initialized with minimum defaults 
+        /// needed to send telemetry to Application Insights.
+        /// </summary>
+        internal static TelemetryConfiguration CreateDefault()
+        {
+            var configuration = new TelemetryConfiguration();
+            TelemetryConfigurationFactory.Instance.Initialize(configuration);
+
+            return configuration;
+        }
+
         private void Dispose(bool disposing)
         {
             if (disposing)

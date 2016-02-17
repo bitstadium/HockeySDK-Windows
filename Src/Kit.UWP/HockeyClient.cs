@@ -20,11 +20,20 @@
         /// <summary>
         /// Bootstraps HockeyApp SDK.
         /// </summary>
-        /// <param name="appId">App ID.</param>
-        /// <param name="endpointAddress">The http address where the telemetry is sent.</param>
-        public void Configure(string appId, string endpointAddress = null)
+        /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
+        public void Configure(string appId)
         {
-            WindowsAppInitializer.InitializeAsync(appId, WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException, endpointAddress);
+            WindowsAppInitializer.InitializeAsync(appId, null);
+        }
+
+        /// <summary>
+        /// Bootstraps HockeyApp SDK.
+        /// </summary>
+        /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
+        /// <param name="configuration">Telemetry Configuration.</param>
+        public void Configure(string appId, TelemetryConfiguration configuration)
+        {
+            WindowsAppInitializer.InitializeAsync(appId, configuration);
         }
     }
 }
