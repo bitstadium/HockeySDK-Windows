@@ -38,6 +38,7 @@ namespace Microsoft.HockeyApp.Extensibility
             this.InitializeDeviceId(reader, context);
             this.InitializeNetworkType(reader, context);
             this.InitializeDeviceOS(reader, context);
+            this.InitializeLanguage(reader, context);
         }
 
         private async Task InitializeDeviceType(IDeviceContextReader reader, TelemetryContext context)
