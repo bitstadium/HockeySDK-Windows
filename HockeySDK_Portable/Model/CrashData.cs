@@ -175,13 +175,12 @@ namespace HockeyApp.Model
             }
 
         }
-    }
 
-    /// <summary>
-    /// serialize data to a stream
-    /// </summary>
-    /// <param name="outputStream"></param>
-    public void Serialize(Stream outputStream)
+        /// <summary>
+        /// serialize data to a stream
+        /// </summary>
+        /// <param name="outputStream"></param>
+        public void Serialize(Stream outputStream)
         {
             DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(CrashData));
             serializer.WriteObject(outputStream, this);
