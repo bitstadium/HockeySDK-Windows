@@ -211,7 +211,7 @@ namespace Microsoft.HockeyApp.Watson
 
         public void WriteIntegratationEvent(string hockeyAppIKey)
         {
-            this.Write("HockeyAppWatsonIdentification", new EventSourceOptions() { Keywords = TelemetryKeyword }, new HockeyAppIdentity() { PartA_iKey = hockeyAppIKey, HockeyAppCorrelationGuid = System.Guid.NewGuid().ToString() });
+            this.Write("HockeyAppWatsonIdentification", new EventSourceOptions() { Keywords = TelemetryKeyword }, new HockeyAppIdentity() { iKey = hockeyAppIKey, HockeyAppCorrelationGuid = System.Guid.NewGuid().ToString() });
         }
     }
 
@@ -221,7 +221,7 @@ namespace Microsoft.HockeyApp.Watson
     [EventData]
     internal class HockeyAppIdentity
     {
-        public string PartA_iKey { get; set; }
+        public string iKey { get; set; }
 
         /// <summary>
         /// Gets or sets a GUID in HockeyApp UTC event as well.
