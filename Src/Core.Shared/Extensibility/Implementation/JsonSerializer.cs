@@ -632,6 +632,7 @@
                     writer.WriteStartObject();
 
                     writer.WriteProperty("ver", telemetry.Data.ver);
+                    writer.WriteProperty("stackTrace", telemetry.StackTrace);
 
                     // write headers
                     writer.WritePropertyName("headers");
@@ -678,7 +679,6 @@
                         writer.WriteEndObject();
                     }
 
-                    writer.WriteProperty("stackTrace", telemetry.StackTrace);
                     writer.WriteEndObject();
                 }
 
