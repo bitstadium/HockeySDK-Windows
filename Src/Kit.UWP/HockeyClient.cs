@@ -34,7 +34,6 @@
         public void Configure(string appId, TelemetryConfiguration configuration)
         {
             WindowsAppInitializer.InitializeAsync(appId, configuration);
-            Watson.WatsonIntegration.Integrate(new Guid(appId).ToString("D"));
         }
     }
 }

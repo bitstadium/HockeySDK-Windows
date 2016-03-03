@@ -117,6 +117,12 @@
                 }
             }
 #endif
+#if WINDOWS_UWP
+            if (configuration.EnableWatson)
+            {
+                Watson.WatsonIntegration.Integrate(new Guid(instrumentationKey).ToString("D"));
+            }
+#endif
         }
 
 #if WINRT
