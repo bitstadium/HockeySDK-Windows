@@ -120,7 +120,7 @@
 #if WINDOWS_UWP
             if (configuration.EnableWatson)
             {
-                Watson.WatsonIntegration.Integrate(new Guid(instrumentationKey).ToString("D"));
+                Watson.WatsonIntegration.Integrate(instrumentationKey);
             }
 #endif
         }
