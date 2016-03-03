@@ -65,7 +65,7 @@
         }
 
         /// <summary>
-        /// Enables crash reporting integration with Watson system.
+        /// Gets or sets a value indicating whether crash reporting integration with Watson system is enabled.
         /// </summary>
         public bool EnableWatson
         {
