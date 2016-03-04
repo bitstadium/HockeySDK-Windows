@@ -49,7 +49,7 @@
 
             // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
             instrumentationKey = instrumentationKeyGuid.ToString("D");
-            return Task.Delay(TimeSpan.FromSeconds(2)).ContinueWith(t => Initalize(instrumentationKey, configuration));
+            return Task.Delay(TimeSpan.FromSeconds(1)).ContinueWith(t => Initalize(instrumentationKey, configuration));
         }
 
         private static void Initalize(string instrumentationKey, TelemetryConfiguration configuration)
@@ -118,10 +118,12 @@
             }
 #endif
 #if WINDOWS_UWP
-            if (configuration.EnableWatson)
+            if (configuration.Collectors.HasFlag(WindowsCollectors.WatsonData))
             {
                 Watson.WatsonIntegration.Integrate(new Guid(instrumentationKey).ToString("D"));
             }
+
+            HockeyClient.Current.TelemetryClient = new TelemetryClient();
 #endif
         }
 

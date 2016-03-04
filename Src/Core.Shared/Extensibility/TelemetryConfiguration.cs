@@ -65,14 +65,6 @@
         }
 
         /// <summary>
-        /// Enables crash reporting integration with Watson system.
-        /// </summary>
-        public bool EnableWatson
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Gets or sets a callback that is called when an unhandled exception happens and the returns a string that is added as additional description of the exception.
         /// </summary>
         public Func<Exception, string> DescriptionLoader

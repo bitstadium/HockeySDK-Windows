@@ -26,6 +26,11 @@ namespace Microsoft.HockeyApp
         /// <summary>
         /// Auto collection of application crashes from unhandled exception handler. 
         /// </summary>
-        UnhandledException = 1 << 4 // 001000
+        UnhandledException = 1 << 4, // 001000
+
+        /// <summary>
+        /// Auto collection of Watson data.
+        /// </summary>
+        WatsonData = 1 << 5 // 010000
     }
 }
