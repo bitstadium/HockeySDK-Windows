@@ -120,7 +120,7 @@
 #if WINDOWS_UWP
             if (configuration.Collectors.HasFlag(WindowsCollectors.WatsonData))
             {
-                Watson.WatsonIntegration.Integrate(new Guid(instrumentationKey).ToString("D"));
+                Watson.WatsonIntegration.Integrate(instrumentationKey);
             }
 
             HockeyClient.Current.TelemetryClient = new TelemetryClient();
