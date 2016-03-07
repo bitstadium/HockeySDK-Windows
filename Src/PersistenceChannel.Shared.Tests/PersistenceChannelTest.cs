@@ -163,14 +163,15 @@
             public void TestTelemetryClientConstructorOnDeadlock()
             {
                 List<Task> taskList = new List<Task>();
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < 30; i++)
                 {
                     var task = new Task(Action);
                     task.Start();
                     taskList.Add(task);
                 }
 
-                var completed = Task.WaitAll(taskList.ToArray(), 5000);
+                // giving 2 sec for every instance of TelemetryClient to be created.
+                var completed = Task.WaitAll(taskList.ToArray(), taskList.Count * 2000);
                 Assert.IsTrue(completed, "tasks did not finish. Potential deadlock problem.");
             }
 

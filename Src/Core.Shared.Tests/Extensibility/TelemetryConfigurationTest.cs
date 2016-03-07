@@ -33,16 +33,6 @@
         #region Active
 
         [TestMethod]
-        public void ActiveIsPublicToAllowUsersToAccessActiveTelemetryConfigurationInAdvancedScenarios()
-        {
-#if NET35
-            Assert.True(typeof(TelemetryConfiguration).GetTypeInfo().GetDeclaredProperty("Active").GetGetMethod().IsPublic);
-#else
-            Assert.True(typeof(TelemetryConfiguration).GetTypeInfo().GetDeclaredProperty("Active").GetMethod.IsPublic);
-#endif
-        }
-
-        [TestMethod]
         public void ActiveSetterIsInternalAndNotMeantToBeUsedByOurCustomers()
         {
 #if NET35
