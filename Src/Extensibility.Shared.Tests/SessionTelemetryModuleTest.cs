@@ -189,7 +189,7 @@
             {
                 var module = new SessionTelemetryModule(new StubPlatform(), new StubClock());
                 var configuration = new TelemetryConfiguration();
-
+                configuration.TelemetryChannel = new InMemoryChannel();
                 module.Initialize(configuration);
 
                 Assert.Contains(module, configuration.TelemetryInitializers);
