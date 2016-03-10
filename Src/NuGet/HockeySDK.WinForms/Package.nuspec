@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.WinForms</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <copyright>$copyright$</copyright>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkID=510709</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkID=510710</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HockeyApp SDK for WinForms applications. Use HockeyApp to collect crash reports, feedback, and manage beta distribution.</description>
+    <language>en-US</language>
+    <releaseNotes></releaseNotes>
+    <tags>HockeyApp; Windows; WinForms;Crash reports; reporting; feedback; Telemetry; Analytics</tags>
+    <dependencies>
+       <dependency id="HockeySDK.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+
+  <files>
+    <!-- HockeySDK -->
+    <file src="$configuration$\NuGet\HockeySDK.WinForms\tools\**" target="tools" />
+    
+    <!-- Application Insights -->
+    <!-- Binaries for .NET 4.5 projects -->
+    <!-- Currently a hack to get it from WPF binaries, because we don't have access to core -->
+    <file src="$configuration$\Kit.WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
+  </files>
+</package>
