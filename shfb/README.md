@@ -1,1 +1,0 @@
-﻿This folder contains projects to build HTMl reference documentation for the libraries using SandcastelHelpFileBuilder.

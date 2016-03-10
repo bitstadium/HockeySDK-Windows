@@ -1,1 +1,0 @@
-﻿This directory contains the Nuget spec files for HockeySDK.* packages
