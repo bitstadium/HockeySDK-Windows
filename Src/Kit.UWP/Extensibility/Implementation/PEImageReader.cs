@@ -57,6 +57,12 @@
         public const int CodeViewSignature = 0x53445352; // "RSDS" in little endian format
 
         /// <summary>
+        /// SizeOfImage is a 4 byte unsigned value at offset 56 of the COFF optional header, 
+        /// section 3.4.2 in http://download.microsoft.com/download/e/b/a/eba1050f-a31d-436b-9281-92cdfeae4b45/pecoff.doc
+        /// </summary>
+        public const int SizeOfImageOffset = 56;
+
+        /// <summary>
         /// The image base pointer
         /// </summary>
         private IntPtr imageBase;
@@ -79,6 +85,9 @@
             int peHeaderOffset = this.ReadDwordAtFileOffset(PEImageReader.PESignatureOffsetLocation);
             int peOptionalHeaderOffset = peHeaderOffset + 4 + PEImageReader.SizeofCOFFFileHeader;
             int optionalHeaderDirectoryEntriesOffset = 0;
+            int sizeOfImage = ReadDwordAtFileOffset(peOptionalHeaderOffset + 56);
+            IntPtr endAddress = imageBase + sizeOfImage;
+
             PEMagic magic = (PEMagic)this.ReadWordAtFileOffset(peOptionalHeaderOffset);
             if (magic == PEMagic.PEMagic32)
             {
@@ -95,7 +104,7 @@
 
             DirectoryEntry debugDirectoryEntry = this.ReadDebugDirectoryEntry(optionalHeaderDirectoryEntriesOffset);
             DebugDirectory[] debugDirectories = ReadDebugDirectories(debugDirectoryEntry);
-            return this.GetCodeViewDebugData(debugDirectories);
+            return this.GetCodeViewDebugData(debugDirectories, endAddress);
         }
 
         /// <summary>
@@ -212,8 +221,9 @@
         /// Reads the code view debug data from the specified set of debug directories.
         /// </summary>
         /// <param name="debugDirectories">The set of debug directories.</param>
+        /// <param name="endAddress">End Address of the image.</param>
         /// <returns>The code view if found, null otherwise.</returns>
-        private CodeViewDebugData GetCodeViewDebugData(DebugDirectory[] debugDirectories)
+        private CodeViewDebugData GetCodeViewDebugData(DebugDirectory[] debugDirectories, IntPtr endAddress)
         {
             foreach (DebugDirectory debugDirectory in debugDirectories)
             {
@@ -237,7 +247,8 @@
                 CodeViewDebugData codeView = new CodeViewDebugData(
                                         new Guid(reader.ReadBytes(16)),
                                         (int)reader.ReadUInt32(),
-                                        this.ReadNullTerminatedUTF8String(reader));
+                                        this.ReadNullTerminatedUTF8String(reader),
+                                        endAddress);
                 return codeView;
             }
 
@@ -350,11 +361,13 @@
             /// <param name="signature">The signature for this symbol.</param>
             /// <param name="age">The age for this symbol.</param>
             /// <param name="pdbPath">The symbol path for this build.</param>
-            public CodeViewDebugData(Guid signature, int age, string pdbPath)
+            /// <param name="endAddress">EndAddress of the image.</param>
+            public CodeViewDebugData(Guid signature, int age, string pdbPath, IntPtr endAddress)
             {
                 this.Signature = signature;
                 this.Age = age;
                 this.PdbPath = pdbPath;
+                this.EndAddress = endAddress;
             }
 
             /// <summary>
@@ -371,6 +384,11 @@
             /// Gets the path to the symbol file.
             /// </summary>
             public string PdbPath { get; private set; }
+
+            /// <summary>
+            /// Gets image end address.
+            /// </summary>
+            public IntPtr EndAddress { get; private set; }
         }
     }
 }
