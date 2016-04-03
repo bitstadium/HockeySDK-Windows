@@ -1,4 +1,5 @@
-﻿using HockeyApp.Exceptions;
+﻿using System.Globalization;
+using HockeyApp.Exceptions;
 using HockeyApp.Model;
 using System;
 using System.Collections.Generic;
@@ -75,7 +76,9 @@ namespace HockeyApp
                     OperatingSystem = Environment.OSVersion.Platform.ToString(),
                     Windows = Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack,
                     Manufacturer = "",
-                    Model = ""
+                    Model = "",
+                    CurrentUICulture = CultureInfo.CurrentUICulture.DisplayName,
+                    CurrentCulture = CultureInfo.CurrentCulture.DisplayName,
                 };
 
                 ICrashData crash = HockeyClient.Current.AsInternal().CreateCrashData(e, logInfo);

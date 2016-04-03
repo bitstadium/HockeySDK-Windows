@@ -1,4 +1,5 @@
-﻿using HockeyApp.Model;
+﻿using System.Globalization;
+using HockeyApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -822,7 +823,9 @@ namespace HockeyApp
                         Manufacturer = this.PlatformHelper.Manufacturer,
                         Model = this.PlatformHelper.Model,
                         ProductID = this.PlatformHelper.ProductID,
-                        Version = this.PlatformHelper.AppVersion
+                        Version = this.PlatformHelper.AppVersion,
+                        CurrentUICulture = CultureInfo.CurrentUICulture.DisplayName,
+                        CurrentCulture = CultureInfo.CurrentCulture.DisplayName,
                     };
                 }
                 return _crashLogInfo.Value;
