@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="PlatformDispatcher.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">

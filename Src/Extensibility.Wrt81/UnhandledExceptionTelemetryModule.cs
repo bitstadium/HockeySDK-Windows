@@ -63,7 +63,7 @@
 #endif
                 LazyInitializer.EnsureInitialized(ref this.client, () => { return new TelemetryClient(); });
 
-#if WINRT || WINDOWS_UWP
+#if WINRT
                 UnhandledExceptionEventArgs args = (UnhandledExceptionEventArgs)e;
                 Exception eventException = args.Exception;
 #elif SILVERLIGHT
@@ -71,15 +71,8 @@
                 Exception eventException = args.ExceptionObject;
 #endif
 
-#if WINDOWS_UWP
-                ITelemetry exceptionTelemetry;
-                var crashTelemetry = new CrashTelemetry(eventException);
-                crashTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
-                exceptionTelemetry = crashTelemetry;
-#else
                 var exceptionTelemetry = new ExceptionTelemetry(eventException);
                 exceptionTelemetry.HandledAt = ExceptionHandledAt.Unhandled;
-#endif
                 this.client.Track(exceptionTelemetry);
                 this.client.Flush();
             }
