@@ -101,31 +101,7 @@
                 }
             }
 
-            this.StackTrace = RemoveSDKMethodsFromStackTrace(exception.StackTrace);
-        }
-
-        /// <summary>
-        /// Removing SDK methods from the StackTrace. They appear on the stack, because of the implementation of 
-        /// <see cref="Microsoft.HockeyApp.Extensibility.Windows.UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected(object, Windows.ApplicationModel.Core.UnhandledErrorDetectedEventArgs)"/>
-        /// by using try..catch and UnhandledError.Propagate method.
-        /// </summary>
-        /// <param name="stackTrace">original <see cref="System.Exception.StackTrace"/>.</param>
-        /// <returns><see cref="System.Exception.StackTrace"/> with removed SDK methods.</returns>
-        private static string RemoveSDKMethodsFromStackTrace(string stackTrace)
-        {
-            if (string.IsNullOrEmpty(stackTrace))
-            {
-                return stackTrace;
-            }
-
-            string subStr = "\r\n   at Windows.ApplicationModel.Core.UnhandledError.Propagate()\r\n   at Microsoft.HockeyApp.Extensibility.Windows.UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected(Object sender, UnhandledErrorDetectedEventArgs e)";
-            int i = stackTrace.LastIndexOf(subStr, StringComparison.Ordinal);
-            if (i > 0)
-            {
-                stackTrace = stackTrace.Remove(i, subStr.Length);
-            }
-
-            return stackTrace;
+            this.StackTrace = exception.StackTrace;
         }
     }
 }
