@@ -131,12 +131,16 @@ namespace Microsoft.HockeyApp.Extensibility
             return deviceId;
         }
 
+#pragma warning disable 1998
         /// <summary>
         /// Gets the operating system version.
         /// </summary>
         /// <returns>The discovered operating system.</returns>
         public virtual async Task<string> GetOperatingSystemVersionAsync()
         {
+#if WINDOWS_UWP
+            return AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+#else
             string[] requestedProperties = new string[]
                                     {
                                                    DeviceDriverVersionKey,
@@ -158,7 +162,9 @@ namespace Microsoft.HockeyApp.Extensibility
                                               .First();
 
             return guessedVersion;
+#endif
         }
+#pragma warning restore 1998
 
         /// <summary>
         /// Get the name of the manufacturer of this computer.

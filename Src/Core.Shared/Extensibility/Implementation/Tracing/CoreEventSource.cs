@@ -12,9 +12,10 @@
     [EventSource(Name = "Microsoft-HockeyApp-Core")]
     internal sealed class CoreEventSource : EventSource
     {
-        public static readonly CoreEventSource Log = new CoreEventSource();
-
         private readonly ApplicationNameProvider nameProvider = new ApplicationNameProvider();
+
+        public static CoreEventSource Log { get { return Nested.Instance; } }
+
         [Event(
             10,
             Keywords = Keywords.VerboseFailure,
@@ -176,6 +177,19 @@
             /// Keyword for errors that trace at Error level.
             /// </summary>
             public const EventKeywords ErrorFailure = (EventKeywords)EventSourceKeywords.ErrorFailure;
+        }
+
+        /// <summary>
+        /// We are using Singleton with nested class in order to have lazy singleton intialization to prevent memory issue described in a bug #566011
+        /// </summary>
+        private class Nested
+        {
+            // Explicit static constructor to tell C# compiler not to mark type as beforefieldinit
+            static Nested()
+            {
+            }
+
+            internal static readonly CoreEventSource Instance = new CoreEventSource();
         }
     }
 }
