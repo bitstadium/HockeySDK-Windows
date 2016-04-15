@@ -117,9 +117,11 @@
             }
         }
 
-        internal void HandleApplicationStartedEvent(object sender, object e)
+        internal async void HandleApplicationStartedEvent(object sender, object e)
         {
-            this.TrackSessionState();
+            // Resuming event is running on the UI thread. TrackSessionState() can take long time to run, which can show 'Resuming...' message.
+            // We are forcing to run it on a different thread to prevent 'Resuming..' message to be shown and for app to resume faster.
+            await System.Threading.Tasks.Task.Run(() => { TrackSessionState(); }).ConfigureAwait(false);
         }
 
         internal void HandleApplicationStoppingEvent(object sender, object e)
