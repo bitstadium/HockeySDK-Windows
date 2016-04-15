@@ -2,7 +2,7 @@
 {
     internal class Constants
     {
-        internal const string TelemetryServiceEndpoint = "https://dc.services.visualstudio.com/v2/track";
+        internal const string TelemetryServiceEndpoint = "https://gate.hockeyapp.net/v2/track";
 
         internal const string TelemetryNamePrefix = "Microsoft.ApplicationInsights.";
 
