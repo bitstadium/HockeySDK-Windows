@@ -153,7 +153,7 @@ namespace Microsoft.HockeyApp.Extensibility
             ulong v2 = (v & 0x0000FFFF00000000L) >> 32;
             ulong v3 = (v & 0x00000000FFFF0000L) >> 16;
             ulong v4 = (v & 0x000000000000FFFFL);
-            string res = $"{v1}.{v2}.{v3}.{v4}";
+            string res = string.Format("{0}.{1}.{2}.{3}", v1, v2, v3, v4);
             return res;
 #else
             string[] requestedProperties = new string[]
