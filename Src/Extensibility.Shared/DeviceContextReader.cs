@@ -54,6 +54,7 @@ namespace Microsoft.HockeyApp.Extensibility
         {
         }
 
+#pragma warning disable 1998
         /// <summary>
         /// Get the device category this computer belongs to.
         /// </summary>
@@ -61,9 +62,14 @@ namespace Microsoft.HockeyApp.Extensibility
         /// <returns>The category of this device.</returns>
         public async virtual Task<string> GetDeviceType()
         {
+#if WINDOWS_UWP
+            return AnalyticsInfo.VersionInfo.DeviceFamily;
+#else
             var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { DisplayPrimaryCategoryKey });
             return (string)rootContainer.Properties[DisplayPrimaryCategoryKey];
+#endif
         }
+#pragma warning restore 1998
 
         /// <summary>
         /// Gets the device unique identifier.
@@ -139,7 +145,16 @@ namespace Microsoft.HockeyApp.Extensibility
         public virtual async Task<string> GetOperatingSystemVersionAsync()
         {
 #if WINDOWS_UWP
-            return AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+            // For UWP we are going with the new available API that must resolve memory issue described in a bug #566011.
+            // Because for non-uwp we are enumerating all PNP objects, which requires ~2.8 MB.
+            string sv = AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
+            ulong v = ulong.Parse(sv);
+            ulong v1 = (v & 0xFFFF000000000000L) >> 48;
+            ulong v2 = (v & 0x0000FFFF00000000L) >> 32;
+            ulong v3 = (v & 0x00000000FFFF0000L) >> 16;
+            ulong v4 = (v & 0x000000000000FFFFL);
+            string res = $"{v1}.{v2}.{v3}.{v4}";
+            return res;
 #else
             string[] requestedProperties = new string[]
                                     {
