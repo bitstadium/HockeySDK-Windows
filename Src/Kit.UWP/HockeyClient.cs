@@ -1,13 +1,22 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Send information to the HockeyApp service.
     /// </summary>
     public class HockeyClient : IHockeyClient
     {
+        /// <summary>
+        /// Laziness implementation of a singleton
+        /// </summary>
         private static readonly Lazy<HockeyClient> lazy = new Lazy<HockeyClient>(() => new HockeyClient());
+
+        /// <summary>
+        /// Telemetry buffer of items that were tracked by the user before <see cref="telemetryClient"/> instance has been created.
+        /// </summary>
+        private readonly Queue<string> eventQueue = new Queue<string>();
 
         private TelemetryClient telemetryClient;
 
@@ -19,11 +28,24 @@
             get { return lazy.Value; }
         }
 
-        internal TelemetryClient TelemetryClient
+        /// <summary>
+        /// Initializes <see cref="telemetryClient"/>. 
+        /// For performance reasons, this call needs to be performed only after <see cref="TelemetryConfiguration"/> has been initialized.
+        /// </summary>
+        internal void Initialize()
         {
-            set
+            this.telemetryClient = new TelemetryClient();
+            TrackQueuedTelemetry();
+        }
+
+        /// <summary>
+        /// Processes telemetry that was sent before <see cref="telemetryClient"/> instance has been initialized
+        /// </summary>
+        internal void TrackQueuedTelemetry()
+        {
+            while (eventQueue.Count > 0)
             {
-                this.telemetryClient = value;
+                this.telemetryClient.TrackEvent(eventQueue.Dequeue());
             }
         }
 
@@ -55,6 +77,9 @@
             if (this.telemetryClient != null)
             {
                 this.telemetryClient.TrackEvent(eventName);
+            } else
+            {
+                eventQueue.Enqueue(eventName);
             }
         }
     }

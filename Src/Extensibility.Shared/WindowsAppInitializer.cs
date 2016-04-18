@@ -123,7 +123,7 @@
                 Watson.WatsonIntegration.Integrate(instrumentationKey);
             }
 
-            HockeyClient.Current.TelemetryClient = new TelemetryClient();
+            HockeyClient.Current.Initialize();
 #endif
         }
 
