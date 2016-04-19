@@ -41,9 +41,9 @@
                     //needed for backwards compatibility
                     if (value.Contains("/api/"))
                     {
-                        domain = value.Substring(0, value.IndexOf("/api/") + 1);
+                        domain = value.Substring(0, value.IndexOf("/api/", StringComparison.OrdinalIgnoreCase) + 1);
                     }
-                    ApiDomain = domain.EndsWith("/") ? domain : domain + "/";
+                    ApiDomain = domain.EndsWith("/", StringComparison.OrdinalIgnoreCase) ? domain : domain + "/";
                 }
                 else
                 {
@@ -288,96 +288,6 @@
         #region ctor
         private ILog _logger = HockeyLogManager.GetLog(typeof(HockeyClient));
         private static HockeyClient _instance = null;
-
-        /// <summary>
-        /// Configures the HockeyClient with your app specific information
-        /// </summary>
-        /// <param name="appIdentifier">public identfier of your app (AppId)</param>
-        /// <param name="versionInfo">version of your app</param>
-        /// <param name="apiBase">[optional] the base url of the hockeyapp server. Only needed if used with a private HockeyApp installation.</param>
-        /// <param name="userID">[optional] ID of the current user using your app, sent with crash-reports, can also be set via property.</param>
-        /// <param name="contactInformation">[optional] contact info of the current user using your app, sent with crash-reports, can also be set via property.</param>
-        /// <param name="descriptionLoader">[optional] description loader func to return an additional description for the exception</param>
-        [Obsolete("Use HockeyClient.Current.Configure(...)")]
-        public static void Configure(string appIdentifier,
-                                        string versionInfo,
-                                        string apiBase = null,
-                                        string userID = null,
-                                        string contactInformation = null,
-                                        Func<Exception, string> descriptionLoader = null)
-        {
-#pragma warning disable 618 // disable obsolete warning!
-            ConfigureInternal(appIdentifier, versionInfo, apiBase, userID, contactInformation, null, null, null, descriptionLoader);
-        }
-
-        /// <summary>
-        /// Use for advanced usecases like building your own platform specific sdk based on HockeyClient
-        /// </summary>
-        /// <param name="appIdentifier">public identfier of your app (AppId)</param>
-        /// <param name="versionInfo">version of your app</param>
-        /// <param name="apiBase">[optional] the base url of the hockeyapp server. Only needed if used with a private HockeyApp installation.</param>
-        /// <param name="userID">[optional] ID of the current user using your app, sent with crash-reports, can also be set via property.</param>
-        /// <param name="contactInformation">[optional] contact info of the current user using your app, sent with crash-reports, can also be set via property.</param>
-        /// <param name="userAgentName">[optional] useragent string to be used in communication with the HockeyApp server</param>
-        /// <param name="sdkName">[optional] name of the calling sdk</param>
-        /// <param name="sdkVersion">[optional] version of the calling sdk </param>
-        /// <param name="descriptionLoader">[optional] </param>
-        /// <param name="os">[optional] </param>
-        /// <param name="osVersion">[optional] </param>
-        /// <param name="device">[optional] </param>
-        /// <param name="oem">[optional] </param>
-        /// <param name="uuid">[optional] </param>
-        [Obsolete("Use HockeyClient.Current.Configure(...)")]
-        public static void ConfigureInternal(string appIdentifier,
-                                        string versionInfo,
-                                        string apiBase = null,
-                                        string userID = null,
-                                        string contactInformation = null,
-                                        string userAgentName = null,
-                                        string sdkName = null,
-                                        string sdkVersion = null,
-                                        Func<Exception, string> descriptionLoader = null,
-                                        string os = null,
-                                        string osVersion = null,
-                                        string device = null,
-                                        string oem = null,
-                                        string uuid = null)
-        {
-            _instance = new HockeyClient();
-            _instance.AppIdentifier = appIdentifier;
-            _instance.VersionInfo = versionInfo;
-            _instance.UserID = userID;
-            _instance.ContactInformation = contactInformation;
-            _instance.DescriptionLoader = descriptionLoader;
-#pragma warning disable 618 // disable obsolete warning!
-            _instance.ApiBase = apiBase ?? SDKConstants.PublicApiDomain;
-#pragma warning restore 618
-            _instance.UserAgentString = userAgentName ?? SDKConstants.UserAgentString;
-            _instance.SdkName = sdkName ?? SDKConstants.SdkName;
-            _instance.SdkVersion = sdkVersion ?? SDKConstants.SdkVersion;
-            _instance.Os = os;
-            _instance.OsVersion = os;
-            _instance.Device = device;
-            _instance.Oem = oem;
-            _instance.Uuid = uuid;
-        }
-
-        /// <summary>
-        /// The current configured instance of HockeyClient
-        /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1065:DoNotRaiseExceptionsInUnexpectedLocations")]
-        [Obsolete("Use IHockeyClient.Current if you utilize the new extensions method HockeyClient.Current.Configure(...)")]
-        public static IHockeyClient Instance
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    throw new Exception("HockeyClient not configured. Call HockeyClient.Configure first!");
-                }
-                return _instance;
-            }
-        }
 
         /// <summary>
         /// The current singleton instance of HockeyClient. Use the extension methods in the HockeyApp namespace 

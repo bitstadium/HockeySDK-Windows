@@ -19,7 +19,6 @@ namespace Microsoft.HockeyApp
 {
     public static class HockeyClientExtensionsWin81
     {
-
         #region Configure
         /// <summary>
         /// This is the main configuration method. Call this in the Constructor of your app. This registers an error handler for unhandled errors.

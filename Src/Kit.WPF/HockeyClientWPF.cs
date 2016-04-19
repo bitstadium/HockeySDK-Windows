@@ -79,7 +79,7 @@ namespace Microsoft.HockeyApp
                 sdkVersion: HockeyConstants.SDKVERSION,
                 os: Environment.OSVersion.Platform.ToString(),
                 osVersion: Environment.OSVersion.Version.ToString() + Environment.OSVersion.ServicePack);
-            this._crashHandler = new CrashHandler(HockeyClient.Instance, descriptionLoader, keepRunning);
+            this._crashHandler = new CrashHandler(HockeyClient.Current, descriptionLoader, keepRunning);
         }
 
         #region Crashes

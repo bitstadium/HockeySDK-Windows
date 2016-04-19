@@ -32,7 +32,6 @@
     </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="CrashHandler.cs" />
-    <Compile Include="HockeyClientWinRT.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Extensibility.Wrt81\Extensibility.Wrt81.csproj">

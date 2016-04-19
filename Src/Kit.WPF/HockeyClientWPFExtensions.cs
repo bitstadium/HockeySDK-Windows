@@ -154,8 +154,7 @@ namespace Microsoft.HockeyApp
         public static async Task<bool> CheckForUpdatesAsync(this IHockeyClient @this, bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             @this.AsInternal().CheckForInitialization();
-            //TODO refactor for next version
-            return await HockeyClientWPF.Instance.UpdateManager.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
+            return await HockeyClient.Current.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
         }
 #pragma warning restore 612, 618
 

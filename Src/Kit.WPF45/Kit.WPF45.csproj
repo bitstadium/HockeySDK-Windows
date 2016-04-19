@@ -47,9 +47,6 @@
     <Compile Include="..\Kit.WPF\Gui\UpdateWindow.xaml.cs">
       <Link>Gui\UpdateWindow.xaml.cs</Link>
     </Compile>
-    <Compile Include="..\Kit.WPF\HockeyClientWPF.cs">
-      <Link>HockeyClientWPF.cs</Link>
-    </Compile>
     <Compile Include="..\Kit.WPF\HockeyClientWPFExtensions.cs">
       <Link>HockeyClientWPFExtensions.cs</Link>
     </Compile>
