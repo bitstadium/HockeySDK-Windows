@@ -25,6 +25,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryHeader.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryThread.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\CrashTelemetryThreadFrame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataContracts\DependencyKind.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\EventTelemetry.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\ExceptionHandledAt.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)DataContracts\ExceptionTelemetry.cs" />
@@ -45,6 +46,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\IContextInitializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\IDebugOutput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\AdapterList.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\AppInsightsTypes.g.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\ComponentContext.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\DebugOutput.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\Implementation\DeviceContext.cs" />
