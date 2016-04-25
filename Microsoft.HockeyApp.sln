@@ -35,8 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WPF.NuGet", "src\
 		{C9612531-2077-4662-B8A4-092E06D5069B} = {C9612531-2077-4662-B8A4-092E06D5069B}
 	EndProjectSection
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Core.Shared", "Src\Core.Shared\Core.Shared.shproj", "{C1AAA703-5E32-45C0-A69D-F46D1C659AE4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Wrt81", "Src\Core.Wrt81\Core.Wrt81.csproj", "{50368B2B-A526-460E-8AD9-AB2E7951DAB2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersistenceChannel.Wrt81", "Src\PersistenceChannel.Wrt81\PersistenceChannel.Wrt81.csproj", "{48D96F13-D9F7-4DB8-A738-E03F82E45BBB}"
@@ -99,7 +97,6 @@ Global
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{9181dca1-c390-44b2-ae4e-93333977a7b3}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{dfc9ec7c-8bef-4fd3-acec-9128a9bde53c}*SharedItemsImports = 4
 		Src\Extensibility.Shared\Extensibility.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
-		Src\Core.Shared\Core.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{d076fb25-d286-48f5-80c9-f55ffa576b77}*SharedItemsImports = 4
 		Src\PersistenceChannel.Shared.Tests.TestFramework\PersistenceChannel.Shared.Tests.TestFramework.projitems*{6869a04b-18b5-40f9-bf56-8b1a06484116}*SharedItemsImports = 13
 		Src\Extensibility.Shared.Tests\Extensibility.Shared.Tests.projitems*{db22ab6f-c72e-44da-b0fe-e2ffaa02cd59}*SharedItemsImports = 13
@@ -110,10 +107,7 @@ Global
 		Src\PersistenceChannel.Shared.Tests\PersistenceChannel.Shared.Tests.projitems*{a19f9aca-bbf8-474b-a120-3ff8c943fee2}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{6587b432-e16a-4d26-93e1-bf12449fdb32}*SharedItemsImports = 4
 		Src\Extensibility.Shared\Extensibility.Shared.projitems*{2e1127b9-787b-4427-8d92-1e9eb3a79de1}*SharedItemsImports = 4
-		Src\Core.Shared\Core.Shared.projitems*{14123a8e-6d6b-4362-b001-35b8c2505eed}*SharedItemsImports = 4
-		Src\Core.Shared\Core.Shared.projitems*{50368b2b-a526-460e-8ad9-ab2e7951dab2}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{ff8678db-8ff0-4507-a793-2ff896fc7ad7}*SharedItemsImports = 4
-		Src\Core.Shared\Core.Shared.projitems*{c1aaa703-5e32-45c0-a69d-f46d1c659ae4}*SharedItemsImports = 13
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{fd553e7c-c90d-4112-8d90-5b0078b03336}*SharedItemsImports = 4
 		Src\Core.Shared.Tests\Core.Shared.Tests.projitems*{c4a0db5b-0988-4e04-b9b8-bcf3b0842000}*SharedItemsImports = 13
 		Src\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems*{48d96f13-d9f7-4db8-a738-e03f82e45bbb}*SharedItemsImports = 4

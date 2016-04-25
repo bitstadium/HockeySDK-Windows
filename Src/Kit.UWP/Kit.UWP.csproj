@@ -75,7 +75,6 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup />
-  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
   <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
