@@ -25,7 +25,6 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.External
     [System.CodeDom.Compiler.GeneratedCode("gbc", "3.02")]
     internal partial class ContextTagKeys
     {
-
         public string ApplicationVersion { get; set; }
 
 

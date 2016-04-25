@@ -44,11 +44,9 @@
     <Compile Include="..\PersistenceChannel.Wrt81\Storage.cs">
       <Link>Storage.cs</Link>
     </Compile>
-    <Compile Include="DataContracts\CrashTelemetry.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\Implementation\ExceptionHandler.cs" />
     <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\ContextTagKeys.cs" />
     <Compile Include="Extensibility\Implementation\External\DeviceContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\InternalContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\LocationContextData.cs" />
@@ -57,7 +55,6 @@
     <Compile Include="Extensibility\Implementation\External\SessionContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\SessionStateData.g.cs" />
     <Compile Include="Extensibility\Implementation\External\SeverityLevel.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\Tags.cs" />
     <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
     <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
     <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />
@@ -74,7 +71,12 @@
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
