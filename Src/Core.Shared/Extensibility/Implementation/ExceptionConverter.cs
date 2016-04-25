@@ -18,17 +18,6 @@
             External.ExceptionDetails exceptionDetails = External.ExceptionDetails.CreateWithoutStackInfo(
                                                                                                                 exception,
                                                                                                                 parentExceptionDetails);
-#if !WINRT && !CORE_PCL && !WINDOWS_UWP
-            var stack = new StackTrace(exception, true);
-
-            var frames = stack.GetFrames();
-            Tuple<List<External.StackFrame>, bool> sanitizedTuple = SanitizeStackFrame(
-                                                                                        frames,
-                                                                                        GetStackFrame,
-                                                                                        GetStackFrameLength);
-            exceptionDetails.parsedStack = sanitizedTuple.Item1;
-            exceptionDetails.hasFullStack = sanitizedTuple.Item2;
-#else
             if (exception.StackTrace != null)
             {
                 string[] lines = exception.StackTrace.Split(new string[] { "\n" }, StringSplitOptions.None);
@@ -47,7 +36,7 @@
                 exceptionDetails.hasFullStack = true;
                 exceptionDetails.stack = string.Empty;
             }
-#endif
+
             return exceptionDetails;
         }
 
@@ -84,53 +73,5 @@
 
             return new Tuple<List<TOutput>, bool>(orderedStackTrace, hasFullStack);
         }
-
-#if !WINRT && !CORE_PCL
-        /// <summary>
-        /// Converts a System.Diagnostics.StackFrame to a StackFrame.
-        /// </summary>
-        private static External.StackFrame GetStackFrame(StackFrame stackFrame, int frameId)
-        {
-            var convertedStackFrame = new External.StackFrame()
-            {
-                level = frameId
-            };
-
-            var methodInfo = stackFrame.GetMethod();
-            string fullName;
-            if (methodInfo.DeclaringType != null)
-            {
-                fullName = methodInfo.DeclaringType.FullName + "." + methodInfo.Name;
-            }
-            else
-            {
-                fullName = methodInfo.Name;
-            }
-
-            convertedStackFrame.method = fullName;
-            convertedStackFrame.assembly = methodInfo.Module.Assembly.FullName;
-            convertedStackFrame.fileName = stackFrame.GetFileName();
-
-            // 0 means it is unavailable
-            int line = stackFrame.GetFileLineNumber();
-            if (line != 0)
-            {
-                convertedStackFrame.line = line;
-            }
-
-            return convertedStackFrame;
-        }
-        
-        /// <summary>
-        /// Gets the stack frame length for only the strings in the stack frame.
-        /// </summary>
-        private static int GetStackFrameLength(External.StackFrame stackFrame)
-        {
-            var stackFrameLength = (stackFrame.method == null ? 0 : stackFrame.method.Length)
-                                   + (stackFrame.assembly == null ? 0 : stackFrame.assembly.Length)
-                                   + (stackFrame.fileName == null ? 0 : stackFrame.fileName.Length);
-            return stackFrameLength;
-        }
-#endif
     }
 }

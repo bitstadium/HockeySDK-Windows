@@ -115,6 +115,7 @@
     <Compile Include="Extensions\TaskEx.cs" />
     <Compile Include="Extensions\PortableExtensions45.cs" />
     <Compile Include="Model\_NamespaceDoc.cs" />
+    <Compile Include="RemoveEventSource.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>

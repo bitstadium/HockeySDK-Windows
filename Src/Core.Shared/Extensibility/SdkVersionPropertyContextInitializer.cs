@@ -30,16 +30,9 @@
 
         private string GetAssemblyVersion()
         {
-#if !WINRT && !CORE_PCL && !WINDOWS_UWP
-            return typeof(SdkVersionPropertyContextInitializer).Assembly.GetCustomAttributes(false)
-                    .OfType<AssemblyFileVersionAttribute>()
-                    .First()
-                    .Version;
-#else
             return typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
                     .First()
                     .Version;
-#endif
         }
     }
 }

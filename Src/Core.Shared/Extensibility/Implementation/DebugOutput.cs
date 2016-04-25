@@ -6,7 +6,6 @@
 
 namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
-    using System;
     using System.Diagnostics;
     using Extensibility;
 
@@ -14,20 +13,12 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
     {
         public void WriteLine(string message)
         {
-#if WINRT || CORE_PCL || WINDOWS_UWP
             Debug.WriteLine(message);
-#else
-            Debugger.Log(0, "category", message + Environment.NewLine);
-#endif
         }
 
         public bool IsLogging()
         {
-#if WINRT || CORE_PCL || WINDOWS_UWP
             return true;
-#else
-            return Debugger.IsLogging();
-#endif
         }
     }
 }

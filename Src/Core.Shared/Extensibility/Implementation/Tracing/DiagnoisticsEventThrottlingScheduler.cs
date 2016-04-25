@@ -94,20 +94,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Tracing
         /// </summary>
         internal static string ConvertExceptionToInvariantString(Exception exception)
         {
-#if !WINRT && !CORE_PCL && !WINDOWS_UWP
-            CultureInfo originalUICulture = Thread.CurrentThread.CurrentUICulture;
-            try
-            {
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-#endif
-                return exception.ToString();
-#if !WINRT && !CORE_PCL && !WINDOWS_UWP
-            }
-            finally
-            {
-                Thread.CurrentThread.CurrentUICulture = originalUICulture;
-            }
-#endif
+            return exception.ToString();
         }
 
         private static void DisposeTimer(IDisposable timer)

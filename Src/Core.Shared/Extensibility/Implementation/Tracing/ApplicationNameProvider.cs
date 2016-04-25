@@ -22,11 +22,12 @@
             string name;
             try
             {
-#if !WINRT && !CORE_PCL && !WINDOWS_UWP
-                name = AppDomain.CurrentDomain.FriendlyName;
-#else
+
+// #if !WINRT && !CORE_PCL && !WINDOWS_UWP
+//                name = AppDomain.CurrentDomain.FriendlyName;
+// #else
                 name = string.Empty;
-#endif
+// #endif
             }
             catch (Exception exp)
             {

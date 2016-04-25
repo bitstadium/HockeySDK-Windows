@@ -24,7 +24,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Platform
         {
             get
             {
-                return current ?? (current = new PlatformImplementation());
+                return current ?? (current = Microsoft.HockeyApp.ServiceLocator.GetService<IPlatform>());
             }
 
             set

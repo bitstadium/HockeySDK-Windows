@@ -22,13 +22,7 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
         public const int MaxUrlLength = 2048;
         public const int MaxCommandNameLength = 2 * 1024;
 
-        private const RegexOptions SanitizeOptions =
-#if WINRT || WINDOWS_UWP || CORE_PCL
-                                                RegexOptions.None;
-#else
-                                                RegexOptions.Compiled;
-#endif
-
+        private const RegexOptions SanitizeOptions = RegexOptions.None;
         private static readonly Regex InvalidNameCharacters = new Regex(@"[^0-9a-zA-Z-._()\/ ]", Property.SanitizeOptions);
 
         public static void Set<T>(ref T property, T value) where T : class

@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14123A8E-6D6B-4362-B001-35B8C2505EED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.HockeyApp</RootNamespace>
+    <AssemblyName>Kit.Core45</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG; NET45;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Core.Wp80\Extensibility\Implementation\TelemetryConfigurationFactory.cs">
+      <Link>Extensibility\Implementation\TelemetryConfigurationFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ComponentContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ContextTagKeys.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\DeviceContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\InternalContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\LocationContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\OperationContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionStateData.g.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SeverityLevel.g.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\Tags.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\UserContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs" />
+  </ItemGroup>
+  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

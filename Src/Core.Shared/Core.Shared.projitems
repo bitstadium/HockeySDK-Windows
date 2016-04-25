@@ -127,6 +127,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Extensibility\WindowsCollectors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)GlobalSuppressions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceLocator.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TelemetryClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TimeSpanEx.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils.cs" />
