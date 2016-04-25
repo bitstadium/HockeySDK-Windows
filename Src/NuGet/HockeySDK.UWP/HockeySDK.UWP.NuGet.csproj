@@ -6,6 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EAEE6A70-5CEA-41F4-B43A-94E088F5254C}</ProjectGuid>
     <OutputType>Library</OutputType>
+
+    <!-- Marking Nuget As Stable. This property needs to be set only in master branch!!. Do not merge this value to child branches. -->
+    <StableRelease>True</StableRelease>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
     <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.UWP\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
   </PropertyGroup>
