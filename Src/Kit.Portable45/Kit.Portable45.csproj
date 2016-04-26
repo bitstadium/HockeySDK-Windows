@@ -24,7 +24,7 @@
     <DefineConstants>TRACE;CODE_ANALYSIS;NET45</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Core.Shared\Properties\AssemblyInfo.cs">
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="..\Kit.Portable40\Exceptions\WebTransferException.cs">
@@ -115,7 +115,6 @@
     <Compile Include="Extensions\TaskEx.cs" />
     <Compile Include="Extensions\PortableExtensions45.cs" />
     <Compile Include="Model\_NamespaceDoc.cs" />
-    <Compile Include="RemoveEventSource.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
