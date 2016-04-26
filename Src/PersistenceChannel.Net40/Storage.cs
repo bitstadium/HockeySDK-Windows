@@ -12,7 +12,6 @@ namespace Microsoft.HockeyApp.Channel
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Security;
     using System.Security.Cryptography;
     using System.Security.Principal;
     using System.Text;
@@ -23,7 +22,7 @@ namespace Microsoft.HockeyApp.Channel
 
     internal class Storage : StorageBase
     {
-        private readonly FixedSizeQueue<string> deletedFilesQueue;
+        private FixedSizeQueue<string> deletedFilesQueue;
         private object peekLockObj = new object();
         private DirectoryInfo storageFolder;
         private int transmissionsDropped = 0;
@@ -31,11 +30,7 @@ namespace Microsoft.HockeyApp.Channel
         private bool storageFolderInitialized;
         private object storageFolderLock = new object();
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Storage"/> class.
-        /// </summary>
-        /// <param name="uniqueFolderName">A folder name. Under this folder all the transmissions will be saved.</param>
-        internal Storage(string uniqueFolderName)
+        internal override void Init(string uniqueFolderName)
         {
             this.peekedTransmissions = new ConcurrentDictionary<string, string>();
             this.deletedFilesQueue = new FixedSizeQueue<string>(10);
