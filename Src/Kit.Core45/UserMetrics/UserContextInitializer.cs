@@ -3,10 +3,8 @@
     using System;
     using System.Collections.Generic;
     using Channel;
-    using DataContracts;
-    using Extensibility.Implementation;
     using Extensibility.Implementation.Platform;
-    using global::Windows.ApplicationModel;
+    using Services;
 
     /// <summary>
     /// Tracks anonymous user Id for Store Apps (Windows Store and Windows Phone).
@@ -19,6 +17,7 @@
 
         private string userId;
         private DateTimeOffset? userAcquisitionDate;
+        private IApplicationService applicationService;
 
         /// <summary>
         /// Initializes <see cref="UserContext.Id"/> property of the <see cref="TelemetryContext.User"/> telemetry
@@ -26,10 +25,13 @@
         /// </summary>
         public void Initialize(ITelemetry telemetry)
         {
+            applicationService = ServiceLocator.GetService<IApplicationService>();
+            applicationService.Init();
+
             this.InitializeUserData();
             telemetry.Context.User.Id = this.userId;
             telemetry.Context.User.AcquisitionDate = this.userAcquisitionDate;
-            telemetry.Context.User.StoreRegion = UserContextReader.GetStoreRegion();
+            telemetry.Context.User.StoreRegion = applicationService.GetStoreRegion();
         }
 
         private void InitializeUserData()
@@ -45,9 +47,8 @@
                 {
                     return;
                 }
-
-#if WINDOWS_UWP
-                if (Package.Current.IsDevelopmentMode)
+                
+                if (applicationService.IsDevelopmentMode())
                 {
                     // There is a known issue with ApplicationData.Current.RoamingSettings in emulator mode:
                     // Windows Phone emulator does not save its state, so every time users starts an emulator, we will get a new fresh system as if user turned on a real phone for the first time.
@@ -57,7 +58,6 @@
                     this.userId = new Guid().ToString(); // make "empty" all-0 guid 
                     return;
                 }
-#endif
 
                 IDictionary<string, object> settings = PlatformSingleton.Current.GetRoamingApplicationSettings();
 

@@ -179,6 +179,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="UserMetrics\UserContextInitializer.cs" />
     <Compile Include="UserMetrics\SessionTelemetryModule.cs" />
     <Compile Include="TelemetryClient.cs" />
     <Compile Include="TimeSpanEx.cs" />
