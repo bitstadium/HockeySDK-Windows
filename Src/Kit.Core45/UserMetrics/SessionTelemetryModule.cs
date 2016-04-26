@@ -11,10 +11,8 @@
 #if SILVERLIGHT
     using Microsoft.Phone.Shell;
 #endif
-#if WINRT || WINDOWS_UWP
-    using global::Windows.ApplicationModel.Core;
-#endif
 
+    using Services;
     /// <summary>
     /// Tracks user sessions for Store Apps (Windows Store and Windows Phone).
     /// </summary>
@@ -29,6 +27,8 @@
         private string sessionId;
         private TimeSpan timeout = TimeSpan.FromSeconds(20);
         private TelemetryClient client;
+        private IApplication application;
+
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SessionTelemetryModule"/> class.
@@ -97,17 +97,19 @@
             {
                 // To track SessionStateTelemetry, this module handles Windows Phone lifecycle events.
                 this.client = new TelemetryClient(configuration);
-#if SILVERLIGHT
-                PhoneApplicationService.Current.Activated += this.HandleApplicationStartedEvent;
-                PhoneApplicationService.Current.Launching += this.HandleApplicationStartedEvent;
+                application = ServiceLocator.GetService<IApplication>();
+                application.Init();
 
-                PhoneApplicationService.Current.Deactivated += this.HandleApplicationStoppingEvent;
-                PhoneApplicationService.Current.Closing += this.HandleApplicationStoppingEvent;
-#endif
-#if WINRT || WINDOWS_UWP
-                CoreApplication.Resuming += this.HandleApplicationStartedEvent;
-                CoreApplication.Suspending += this.HandleApplicationStoppingEvent;
-#endif
+                // ToDo: Clarify what to do with Silverlight applications.
+//#if SILVERLIGHT
+//                PhoneApplicationService.Current.Activated += this.HandleApplicationStartedEvent;
+//                PhoneApplicationService.Current.Launching += this.HandleApplicationStartedEvent;
+
+//                PhoneApplicationService.Current.Deactivated += this.HandleApplicationStoppingEvent;
+//                PhoneApplicationService.Current.Closing += this.HandleApplicationStoppingEvent;
+//#endif
+                application.OnResuming += this.HandleApplicationStartedEvent; 
+                application.OnSuspending += this.HandleApplicationStoppingEvent; 
 
                 // To set Session.Id for all telemetry types, this module also serves as a TelemetryInitializer.
                 configuration.TelemetryInitializers.Add(this);
@@ -177,15 +179,14 @@
 
             this.isFirstSession = !previousSessionFound;
 
-#if WINDOWS_UWP
-            if (global::Windows.ApplicationModel.Package.Current.IsDevelopmentMode)
+            if (application.IsDevelopmentMode())
             {
                 // In emulator mode we don't send a user as a new user ever. Because if we do - during onboarding experience new users chart will show
                 // more users than total users. ToDo: do better new user detection on on server side: If we see that user is coming from emulator, we need to 
                 // set its isFirst flag only the first time on the server.
                 this.isFirstSession = false;
             }
-#endif
+
             this.sessionId = Guid.NewGuid().ToString();
 
             this.Track(SessionState.Start, this.sessionId, this.clock.Time);

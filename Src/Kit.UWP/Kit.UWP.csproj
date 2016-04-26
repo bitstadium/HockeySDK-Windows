@@ -59,7 +59,8 @@
     <Compile Include="HockeyClient.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
-    <Compile Include="Storage.cs" />
+    <Compile Include="Services\Application.cs" />
+    <Compile Include="Services\Storage.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="Watson\PartnerTelemetryEventSource.cs" />
     <Compile Include="Watson\WatsonIntegration.cs" />

@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using Channel;
+    using Services;
     using System;
     using System.Collections.Generic;
 
@@ -67,6 +68,7 @@
         public void Configure(string appId, TelemetryConfiguration configuration)
         {
             ServiceLocator.AddService<StorageBase>(new Storage());
+            ServiceLocator.AddService<IApplication>(new Application());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
         }
 

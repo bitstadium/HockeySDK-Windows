@@ -44,11 +44,17 @@
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\LocationContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\OperationContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionContextData.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionStateData.g.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionContextData.cs">
+      <Link>UserMetrics\SessionContextData.cs</Link>
+    </Compile>
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionStateData.g.cs">
+      <Link>UserMetrics\SessionStateData.g.cs</Link>
+    </Compile>
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\Tags.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\UserContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\UserContextData.cs">
+      <Link>UserMetrics\UserContextData.cs</Link>
+    </Compile>
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs" />
     <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
     <Compile Include="Channels\InMemory\InMemoryTransmitter.cs" />
@@ -60,7 +66,8 @@
     <Compile Include="Channels\Persistence\PersistenceChannel.cs" />
     <Compile Include="Channels\Persistence\PersistenceTransmitter.cs" />
     <Compile Include="Channels\Persistence\Sender.cs" />
-    <Compile Include="Channels\Persistence\StorageBase.cs" />
+    <Compile Include="Services\IApplication.cs" />
+    <Compile Include="Services\StorageBase.cs" />
     <Compile Include="Channels\Persistence\StorageTransmission.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataContracts\Attachments.cs" />
@@ -108,7 +115,7 @@
     <Compile Include="Extensibility\Implementation\FixedSizeQueue.cs" />
     <Compile Include="Extensibility\Implementation\IClock.cs" />
     <Compile Include="Extensibility\Implementation\InternalContext.cs" />
-    <Compile Include="Extensibility\Implementation\IPlatform.cs" />
+    <Compile Include="Services\IPlatform.cs" />
     <Compile Include="Extensibility\Implementation\IRandomNumberBatchGenerator.cs" />
     <Compile Include="Extensibility\Implementation\JsonSerializer.cs" />
     <Compile Include="Extensibility\Implementation\JsonWriter.cs" />
@@ -171,7 +178,8 @@
     <Compile Include="Extensibility\WindowsCollectors.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceLocator.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="UserMetrics\SessionTelemetryModule.cs" />
     <Compile Include="TelemetryClient.cs" />
     <Compile Include="TimeSpanEx.cs" />
     <Compile Include="Utils.cs" />
