@@ -12,7 +12,7 @@ namespace Microsoft.HockeyApp.Channel
     using System.Threading.Tasks;
     using Extensibility.Implementation.Tracing;
 
-    internal abstract class StorageBase
+    internal abstract class BaseStorageService
     {
         /// <summary>
         /// Peeked transmissions dictionary (maps file name to its full path). Holds all the transmissions that were peeked.
@@ -37,7 +37,7 @@ namespace Microsoft.HockeyApp.Channel
         internal abstract string FolderName { get; }
 
         /// <summary>
-        /// Initializes the <see cref="StorageBase"/>
+        /// Initializes the <see cref="BaseStorageService"/>
         /// </summary>
         /// <param name="uniqueFolderName">A folder name. Under this folder all the transmissions will be saved.</param>
         internal abstract void Init(string uniqueFolderName);

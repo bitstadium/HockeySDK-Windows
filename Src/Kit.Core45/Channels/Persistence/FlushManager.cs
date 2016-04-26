@@ -31,7 +31,7 @@ namespace Microsoft.HockeyApp.Channel
         /// <summary>
         /// The storage that is used to persist all the transmissions. 
         /// </summary>
-        private StorageBase storage;
+        private BaseStorageService storage;
 
         /// <summary>
         /// The number of times this object was disposed.
@@ -49,7 +49,7 @@ namespace Microsoft.HockeyApp.Channel
         /// <param name="storage">The storage that persists the telemetries.</param>
         /// <param name="telemetryBuffer">In memory buffer that holds telemetries.</param>
         /// <param name="supportAutoFlush">A boolean value that determines if flush will happen automatically. Used by unit tests.</param>
-        internal FlushManager(StorageBase storage, TelemetryBuffer telemetryBuffer, bool supportAutoFlush = true)
+        internal FlushManager(BaseStorageService storage, TelemetryBuffer telemetryBuffer, bool supportAutoFlush = true)
         {
             this.storage = storage;
             this.telemetryBuffer = telemetryBuffer;

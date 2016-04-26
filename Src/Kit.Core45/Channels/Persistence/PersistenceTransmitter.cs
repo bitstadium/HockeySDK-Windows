@@ -29,7 +29,7 @@ namespace Microsoft.HockeyApp.Channel
         /// <summary>
         /// The storage that is used to persist all the transmissions. 
         /// </summary>
-        private StorageBase storage;
+        private BaseStorageService storage;
 
         /// <summary>
         /// The number of times this object was disposed.
@@ -42,7 +42,7 @@ namespace Microsoft.HockeyApp.Channel
         /// <param name="storage">The transmissions storage.</param>
         /// <param name="sendersCount">The number of senders to create.</param>
         /// <param name="createSenders">A boolean value that indicates if this class should try and create senders. This is a workaround for unit tests purposes only.</param>
-        internal PersistenceTransmitter(StorageBase storage, int sendersCount, bool createSenders = true)
+        internal PersistenceTransmitter(BaseStorageService storage, int sendersCount, bool createSenders = true)
         {
             this.storage = storage;
             if (createSenders)

@@ -21,13 +21,13 @@
         private const string SessionIdSetting = "HockeyAppSessionId";
         private const string SessionEndSetting = "HockeyAppSessionEnd";
 
-        private readonly IPlatform platform;
+        private readonly IPlatformService platform;
         private readonly IClock clock;
         private bool isFirstSession;
         private string sessionId;
         private TimeSpan timeout = TimeSpan.FromSeconds(20);
         private TelemetryClient client;
-        private IApplication application;
+        private IApplicationService application;
 
 
         /// <summary>
@@ -37,7 +37,7 @@
         {
         }
 
-        internal SessionTelemetryModule(IPlatform platform, IClock clock)
+        internal SessionTelemetryModule(IPlatformService platform, IClock clock)
         {
             Debug.Assert(platform != null, "platform");
             Debug.Assert(clock != null, "clock");
@@ -97,7 +97,7 @@
             {
                 // To track SessionStateTelemetry, this module handles Windows Phone lifecycle events.
                 this.client = new TelemetryClient(configuration);
-                application = ServiceLocator.GetService<IApplication>();
+                application = ServiceLocator.GetService<IApplicationService>();
                 application.Init();
 
                 // ToDo: Clarify what to do with Silverlight applications.

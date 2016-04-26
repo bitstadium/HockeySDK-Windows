@@ -3,20 +3,14 @@
     using System;
     using global::Windows.ApplicationModel.Core;
 
-    internal class Application : IApplication
+    internal class ApplicationService : IApplicationService
     {
         private bool initialized = false;
 
         public event EventHandler OnCrashed;
 
-        /// <summary>
-        /// Occurs when an app is resuming.
-        /// </summary>
         public event EventHandler OnResuming;
 
-        /// <summary>
-        /// Occurs when an app is suspending.
-        /// </summary>
         public event EventHandler OnSuspending;
 
         public void Init()

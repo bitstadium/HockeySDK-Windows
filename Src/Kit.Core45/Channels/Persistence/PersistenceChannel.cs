@@ -26,7 +26,7 @@ namespace Microsoft.HockeyApp.Channel
         private bool? developerMode;
         private int disposeCount;
         private int telemetryBufferSize;
-        private StorageBase storage;
+        private BaseStorageService storage;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="PersistenceChannel"/> class.
@@ -51,7 +51,7 @@ namespace Microsoft.HockeyApp.Channel
         public PersistenceChannel(string storageFolderName, int sendersCount = 3)
         {   
             this.TelemetryBuffer = new TelemetryBuffer();
-            this.storage = ServiceLocator.GetService<StorageBase>();
+            this.storage = ServiceLocator.GetService<BaseStorageService>();
             this.storage.Init(storageFolderName);
             this.Transmitter = new PersistenceTransmitter(this.storage, sendersCount);
             this.flushManager = new FlushManager(this.storage, this.TelemetryBuffer);

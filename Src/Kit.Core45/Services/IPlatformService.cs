@@ -12,7 +12,7 @@
     /// <remarks>
     /// This type is public to enable mocking on Windows Phone.
     /// </remarks>
-    internal interface IPlatform
+    internal interface IPlatformService
     {
         /// <summary>
         /// Use this locality for data you need to persist. The system will never destroy whatever data you put here unless the user uninstalls the package.

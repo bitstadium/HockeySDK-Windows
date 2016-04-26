@@ -56,7 +56,7 @@ namespace Microsoft.HockeyApp.Channel
         /// <summary>
         /// The transmissions storage.
         /// </summary>
-        private StorageBase storage;
+        private BaseStorageService storage;
 
         /// <summary>
         /// The number of times this object was disposed.
@@ -77,7 +77,7 @@ namespace Microsoft.HockeyApp.Channel
         /// The transmitter will be used as a configuration class, it exposes properties like SendingInterval that will be read by Sender.
         /// </param>
         /// <param name="startSending">A boolean value that determines if Sender should start sending immediately. This is only used for unit tests.</param>
-        internal Sender(StorageBase storage, PersistenceTransmitter transmitter, bool startSending = true)
+        internal Sender(BaseStorageService storage, PersistenceTransmitter transmitter, bool startSending = true)
         {
             this.stopped = false;
             this.DelayHandler = new AutoResetEvent(false);

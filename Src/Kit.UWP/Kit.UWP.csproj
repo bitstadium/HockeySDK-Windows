@@ -59,11 +59,9 @@
     <Compile Include="HockeyClient.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
-    <Compile Include="Services\Application.cs" />
-    <Compile Include="Services\Storage.cs" />
+    <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\StorageService.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
-    <Compile Include="Watson\PartnerTelemetryEventSource.cs" />
-    <Compile Include="Watson\WatsonIntegration.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">

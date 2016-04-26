@@ -67,8 +67,8 @@
         /// <param name="configuration">Telemetry Configuration.</param>
         public void Configure(string appId, TelemetryConfiguration configuration)
         {
-            ServiceLocator.AddService<StorageBase>(new Storage());
-            ServiceLocator.AddService<IApplication>(new Application());
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
         }
 

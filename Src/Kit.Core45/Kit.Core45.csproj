@@ -66,8 +66,8 @@
     <Compile Include="Channels\Persistence\PersistenceChannel.cs" />
     <Compile Include="Channels\Persistence\PersistenceTransmitter.cs" />
     <Compile Include="Channels\Persistence\Sender.cs" />
-    <Compile Include="Services\IApplication.cs" />
-    <Compile Include="Services\StorageBase.cs" />
+    <Compile Include="Services\IApplicationService.cs" />
+    <Compile Include="Services\BaseStorageService.cs" />
     <Compile Include="Channels\Persistence\StorageTransmission.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="DataContracts\Attachments.cs" />
@@ -115,7 +115,7 @@
     <Compile Include="Extensibility\Implementation\FixedSizeQueue.cs" />
     <Compile Include="Extensibility\Implementation\IClock.cs" />
     <Compile Include="Extensibility\Implementation\InternalContext.cs" />
-    <Compile Include="Services\IPlatform.cs" />
+    <Compile Include="Services\IPlatformService.cs" />
     <Compile Include="Extensibility\Implementation\IRandomNumberBatchGenerator.cs" />
     <Compile Include="Extensibility\Implementation\JsonSerializer.cs" />
     <Compile Include="Extensibility\Implementation\JsonWriter.cs" />

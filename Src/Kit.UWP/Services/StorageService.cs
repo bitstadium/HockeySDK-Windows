@@ -17,7 +17,7 @@ namespace Microsoft.HockeyApp.Channel
     using Windows.Storage.FileProperties;
     using Windows.Storage.Search;
 
-    internal class Storage : StorageBase
+    internal class StorageService : BaseStorageService
     {
         private const string DefaultStorageFolderName = "HockeyApp";
         private FixedSizeQueue<string> deletedFilesQueue;

@@ -117,14 +117,8 @@
                 }
             }
 #endif
-#if WINDOWS_UWP
-            if (configuration.Collectors.HasFlag(WindowsCollectors.WatsonData))
-            {
-                Watson.WatsonIntegration.Integrate(instrumentationKey);
-            }
 
             HockeyClient.Current.Initialize();
-#endif
         }
 
 #if WINRT

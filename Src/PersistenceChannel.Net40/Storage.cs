@@ -20,7 +20,7 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
 
-    internal class Storage : StorageBase
+    internal class Storage : BaseStorageService
     {
         private FixedSizeQueue<string> deletedFilesQueue;
         private object peekLockObj = new object();

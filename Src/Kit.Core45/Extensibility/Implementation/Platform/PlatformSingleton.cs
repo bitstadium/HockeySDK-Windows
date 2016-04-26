@@ -15,16 +15,16 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation.Platform
     /// </summary>
     internal static class PlatformSingleton
     {
-        private static IPlatform current;
+        private static IPlatformService current;
 
         /// <summary>
-        /// Gets or sets the current <see cref="IPlatform"/> implementation.
+        /// Gets or sets the current <see cref="IPlatformService"/> implementation.
         /// </summary>
-        public static IPlatform Current 
+        public static IPlatformService Current 
         {
             get
             {
-                return current ?? (current = Microsoft.HockeyApp.ServiceLocator.GetService<IPlatform>());
+                return current ?? (current = Microsoft.HockeyApp.ServiceLocator.GetService<IPlatformService>());
             }
 
             set
