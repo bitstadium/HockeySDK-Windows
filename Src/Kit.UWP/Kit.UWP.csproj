@@ -41,9 +41,6 @@
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs">
       <Link>Extensibility\Platform\PlatformImplementation.cs</Link>
     </Compile>
-    <Compile Include="..\PersistenceChannel.Wrt81\Storage.cs">
-      <Link>Storage.cs</Link>
-    </Compile>
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\Implementation\ExceptionHandler.cs" />
     <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
@@ -62,6 +59,7 @@
     <Compile Include="HockeyClient.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
+    <Compile Include="Storage.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="Watson\PartnerTelemetryEventSource.cs" />
     <Compile Include="Watson\WatsonIntegration.cs" />
@@ -78,7 +76,6 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
-  <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

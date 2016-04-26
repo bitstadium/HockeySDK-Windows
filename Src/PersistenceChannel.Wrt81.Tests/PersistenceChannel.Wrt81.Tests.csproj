@@ -55,10 +55,6 @@
       <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
       <Name>Core.Wrt81</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PersistenceChannel.Wrt81\PersistenceChannel.Wrt81.csproj">
-      <Project>{48d96f13-d9f7-4db8-a738-e03f82e45bbb}</Project>
-      <Name>PersistenceChannel.Wrt81</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="SmallLogo.png" />

@@ -33,6 +33,9 @@
     <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
       <Link>Properties\AssemblyCommonInfo.cs</Link>
     </Compile>
+    <Compile Include="..\PersistenceChannel.Net40\Storage.cs">
+      <Link>Storage.cs</Link>
+    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="HockeyClientWinFormsExtensions.cs" />
     <Compile Include="HockeyPlatformHelperWinForms.cs" />

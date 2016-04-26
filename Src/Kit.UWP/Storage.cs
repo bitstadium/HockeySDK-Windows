@@ -20,7 +20,7 @@ namespace Microsoft.HockeyApp.Channel
     internal class Storage : StorageBase
     {
         private const string DefaultStorageFolderName = "HockeyApp";
-        private readonly FixedSizeQueue<string> deletedFilesQueue;
+        private FixedSizeQueue<string> deletedFilesQueue;
         private Task calculateSizeTask;
         private long storageSize = 0;
         private long storageCountFiles = 0;
@@ -31,11 +31,7 @@ namespace Microsoft.HockeyApp.Channel
         private uint transmissionsDropped = 0;
         private string storageFolderName;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Storage"/> class.
-        /// </summary>
-        /// <param name="uniqueFolderName">A folder name. Under this folder all the transmissions will be saved.</param>
-        internal Storage(string uniqueFolderName)
+        internal override void Init(string uniqueFolderName)
         {
             this.peekedTransmissions = new SnapshottingDictionary<string, string>();
             this.storageFolderName = uniqueFolderName;

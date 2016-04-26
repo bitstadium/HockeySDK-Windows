@@ -36,6 +36,12 @@ namespace Microsoft.HockeyApp.Channel
 
         internal abstract string FolderName { get; }
 
+        /// <summary>
+        /// Initializes the <see cref="StorageBase"/>
+        /// </summary>
+        /// <param name="uniqueFolderName">A folder name. Under this folder all the transmissions will be saved.</param>
+        internal abstract void Init(string uniqueFolderName);
+
         internal abstract StorageTransmission Peek();
 
         internal abstract void Delete(StorageTransmission transmission);

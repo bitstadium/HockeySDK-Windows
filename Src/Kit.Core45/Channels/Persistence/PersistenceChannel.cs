@@ -12,9 +12,7 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.Tracing;
 
-#if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;    
-#endif
 
     /// <summary>
     /// Represents a communication channel for sending telemetry to Application Insights via HTTPS.
@@ -28,7 +26,7 @@ namespace Microsoft.HockeyApp.Channel
         private bool? developerMode;
         private int disposeCount;
         private int telemetryBufferSize;
-        private Storage storage;
+        private StorageBase storage;
         
         /// <summary>
         /// Initializes a new instance of the <see cref="PersistenceChannel"/> class.
@@ -53,7 +51,8 @@ namespace Microsoft.HockeyApp.Channel
         public PersistenceChannel(string storageFolderName, int sendersCount = 3)
         {   
             this.TelemetryBuffer = new TelemetryBuffer();
-            this.storage = new Storage(storageFolderName);
+            this.storage = ServiceLocator.GetService<StorageBase>();
+            this.storage.Init(storageFolderName);
             this.Transmitter = new PersistenceTransmitter(this.storage, sendersCount);
             this.flushManager = new FlushManager(this.storage, this.TelemetryBuffer);
             this.EndpointAddress = Constants.TelemetryServiceEndpoint;
