@@ -22,7 +22,7 @@ namespace Microsoft.HockeyApp.Extensibility
     /// <summary>
     /// The reader is platform specific and will contain different implementations for reading specific data based on the platform its running on.
     /// </summary>
-    internal partial class DeviceContextReader : IDeviceContextReader
+    internal partial class DeviceContextReader : IDeviceService
     {
         private const string ModelNameKey = "System.Devices.ModelName";
         private const string ManufacturerKey = "System.Devices.Manufacturer";
@@ -44,13 +44,6 @@ namespace Microsoft.HockeyApp.Extensibility
         /// Initializes a new instance of the <see cref="DeviceContextReader"/> class.
         /// </summary>
         internal DeviceContextReader()
-        {
-        }
-
-        /// <summary>
-        /// Initializes the current instance with respect to the platform specific implementation.
-        /// </summary>
-        public virtual void Initialize()
         {
         }
 

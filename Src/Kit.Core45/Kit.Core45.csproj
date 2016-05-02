@@ -39,7 +39,9 @@
     </Compile>
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ComponentContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ContextTagKeys.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\DeviceContextData.cs" />
+    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\DeviceContextData.cs">
+      <Link>Device\DeviceContextData.cs</Link>
+    </Compile>
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\InternalContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\LocationContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\OperationContextData.cs" />
@@ -55,7 +57,6 @@
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\UserContextData.cs">
       <Link>UserMetrics\UserContextData.cs</Link>
     </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs" />
     <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
     <Compile Include="Channels\InMemory\InMemoryTransmitter.cs" />
     <Compile Include="Channels\InMemory\ITelemetry.cs" />
@@ -66,6 +67,8 @@
     <Compile Include="Channels\Persistence\PersistenceChannel.cs" />
     <Compile Include="Channels\Persistence\PersistenceTransmitter.cs" />
     <Compile Include="Channels\Persistence\Sender.cs" />
+    <Compile Include="Device\DeviceContextInitializer.cs" />
+    <Compile Include="Services\IDeviceService.cs" />
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\BaseStorageService.cs" />
     <Compile Include="Channels\Persistence\StorageTransmission.cs" />

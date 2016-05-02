@@ -38,10 +38,8 @@
     <Compile Include="..\Core.Wp80\Extensibility\Implementation\TelemetryConfigurationFactory.cs">
       <Link>Extensibility\TelemetryConfigurationFactory.cs</Link>
     </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs">
-      <Link>Extensibility\Platform\PlatformImplementation.cs</Link>
-    </Compile>
     <Compile Include="ComponentContextInitializer.cs" />
+    <Compile Include="DeviceContextReader.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\Implementation\ExceptionHandler.cs" />
     <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
@@ -59,10 +57,13 @@
     <Compile Include="Extensibility\Platform\PlatformDispatcher.cs" />
     <Compile Include="HockeyClient.cs" />
     <Compile Include="IHockeyClient.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="WindowsAppInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
@@ -75,7 +76,6 @@
       <Name>Kit.Core45</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

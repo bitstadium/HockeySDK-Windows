@@ -1,6 +1,8 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using Channel;
+    using Extensibility;
+    using Extensibility.Implementation;
     using Services;
     using System;
     using System.Collections.Generic;
@@ -69,6 +71,8 @@
         {
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
         }
 

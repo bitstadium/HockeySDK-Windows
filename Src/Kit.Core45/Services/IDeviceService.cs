@@ -5,13 +5,8 @@ namespace Microsoft.HockeyApp.Extensibility
     /// <summary>
     /// The device context reader interface used while reading device related information in a platform specific way.
     /// </summary>
-    internal interface IDeviceContextReader
+    internal interface IDeviceService
     {
-        /// <summary>
-        /// Initializes the current reader with respect to its environment.
-        /// </summary>
-        void Initialize();
-
         /// <summary>
         /// Gets the type of the device.
         /// </summary>

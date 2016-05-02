@@ -46,7 +46,8 @@ namespace Microsoft.HockeyApp
                 }
             };
 
-            WindowsAppInitializer.InitializeAsync(appIdentifier);
+            // ToDo: Initialize session collection
+            // WindowsAppInitializer.InitializeAsync(appIdentifier);
             return @this as IHockeyClientConfigurable;
         }
 

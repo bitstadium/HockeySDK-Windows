@@ -60,16 +60,6 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Wrt81.Tests.TestFramework\Core.Wrt81.Tests.TestFramework.csproj">
-      <Project>{9f9c3d52-abb9-461a-b1b6-a01bb5cecd93}</Project>
-      <Name>Core.Wrt81.Tests.TestFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">
-      <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
-      <Name>Core.Wrt81</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
   <ItemGroup>
@@ -96,9 +86,10 @@
     <Compile Include="..\Core.Wp80.Tests\Extensibility\Implementation\TelemetryConfigurationFactoryTest.cs">
       <Link>Extensibility\Implementation\TelemetryConfigurationFactoryTest.cs</Link>
     </Compile>
-    <Compile Include="Extensibility\Implementation\Platform\PlatformImplementationTest.cs" />
   </ItemGroup>
-  <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
+  <ItemGroup>
+    <Folder Include="Extensibility\Implementation\Platform\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Import Project="..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets" Condition="Exists('..\..\..\packages\StyleCop.MSBuild.4.7.49.0\build\StyleCop.MSBuild.Targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

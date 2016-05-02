@@ -30,7 +30,7 @@ namespace Microsoft.HockeyApp.Extensibility
                 throw new ArgumentNullException("context");
             }
 
-            var reader = new DeviceContextReader();
+            var reader = ServiceLocator.GetService<IDeviceService>();
             await this.InitializeDeviceOSVersion(reader, context);
             await this.InitializeDeviceManufacturer(reader, context);
             await this.InitializeDeviceType(reader, context);
@@ -41,7 +41,7 @@ namespace Microsoft.HockeyApp.Extensibility
             this.InitializeLanguage(reader, context);
         }
 
-        private async Task InitializeDeviceType(IDeviceContextReader reader, TelemetryContext context)
+        private async Task InitializeDeviceType(IDeviceService reader, TelemetryContext context)
         {
             if (deviceType == null)
             {
@@ -51,7 +51,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.Type = deviceType;
         }
 
-        private void InitializeDeviceId(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeDeviceId(IDeviceService reader, TelemetryContext context)
         {
             if (deviceId == null)
             {
@@ -61,7 +61,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.Id = deviceId;
         }
 
-        private void InitializeNetworkType(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeNetworkType(IDeviceService reader, TelemetryContext context)
         {
             if (networkType == null)
             {
@@ -71,7 +71,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.NetworkType = networkType;
         }
 
-        private void InitializeLanguage(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeLanguage(IDeviceService reader, TelemetryContext context)
         {
             if (language == null)
             {
@@ -81,7 +81,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.Language = language;
         }
 
-        private void InitializeDeviceOS(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeDeviceOS(IDeviceService reader, TelemetryContext context)
         {
             if (deviceOS == null)
             {
@@ -91,7 +91,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.DeviceOS = deviceOS;
         }
 
-        private async Task InitializeDeviceManufacturer(IDeviceContextReader reader, TelemetryContext context)
+        private async Task InitializeDeviceManufacturer(IDeviceService reader, TelemetryContext context)
         {
             if (deviceManufacturer == null)
             {
@@ -101,7 +101,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.OemName = deviceManufacturer;
         }
 
-        private void InitializeDeviceModel(IDeviceContextReader reader, TelemetryContext context)
+        private void InitializeDeviceModel(IDeviceService reader, TelemetryContext context)
         {
             if (deviceModel == null)
             {
@@ -111,7 +111,7 @@ namespace Microsoft.HockeyApp.Extensibility
             context.Device.Model = deviceModel;
         }
 
-        private async Task InitializeDeviceOSVersion(IDeviceContextReader reader, TelemetryContext context)
+        private async Task InitializeDeviceOSVersion(IDeviceService reader, TelemetryContext context)
         {
             if (operatingSystemVersion == null)
             {

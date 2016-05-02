@@ -42,15 +42,8 @@
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="PlatformDispatcher.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">
-      <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
-      <Name>Core.Wrt81</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
