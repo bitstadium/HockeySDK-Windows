@@ -35,8 +35,8 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Core.Wp80\Extensibility\Implementation\TelemetryConfigurationFactory.cs">
-      <Link>Extensibility\TelemetryConfigurationFactory.cs</Link>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ComponentContextInitializer.cs" />
     <Compile Include="DeviceContextReader.cs" />
@@ -50,7 +50,6 @@
     <Compile Include="Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
     <Compile Include="Extensibility\Implementation\External\SessionContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\SessionStateData.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\SeverityLevel.g.cs" />
     <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
     <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
     <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />

@@ -43,8 +43,7 @@
         [TestMethod]
         public void CurrentIsAutomaticallyInitializedForEasyAccess()
         {
-            IPlatform current = PlatformSingleton.Current;
-            Assert.IsNotNull(current);
+            Assert.IsNotNull(PlatformSingleton.Current);
         }
 
         [TestMethod]

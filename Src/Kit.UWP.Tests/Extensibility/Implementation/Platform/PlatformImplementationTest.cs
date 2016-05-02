@@ -32,10 +32,8 @@
         [TestMethod]
         public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
         {
-            var platform = new PlatformImplementation();
-
+            var platform = ServiceLocator.GetService<IPlatformService>();
             string configuration = platform.ReadConfigurationXml();
-            
             Assert.AreEqual(0, configuration.Length);
         }
 

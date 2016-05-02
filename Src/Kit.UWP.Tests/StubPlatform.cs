@@ -7,7 +7,7 @@
     using Extensibility.Implementation;
     using Extensibility.Implementation.External;
 
-    internal class StubPlatform : IPlatform
+    internal class StubPlatform : IPlatformService
     {
         public Func<IDictionary<string, object>> OnGetApplicationSettings = () => new Dictionary<string, object>();
         public Func<IDebugOutput> OnGetDebugOutput = () => new StubDebugOutput();

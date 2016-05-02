@@ -29,7 +29,7 @@
     /// <summary>
     /// Windows RunTime page view telemetry module.
     /// </summary>
-    internal sealed class PageViewTelemetryModule : ITelemetryModule
+    internal sealed class PageViewTelemetryModule : ITelemetryModule, IDisposable
     {
         internal Task Initialization;
 

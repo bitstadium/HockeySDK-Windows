@@ -65,6 +65,10 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kit.UWP\Kit.UWP.csproj">
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Kit.UWP</Name>
@@ -146,6 +150,32 @@
     <Compile Include="Extensibility\TimestampPropertyInitializerTest.cs" />
     <Compile Include="TelemetryClientTest.cs" />
     <Compile Include="Thread.cs" />
+    <Compile Include="AsyncTest.cs" />
+    <Compile Include="EventSourceTest.cs" />
+    <Compile Include="StubClock.cs" />
+    <Compile Include="StubContextInitializer.cs" />
+    <Compile Include="StubException.cs" />
+    <Compile Include="StubSynchronizationContext.cs" />
+    <Compile Include="StubTelemetry.cs" />
+    <Compile Include="StubTelemetryChannel.cs" />
+    <Compile Include="StubDebugOutput.cs" />
+    <Compile Include="StubTelemetryInitializer.cs" />
+    <Compile Include="StubWebRequest.cs" />
+    <Compile Include="StubWebResponse.cs" />
+    <Compile Include="StubPlatform.cs" />
+    <Compile Include="StubStream.cs" />
+    <Compile Include="StubTransmission.cs" />
+    <Compile Include="TaskExceptionObserver.cs" />
+    <Compile Include="TaskExtensions.cs" />
+    <Compile Include="TelemetryAction.cs" />
+    <Compile Include="TelemetryContextAction.cs" />
+    <Compile Include="TestEventListener.cs" />
+    <Compile Include="ComponentContextInitializerTest.cs" />
+    <Compile Include="PageViewTelemetryModuleTest.cs" />
+    <Compile Include="SessionTelemetryModuleTest.cs" />
+    <Compile Include="UserContextInitializerTest.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModuleTest.cs" />
+    <Compile Include="WindowsAppInitializerTests.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

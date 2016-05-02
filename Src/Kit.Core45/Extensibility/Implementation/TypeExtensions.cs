@@ -32,10 +32,10 @@
         /// <remarks>
         /// This method emulates the built-in method of the <see cref="Type"/> class which is not available on Windows Runtime.
         /// </remarks>
-        public static bool IsAssignableFrom(this Type type, Type otherType)
-        {
-            return type.GetTypeInfo().IsAssignableFrom(otherType.GetTypeInfo());
-        }
+        //public static bool IsAssignableFrom(this Type type, Type otherType)
+        //{
+        //    return type.GetTypeInfo().IsAssignableFrom(otherType.GetTypeInfo());
+        //}
 
         /// <summary>
         /// Returns all the public properties of the specified type.

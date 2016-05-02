@@ -66,12 +66,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Extensibility.Wrt81\Extensibility.Wrt81.csproj">
-      <Project>{2e1127b9-787b-4427-8d92-1e9eb3a79de1}</Project>
-      <Name>Extensibility.Wrt81</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="TestPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

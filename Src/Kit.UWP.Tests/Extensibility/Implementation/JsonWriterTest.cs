@@ -6,6 +6,7 @@
     using System.IO;
     using System.Reflection;
     using DataContracts;
+    using Microsoft.HockeyApp.Extensibility.Implementation;
 #if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
 #else
