@@ -25,6 +25,6 @@
   </metadata>
   <files>
     <!-- Hockey SDK -->
-    <file src="$configuration$\Kit.Portable45\Microsoft.HockeyAppPCL.*" target="lib\portable-net45+win8+wp8+wpa81+win81" />
+    <file src="$configuration$\Kit.Core45\Microsoft.HockeyApp.*" target="lib\portable-net45+win8+wp8+wpa81+win81" />
   </files>
 </package>
