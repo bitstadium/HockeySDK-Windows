@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ComponentContextInitializer.cs" />
     <Compile Include="DeviceContextReader.cs" />
@@ -54,8 +54,7 @@
     <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
     <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />
     <Compile Include="Extensibility\Platform\PlatformDispatcher.cs" />
-    <Compile Include="HockeyClient.cs" />
-    <Compile Include="IHockeyClient.cs" />
+    <Compile Include="HockeyClientExtensionsUwp.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="Services\ApplicationService.cs" />

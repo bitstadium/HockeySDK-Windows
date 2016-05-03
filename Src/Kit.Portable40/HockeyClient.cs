@@ -20,6 +20,13 @@
     /// </summary>
     public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
+        /// <summary>
+        /// Telemetry buffer of items that were tracked by the user before <see cref="telemetryClient"/> instance has been created.
+        /// </summary>
+        private readonly Queue<string> eventQueue = new Queue<string>();
+
+        private TelemetryClient telemetryClient;
+
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClient));
 
         #region fields
@@ -302,6 +309,7 @@
                 {
                     _instance = new HockeyClient();
                 }
+
                 return _instance;
             }
         }
@@ -751,5 +759,34 @@
         }
 
         #endregion
+
+        /// <summary>
+        /// Send a custom event for display in Events tab.
+        /// </summary>
+        /// <param name="eventName">Event name</param>
+        public void TrackEvent(string eventName)
+        {
+            if (this.telemetryClient != null)
+            {
+                this.telemetryClient.TrackEvent(eventName);
+            }
+            else
+            {
+                eventQueue.Enqueue(eventName);
+            }
+        }
+
+        /// <summary>
+        /// Initializes <see cref="telemetryClient"/>. 
+        /// For performance reasons, this call needs to be performed only after <see cref="TelemetryConfiguration"/> has been initialized.
+        /// </summary>
+        internal void Initialize()
+        {
+            this.telemetryClient = new TelemetryClient();
+            while (eventQueue.Count > 0)
+            {
+                this.telemetryClient.TrackEvent(eventQueue.Dequeue());
+            }
+        }
     }
 }

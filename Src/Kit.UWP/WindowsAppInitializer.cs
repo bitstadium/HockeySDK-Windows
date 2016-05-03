@@ -118,7 +118,7 @@
             }
 #endif
 
-            HockeyClient.Current.Initialize();
+            ((HockeyClient)HockeyClient.Current).Initialize();
         }
 
 #if WINRT

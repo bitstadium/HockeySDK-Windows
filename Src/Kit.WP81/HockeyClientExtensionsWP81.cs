@@ -167,12 +167,6 @@ namespace Microsoft.HockeyApp
             frame.Navigate(typeof(FeedbackMainPage), pars);
         }
 
-        [Obsolete("Use ShowFeedback() instead.")]
-        public static void NavigateToFeedbackPage(this IHockeyClient @this, string initialUsername = null, string initialEmail = null)
-        {
-            @this.ShowFeedback(initialUsername, initialEmail);
-        }
-
         /// <summary>
         /// You need to call this method in your App's OnActivated method if you use the feedback feature. This allows for HockeyApp to continue after a
         /// PickFileAndContinue resume when adding images as attachments to a message

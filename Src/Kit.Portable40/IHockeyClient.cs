@@ -5,5 +5,10 @@
     /// </summary>
     public interface IHockeyClient
     {
+        /// <summary>
+        /// Send a custom event for display in Events tab.
+        /// </summary>
+        /// <param name="eventName">Event name</param>
+        void TrackEvent(string eventName);
     }
 }
