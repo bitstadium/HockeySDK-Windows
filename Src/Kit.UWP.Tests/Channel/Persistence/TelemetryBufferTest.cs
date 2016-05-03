@@ -6,10 +6,6 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.ApplicationInsights.Extensibility;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation;
-    using Microsoft.ApplicationInsights.Extensibility.Implementation.Platform;
-    using Microsoft.ApplicationInsights.TestFramework;
 #if NET40 || NET45 || NET35
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #else
@@ -19,9 +15,8 @@
 #if !NET35
     using EnvironmentEx = System.Environment;    
 #endif
-#if WINRT
     using TaskEx = System.Threading.Tasks.Task;
-#endif
+    using Microsoft.HockeyApp.Channel;
 
     public class TelemetryBufferTest
     {

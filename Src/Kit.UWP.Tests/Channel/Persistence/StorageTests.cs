@@ -30,7 +30,8 @@
         public void EnqueuedContentIsEqualToPeekedContent()
         {
             // Setup
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
             Transmission transmissionToEnqueue = CreateTransmission(new TraceTelemetry("mock_item"));
 
             // Act
@@ -47,7 +48,8 @@
         public void DeletedItemIsNotReturnedInCallsToPeek()
         {
             // Setup - create a storage with one item
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
             Transmission transmissionToEnqueue = CreateTransmissionAndEnqueueIt(storage);
 
             // Act
@@ -71,7 +73,9 @@
         public void PeekedItemIsNOnlyotReturnedOnce()
         {
             // Setup - create a storage with one item
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             Transmission transmissionToEnqueue = CreateTransmissionAndEnqueueIt(storage);
 
             // Act
@@ -87,7 +91,9 @@
         public void PeekedItemIsReturnedAgainAfterTheItemInTheFirstCallToPeekIsDisposed()
         {
             // Setup - create a storage with one item
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             Transmission transmissionToEnqueue = CreateTransmission(new TraceTelemetry("mock_item"));
             storage.EnqueueAsync(transmissionToEnqueue).ConfigureAwait(false).GetAwaiter().GetResult();
 
@@ -108,7 +114,9 @@
         public void WhenStorageHasTwoItemsThenTwoCallsToPeekReturns2DifferentItems()
         {
             // Setup - create a storage with 2 items
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             Transmission firstTransmission = CreateTransmissionAndEnqueueIt(storage);
             Transmission secondTransmission = CreateTransmissionAndEnqueueIt(storage);
 
@@ -129,7 +137,9 @@
         public void WhenMaxFilesIsOneThenSecondTranmissionIsDropped()
         {
             // Setup
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             storage.MaxFiles = 1;
 
             // Act - Enqueue twice
@@ -145,7 +155,9 @@
         public void WhenMaxSizeIsReachedThenEnqueuedTranmissionsAreDropped()
         {
             // Setup - create a storage with 2 items
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             storage.CapacityInBytes = 200; // Each file enqueued in CreateTransmissionAndEnqueueIt is ~300 bytes.
 
             // Act - Enqueue twice
@@ -161,7 +173,9 @@
         public void WhenStorageFolderIsNullPeekReturnsNothing()
         {
             // Setup - create a storage with 2 items
-            Storage storage = new Storage("unittest" + Guid.NewGuid().ToString());
+            var storage = new StorageService();
+            storage.Init("unittest" + Guid.NewGuid().ToString());
+
             storage.StorageFolderInitialized = true;
 
             // Act - Enqueue twice
@@ -183,7 +197,7 @@
             return transmission;
         }
 
-        private static Transmission CreateTransmissionAndEnqueueIt(Storage storage)
+        private static Transmission CreateTransmissionAndEnqueueIt(StorageService storage)
         {
             Transmission firstTransmission = CreateTransmission(new TraceTelemetry(Guid.NewGuid().ToString()));
             storage.EnqueueAsync(firstTransmission).ConfigureAwait(false).GetAwaiter().GetResult();
