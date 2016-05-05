@@ -25,7 +25,7 @@ namespace Microsoft.HockeyApp
     /// <summary>
     /// static extension class for MD5 digest creation
     /// </summary>
-    public static class MD5Extension
+    internal static class MD5Extension
     {
         /// <summary>
         /// string extension method to get md5 hash from string
@@ -51,7 +51,7 @@ namespace Microsoft.HockeyApp.Util
     /// <summary>
     /// MD5 digest algorithm
     /// </summary>
-    public sealed class MD5Core
+    internal sealed class MD5Core
     {
         //Prevent CSC from adding a default public constructor
         private MD5Core() { }

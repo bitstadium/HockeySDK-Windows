@@ -9,7 +9,7 @@ namespace Microsoft.HockeyApp.Extensions
     /// <summary>
     /// TaskEx class to have a consistens interface with .net4.0
     /// </summary>
-    public class TaskEx
+    internal class TaskEx
     {
 
         /// <summary>
@@ -22,6 +22,5 @@ namespace Microsoft.HockeyApp.Extensions
         {
             return await Task.Run<T>(func);
         }
-
     }
 }

@@ -1,16 +1,10 @@
-﻿using Microsoft.HockeyApp.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Microsoft.HockeyApp.PCL
+﻿namespace Microsoft.HockeyApp.PCL
 {
     
     /// <summary>
     /// static extension class for
     /// </summary>
-    public static class HockeyClientPCLExtensions
+    internal static class HockeyClientPCLExtensions
     {
         /// <summary>
         /// Configures the client with a platform helper

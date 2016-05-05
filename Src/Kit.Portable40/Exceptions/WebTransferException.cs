@@ -14,7 +14,7 @@ namespace Microsoft.HockeyApp.Exceptions
     /// <summary>
     /// Exception used for indication an exception during datatransfer to the server like a connection timeout. ( => Try again later )
     /// </summary>
-    public class WebTransferException : Exception
+    internal class WebTransferException : Exception
     {
         /// <summary>
         /// Default constructor

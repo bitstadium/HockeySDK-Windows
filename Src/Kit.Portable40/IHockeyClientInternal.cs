@@ -9,7 +9,7 @@
     /// <summary>
     /// Full interface of Hockeyclient. Used by platform-specific SDKs
     /// </summary>
-    public interface IHockeyClientInternal : IHockeyClient
+    internal interface IHockeyClientInternal : IHockeyClient
     {
         #region Properties
 

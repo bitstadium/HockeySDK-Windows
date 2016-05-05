@@ -12,7 +12,7 @@ namespace Microsoft.HockeyApp.Extensions
     /// <summary>
     /// static extension class for mix extensions on pcl lib
     /// </summary>
-    public static class PortableExtensions45
+    internal static class PortableExtensions45
     {
 
         /// <summary>

@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 namespace Microsoft.HockeyApp.Extensions
 {
     /// <summary>
-    /// Hlper class to implement async locking
+    /// Helper class to implement async locking
     /// </summary>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "ToDo in future after integration of HockeyApp / Application Insights SDK is done")]
-    public sealed class AsyncLock
+    internal sealed class AsyncLock
     {
         private readonly SemaphoreSlim m_semaphore = new SemaphoreSlim(1, 1);
         private readonly Task<IDisposable> m_releaser;
