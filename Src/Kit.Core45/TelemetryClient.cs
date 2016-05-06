@@ -43,7 +43,7 @@
         {
             if (configuration == null)
             {
-                CoreEventSource.Log.TelemetryClientConstructorWithNoTelemetryConfiguration();
+                CoreEventSource.Log.LogVerbose("No Telemetry Configuration provided.Using the default TelemetryConfiguration.Active.");
                 configuration = TelemetryConfiguration.Active;
             }
 

@@ -5,7 +5,7 @@
     using Channel;
     using Extensibility;
     using Extensibility.Implementation.External;
-
+    using System.IO;
     /// <summary>
     /// Encapsulates platform-specific functionality required by the API.
     /// </summary>
@@ -39,5 +39,12 @@
         /// Returns the platform specific Debugger writer to the VS output console.
         /// </summary>
         IDebugOutput GetDebugOutput();
+
+        /// <summary>
+        /// Creates a compressed stream.
+        /// </summary>
+        /// <param name="stream">Original stream.</param>
+        /// <returns></returns>
+        Stream CreateCompressedStream(Stream stream);
     }
 }

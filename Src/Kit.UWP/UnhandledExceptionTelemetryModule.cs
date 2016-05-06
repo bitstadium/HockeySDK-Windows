@@ -71,7 +71,7 @@
                 }
                 catch (Exception ex)
                 {
-                    CoreEventSource.Log.LogError("HockeySDK: An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
+                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
                 }
 
                 // if we don't throw exception - app will not be crashed. We need to throw to not change the app behavior.
@@ -102,7 +102,7 @@
                 }
                 catch (Exception ex)
                 {
-                    CoreEventSource.Log.LogError("HockeySDK: An exception occured in TelemetryConfiguration.Active.DescriptionLoader callback : " + ex);
+                    CoreEventSource.Log.LogError("An exception occured in TelemetryConfiguration.Active.DescriptionLoader callback : " + ex);
                 }
             }
 

@@ -151,11 +151,11 @@
                 // Log the state of tracking 
                 if (value)
                 {
-                    CoreEventSource.Log.TrackingWasDisabled();
+                    CoreEventSource.Log.LogVerbose("Telemetry tracking was disabled.Message is dropped.");
                 }
                 else
                 {
-                    CoreEventSource.Log.TrackingWasEnabled();
+                    CoreEventSource.Log.LogVerbose("Telemetry tracking was enabled. Messages are being logged.");
                 }
 
                 this.disableTelemetry = value;

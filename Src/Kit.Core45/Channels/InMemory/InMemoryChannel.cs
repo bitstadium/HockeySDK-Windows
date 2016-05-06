@@ -132,7 +132,7 @@ namespace Microsoft.HockeyApp.Channel
             }
             catch (Exception e)
             {
-                CoreEventSource.Log.LogVerbose("TelemetryBuffer.Enqueue failed: ", e.ToString());
+                CoreEventSource.Log.LogVerbose("TelemetryBuffer.Enqueue failed: " + e.ToString());
             }
         }
 

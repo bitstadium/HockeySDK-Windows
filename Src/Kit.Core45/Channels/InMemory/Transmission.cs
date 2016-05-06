@@ -18,6 +18,7 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation;
 #if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
+    using Services;
 #endif
 
     /// <summary>
@@ -138,92 +139,12 @@ namespace Microsoft.HockeyApp.Channel
 
             try
             {
-#if CORE_PCL || WINDOWS_UWP
-                using (MemoryStream contentStream = new MemoryStream(this.Content))
-                {
-                    HttpRequestMessage request = this.CreateRequestMessage(this.EndpointAddress, contentStream);
-                    await this.client.SendAsync(request).ConfigureAwait(false);
-                }
-#else
-                WebRequest request = this.CreateRequest(this.EndpointAddress);
-                Task timeoutTask = TaskEx.Delay(this.Timeout);
-                Task sendTask = this.SendRequestAsync(request);                
-                Task completedTask = await TaskEx.WhenAny(timeoutTask, sendTask).ConfigureAwait(false);
-                if (completedTask == timeoutTask)
-                {
-                    request.Abort(); // And force the sendTask to throw WebException.
-                }
-
-                // Observe any exceptions the sendTask may have thrown and propagate them to the caller.
-                await sendTask.ConfigureAwait(false);
-#endif
+                var httpService = ServiceLocator.GetService<IHttpService>();
+                await httpService.PostAsync(this.EndpointAddress, Content, ContentType, ContentEncoding, this.Timeout);
             }
             finally
             {
                 Interlocked.Exchange(ref this.isSending, 0);
-            }
-        }
-
-#if CORE_PCL || WINDOWS_UWP
-        /// <summary>
-        /// Creates an http request for sending a transmission.
-        /// </summary>
-        /// <param name="address">The address of the web request.</param>
-        /// <param name="contentStream">The stream to write to.</param>
-        /// <returns>The request. An object of type HttpRequestMessage.</returns>
-        protected virtual HttpRequestMessage CreateRequestMessage(Uri address, Stream contentStream)
-        {
-            var request = new HttpRequestMessage(HttpMethod.Post, address);
-            request.Content = new StreamContent(contentStream);
-            if (!string.IsNullOrEmpty(this.ContentType))
-            {
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue(this.ContentType);
-            }
-
-            if (!string.IsNullOrEmpty(this.ContentEncoding))
-            {
-                request.Content.Headers.Add(ContentEncodingHeader, this.ContentEncoding);
-            }
-
-            return request;
-        }
-#endif
-
-        /// <summary>
-        /// Creates a post web request.  
-        /// </summary>
-        /// <param name="address">The Address in the web request.</param>
-        /// <returns>A web request pointing to the <c>Address</c>.</returns>
-        protected virtual WebRequest CreateRequest(Uri address)
-        {
-            var request = WebRequest.Create(address);
-
-            request.Method = "POST";
-
-            if (!string.IsNullOrEmpty(this.ContentType))
-            {
-                request.ContentType = this.ContentType;
-            }
-
-            if (!string.IsNullOrEmpty(this.ContentEncoding))
-            {
-                request.Headers[ContentEncodingHeader] = this.ContentEncoding;
-            }
-#if NET40
-            request.ContentLength = this.Content.Length;
-#endif
-            return request;
-        }
-
-        private async Task SendRequestAsync(WebRequest request)
-        {
-            using (Stream requestStream = await request.GetRequestStreamAsync().ConfigureAwait(false))
-            {
-                await requestStream.WriteAsync(this.Content, 0, this.Content.Length).ConfigureAwait(false);
-            }
-
-            using (WebResponse response = await request.GetResponseAsync().ConfigureAwait(false))
-            {
             }
         }
     }

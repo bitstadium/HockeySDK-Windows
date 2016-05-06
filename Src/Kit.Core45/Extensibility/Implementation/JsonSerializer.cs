@@ -204,11 +204,7 @@
         /// </summary>
         private static Stream CreateCompressedStream(Stream stream)
         {
-#if !Wp80
-            return new GZipStream(stream, CompressionMode.Compress);
-#else
-            return stream;
-#endif
+            return ServiceLocator.GetService<IPlatformService>().CreateCompressedStream(stream);
         }
 
         private static void SerializeTelemetryItem(ITelemetry telemetryItem, JsonWriter jsonWriter)

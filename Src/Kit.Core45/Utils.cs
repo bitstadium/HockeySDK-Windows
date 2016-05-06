@@ -45,7 +45,7 @@
         {
             if (string.IsNullOrEmpty(value))
             {
-                CoreEventSource.Log.PopulateRequiredStringWithValue(parameterName, telemetryType);
+                CoreEventSource.Log.LogVerbose(string.Format("Value for property '{0}' of {1} was not found. Populating it by default.", parameterName, telemetryType));
                 return parameterName + " is a required field for " + telemetryType;
             }
 
@@ -64,7 +64,7 @@
             if (!TimeSpanEx.TryParse(value, CultureInfo.InvariantCulture, out interval))
 #endif
             {
-                CoreEventSource.Log.RequestTelemetryIncorrectDuration();
+                CoreEventSource.Log.LogError("Invalid duration for Request Telemetry. Setting it to '00:00:00'.");
                 return TimeSpan.Zero;
             }
 

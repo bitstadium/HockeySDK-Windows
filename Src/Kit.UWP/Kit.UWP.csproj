@@ -42,15 +42,10 @@
     <Compile Include="DeviceContextReader.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\Implementation\ExceptionHandler.cs" />
-    <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\DeviceContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\InternalContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\LocationContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\OperationContextData.cs" />
     <Compile Include="Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\SessionContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\SessionStateData.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
     <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
     <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />
     <Compile Include="Extensibility\Platform\PlatformDispatcher.cs" />
@@ -58,6 +53,7 @@
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\HttpClientTransmission.cs" />
     <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="UnhandledExceptionTelemetryModule.cs" />

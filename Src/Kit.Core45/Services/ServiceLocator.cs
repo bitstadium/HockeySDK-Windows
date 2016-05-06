@@ -1,26 +1,25 @@
 ﻿namespace Microsoft.HockeyApp
 {
+    using Services;
     using System;
     using System.Collections.Generic;
 
-    public static class ServiceLocator
+    internal static class ServiceLocator
     {
         private static readonly IDictionary<Type, object> servcies;
 
         static ServiceLocator()
         {
             servcies = new Dictionary<Type, object>();
+            AddService<IHttpService>(new HttpService());
         }
 
-        public static void AddService<T>(object adaptee)
+        internal static void AddService<T>(object adaptee)
         {
-            if (!servcies.ContainsKey(typeof(T)))
-            {
-                servcies.Add(typeof(T), adaptee);
-            }
+            servcies[typeof(T)] = adaptee;
         }
 
-        public static T GetService<T>()
+        internal static T GetService<T>()
         {
             return (T)servcies[typeof(T)];
         }

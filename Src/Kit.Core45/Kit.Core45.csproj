@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
@@ -25,6 +25,8 @@
     <AssemblyName>Microsoft.HockeyApp.Core45</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\IHttpService.cs" />
     <Compile Include="TelemetryConfigurationFactory.cs" />
     <Compile Include="ComponentContextData.cs" />
     <Compile Include="ContextTagKeys.cs" />
@@ -127,27 +129,7 @@
     <Compile Include="Extensibility\Implementation\External\RemoteDependencyData.cs" />
     <Compile Include="Extensibility\Implementation\External\RequestData.cs" />
     <Compile Include="Extensibility\Implementation\External\MessageData.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\ApplicationNameProvider.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\CoreEventSource.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnoisticsEventCounters.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnoisticsEventThrottling.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnoisticsEventThrottlingDefaults.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnoisticsEventThrottlingManager.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnoisticsEventThrottlingScheduler.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnosticsListener.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\DiagnosticsTelemetryModule.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\EventMetaData.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\EventSourceKeywords.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\F5DiagnosticsSender.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\IDiagnoisticsEventThrottling.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\IDiagnoisticsEventThrottlingManager.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\IDiagnoisticsEventThrottlingScheduler.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\IDiagnosticsSender.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\PortalDiagnosticsQueueSender.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\PortalDiagnosticsSender.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\SpinWait.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\ThreadResourceLock.cs" />
-    <Compile Include="Extensibility\Implementation\Tracing\TraceEvent.cs" />
+    <Compile Include="Tracing\CoreEventSource.cs" />
     <Compile Include="Extensibility\Implementation\TypeExtensions.cs" />
     <Compile Include="Extensibility\Implementation\UserContext.cs" />
     <Compile Include="Extensibility\Implementation\WeakConcurrentRandom.cs" />

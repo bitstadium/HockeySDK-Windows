@@ -23,7 +23,6 @@
     {
         private static PageViewTelemetryModule pageViewModule = null;
         private static UnhandledExceptionTelemetryModule unhandledExceptionModule = null;
-        private static DiagnosticsListener listener;
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
@@ -149,8 +148,7 @@
 
         private static void EnableDiagnostics()
         {
-            var diagnosticSenders = new List<IDiagnosticsSender>() { new F5DiagnosticsSender() };
-            listener = new DiagnosticsListener(diagnosticSenders);
+            CoreEventSource.Log.Enabled = true;
         }
     }
 }

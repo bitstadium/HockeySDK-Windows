@@ -6,6 +6,7 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.IO.Compression;
     using System.Linq;
     using Windows.ApplicationModel;
     using Windows.Storage;
@@ -48,6 +49,11 @@
         public IDebugOutput GetDebugOutput()
         {
             return new DebugOutput();
+        }
+
+        public Stream CreateCompressedStream(Stream stream)
+        {
+            return new GZipStream(stream, CompressionMode.Compress);
         }
     }
 }
