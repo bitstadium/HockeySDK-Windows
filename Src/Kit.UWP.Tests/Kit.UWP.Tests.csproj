@@ -37,11 +37,8 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\PersistenceChannel.Net40.Tests\SenderTests.cs">
+    <Compile Include="SenderTests.cs">
       <Link>SenderTests.cs</Link>
-    </Compile>
-    <Compile Include="..\PersistenceChannel.Net40.Tests\StorageTests.cs">
-      <Link>StorageTests.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestApp.xaml.cs">

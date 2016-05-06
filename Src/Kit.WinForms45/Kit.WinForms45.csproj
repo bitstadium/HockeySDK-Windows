@@ -33,7 +33,7 @@
     <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
       <Link>Properties\AssemblyCommonInfo.cs</Link>
     </Compile>
-    <Compile Include="..\PersistenceChannel.Net40\Storage.cs">
+    <Compile Include="Storage.cs">
       <Link>Storage.cs</Link>
     </Compile>
     <Compile Include="Constants.cs" />
