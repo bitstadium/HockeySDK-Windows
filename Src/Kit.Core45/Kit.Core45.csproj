@@ -25,9 +25,7 @@
     <AssemblyName>Microsoft.HockeyApp.Core45</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Core.Wp80\Extensibility\Implementation\TelemetryConfigurationFactory.cs">
-      <Link>Extensibility\Implementation\TelemetryConfigurationFactory.cs</Link>
-    </Compile>
+    <Compile Include="TelemetryConfigurationFactory.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ComponentContextData.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ContextTagKeys.cs" />
     <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\DeviceContextData.cs">
