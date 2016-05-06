@@ -11,7 +11,7 @@ namespace Microsoft.HockeyApp
     /// <summary>
     /// static extension class for utility extensions
     /// </summary>
-    public static class UtilExtensions
+    internal static class UtilExtensions
     {
         internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
         {

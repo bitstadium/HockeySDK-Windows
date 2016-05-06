@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Windows.Graphics.Display;
-using Windows.Storage.Streams;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
-using System.Globalization;
-
-
-namespace Microsoft.HockeyApp.Tools
+﻿namespace Microsoft.HockeyApp.Tools
 {
+    using System;
+    using System.Threading.Tasks;
+    using Windows.Graphics.Display;
+    using Windows.Storage.Streams;
+    using Windows.UI;
+    using Windows.UI.Xaml.Controls;
+    using System.Globalization;
+
     /// <summary>
     /// static class for utility extension methods
     /// </summary>
@@ -35,7 +30,7 @@ namespace Microsoft.HockeyApp.Tools
         /// <param name="hexColorString">a hex color string like #FFFFFF00</param>
         /// <param name="defaultColor">defautl value to if something goes wrong</param>
         /// <returns></returns>
-        public static Color ConvertStringToColor(this String hexColorString, Color defaultColor)
+        public static Color ConvertStringToColor(this string hexColorString, Color defaultColor)
         {
             try
             {
@@ -68,6 +63,5 @@ namespace Microsoft.HockeyApp.Tools
                 return defaultColor;
             }
         }
-
     }
 }
