@@ -161,3 +161,4 @@ $RECYCLE.BIN/
 *.vsix
 Web/PerformanceTests_Instrumented/
 .PreReleaseVersion
+/Src/!.bat

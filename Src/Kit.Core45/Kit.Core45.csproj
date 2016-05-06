@@ -26,26 +26,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="TelemetryConfigurationFactory.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ComponentContextData.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\ContextTagKeys.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\DeviceContextData.cs">
-      <Link>Device\DeviceContextData.cs</Link>
-    </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\InternalContextData.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\LocationContextData.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\OperationContextData.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionContextData.cs">
-      <Link>UserMetrics\SessionContextData.cs</Link>
-    </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SessionStateData.g.cs">
-      <Link>UserMetrics\SessionStateData.g.cs</Link>
-    </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\SeverityLevel.g.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\Tags.cs" />
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\External\UserContextData.cs">
-      <Link>UserMetrics\UserContextData.cs</Link>
-    </Compile>
+    <Compile Include="ComponentContextData.cs" />
+    <Compile Include="ContextTagKeys.cs" />
+    <Compile Include="DeviceContextData.cs" />
+    <Compile Include="InternalContextData.cs" />
+    <Compile Include="LocationContextData.cs" />
+    <Compile Include="OperationContextData.cs" />
+    <Compile Include="PerformanceCounterData.g.cs" />
+    <Compile Include="SessionContextData.cs" />
+    <Compile Include="SessionStateData.g.cs" />
+    <Compile Include="SeverityLevel.g.cs" />
+    <Compile Include="Tags.cs" />
+    <Compile Include="UserContextData.cs" />
     <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
     <Compile Include="Channels\InMemory\InMemoryTransmitter.cs" />
     <Compile Include="Channels\InMemory\ITelemetry.cs" />
