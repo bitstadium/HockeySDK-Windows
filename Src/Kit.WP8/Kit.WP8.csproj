@@ -30,10 +30,9 @@
     <ToolkitRevision>2</ToolkitRevision>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
-      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AsyncSynchronizationContext.cs" />
     <Compile Include="AuthManager.cs" />
     <Compile Include="Constants.cs" />

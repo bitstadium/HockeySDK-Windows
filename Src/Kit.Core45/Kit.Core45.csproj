@@ -25,6 +25,7 @@
     <AssemblyName>Microsoft.HockeyApp.Core45</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Properties\AssemblyInfoCore.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\IHttpService.cs" />
     <Compile Include="TelemetryConfigurationFactory.cs" />
@@ -150,84 +151,34 @@
     <Compile Include="TelemetryClient.cs" />
     <Compile Include="TimeSpanEx.cs" />
     <Compile Include="Utils.cs" />
-    <Compile Include="..\Kit.Portable40\Exceptions\WebTransferException.cs">
-      <Link>Exceptions\WebTransferException.cs</Link>
-    </Compile>
-
+    <Compile Include="Exceptions\WebTransferException.cs" />
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\MD5.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
     <Compile Include="Extensions\WebRequestExtension.cs" />
-
-    <Compile Include="..\Kit.Portable40\HockeyClient.cs">
-      <Link>HockeyClient.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\HockeyClientConfiguration.cs">
-      <Link>HockeyClientConfiguration.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\HockeyClientPCLExtensions.cs">
-      <Link>HockeyClientPCLExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IAppVersion.cs">
-      <Link>IAppVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IAuthStatus.cs">
-      <Link>IAuthStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\ICrashData.cs">
-      <Link>ICrashData.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IFeedbackAttachment.cs">
-      <Link>IFeedbackAttachment.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IFeedbackMessage.cs">
-      <Link>IFeedbackMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IFeedbackThread.cs">
-      <Link>IFeedbackThread.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IHockeyClient.cs">
-      <Link>IHockeyClient.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IHockeyClientInternal.cs">
-      <Link>IHockeyClientInternal.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\IHockeyPlatformHelper.cs">
-      <Link>IHockeyPlatformHelper.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\InternalUnhandledExceptionEventArgs.cs">
-      <Link>InternalUnhandledExceptionEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Logging.cs">
-      <Link>Logging.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\AppVersion.cs">
-      <Link>Model\AppVersion.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\AuthStatus.cs">
-      <Link>Model\AuthStatus.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\CrashData.cs">
-      <Link>Model\CrashData.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\CrashLogInformation.cs">
-      <Link>Model\CrashLogInformation.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\FeedbackAttachment.cs">
-      <Link>Model\FeedbackAttachment.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\FeedbackMessage.cs">
-      <Link>Model\FeedbackMessage.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\FeedbackResponseSingle.cs">
-      <Link>Model\FeedbackResponseSingle.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Model\FeedbackThread.cs">
-      <Link>Model\FeedbackThread.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\SDKConstants.cs">
-      <Link>SDKConstants.cs</Link>
-    </Compile>
+    <Compile Include="HockeyClient.cs" />
+    <Compile Include="HockeyClientConfiguration.cs" />
+    <Compile Include="HockeyClientPCLExtensions.cs" />
+    <Compile Include="IAppVersion.cs" />
+    <Compile Include="IAuthStatus.cs" />
+    <Compile Include="ICrashData.cs" />
+    <Compile Include="IFeedbackAttachment.cs" />
+    <Compile Include="IFeedbackMessage.cs" />
+    <Compile Include="IFeedbackThread.cs" />
+    <Compile Include="IHockeyClient.cs" />
+    <Compile Include="IHockeyClientInternal.cs" />
+    <Compile Include="IHockeyPlatformHelper.cs" />
+    <Compile Include="InternalUnhandledExceptionEventArgs.cs" />
+    <Compile Include="Logging.cs" />
+    <Compile Include="Model\AppVersion.cs" />
+    <Compile Include="Model\AuthStatus.cs" />
+    <Compile Include="Model\CrashData.cs" />
+    <Compile Include="Model\CrashLogInformation.cs" />
+    <Compile Include="Model\FeedbackAttachment.cs" />
+    <Compile Include="Model\FeedbackMessage.cs" />
+    <Compile Include="Model\FeedbackResponseSingle.cs" />
+    <Compile Include="Model\FeedbackThread.cs" />
+    <Compile Include="Model\SDKConstants.cs" />
     <Compile Include="Extensions\AsyncLock.cs" />
     <Compile Include="Extensions\TaskEx.cs" />
     <Compile Include="Extensions\PortableExtensions45.cs" />
