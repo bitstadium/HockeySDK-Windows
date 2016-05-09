@@ -14,11 +14,6 @@
     public static class HockeyClientWP8SLExtension
     {
 
-        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
-
         #region Configuration
         /// <summary>
         /// main configuration method. call in app constructor
@@ -47,7 +42,8 @@
                 AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
             }
 
-            WindowsAppInitializer.InitializeAsync(appId);
+            // ToDo: Do it later
+            // WindowsAppInitializer.InitializeAsync(appId);
             return @this as IHockeyClientConfigurable;
         }
 
@@ -71,13 +67,6 @@
         #region Wrappers for functions
 
         #region CrashHandling
-
-        [Obsolete("Please use SendCrashesAsync() instead")]
-        public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this, Boolean sendAutomatically = false)
-        {
-            @this.AsInternal().CheckForInitialization();
-            return await CrashHandler.Current.HandleCrashesAsync(sendAutomatically).ConfigureAwait(false);
-        }
 
         /// <summary>
         /// Send any collected crashes to the HockeyApp server. You should normally call this during startup of your app. 
