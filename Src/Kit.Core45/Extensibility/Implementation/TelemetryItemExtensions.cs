@@ -7,9 +7,11 @@
 
     internal static class TelemetryItemExtensions
     {
+        internal const string TelemetryNamePrefix = "Microsoft.ApplicationInsights.";
+
         internal static string GetTelemetryFullName(this ITelemetry item, string envelopeName)
         {
-            return Constants.TelemetryNamePrefix + item.Context.InstrumentationKey + "|" + envelopeName;
+            return TelemetryNamePrefix + item.Context.InstrumentationKey + "|" + envelopeName;
         }
     }
 }

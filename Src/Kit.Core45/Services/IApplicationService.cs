@@ -16,11 +16,6 @@
         event EventHandler OnResuming;
 
         /// <summary>
-        /// Occurs when an exception that is raised by application is not handled.
-        /// </summary>
-        event EventHandler OnCrashed;
-
-        /// <summary>
         /// Initializes the service.
         /// </summary>
         void Init();

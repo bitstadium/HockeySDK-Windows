@@ -19,6 +19,8 @@ namespace Microsoft.HockeyApp.Channel
     /// </summary>
     internal sealed class PersistenceChannel : ITelemetryChannel
     {
+        internal const string TelemetryServiceEndpoint = "https://gate.hockeyapp.net/v2/track";
+
         internal readonly TelemetryBuffer TelemetryBuffer;
         internal PersistenceTransmitter Transmitter;
 
@@ -55,7 +57,7 @@ namespace Microsoft.HockeyApp.Channel
             this.storage.Init(storageFolderName);
             this.Transmitter = new PersistenceTransmitter(this.storage, sendersCount);
             this.flushManager = new FlushManager(this.storage, this.TelemetryBuffer);
-            this.EndpointAddress = Constants.TelemetryServiceEndpoint;
+            this.EndpointAddress = TelemetryServiceEndpoint;
             this.developerMode = false;
         }
 
@@ -147,7 +149,7 @@ namespace Microsoft.HockeyApp.Channel
 
             set 
             {
-                string address = value ?? Constants.TelemetryServiceEndpoint;
+                string address = value ?? TelemetryServiceEndpoint;
                 this.flushManager.EndpointAddress = new Uri(address);
             }
         }

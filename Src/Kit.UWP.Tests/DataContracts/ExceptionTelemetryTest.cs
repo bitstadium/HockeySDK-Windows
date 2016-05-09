@@ -343,7 +343,7 @@
         {
             const int Overage = 5;
             List<Exception> innerExceptions = new List<Exception>();
-            for (int i = 0; i < Constants.MaxExceptionCountToSave + Overage; i++)
+            for (int i = 0; i < ExceptionTelemetry.MaxExceptionCountToSave + Overage; i++)
             {
                 innerExceptions.Add(new Exception((i + 1).ToString(CultureInfo.InvariantCulture)));
             }
@@ -352,9 +352,9 @@
 
             ExceptionTelemetry telemetry = new ExceptionTelemetry { Exception = rootLevelException };
 
-            Assert.Equal(Constants.MaxExceptionCountToSave + 1, telemetry.Exceptions.Count);
+            Assert.Equal(ExceptionTelemetry.MaxExceptionCountToSave + 1, telemetry.Exceptions.Count);
             int counter = 0;
-            foreach (ExceptionDetails details in telemetry.Exceptions.Take(Constants.MaxExceptionCountToSave))
+            foreach (ExceptionDetails details in telemetry.Exceptions.Take(ExceptionTelemetry.MaxExceptionCountToSave))
             {
                 Assert.Equal(counter.ToString(CultureInfo.InvariantCulture), details.message);
                 counter++;
@@ -368,8 +368,8 @@
                 string.Format(
                     CultureInfo.InvariantCulture,
                     "The number of inner exceptions was {0} which is larger than {1}, the maximum number allowed during transmission. All but the first {1} have been dropped.",
-                    1 + Constants.MaxExceptionCountToSave + Overage,
-                    Constants.MaxExceptionCountToSave),
+                    1 + ExceptionTelemetry.MaxExceptionCountToSave + Overage,
+                    ExceptionTelemetry.MaxExceptionCountToSave),
                 last.message);
         }
 

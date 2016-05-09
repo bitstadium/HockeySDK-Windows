@@ -7,6 +7,7 @@
     using Microsoft.Developer.Analytics.DataCollection.Model.v2;
 #if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+    using Extensibility.Implementation;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
@@ -219,7 +220,7 @@
                 .SerializeDeserializeTelemetryItem<TTelemetry, TEndpointData>(expected);
 
             Assert.AreEqual(
-                Constants.TelemetryNamePrefix + "312cbd799dbb4c48a7da3cc2a931cb71." + this.ExtractTelemetryNameFromType(typeof(TTelemetry)),
+                TelemetryItemExtensions.TelemetryNamePrefix + "312cbd799dbb4c48a7da3cc2a931cb71." + this.ExtractTelemetryNameFromType(typeof(TTelemetry)),
                 actual.Name);
         }
 

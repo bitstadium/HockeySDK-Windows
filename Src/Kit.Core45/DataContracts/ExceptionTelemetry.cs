@@ -13,6 +13,7 @@
     /// </summary>
     internal sealed class ExceptionTelemetry : ITelemetry, ISupportProperties
     {
+        internal const int MaxExceptionCountToSave = 10;
         internal const string TelemetryName = "Exception";
         internal readonly string BaseType = typeof(ExceptionData).Name;
         internal readonly ExceptionData Data;
@@ -168,7 +169,7 @@
             ExceptionTelemetry.ConvertExceptionTree(exception, null, exceptions);
 
             // trim if we have too many, also add a custom exception to let the user know we're trimed
-            if (exceptions.Count > Constants.MaxExceptionCountToSave)
+            if (exceptions.Count > MaxExceptionCountToSave)
             {
                 // TODO: when we localize these messages, we should consider not using InvariantCulture
                 // create our "message" exception.
@@ -177,10 +178,10 @@
                         CultureInfo.InvariantCulture,
                         "The number of inner exceptions was {0} which is larger than {1}, the maximum number allowed during transmission. All but the first {1} have been dropped.",
                         exceptions.Count,
-                        Constants.MaxExceptionCountToSave));
+                        MaxExceptionCountToSave));
 
                 // remove all but the first N exceptions
-                exceptions.RemoveRange(Constants.MaxExceptionCountToSave, exceptions.Count - Constants.MaxExceptionCountToSave);
+                exceptions.RemoveRange(MaxExceptionCountToSave, exceptions.Count - MaxExceptionCountToSave);
                 
                 // we'll add our new exception and parent it to the root exception (first one in the list)
                 exceptions.Add(PlatformSingleton.Current.GetExceptionDetails(countExceededException, exceptions[0]));

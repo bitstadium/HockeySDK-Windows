@@ -56,7 +56,6 @@
     <Compile Include="Services\IApplicationService.cs" />
     <Compile Include="Services\BaseStorageService.cs" />
     <Compile Include="Channels\Persistence\StorageTransmission.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="DataContracts\Attachments.cs" />
     <Compile Include="DataContracts\CrashTelemetry.cs" />
     <Compile Include="DataContracts\CrashTelemetryBinary.cs" />

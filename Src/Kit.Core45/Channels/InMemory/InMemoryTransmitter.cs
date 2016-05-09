@@ -36,7 +36,7 @@ namespace Microsoft.HockeyApp.Channel
         private int disposeCount = 0;
 
         private TimeSpan sendingInterval = TimeSpan.FromSeconds(30);
-        private Uri endpointAddress = new Uri(Constants.TelemetryServiceEndpoint);
+        private Uri endpointAddress = new Uri(PersistenceChannel.TelemetryServiceEndpoint);
                 
         internal InMemoryTransmitter(TelemetryBuffer buffer)
         {

@@ -22,8 +22,6 @@
 
         private bool initialized = false;
 
-        public event EventHandler OnCrashed;
-
         public event EventHandler OnResuming;
 
         public event EventHandler OnSuspending;

@@ -7,6 +7,8 @@
     // TODO: Move Telemetry class to DataContracts namespace for discoverability.
     internal static class Telemetry
     {
+        internal const string DevModeTelemetryNamePrefix = "Microsoft.ApplicationInsights.Dev.";
+
         public static void WriteEnvelopeProperties(this ITelemetry telemetry, IJsonWriter json)
         {
             json.WriteProperty("time", telemetry.Timestamp.UtcDateTime.ToString("o", CultureInfo.InvariantCulture));
@@ -30,7 +32,7 @@
             var eventName = string.Format(
                 System.Globalization.CultureInfo.InvariantCulture,
                 "{0}{1}{2}",
-                isDevMode ? Constants.DevModeTelemetryNamePrefix : Constants.TelemetryNamePrefix,
+                isDevMode ? DevModeTelemetryNamePrefix : TelemetryItemExtensions.TelemetryNamePrefix,
                 NormalizeInstrumentationKey(telemetry.Context.InstrumentationKey),
                 telemetryName);
             json.WriteProperty("name", eventName);
