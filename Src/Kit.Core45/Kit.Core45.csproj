@@ -25,22 +25,23 @@
     <AssemblyName>Microsoft.HockeyApp.Core45</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Application\ComponentContextInitializer.cs" />
     <Compile Include="Properties\AssemblyInfoCore.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\IHttpService.cs" />
     <Compile Include="TelemetryConfigurationFactory.cs" />
-    <Compile Include="ComponentContextData.cs" />
+    <Compile Include="Application\ComponentContextData.cs" />
     <Compile Include="ContextTagKeys.cs" />
-    <Compile Include="DeviceContextData.cs" />
+    <Compile Include="Device\DeviceContextData.cs" />
     <Compile Include="InternalContextData.cs" />
-    <Compile Include="LocationContextData.cs" />
+    <Compile Include="Device\LocationContextData.cs" />
     <Compile Include="OperationContextData.cs" />
     <Compile Include="PerformanceCounterData.g.cs" />
-    <Compile Include="SessionContextData.cs" />
-    <Compile Include="SessionStateData.g.cs" />
+    <Compile Include="UserMetrics\SessionContextData.cs" />
+    <Compile Include="UserMetrics\SessionStateData.g.cs" />
     <Compile Include="SeverityLevel.g.cs" />
     <Compile Include="Tags.cs" />
-    <Compile Include="UserContextData.cs" />
+    <Compile Include="UserMetrics\UserContextData.cs" />
     <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
     <Compile Include="Channels\InMemory\InMemoryTransmitter.cs" />
     <Compile Include="Channels\InMemory\ITelemetry.cs" />
@@ -158,17 +159,17 @@
     <Compile Include="HockeyClient.cs" />
     <Compile Include="HockeyClientConfiguration.cs" />
     <Compile Include="HockeyClientPCLExtensions.cs" />
-    <Compile Include="IAppVersion.cs" />
+    <Compile Include="Application\IAppVersion.cs" />
     <Compile Include="IAuthStatus.cs" />
     <Compile Include="ICrashData.cs" />
-    <Compile Include="IFeedbackAttachment.cs" />
-    <Compile Include="IFeedbackMessage.cs" />
-    <Compile Include="IFeedbackThread.cs" />
+    <Compile Include="Feedback\IFeedbackAttachment.cs" />
+    <Compile Include="Feedback\IFeedbackMessage.cs" />
+    <Compile Include="Feedback\IFeedbackThread.cs" />
     <Compile Include="IHockeyClient.cs" />
     <Compile Include="IHockeyClientInternal.cs" />
     <Compile Include="IHockeyPlatformHelper.cs" />
     <Compile Include="InternalUnhandledExceptionEventArgs.cs" />
-    <Compile Include="Logging.cs" />
+    <Compile Include="Tracing\Logging.cs" />
     <Compile Include="Model\AppVersion.cs" />
     <Compile Include="Model\AuthStatus.cs" />
     <Compile Include="Model\CrashData.cs" />
@@ -182,6 +183,7 @@
     <Compile Include="Extensions\TaskEx.cs" />
     <Compile Include="Extensions\PortableExtensions45.cs" />
     <Compile Include="Model\_NamespaceDoc.cs" />
+    <Compile Include="WindowsAppInitializer.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup />

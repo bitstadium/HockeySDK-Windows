@@ -38,7 +38,6 @@
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="ComponentContextInitializer.cs" />
     <Compile Include="DeviceContextReader.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\ExceptionHandler.cs" />

@@ -19,11 +19,6 @@ namespace Microsoft.HockeyApp
         Session = 1 << 2, // 000010
 
         /// <summary>
-        /// Auto collection of page view telemetry from view navigation events.
-        /// </summary>
-        PageView = 1 << 3, // 000100
-
-        /// <summary>
         /// Auto collection of application crashes from unhandled exception handler. 
         /// </summary>
         UnhandledException = 1 << 4, // 001000
