@@ -559,30 +559,6 @@
             Assert.DoesNotThrow(() => client.Track(new StubTelemetry()));
         }
 
-#if !Wp80 && !WINDOWS_PHONE
-        [TestMethod]
-        public void TrackLogsDiagnosticsMessageOnExceptionsDuringTelemetryIntializersInitialize()
-        {
-            using (var listener = new TestEventListener())
-            {
-                listener.EnableEvents(CoreEventSource.Log, EventLevel.Error);
-
-                var configuration = new TelemetryConfiguration { InstrumentationKey = "Test key" };
-                var telemetryInitializer = new StubTelemetryInitializer();
-                var exceptionMessage = "Test exception message";
-                telemetryInitializer.OnInitialize = item => { throw new Exception(exceptionMessage); };
-                configuration.TelemetryInitializers.Add(telemetryInitializer);
-
-                var client = new TelemetryClient(configuration) { Channel = new StubTelemetryChannel() };
-                client.Track(new StubTelemetry());
-
-                var exceptionExplanation = "Exception while initializing " + typeof(StubTelemetryInitializer).FullName;
-                var diagnosticsMessage = (string)listener.Messages.First().Payload[0];
-                Assert.Contains(exceptionExplanation, diagnosticsMessage, StringComparison.OrdinalIgnoreCase);
-                Assert.Contains(exceptionMessage, diagnosticsMessage, StringComparison.OrdinalIgnoreCase);
-            }
-        }
-#endif
         [TestMethod]
         public void TrackDoesNotAddDeveloperModeCustomPropertyIfDeveloperModeIsSetToFalse()
         {

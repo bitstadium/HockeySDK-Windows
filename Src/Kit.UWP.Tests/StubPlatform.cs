@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
@@ -37,6 +38,11 @@
         public IDebugOutput GetDebugOutput()
         {
             return this.OnGetDebugOutput();
+        }
+
+        public Stream CreateCompressedStream(Stream stream)
+        {
+            return stream;
         }
     }
 }

@@ -139,37 +139,6 @@
                 Assert.True(lastActionInvoked.Wait(50));
                 Assert.Equal(1, invokationCount);
             }
-
-#if !Wp80 && !WINDOWS_PHONE
-            [TestMethod]
-            [Timeout(1000)]
-            public void HandlesAsyncExceptionThrownByTheDelegate()
-            {
-                TaskTimer timer = new TaskTimer { Delay = TimeSpan.FromMilliseconds(1) };
-
-                TestEventListener listener = new TestEventListener();
-                listener.EnableEvents(CoreEventSource.Log, EventLevel.LogAlways);
-
-                timer.Start(() => Task.Factory.StartNew(() => { throw new Exception(); }));
-
-                Assert.NotNull(listener.Messages.FirstOrDefault());
-            }
-
-            [TestMethod]
-            [Timeout(1000)]
-            public void HandlesSyncExceptionThrownByTheDelegate()
-            {
-                TaskTimer timer = new TaskTimer { Delay = TimeSpan.FromMilliseconds(1) };
-
-                using (TestEventListener listener = new TestEventListener())
-                {
-                    listener.EnableEvents(CoreEventSource.Log, EventLevel.LogAlways);
-                    timer.Start(() => { throw new Exception(); });
-
-                    Assert.NotNull(listener.Messages.FirstOrDefault());
-                }
-            }
-#endif
         }
 
         [TestClass]

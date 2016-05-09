@@ -19,6 +19,7 @@
 
   <files>
     <!-- HockeySDK -->
+    <file src="$configuration$\Kit.Wp8\Microsoft.HockeyApp.*" target="lib\wp8" />
     <file src="$configuration$\NuGet\HockeySDK.WP\content\**" target="content" />
     <file src="$configuration$\NuGet\HockeySDK.WP\tools\**" target="tools" />
   </files>
