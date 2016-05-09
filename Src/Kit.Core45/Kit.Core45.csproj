@@ -153,18 +153,12 @@
     <Compile Include="..\Kit.Portable40\Exceptions\WebTransferException.cs">
       <Link>Exceptions\WebTransferException.cs</Link>
     </Compile>
-    <Compile Include="..\Kit.Portable40\Extensions\ExceptionExtension.cs">
-      <Link>Extensions\ExceptionExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Extensions\MD5.cs">
-      <Link>Extensions\MD5.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Extensions\UtilExtensions.cs">
-      <Link>Extensions\UtilExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.Portable40\Extensions\WebRequestExtension.cs">
-      <Link>Extensions\WebRequestExtension.cs</Link>
-    </Compile>
+
+    <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\MD5.cs" />
+    <Compile Include="Extensions\UtilExtensions.cs" />
+    <Compile Include="Extensions\WebRequestExtension.cs" />
+
     <Compile Include="..\Kit.Portable40\HockeyClient.cs">
       <Link>HockeyClient.cs</Link>
     </Compile>
