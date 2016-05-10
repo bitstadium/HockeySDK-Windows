@@ -12,10 +12,6 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
 
-#if WINRT || WINDOWS_UWP
-    using TaskEx = System.Threading.Tasks.Task;
-#endif
-
     /// <summary>
     /// Implements throttled and persisted transmission of telemetry to Application Insights. 
     /// </summary>

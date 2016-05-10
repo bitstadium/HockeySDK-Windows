@@ -57,11 +57,7 @@
         public static TimeSpan ValidateDuration(string value)
         {
             TimeSpan interval;
-#if NET45 || WINDOWS_UWP || NET46
-            if (!TimeSpan.TryParse(value, CultureInfo.InvariantCulture, out interval))
-#else
             if (!TimeSpanEx.TryParse(value, CultureInfo.InvariantCulture, out interval))
-#endif
             {
                 CoreEventSource.Log.LogError("Invalid duration for Request Telemetry. Setting it to '00:00:00'.");
                 return TimeSpan.Zero;
