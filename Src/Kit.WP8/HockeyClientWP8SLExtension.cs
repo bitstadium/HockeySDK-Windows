@@ -42,8 +42,7 @@
                 AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
             }
 
-            // ToDo: Do it later
-            // WindowsAppInitializer.InitializeAsync(appId);
+            WindowsAppInitializer.InitializeAsync(appId);
             return @this as IHockeyClientConfigurable;
         }
 

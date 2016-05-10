@@ -5,9 +5,9 @@
     using System.Threading;
     using Channel;
     using DataContracts;
+    using Extensibility;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
-    using Microsoft.HockeyApp.Extensibility;
 
     /// <summary>
     /// Encapsulates the global telemetry configuration typically loaded from the configuration file.
@@ -32,12 +32,7 @@
         /// </summary>
         public TelemetryConfiguration()
         {
-            this.Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session;
-#if WINDOWS_UWP
-            // only for UWP we are using Application Insights exception telemetry pipeline. For all other platforms we are using HockeyApp exception pipeline.
-            // ToDo: Refactor this code in future to use single pipeline.
-            this.Collectors |= WindowsCollectors.UnhandledException;
-#endif
+            this.Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException;
         }
 
         /// <summary>
