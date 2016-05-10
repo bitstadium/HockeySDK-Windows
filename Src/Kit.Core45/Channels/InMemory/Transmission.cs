@@ -5,21 +5,11 @@
 namespace Microsoft.HockeyApp.Channel
 {
     using System;
-    using System.Collections.Generic;
     using System.Globalization;
-    using System.IO;
-    using System.Net;
-#if CORE_PCL || WINDOWS_UWP
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-#endif
     using System.Threading;
     using System.Threading.Tasks;
     using Extensibility.Implementation;
-#if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
-    using TaskEx = System.Threading.Tasks.Task;
     using Services;
-#endif
 
     /// <summary>
     /// Implements an asynchronous transmission of data to an HTTP POST endpoint.
@@ -30,9 +20,6 @@ namespace Microsoft.HockeyApp.Channel
         internal const string ContentEncodingHeader = "Content-Encoding";
 
         private static readonly TimeSpan DefaultTimeout = TimeSpan.FromSeconds(100);
-#if CORE_PCL || WINDOWS_UWP
-        private readonly HttpClient client;
-#endif
         private int isSending;
 
         /// <summary>
@@ -61,9 +48,6 @@ namespace Microsoft.HockeyApp.Channel
             this.ContentEncoding = contentEncoding;
             this.Timeout = timeout == default(TimeSpan) ? DefaultTimeout : timeout;
             this.Id = WeakConcurrentRandom.Instance.Next().ToString(CultureInfo.InvariantCulture);
-#if CORE_PCL || WINDOWS_UWP
-            this.client = new HttpClient() { Timeout = this.Timeout };
-#endif
         }
 
         /// <summary>

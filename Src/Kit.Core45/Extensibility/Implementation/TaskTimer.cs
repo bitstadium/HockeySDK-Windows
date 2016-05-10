@@ -9,10 +9,8 @@ namespace Microsoft.HockeyApp.Extensibility.Implementation
     using System.Threading.Tasks;
 
     using Extensibility.Implementation.Tracing;
-
-#if WINRT || CORE_PCL || NET45 || NET46 || WINDOWS_UWP
+    using Extensions;
     using TaskEx = System.Threading.Tasks.Task;
-#endif
 
     /// <summary>
     /// Runs a task after a certain delay and log any error.

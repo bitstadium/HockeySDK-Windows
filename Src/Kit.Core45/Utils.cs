@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Globalization;
-    using System.Linq;
 
     using Extensibility.Implementation.Tracing;
 
@@ -45,7 +44,7 @@
         {
             if (string.IsNullOrEmpty(value))
             {
-                CoreEventSource.Log.LogVerbose(string.Format("Value for property '{0}' of {1} was not found. Populating it by default.", parameterName, telemetryType));
+                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "Value for property '{0}' of {1} was not found. Populating it by default.", parameterName, telemetryType));
                 return parameterName + " is a required field for " + telemetryType;
             }
 

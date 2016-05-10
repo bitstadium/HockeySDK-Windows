@@ -20,8 +20,7 @@
         private IApplicationService applicationService;
 
         /// <summary>
-        /// Initializes <see cref="UserContext.Id"/> property of the <see cref="TelemetryContext.User"/> telemetry
-        /// and updates the IsFirst property of the SessionContext.
+        /// Initializes user context.
         /// </summary>
         public void Initialize(ITelemetry telemetry)
         {
