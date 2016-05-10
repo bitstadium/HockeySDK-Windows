@@ -40,7 +40,7 @@
             {
                 CoreEventSource.Log.LogError(string.Format(
                     CultureInfo.InvariantCulture,
-                    "HockeySDK: Unexpected excption when handling IApplicationLifecycle.Stopping event:{0}",
+                    "Unexpected excption when handling IApplicationLifecycle.Stopping event:{0}",
                     exception.ToString()));
             }            
         }
