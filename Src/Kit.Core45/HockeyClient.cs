@@ -18,7 +18,7 @@
     /// <summary>
     /// Implements the HockeyClient singleton
     /// </summary>
-    internal class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
+    public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
         /// <summary>
         /// Telemetry buffer of items that were tracked by the user before <see cref="telemetryClient"/> instance has been created.

@@ -53,6 +53,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.WP8", "Src\Kit.WP8\Kit.WP8.csproj", "{621893EB-F854-4777-8CFD-9032E6FF740C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WP.NuGet", "Src\NuGet\HockeySDK.WP\HockeySDK.WP.NuGet.csproj", "{D90076F7-CC99-4C68-BDF6-F6585F3B41A5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14123A8E-6D6B-4362-B001-35B8C2505EED} = {14123A8E-6D6B-4362-B001-35B8C2505EED}
+		{621893EB-F854-4777-8CFD-9032E6FF740C} = {621893EB-F854-4777-8CFD-9032E6FF740C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
