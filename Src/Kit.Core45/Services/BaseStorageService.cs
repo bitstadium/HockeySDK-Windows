@@ -2,15 +2,13 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 
-namespace Microsoft.HockeyApp.Channel
+namespace Microsoft.HockeyApp.Services
 {
     using System;
     using System.Collections.Generic;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Security.Principal;
     using System.Threading.Tasks;
     using Extensibility.Implementation.Tracing;
+    using Channel;
 
     internal abstract class BaseStorageService
     {

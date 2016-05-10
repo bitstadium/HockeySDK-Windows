@@ -1,4 +1,4 @@
-namespace Microsoft.HockeyApp.Extensibility
+namespace Microsoft.HockeyApp.Services
 {
     using System.Threading.Tasks;
 

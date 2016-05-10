@@ -1,10 +1,9 @@
 ﻿namespace Microsoft.HockeyApp
 {
-    using Channel;
-    using Extensibility;
     using Extensibility.Implementation;
     using Extensibility.Windows;
     using Services;
+    using Services.Device;
 
     /// <summary>
     /// Send information to the HockeyApp service.
@@ -33,6 +32,7 @@
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
             ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
             ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
         }

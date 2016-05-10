@@ -4,6 +4,7 @@ namespace Microsoft.HockeyApp.Extensibility
     using System.Globalization;
     using System.Threading.Tasks;
     using DataContracts;
+    using Services;
 
     /// <summary>
     /// A telemetry context initializer that will gather device context information.

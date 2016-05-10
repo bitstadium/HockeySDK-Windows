@@ -4,11 +4,7 @@
 
 namespace Microsoft.HockeyApp.Extensibility.Implementation.Platform
 {
-    using System;
-    using System.Linq;
-    using System.Reflection;
-
-    ////using Platform;
+    using Services;
 
     /// <summary>
     /// Provides access to the <see cref="Current"/> platform.

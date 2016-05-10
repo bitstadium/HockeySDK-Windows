@@ -38,14 +38,14 @@
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DeviceContextReader.cs" />
+    <Compile Include="Services\Device\DeviceContextReader.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\ExceptionHandler.cs" />
     <Compile Include="Extensibility\PEImageReader.cs" />
     <Compile Include="Extensibility\PlatformApplicationLifecycle.cs" />
-    <Compile Include="Extensibility\PlatformDispatcher.cs" />
+    <Compile Include="Services\Device\PlatformDispatcher.cs" />
     <Compile Include="HockeyClientExtensionsUwp.cs" />
-    <Compile Include="NativeMethods.cs" />
+    <Compile Include="Services\Device\NativeMethods.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\HttpClientTransmission.cs" />

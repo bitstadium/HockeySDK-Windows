@@ -1,4 +1,4 @@
-namespace Microsoft.HockeyApp.Extensibility
+namespace Microsoft.HockeyApp.Services.Device
 {
     using System;
     using System.Runtime.InteropServices;

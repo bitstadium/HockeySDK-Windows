@@ -11,6 +11,7 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation;
     using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.Tracing;
+    using Services;
 
     using TaskEx = System.Threading.Tasks.Task;    
 

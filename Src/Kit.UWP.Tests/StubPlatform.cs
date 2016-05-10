@@ -3,10 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Channel;
     using Extensibility;
-    using Extensibility.Implementation;
     using Extensibility.Implementation.External;
+    using Services;
 
     internal class StubPlatform : IPlatformService
     {

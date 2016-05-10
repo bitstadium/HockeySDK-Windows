@@ -7,6 +7,7 @@
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using global::Windows.ApplicationModel;
     using global::Windows.Storage;
+    using Services;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif

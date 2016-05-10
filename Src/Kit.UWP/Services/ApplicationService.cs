@@ -56,7 +56,12 @@
 
         public bool IsDevelopmentMode()
         {
+            // IsDevelopmentMode API is supported only in UWP, for all others return false.
+#if WINDOWS_UWP
             return Windows.ApplicationModel.Package.Current.IsDevelopmentMode;
+#else
+            return false;
+#endif
         }
 
         /// <summary>

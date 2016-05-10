@@ -12,6 +12,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Microsoft.HockeyApp;
+using Microsoft.HockeyApp.Services;
+using Microsoft.HockeyApp.Extensibility.Implementation;
+using Microsoft.HockeyApp.Services.Device;
 
 namespace Microsoft.HockeyApp
 {
@@ -45,6 +48,12 @@ namespace Microsoft.HockeyApp
                     Application.Current.Exit();
                 }
             };
+
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
 
             WindowsAppInitializer.InitializeAsync(appIdentifier, new TelemetryConfiguration() {
                 Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, EndpointAddress = endpointAddress });

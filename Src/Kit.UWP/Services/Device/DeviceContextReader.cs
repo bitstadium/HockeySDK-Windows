@@ -1,4 +1,4 @@
-namespace Microsoft.HockeyApp.Extensibility
+namespace Microsoft.HockeyApp.Services.Device
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,6 @@ namespace Microsoft.HockeyApp.Extensibility
     using System.Reflection;
     using System.Text;
     using System.Threading.Tasks;
-    using Implementation.Tracing;
 
     using global::Windows.ApplicationModel.Core;
     using global::Windows.Devices.Enumeration.Pnp;
@@ -18,6 +17,8 @@ namespace Microsoft.HockeyApp.Extensibility
     using global::Windows.Security.ExchangeActiveSyncProvisioning;
     using global::Windows.Storage.Streams;
     using global::Windows.System.Profile;
+    using Extensibility.Implementation.Tracing;
+    using Extensibility;
 
     /// <summary>
     /// The reader is platform specific and will contain different implementations for reading specific data based on the platform its running on.
@@ -212,7 +213,7 @@ namespace Microsoft.HockeyApp.Extensibility
                     DisplayInformation displayInformation = DisplayInformation.GetForCurrentView();
                     double resolutionScale = (double)displayInformation.ResolutionScale / 100;
 
-                    PropertyInfo propertyInfo = Implementation.TypeExtensions.GetProperties(typeof(DisplayInformation))
+                    PropertyInfo propertyInfo = Extensibility.Implementation.TypeExtensions.GetProperties(typeof(DisplayInformation))
                                                                        .FirstOrDefault(item => string.Compare(item.Name, "RawPixelsPerViewPixel", StringComparison.Ordinal) == 0);
                     if (propertyInfo != null)
                     {

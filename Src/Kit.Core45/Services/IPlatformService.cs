@@ -1,11 +1,11 @@
-﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
+﻿namespace Microsoft.HockeyApp.Services
 {
     using System;
     using System.Collections.Generic;
-    using Channel;
     using Extensibility;
     using Extensibility.Implementation.External;
     using System.IO;
+
     /// <summary>
     /// Encapsulates platform-specific functionality required by the API.
     /// </summary>

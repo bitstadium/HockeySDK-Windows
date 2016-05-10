@@ -23,6 +23,7 @@
     using global::Windows.UI.Xaml.Controls;
     using global::Windows.UI.Xaml.Media;
     using global::Windows.UI.Xaml.Navigation;
+    using Services.Device;
 #endif
 
 

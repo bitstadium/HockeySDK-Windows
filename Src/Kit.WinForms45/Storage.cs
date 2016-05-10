@@ -19,6 +19,7 @@ namespace Microsoft.HockeyApp.Channel
     using System.Threading.Tasks;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
+    using Services;
 
     internal class Storage : BaseStorageService
     {

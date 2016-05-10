@@ -7,11 +7,11 @@ namespace Microsoft.HockeyApp.Channel
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
+    using Services;
 
     /// <summary>
     /// This class handles all the logic for flushing the In Memory buffer to the persistent storage. 

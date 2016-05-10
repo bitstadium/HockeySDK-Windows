@@ -1,20 +1,18 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
+    using Channel;
+    using DataContracts;
+    using External;
+    using Platform;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.IO;
-#if !Wp80
-    using System.IO.Compression;
-#endif
     using System.Text;
-    using Channel;
-    using DataContracts;
-    using Extensibility.Implementation.External;
-    using Extensibility.Implementation.Platform;
-    using Extensibility.Implementation.Tracing;
+    using Tracing;
 
     /// <summary>
     /// Serializes and compress the telemetry items into a JSON string. Compression will be done using GZIP, for Windows Phone 8 compression will be disabled because there

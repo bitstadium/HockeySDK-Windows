@@ -10,6 +10,7 @@ namespace Microsoft.HockeyApp.Channel
     using System.Threading;
     using System.Threading.Tasks;
     using Extensibility.Implementation.Tracing;
+    using Services;
 
     /// <summary>
     /// Fetch transmissions from the storage and sends it. 

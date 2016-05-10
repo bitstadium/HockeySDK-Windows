@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using global::Windows.ApplicationModel;
     using global::Windows.ApplicationModel.Core;
-
+    using Services.Device;
     /// <summary>
     /// WinRT-specific logic of provider.
     /// </summary>

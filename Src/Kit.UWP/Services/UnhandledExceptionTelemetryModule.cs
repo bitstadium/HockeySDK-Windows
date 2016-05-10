@@ -5,18 +5,18 @@
 
     using Channel;
     using DataContracts;
-    using Extensibility;
-    using Extensibility.Implementation.Tracing;
+    using Implementation.Tracing;
 
     using global::Windows.ApplicationModel.Core;
     using global::Windows.UI.Xaml;
     using System.Collections.Generic;
-    using Microsoft.HockeyApp.Extensibility.Implementation;
+    using Implementation;
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
     using Services;
-    
+    using Services.Device;
+
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
     /// </summary>
@@ -147,7 +147,7 @@
                         Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
                         Path = codeView.PdbPath,
                         Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
-                        CpuType = Extensibility.DeviceContextReader.GetProcessorArchitecture()
+                        CpuType = DeviceContextReader.GetProcessorArchitecture()
                     };
 
                     result.Binaries.Add(crashBinary);

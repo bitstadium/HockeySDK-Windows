@@ -1,22 +1,16 @@
-﻿using Microsoft.HockeyApp.Internal;
-using Microsoft.HockeyApp.ViewModels;
-using Microsoft.HockeyApp.Tools;
-using Microsoft.HockeyApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
-using Microsoft.HockeyApp;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using Extensibility.Implementation;
+    using Services;
+    using Services.Device;
+    using System;
+    using System.Threading.Tasks;
+    using Tools;
+    using ViewModels;
+    using Views;
+    using Windows.Storage;
+    using Windows.UI.Xaml;
+
     public static class HockeyClientExtensionsWin81
     {
         #region Configure
@@ -42,6 +36,11 @@ namespace Microsoft.HockeyApp
                 }
             };
 
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
             WindowsAppInitializer.InitializeAsync(appIdentifier, new TelemetryConfiguration() {
                 Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session,  EndpointAddress = endpointAddress });
             return @this as IHockeyClientConfigurable;

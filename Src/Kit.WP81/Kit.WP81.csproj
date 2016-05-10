@@ -32,6 +32,27 @@
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
+      <Link>Services\ApplicationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\DeviceContextReader.cs">
+      <Link>Services\Device\DeviceContextReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\NativeMethods.cs">
+      <Link>Services\Device\NativeMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\PlatformDispatcher.cs">
+      <Link>Services\Device\PlatformDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\HttpClientTransmission.cs">
+      <Link>Services\HttpClientTransmission.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\PlatformService.cs">
+      <Link>Services\PlatformService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\StorageService.cs">
+      <Link>Services\StorageService.cs</Link>
+    </Compile>
     <Compile Include="AuthManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\ObservableDictionary.cs" />

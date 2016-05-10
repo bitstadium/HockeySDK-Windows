@@ -9,7 +9,8 @@
     using DataContracts;
     using Extensibility.Implementation;
 #if WINDOWS_PHONE || WINDOWS_STORE || WINDOWS_UWP
-    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;    
+    using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
+    using Services;
 #else
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif

@@ -2,7 +2,7 @@
 // Copyright © Microsoft. All Rights Reserved.
 // </copyright>
 
-namespace Microsoft.HockeyApp.Channel
+namespace Microsoft.HockeyApp.Services
 {
     using System;
     using System.Collections.Generic;
@@ -16,6 +16,7 @@ namespace Microsoft.HockeyApp.Channel
     using Windows.Storage;
     using Windows.Storage.FileProperties;
     using Windows.Storage.Search;
+    using Channel;
 
     internal class StorageService : BaseStorageService
     {

@@ -6,11 +6,11 @@ namespace Microsoft.HockeyApp.Channel
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
     using System.Threading;
     using System.Threading.Tasks;
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
+    using Services;
 
     /// <summary>
     /// Implements throttled and persisted transmission of telemetry to Application Insights. 
