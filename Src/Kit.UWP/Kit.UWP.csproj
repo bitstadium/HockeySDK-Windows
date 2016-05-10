@@ -51,8 +51,7 @@
     <Compile Include="Services\HttpClientTransmission.cs" />
     <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
-    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
-    <Compile Include="WindowsAppInitializer.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">

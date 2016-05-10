@@ -29,6 +29,7 @@
     <Compile Include="Properties\AssemblyInfoCore.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\IHttpService.cs" />
+    <Compile Include="Services\IUnhandledExceptionTelemetryModule.cs" />
     <Compile Include="TelemetryConfigurationFactory.cs" />
     <Compile Include="Application\ComponentContextData.cs" />
     <Compile Include="ContextTagKeys.cs" />

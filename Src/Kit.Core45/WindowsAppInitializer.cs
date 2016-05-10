@@ -8,14 +8,14 @@
     using Extensibility.Implementation;
     using Extensibility.Implementation.Tracing;
     using Extensibility.Windows;
-
+    using Services;
     /// <summary>
     /// Windows app Initializer is TelemetryConfiguration and TelemetryModules 
     /// Bootstrap the WindowsApps SDK.
     /// </summary>
     internal static class WindowsAppInitializer
     {
-        private static UnhandledExceptionTelemetryModule unhandledExceptionModule = null;
+        private static IUnhandledExceptionTelemetryModule unhandledExceptionModule = null;
 
         /// <summary>
         /// Initializes default configuration and starts automatic telemetry collection for specified WindowsCollectors flags. Must specify InstrumentationKey as a parameter or in configuration file.
@@ -73,9 +73,14 @@
 
             if (configuration.Collectors.HasFlag(WindowsCollectors.UnhandledException))
             {
-                LazyInitializer.EnsureInitialized(ref WindowsAppInitializer.unhandledExceptionModule, () => new UnhandledExceptionTelemetryModule());
-                WindowsAppInitializer.unhandledExceptionModule.Initialize(configuration);
-                TelemetryModules.Instance.Modules.Add(WindowsAppInitializer.unhandledExceptionModule);
+                LazyInitializer.EnsureInitialized(ref unhandledExceptionModule, 
+                    () => {
+                        var module = ServiceLocator.GetService<IUnhandledExceptionTelemetryModule>();
+                        module.Initialize(configuration);
+                        return module;
+                    });
+
+                TelemetryModules.Instance.Modules.Add(unhandledExceptionModule);
             }
 
             ((HockeyClient)HockeyClient.Current).Initialize();

@@ -3,6 +3,7 @@
     using Channel;
     using Extensibility;
     using Extensibility.Implementation;
+    using Extensibility.Windows;
     using Services;
 
     /// <summary>
@@ -32,6 +33,7 @@
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
             ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
         }
     }

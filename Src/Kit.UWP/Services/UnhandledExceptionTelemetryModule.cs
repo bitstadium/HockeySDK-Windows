@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading;
-    
+
     using Channel;
     using DataContracts;
     using Extensibility;
@@ -15,11 +15,12 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
-
+    using Services;
+    
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
     /// </summary>
-    internal sealed partial class UnhandledExceptionTelemetryModule : ITelemetryModule, IDisposable
+    internal sealed class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
         private TelemetryClient client;
 
