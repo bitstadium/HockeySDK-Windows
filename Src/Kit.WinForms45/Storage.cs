@@ -100,13 +100,11 @@ namespace Microsoft.HockeyApp.Channel
                             catch (Exception e)
                             {
                                 this.storageFolder = null;
-                                string error = string.Format("Failed to create storage folder: {0}", e);
-                                CoreEventSource.Log.LogVerbose(error);
+                                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "Failed to create storage folder: {0}", e));
                             }
 
                             this.storageFolderInitialized = true;
-                            string msg = string.Format("Storage folder: {0}", this.storageFolder == null ? "null" : this.storageFolder.FullName);
-                            CoreEventSource.Log.LogVerbose(msg);
+                            CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "Storage folder: {0}", this.storageFolder == null ? "null" : this.storageFolder.FullName));
                         }
                     }
                 }
@@ -279,7 +277,7 @@ namespace Microsoft.HockeyApp.Channel
             }
             catch (Exception e)
             {
-                CoreEventSource.Log.LogVerbose(string.Format("GetApplicationIdentity: Failed to read user identity. Exception: {0}", e));
+                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "GetApplicationIdentity: Failed to read user identity. Exception: {0}", e));
             }
 
             // get domain's directory
@@ -290,7 +288,7 @@ namespace Microsoft.HockeyApp.Channel
             }
             catch (AppDomainUnloadedException e)
             {   
-                CoreEventSource.Log.LogVerbose(string.Format("GetApplicationIdentity: Failed to read the domain's base directory. Exception: {0}", e));
+                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "GetApplicationIdentity: Failed to read the domain's base directory. Exception: {0}", e));
             }
 
             // get process name
@@ -301,11 +299,10 @@ namespace Microsoft.HockeyApp.Channel
             }
             catch (Exception e)
             {
-                CoreEventSource.Log.LogVerbose(string.Format("GetApplicationIdentity: Failed to read the process name. Exception: {0}", e));
+                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "GetApplicationIdentity: Failed to read the process name. Exception: {0}", e));
             }
 
-            string appId = string.Format("{0}@{1}{2}", user, domainDirecotry, processName);
-            return appId;
+            return string.Format(CultureInfo.InvariantCulture, "{0}@{1}{2}", user, domainDirecotry, processName);
         }
 
         private static string GetSHA1Hash(string input)
@@ -324,7 +321,7 @@ namespace Microsoft.HockeyApp.Channel
             }
             catch (Exception e)
             {
-                CoreEventSource.Log.LogVerbose(string.Format("GetSHA1Hash('{0}'): Failed to hash. Change string to Base64. Exception: {1}", input, e));
+                CoreEventSource.Log.LogVerbose(string.Format(CultureInfo.InvariantCulture, "GetSHA1Hash('{0}'): Failed to hash. Change string to Base64. Exception: {1}", input, e));
                 return "Storage";
             }
         }
