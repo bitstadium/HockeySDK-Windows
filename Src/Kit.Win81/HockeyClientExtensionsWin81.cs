@@ -40,7 +40,7 @@
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
             ServiceLocator.AddService<IPlatformService>(new PlatformService());
-            ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
+            // ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
             WindowsAppInitializer.InitializeAsync(appIdentifier, new TelemetryConfiguration() {
                 Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session,  EndpointAddress = endpointAddress });
             return @this as IHockeyClientConfigurable;
@@ -53,7 +53,7 @@
         /// <summary>
         /// Adds the handler for UnobservedTaskException
         /// </summary>
-        /// <param name="this"></param>
+        /// <param name="this"></par    am>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
         {

@@ -449,7 +449,7 @@
                 using (var stringWriter = new StringWriter(CultureInfo.InvariantCulture))
                 {
                     string serializedTelemetry = JsonSerializer.SerializeAsString(telemetry);
-                    this.debugOutput.WriteLine("HockeyApp Telemetry: " + serializedTelemetry);
+                    this.debugOutput.WriteLine("HockeySDK Telemetry: " + serializedTelemetry);
                 }
             }
         }

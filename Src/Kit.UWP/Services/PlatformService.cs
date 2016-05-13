@@ -50,10 +50,5 @@
         {
             return new DebugOutput();
         }
-
-        public Stream CreateCompressedStream(Stream stream)
-        {
-            return new GZipStream(stream, CompressionMode.Compress);
-        }
     }
 }

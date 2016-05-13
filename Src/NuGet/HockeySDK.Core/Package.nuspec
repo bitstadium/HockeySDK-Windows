@@ -15,9 +15,11 @@
     <releaseNotes>For the release notes please follow http://go.microsoft.com/fwlink/?LinkId=535037</releaseNotes>
     <tags>HockeyApp; Windows; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
+      <!--
       <group targetFramework="portable-net40+sl5">
         <dependency id="Microsoft.Bcl.Async" version="1.0.168" />
       </group>
+      -->
       <group targetFramework="portable-net45+win8+wp8+wpa81">
         
       </group>

@@ -39,12 +39,5 @@
         /// Returns the platform specific Debugger writer to the VS output console.
         /// </summary>
         IDebugOutput GetDebugOutput();
-
-        /// <summary>
-        /// Creates a compressed stream.
-        /// </summary>
-        /// <param name="stream">Original stream.</param>
-        /// <returns></returns>
-        Stream CreateCompressedStream(Stream stream);
     }
 }

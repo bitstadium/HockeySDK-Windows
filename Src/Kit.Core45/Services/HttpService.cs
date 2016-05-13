@@ -40,6 +40,16 @@
 
             using (WebResponse response = await request.GetResponseAsync()) {}
         }
+
+        public Stream CreateCompressedStream(Stream stream)
+        {
+            return stream;
+        }
+
+        public string GetContentEncoding()
+        {
+            return null;
+        }
     }
 }
 

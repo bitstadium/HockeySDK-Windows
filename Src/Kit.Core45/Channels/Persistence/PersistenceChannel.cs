@@ -51,7 +51,7 @@ namespace Microsoft.HockeyApp.Channel
         /// Defines the number of senders. A sender is a long-running thread that sends telemetry batches in intervals defined by <see cref="SendingInterval"/>. 
         /// So the amount of senders also defined the maximum amount of http channels opened at the same time.
         /// </param>        
-        public PersistenceChannel(string storageFolderName, int sendersCount = 3)
+        public PersistenceChannel(string storageFolderName, int sendersCount = 1)
         {   
             this.TelemetryBuffer = new TelemetryBuffer();
             this.storage = ServiceLocator.GetService<BaseStorageService>();

@@ -30,11 +30,7 @@
         {
             get
             {
-#if !Wp80
-                return "gzip";
-#else
-                return null;
-#endif
+                return ServiceLocator.GetService<IHttpService>().GetContentEncoding();
             }
         }
 
@@ -198,11 +194,11 @@
         #endregion Exception Serializer helper
 
         /// <summary>
-        /// Creates a GZIP compression stream that wraps <paramref name="stream"/>. For windows phone 8.0 it returns <paramref name="stream"/>. 
+        /// Creates compressed if possible, otherwise returns original stream.
         /// </summary>
         private static Stream CreateCompressedStream(Stream stream)
         {
-            return ServiceLocator.GetService<IPlatformService>().CreateCompressedStream(stream);
+            return ServiceLocator.GetService<IHttpService>().CreateCompressedStream(stream);
         }
 
         private static void SerializeTelemetryItem(ITelemetry telemetryItem, JsonWriter jsonWriter)
