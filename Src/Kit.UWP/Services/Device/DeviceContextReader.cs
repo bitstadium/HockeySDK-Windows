@@ -201,40 +201,6 @@ namespace Microsoft.HockeyApp.Services.Device
             return new EasClientDeviceInformation().SystemProductName;
         }
 
-        public async Task<string> GetScreenResolutionAsync()
-        {
-            string screenResolution = null;
-            while (screenResolution == null)
-            {
-                await PlatformDispatcher.RunAsync(() =>
-                {
-                    double actualHeight = CoreApplication.MainView.CoreWindow.Bounds.Height;
-                    double actualWidth = CoreApplication.MainView.CoreWindow.Bounds.Width;
-                    DisplayInformation displayInformation = DisplayInformation.GetForCurrentView();
-                    double resolutionScale = (double)displayInformation.ResolutionScale / 100;
-
-                    PropertyInfo propertyInfo = Extensibility.Implementation.TypeExtensions.GetProperties(typeof(DisplayInformation))
-                                                                       .FirstOrDefault(item => string.Compare(item.Name, "RawPixelsPerViewPixel", StringComparison.Ordinal) == 0);
-                    if (propertyInfo != null)
-                    {
-                        resolutionScale = (double)propertyInfo.GetValue(displayInformation);
-                    }
-
-                    if (actualHeight > 0 && actualWidth > 0)
-                    {
-                        screenResolution = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", (int)(actualWidth * resolutionScale), (int)(actualHeight * resolutionScale));
-                    }
-                });
-
-                if (screenResolution == null)
-                {
-                    await Task.Delay(DeviceContextReader.AsyncRetryIntervalInMilliseconds);
-                }
-            }
-
-            return screenResolution;
-        }
-
         /// <summary>
         /// Gets the network type.
         /// </summary>
