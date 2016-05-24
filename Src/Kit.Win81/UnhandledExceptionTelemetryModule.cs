@@ -2,9 +2,9 @@
 {
     using System;
     using Windows.UI.Xaml;
-    using Extensibility;
+    using Services;
 
-    internal class UnhandledExceptionTelemetryModule : ITelemetryModule
+    internal class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
         private bool initialized;
 

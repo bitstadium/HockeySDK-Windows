@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using Microsoft.HockeyApp.Internal;
+    using Services;
     using System;
     using System.Resources;
     using System.Threading.Tasks;
@@ -13,6 +14,7 @@
     /// </summary>
     public static class HockeyClientWP8SLExtension
     {
+        internal static Action<Exception> customUnobservedTaskExceptionAction;
 
         #region Configuration
         /// <summary>
@@ -27,38 +29,7 @@
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
-            if (telemetryConfiguration == null)
-            {
-                telemetryConfiguration = new TelemetryConfiguration()
-                {
-                    Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException
-                };
-            }
-
-            if (telemetryConfiguration.Collectors.HasFlag(WindowsCollectors.UnhandledException))
-            {
-                CrashHandler.Current.Application.UnhandledException += (sender, args) =>
-                {
-                    CrashHandler.Current.HandleException(args.ExceptionObject);
-                    if (customUnhandledExceptionAction != null)
-                    {
-                        customUnhandledExceptionAction(args);
-                    }
-                };
-
-                if (rootFrame != null)
-                {
-                    //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
-                    //catch async void Exceptions
-
-                    // set sync context for ui thread so async void exceptions can be handled, keeps process alive
-                    AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
-                }
-            }
-
-            // for now just remove WindowsCollectors.UnhandledException to prevent AI workflow
-            telemetryConfiguration.Collectors &= ~WindowsCollectors.UnhandledException;
-
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule(rootFrame));
             WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;
         }
@@ -95,11 +66,7 @@
             @this.AsInternal().CheckForInitialization();
             return await CrashHandler.Current.HandleCrashesAsync(sendWithoutAsking).ConfigureAwait(false);
         }
-
-
-        internal static Action<ApplicationUnhandledExceptionEventArgs> customUnhandledExceptionAction;
-        internal static Action<Exception> customUnobservedTaskExceptionAction;
-
+        
         /// <summary>
         /// The action you set will be called after HockeyApp has written the crash-log and allows you to run custom logic like marking the exception as handled
         /// </summary>
@@ -107,7 +74,7 @@
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Action<ApplicationUnhandledExceptionEventArgs> customAction)
         {
-            customUnhandledExceptionAction = customAction;
+            UnhandledExceptionTelemetryModule.CustomUnhandledExceptionAction = customAction;
             return @this;
         }
 
@@ -121,7 +88,6 @@
             customUnobservedTaskExceptionAction = customAction;
             return @this;
         }
-
 
         #endregion
 

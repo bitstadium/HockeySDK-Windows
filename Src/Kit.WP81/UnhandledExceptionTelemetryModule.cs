@@ -1,10 +1,10 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using System;
+    using Services;
     using Windows.UI.Xaml;
-    using Extensibility;
 
-    internal class UnhandledExceptionTelemetryModule : ITelemetryModule
+    internal class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
         private bool initialized;
 

@@ -55,6 +55,7 @@
     <Compile Include="ToolStack\ToolStackPNGWriterWBext.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="Tools\DelegateCommand.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="ViewModels\FeedbackImageVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageFormVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageReadOnlyVM.cs" />
