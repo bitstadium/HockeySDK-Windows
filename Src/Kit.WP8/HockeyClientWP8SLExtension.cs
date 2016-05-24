@@ -22,27 +22,44 @@
         /// <param name="appId"></param>
         /// <param name="rootFrame"></param>
         /// <returns></returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, Frame rootFrame = null)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration telemetryConfiguration = null, Frame rootFrame = null)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
-            CrashHandler.Current.Application.UnhandledException += (sender, args) => { 
-                CrashHandler.Current.HandleException(args.ExceptionObject);
-                if (customUnhandledExceptionAction != null)
-                {
-                    customUnhandledExceptionAction(args);
-                }
-            };
-
-            if (rootFrame != null)
+            if (telemetryConfiguration == null)
             {
-                //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
-                //catch async void Exceptions
-                AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
+                telemetryConfiguration = new TelemetryConfiguration()
+                {
+                    Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session | WindowsCollectors.UnhandledException
+                };
             }
 
-            WindowsAppInitializer.InitializeAsync(appId);
+            if (telemetryConfiguration.Collectors.HasFlag(WindowsCollectors.UnhandledException))
+            {
+                CrashHandler.Current.Application.UnhandledException += (sender, args) =>
+                {
+                    CrashHandler.Current.HandleException(args.ExceptionObject);
+                    if (customUnhandledExceptionAction != null)
+                    {
+                        customUnhandledExceptionAction(args);
+                    }
+                };
+
+                if (rootFrame != null)
+                {
+                    //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
+                    //catch async void Exceptions
+
+                    // set sync context for ui thread so async void exceptions can be handled, keeps process alive
+                    AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
+                }
+            }
+
+            // for now just remove WindowsCollectors.UnhandledException to prevent AI workflow
+            telemetryConfiguration.Collectors &= ~WindowsCollectors.UnhandledException;
+
+            WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;
         }
 

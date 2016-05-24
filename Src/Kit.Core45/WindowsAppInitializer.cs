@@ -22,7 +22,7 @@
         /// <param name="instrumentationKey">Telemetry configuration.</param>
         /// <param name="configuration">Telemetry configuration.</param>
         /// </summary>
-        public static Task InitializeAsync(string instrumentationKey, TelemetryConfiguration configuration = null)
+        internal static Task InitializeAsync(string instrumentationKey, TelemetryConfiguration configuration = null)
         {
             Guid instrumentationKeyGuid;
             if (!Guid.TryParse(instrumentationKey, out instrumentationKeyGuid))

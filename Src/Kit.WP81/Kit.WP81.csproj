@@ -63,6 +63,7 @@
     <Compile Include="HockeyPlatformHelper81.cs" />
     <Compile Include="Tools\UIExtensions.cs" />
     <Compile Include="Tools\UtilExtensions.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="Universal\HockeyPlatformHelper81.cs" />
     <Compile Include="Universal\AuthManager.cs" />
     <Compile Include="Universal\ConstantsUniversal.cs" />
