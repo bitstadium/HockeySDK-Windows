@@ -29,6 +29,11 @@
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
+
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<Services.IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
             ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule(rootFrame));
             WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;

@@ -58,7 +58,10 @@ namespace Microsoft.HockeyApp.Services.Device
         {
 #if WINDOWS_UWP
             return AnalyticsInfo.VersionInfo.DeviceFamily;
+#elif WP8
+            return "";
 #else
+            // WINRT
             var rootContainer = await PnpObject.CreateFromIdAsync(PnpObjectType.DeviceContainer, RootContainer, new[] { DisplayPrimaryCategoryKey });
             return (string)rootContainer.Properties[DisplayPrimaryCategoryKey];
 #endif
@@ -109,9 +112,7 @@ namespace Microsoft.HockeyApp.Services.Device
                 }
 
                 // create a buffer containing the cleartext device ID
-                IBuffer clearBuffer = CryptographicBuffer.ConvertStringToBinary(
-                    builder.ToString(),
-                    BinaryStringEncoding.Utf8);
+                IBuffer clearBuffer = CryptographicBuffer.ConvertStringToBinary(builder.ToString(), BinaryStringEncoding.Utf8);
 
                 // get a provider for the SHA256 algorithm
                 HashAlgorithmProvider hashAlgorithmProvider = HashAlgorithmProvider.OpenAlgorithm("SHA256");

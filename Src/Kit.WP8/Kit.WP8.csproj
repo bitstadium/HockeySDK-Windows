@@ -33,6 +33,15 @@
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
+      <Link>Services\ApplicationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\PlatformService.cs">
+      <Link>Services\PlatformService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\StorageService.cs">
+      <Link>StorageService.cs</Link>
+    </Compile>
     <Compile Include="AsyncSynchronizationContext.cs" />
     <Compile Include="AuthManager.cs" />
     <Compile Include="Constants.cs" />
@@ -50,12 +59,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HockeyAppStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\DeviceContextReader.cs" />
     <Compile Include="ToolStack\ToolStackCRCLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterWBext.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="Tools\DelegateCommand.cs" />
-    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="ViewModels\FeedbackImageVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageFormVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageReadOnlyVM.cs" />

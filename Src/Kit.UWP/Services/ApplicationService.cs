@@ -2,9 +2,8 @@
 {
     using System;
     using System.Globalization;
-    using global::Windows.ApplicationModel;
-    using global::Windows.ApplicationModel.Core;
-    using global::Windows.Globalization;
+    using Windows.ApplicationModel;
+    using Windows.ApplicationModel.Core;
 
     internal class ApplicationService : IApplicationService
     {
@@ -104,7 +103,11 @@
         {
             if (this.fullPackageName == null)
             {
-                this.fullPackageName = global::Windows.UI.Xaml.Application.Current.GetType().Namespace;
+#if WP8
+                this.fullPackageName = System.Windows.Application.Current.GetType().Namespace;
+#else
+                this.fullPackageName =  global::Windows.UI.Xaml.Application.Current.GetType().Namespace;
+#endif
             }
 
             return this.fullPackageName;
@@ -116,7 +119,11 @@
         /// <returns>The two-letter identifier for the user's region.</returns>
         public string GetStoreRegion()
         {
-            return new GeographicRegion().CodeTwoLetter;
+#if WP8
+            return string.Empty;
+#else
+            return new global::Windows.Globalization.GeographicRegion().CodeTwoLetter;
+#endif
         }
     }
 }
