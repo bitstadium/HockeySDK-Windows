@@ -24,21 +24,25 @@
             if (address == null) throw new ArgumentNullException("address");
             if (content == null) throw new ArgumentNullException("content");
             if (contentType == null) throw new ArgumentNullException("contentType");
-
-            var request = (HttpWebRequest)WebRequest.Create(address);
+//#if DEBUG
+//            string result = System.Text.Encoding.UTF8.GetString(content, 0, content.Length);
+//#endif
+            var request = WebRequest.CreateHttp(address);
             request.Method = "POST";
+            request.ContentType = contentType;
 
             if (!string.IsNullOrEmpty(contentEncoding))
             {
                 request.Headers[ContentEncodingHeader] = contentEncoding;
             }
 
-            using (Stream requestStream = await request.GetRequestStreamAsync())
+            using (Stream stream = await request.GetRequestStreamAsync())
             {
-                await requestStream.WriteAsync(content, 0, content.Length);
+                stream.Write(content, 0, content.Length);
+                stream.Flush();
             }
 
-            using (WebResponse response = await request.GetResponseAsync()) {}
+            using (WebResponse response = await request.GetResponseAsync()) { }
         }
 
         public Stream CreateCompressedStream(Stream stream)
