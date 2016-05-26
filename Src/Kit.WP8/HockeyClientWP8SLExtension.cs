@@ -29,12 +29,17 @@
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
-
+                
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<Services.IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IPlatformService>(new PlatformService());
             ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
-            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule(rootFrame));
+            var exceptionModule = new UnhandledExceptionTelemetryModule(rootFrame);
+
+            // we need to initialize in Configure method and not in WindowsAppInitializer.InitializeAsync 
+            // to prevent UnauthorizedAccessException with Invalid cross-thread access message
+            exceptionModule.Initialize(null);
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(exceptionModule);
             WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;
         }
