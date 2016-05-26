@@ -38,7 +38,7 @@
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
-            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<Services.IPlatformService>(new PlatformService());
             ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
             ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
             WindowsAppInitializer.InitializeAsync(appIdentifier, configuration);

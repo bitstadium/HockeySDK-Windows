@@ -2,7 +2,6 @@
 {
     using System.Linq;
     using System.Reflection;
-    using System.Threading;
     using System.Threading.Tasks;
     using DataContracts;
 
@@ -11,8 +10,7 @@
     /// </summary>
     internal sealed class SdkVersionPropertyContextInitializer : IContextInitializer
     {
-        private const string SDKVersion = "SDKVersion";
-        private string sdkVersion;
+        private static string sdkVersion;
 
 #pragma warning disable 1998
         /// <summary>
@@ -20,19 +18,22 @@
         /// </summary>
         public async Task Initialize(TelemetryContext context)
         {
-            var version = LazyInitializer.EnsureInitialized(ref this.sdkVersion, this.GetAssemblyVersion);
-            if (string.IsNullOrEmpty(context.Internal.SdkVersion))
-            {
-                context.Internal.SdkVersion = version;
-            }
+            context.Internal.SdkVersion = GetAssemblyVersion();
         }
 #pragma warning restore 1998
 
-        private string GetAssemblyVersion()
+        internal static string GetAssemblyVersion()
         {
-            return typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
+            if (sdkVersion == null)
+            {
+                var platformService = ServiceLocator.GetService<Services.IPlatformService>();
+
+                sdkVersion = platformService.SdkName() + ":" + typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
                     .First()
                     .Version;
+            }
+
+            return sdkVersion;
         }
     }
 }

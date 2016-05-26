@@ -1,11 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Globalization;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using System;
+    using System.IO;
+
     internal class HockeyConstants
     {
+        internal const string CrashFilePrefix = "crashinfo_";
+        internal const string USER_AGENT_STRING = "Hockey/WinWPF";
+        internal const string SDKNAME = "HockeySDKWinWPF";
+        internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
 
         internal static string GetPathToHockeyCrashes()
         {
@@ -15,15 +18,5 @@ namespace Microsoft.HockeyApp
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             return path;
         }
-
-        internal const string CrashFilePrefix = "crashinfo_";
-
-        internal const string USER_AGENT_STRING = "Hockey/WinWPF";
-        internal const string SDKNAME = "HockeySDKWinWPF";
-
-        // ToDo: read sdk version from assembly file.
-        internal const string SDKVERSION = "2.2.2"; 
-
-        internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
     }
 }

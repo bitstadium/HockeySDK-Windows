@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
     internal class Constants
     {
@@ -12,7 +6,7 @@ namespace Microsoft.HockeyApp
         internal const string OldCrashDirectoryName = "CrashLogs";
         internal const string CrashFilePrefix = "crashinfo_";
         internal const string SdkName = "HockeySDKWP8";
-        internal const string SdkVersion = "2.2.2";
+
         internal const string UserAgentString = "Hockey/WP8";
 
         internal const string FeedbackThreadKey = "HockeyAppFeedback_ThreadId";
@@ -25,5 +19,12 @@ namespace Microsoft.HockeyApp
 
         internal const string ContentTypeUrlEncoded = "application/x-www-form-urlencoded"; 
 
+        internal static string SdkVersion
+        {
+            get
+            {
+                return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion();
+            }
+        }
     }
 }

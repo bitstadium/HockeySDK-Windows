@@ -39,5 +39,12 @@
         /// Returns the platform specific Debugger writer to the VS output console.
         /// </summary>
         IDebugOutput GetDebugOutput();
+
+        /// <summary>
+        /// Name of SDK as it appears on http://nuget.org, for example 
+        /// for https://www.nuget.org/packages/HockeySDK.UWP/ it is HockeySDK.UWP
+        /// </summary>
+        /// <returns></returns>
+        string SdkName();
     }
 }

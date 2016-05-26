@@ -43,5 +43,10 @@
         {
             return stream;
         }
+
+        public string SdkName()
+        {
+            return "Kit.UWP.Tests";
+        }
     }
 }

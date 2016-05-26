@@ -49,5 +49,16 @@
         {
             return new DebugOutput();
         }
+
+        public string SdkName()
+        {
+#if WINDOWS_UWP
+            return "HockeySDK.UWP";   
+#elif WP8
+            return "HockeySDK.WP";
+#else
+            return "HockeySDK.WINRT";
+#endif
+        }
     }
 }
