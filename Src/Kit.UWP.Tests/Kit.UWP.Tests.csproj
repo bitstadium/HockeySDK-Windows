@@ -37,6 +37,9 @@
     <SDKReference Include="TestPlatform.Universal, Version=$(UnitTestPlatformVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SenderTests.cs">
+      <Link>SenderTests.cs</Link>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UnitTestApp.xaml.cs">
       <DependentUpon>UnitTestApp.xaml</DependentUpon>
@@ -65,13 +68,13 @@
     <Content Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Kit.UWP\Kit.UWP.csproj">
       <Project>{d076fb25-d286-48f5-80c9-f55ffa576b77}</Project>
       <Name>Kit.UWP</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Kit.Uwp.Tests.TestFramework\Kit.Uwp.Tests.TestFramework.csproj">
-      <Project>{48b9ced7-8caf-4605-a74f-54693b16ef52}</Project>
-      <Name>Core.Uwp.Tests.TestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -88,7 +91,81 @@
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
   </ItemGroup>
-  <Import Project="..\Core.Shared.Tests\Core.Shared.Tests.projitems" Label="Shared" />
+  <ItemGroup>
+    <Compile Include="AssertExtensions.cs" />
+    <Compile Include="Channel\InMemoryChannelTest.cs" />
+    <Compile Include="Channel\InMemoryTransmitterTests.cs" />
+    <Compile Include="Channel\ITelemetryTest.cs" />
+    <Compile Include="Channel\TelemetryBufferTest.cs" />
+    <Compile Include="Channel\TransmissionTest.cs" />
+    <Compile Include="DataContracts\EventTelemetryTest.cs" />
+    <Compile Include="DataContracts\ExceptionTelemetryTest.cs" />
+    <Compile Include="DataContracts\MetricTelemetryTest.cs" />
+    <Compile Include="DataContracts\PageViewTelemetryTest.cs" />
+    <Compile Include="DataContracts\PerformanceCounterTelemetryTest.cs" />
+    <Compile Include="DataContracts\DependencyTelemetryTest.cs" />
+    <Compile Include="DataContracts\RequestTelemetryTest.cs" />
+    <Compile Include="DataContracts\SessionStateTelemetryTest.cs" />
+    <Compile Include="DataContracts\TelemetryContextTest.cs" />
+    <Compile Include="DataContracts\TelemetryItemTestHelper.cs" />
+    <Compile Include="DataContracts\TraceTelemetryTest.cs" />
+    <Compile Include="Extensibility\Implementation\ClockTest.cs" />
+    <Compile Include="Extensibility\Implementation\JsonSerializerTest.cs" />
+    <Compile Include="Extensibility\SequencePropertyInitializerTest.cs" />
+    <Compile Include="Extensibility\Implementation\ComponentContextTest.cs" />
+    <Compile Include="Extensibility\Implementation\DeviceContextTest.cs" />
+    <Compile Include="Extensibility\Implementation\ExceptionConverterTest.cs" />
+    <Compile Include="Extensibility\Implementation\InternalContextTests.cs" />
+    <Compile Include="Extensibility\Implementation\JsonWriterTest.cs" />
+    <Compile Include="Extensibility\Implementation\LocationContextTests.cs" />
+    <Compile Include="Extensibility\Implementation\OperationContextTest.cs" />
+    <Compile Include="Extensibility\Implementation\PlatformTest.cs" />
+    <Compile Include="Extensibility\Implementation\Platform\PlatformImplementationTest.cs" />
+    <Compile Include="Extensibility\Implementation\PropertyTest.cs" />
+    <Compile Include="Extensibility\Implementation\SessionContextTest.cs" />
+    <Compile Include="Extensibility\Implementation\SeverityLevelExtensionsTest.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingCollectionTest.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingDictionaryTest.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingListTest.cs" />
+    <Compile Include="Extensibility\Implementation\TagsTest.cs" />
+    <Compile Include="Extensibility\Implementation\TaskTimerTest.cs" />
+    <Compile Include="Extensibility\Implementation\UserContextTest.cs" />
+    <Compile Include="Extensibility\Implementation\WeakConcurrentRandomTests.cs" />
+    <Compile Include="Extensibility\SdkVersionPropertyContextInitializerTest.cs" />
+    <Compile Include="Extensibility\TelemetryConfigurationTest.cs" />
+    <Compile Include="Extensibility\TimestampPropertyInitializerTest.cs" />
+    <Compile Include="TelemetryClientTest.cs" />
+    <Compile Include="Thread.cs" />
+    <Compile Include="AsyncTest.cs" />
+    <Compile Include="EventSourceTest.cs" />
+    <Compile Include="StubClock.cs" />
+    <Compile Include="StubContextInitializer.cs" />
+    <Compile Include="StubException.cs" />
+    <Compile Include="StubSynchronizationContext.cs" />
+    <Compile Include="StubTelemetryChannel.cs" />
+    <Compile Include="StubDebugOutput.cs" />
+    <Compile Include="StubTelemetryInitializer.cs" />
+    <Compile Include="StubWebRequest.cs" />
+    <Compile Include="StubWebResponse.cs" />
+    <Compile Include="StubPlatform.cs" />
+    <Compile Include="StubStream.cs" />
+    <Compile Include="TaskExceptionObserver.cs" />
+    <Compile Include="TaskExtensions.cs" />
+    <Compile Include="TelemetryAction.cs" />
+    <Compile Include="TelemetryContextAction.cs" />
+    <Compile Include="TestEventListener.cs" />
+    <Compile Include="ComponentContextInitializerTest.cs" />
+    <Compile Include="PageViewTelemetryModuleTest.cs" />
+    <Compile Include="SessionTelemetryModuleTest.cs" />
+    <Compile Include="UserContextInitializerTest.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModuleTest.cs" />
+    <Compile Include="WindowsAppInitializerTests.cs" />
+    <Compile Include="Channel\Persistence\StubTelemetry.cs" />
+    <Compile Include="Channel\Persistence\StubTransmission.cs" />
+    <Compile Include="Channel\Persistence\PersistenceChannelTest.cs" />
+    <Compile Include="Channel\Persistence\StorageTests.cs" />
+    <Compile Include="Channel\Persistence\TelemetryBufferTest.cs" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

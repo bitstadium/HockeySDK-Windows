@@ -35,51 +35,35 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Core.Wp80\Extensibility\Implementation\TelemetryConfigurationFactory.cs">
-      <Link>Extensibility\TelemetryConfigurationFactory.cs</Link>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="..\Core.Wrt81\Extensibility\Implementation\Platform\PlatformImplementation.cs">
-      <Link>Extensibility\Platform\PlatformImplementation.cs</Link>
-    </Compile>
-    <Compile Include="..\PersistenceChannel.Wrt81\Storage.cs">
-      <Link>Storage.cs</Link>
-    </Compile>
-    <Compile Include="DataContracts\CrashTelemetry.cs" />
+    <Compile Include="Services\Device\DeviceContextReader.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
-    <Compile Include="Extensibility\Implementation\ExceptionHandler.cs" />
-    <Compile Include="Extensibility\Implementation\External\AppInsightsTypes.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\ComponentContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\ContextTagKeys.cs" />
-    <Compile Include="Extensibility\Implementation\External\DependencyKind.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\DeviceContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\InternalContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\LocationContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\OperationContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\PerformanceCounterData.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\SessionContextData.cs" />
-    <Compile Include="Extensibility\Implementation\External\SessionStateData.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\SeverityLevel.g.cs" />
-    <Compile Include="Extensibility\Implementation\External\Tags.cs" />
-    <Compile Include="Extensibility\Implementation\External\UserContextData.cs" />
-    <Compile Include="Extensibility\Implementation\PEImageReader.cs" />
-    <Compile Include="Extensibility\Platform\PlatformApplicationLifecycle.cs" />
-    <Compile Include="Extensibility\Platform\PlatformDispatcher.cs" />
-    <Compile Include="HockeyClient.cs" />
-    <Compile Include="IHockeyClient.cs" />
+    <Compile Include="Extensibility\ExceptionHandler.cs" />
+    <Compile Include="Extensibility\PEImageReader.cs" />
+    <Compile Include="Extensibility\PlatformApplicationLifecycle.cs" />
+    <Compile Include="Services\Device\PlatformDispatcher.cs" />
+    <Compile Include="HockeyClientExtensionsUwp.cs" />
+    <Compile Include="Services\Device\NativeMethods.cs" />
     <Compile Include="PageViewTelemetryModule.cs" />
-    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
-    <Compile Include="Watson\PartnerTelemetryEventSource.cs" />
-    <Compile Include="Watson\WatsonIntegration.cs" />
+    <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\HttpClientTransmission.cs" />
+    <Compile Include="Services\PlatformService.cs" />
+    <Compile Include="Services\StorageService.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
       <Name>Windows Mobile Extensions for the UWP</Name>
     </SDKReference>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="..\Core.Shared\Core.Shared.projitems" Label="Shared" />
-  <Import Project="..\Extensibility.Shared\Extensibility.Shared.projitems" Label="Shared" />
-  <Import Project="..\PersistenceChannel.Shared\PersistenceChannel.Shared.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

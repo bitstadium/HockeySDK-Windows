@@ -1,6 +1,7 @@
 ﻿namespace Microsoft.HockeyApp
 {
     using Microsoft.HockeyApp.Internal;
+    using Services;
     using System;
     using System.Resources;
     using System.Threading.Tasks;
@@ -13,11 +14,7 @@
     /// </summary>
     public static class HockeyClientWP8SLExtension
     {
-
-        internal static IHockeyClientInternal AsInternal(this IHockeyClient @this)
-        {
-            return (IHockeyClientInternal)@this;
-        }
+        internal static Action<Exception> customUnobservedTaskExceptionAction;
 
         #region Configuration
         /// <summary>
@@ -27,27 +24,23 @@
         /// <param name="appId"></param>
         /// <param name="rootFrame"></param>
         /// <returns></returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, Frame rootFrame = null)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration telemetryConfiguration = null, Frame rootFrame = null)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
-            CrashHandler.Current.Application.UnhandledException += (sender, args) => { 
-                CrashHandler.Current.HandleException(args.ExceptionObject);
-                if (customUnhandledExceptionAction != null)
-                {
-                    customUnhandledExceptionAction(args);
-                }
-            };
+                
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<Services.IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<Services.IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            var exceptionModule = new UnhandledExceptionTelemetryModule(rootFrame);
 
-            if (rootFrame != null)
-            {
-                //Idea based on http://www.markermetro.com/2013/01/technical/handling-unhandled-exceptions-with-asyncawait-on-windows-8-and-windows-phone-8/
-                //catch async void Exceptions
-                AsyncSynchronizationContext.RegisterForFrame(rootFrame, CrashHandler.Current);
-            }
-
-            WindowsAppInitializer.InitializeAsync(appId);
+            // we need to initialize in Configure method and not in WindowsAppInitializer.InitializeAsync 
+            // to prevent UnauthorizedAccessException with Invalid cross-thread access message
+            exceptionModule.Initialize(null);
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(exceptionModule);
+            WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;
         }
 
@@ -72,13 +65,6 @@
 
         #region CrashHandling
 
-        [Obsolete("Please use SendCrashesAsync() instead")]
-        public static async Task<bool> HandleCrashesAsync(this IHockeyClient @this, Boolean sendAutomatically = false)
-        {
-            @this.AsInternal().CheckForInitialization();
-            return await CrashHandler.Current.HandleCrashesAsync(sendAutomatically).ConfigureAwait(false);
-        }
-
         /// <summary>
         /// Send any collected crashes to the HockeyApp server. You should normally call this during startup of your app. 
         /// </summary>
@@ -90,11 +76,7 @@
             @this.AsInternal().CheckForInitialization();
             return await CrashHandler.Current.HandleCrashesAsync(sendWithoutAsking).ConfigureAwait(false);
         }
-
-
-        internal static Action<ApplicationUnhandledExceptionEventArgs> customUnhandledExceptionAction;
-        internal static Action<Exception> customUnobservedTaskExceptionAction;
-
+        
         /// <summary>
         /// The action you set will be called after HockeyApp has written the crash-log and allows you to run custom logic like marking the exception as handled
         /// </summary>
@@ -102,7 +84,7 @@
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Action<ApplicationUnhandledExceptionEventArgs> customAction)
         {
-            customUnhandledExceptionAction = customAction;
+            UnhandledExceptionTelemetryModule.CustomUnhandledExceptionAction = customAction;
             return @this;
         }
 
@@ -116,7 +98,6 @@
             customUnobservedTaskExceptionAction = customAction;
             return @this;
         }
-
 
         #endregion
 

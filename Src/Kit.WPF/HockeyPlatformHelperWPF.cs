@@ -270,7 +270,10 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string SDKVersion
         {
-            get { return HockeyConstants.SDKVERSION; }
+            get
+            {
+                return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion();
+            }
         }
 
 

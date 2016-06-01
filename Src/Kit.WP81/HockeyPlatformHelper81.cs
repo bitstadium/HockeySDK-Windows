@@ -11,7 +11,6 @@ namespace Microsoft.HockeyApp
     {
 
         internal const string Name = "HockeySDKWP81";
-        internal const string Version = "2.2.2";
         internal const string UserAgent = "Hockey/WP81";
 
         public string OSPlatform
@@ -26,7 +25,7 @@ namespace Microsoft.HockeyApp
 
         public string SDKVersion
         {
-            get { return Version; }
+            get { return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion(); }
         }
 
         public string SDKName

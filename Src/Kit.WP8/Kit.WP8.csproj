@@ -30,10 +30,18 @@
     <ToolkitRevision>2</ToolkitRevision>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
-      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
+      <Link>Services\ApplicationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\PlatformService.cs">
+      <Link>Services\PlatformService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\StorageService.cs">
+      <Link>StorageService.cs</Link>
+    </Compile>
     <Compile Include="AsyncSynchronizationContext.cs" />
     <Compile Include="AuthManager.cs" />
     <Compile Include="Constants.cs" />
@@ -51,11 +59,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HockeyAppStrings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\DeviceContextReader.cs" />
     <Compile Include="ToolStack\ToolStackCRCLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterWBext.cs" />
     <Compile Include="Tools\BooleanToVisibilityConverter.cs" />
     <Compile Include="Tools\DelegateCommand.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="ViewModels\FeedbackImageVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageFormVM.cs" />
     <Compile Include="ViewModels\FeedbackMessageReadOnlyVM.cs" />
@@ -134,16 +144,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Extensibility.Wp80\Extensibility.Wp80.csproj">
-      <Project>{afc48348-7368-47be-85e6-6707ca42e2e5}</Project>
-      <Name>Extensibility.Wp80</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Kit.Portable45\Kit.Portable45.csproj">
-      <Project>{643606ba-84a8-483f-a582-49e472b8701e}</Project>
-      <Name>Kit.Portable45</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Reference Include="Microsoft.Threading.Tasks, Version=1.0.12.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\wp8\Microsoft.Threading.Tasks.dll</HintPath>
@@ -158,6 +158,12 @@
       <HintPath>..\..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\wp8\Microsoft.Threading.Tasks.Extensions.Phone.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

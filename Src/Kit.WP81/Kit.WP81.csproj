@@ -29,8 +29,29 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
-    <Compile Include="..\Kit.Portable40\Properties\AssemblyCommonInfo.cs">
-      <Link>Properties\AssemblyCommonInfo.cs</Link>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
+      <Link>Services\ApplicationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\DeviceContextReader.cs">
+      <Link>Services\Device\DeviceContextReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\NativeMethods.cs">
+      <Link>Services\Device\NativeMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\PlatformDispatcher.cs">
+      <Link>Services\Device\PlatformDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\HttpClientTransmission.cs">
+      <Link>Services\HttpClientTransmission.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\PlatformService.cs">
+      <Link>Services\PlatformService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\StorageService.cs">
+      <Link>Services\StorageService.cs</Link>
     </Compile>
     <Compile Include="AuthManager.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
@@ -42,6 +63,7 @@
     <Compile Include="HockeyPlatformHelper81.cs" />
     <Compile Include="Tools\UIExtensions.cs" />
     <Compile Include="Tools\UtilExtensions.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="Universal\HockeyPlatformHelper81.cs" />
     <Compile Include="Universal\AuthManager.cs" />
     <Compile Include="Universal\ConstantsUniversal.cs" />
@@ -127,22 +149,15 @@
     <PRIResource Include="Strings\en\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core.Wrt81\Core.Wrt81.csproj">
-      <Project>{50368b2b-a526-460e-8ad9-ab2e7951dab2}</Project>
-      <Name>Core.Wrt81</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Extensibility.Wrt81\Extensibility.Wrt81.csproj">
-      <Project>{2e1127b9-787b-4427-8d92-1e9eb3a79de1}</Project>
-      <Name>Extensibility.Wrt81</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Kit.Portable45\Kit.Portable45.csproj">
-      <Project>{643606ba-84a8-483f-a582-49e472b8701e}</Project>
-      <Name>Kit.Portable45</Name>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

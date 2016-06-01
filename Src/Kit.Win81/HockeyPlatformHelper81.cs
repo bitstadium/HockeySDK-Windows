@@ -1,20 +1,11 @@
-﻿using Microsoft.HockeyApp.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Security.ExchangeActiveSyncProvisioning;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using Microsoft.HockeyApp.Tools;
+
     internal partial class HockeyPlatformHelper81
     {
-
         internal const string Name = "HockeySDKWin81";
-        internal const string Version = "2.2.2";
         internal const string UserAgent = "Hockey/Win81";
-
 
 
         public string OSPlatform
@@ -29,7 +20,7 @@ namespace Microsoft.HockeyApp
 
         public string SDKVersion
         {
-            get { return Version; }
+            get { return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion(); }
         }
 
         public string SDKName

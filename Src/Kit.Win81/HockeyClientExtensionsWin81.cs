@@ -1,59 +1,46 @@
-﻿using Microsoft.HockeyApp.Internal;
-using Microsoft.HockeyApp.ViewModels;
-using Microsoft.HockeyApp.Tools;
-using Microsoft.HockeyApp.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Media;
-using Microsoft.HockeyApp;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using Services;
+    using Services.Device;
+    using System;
+    using System.Threading.Tasks;
+    using Tools;
+    using ViewModels;
+    using Views;
+    using Windows.Storage;
+    using Windows.UI.Xaml;
+
     public static class HockeyClientExtensionsWin81
     {
+        private static Func<UnobservedTaskExceptionEventArgs, bool> customUnobservedTaskExceptionFunc;
+
         #region Configure
         /// <summary>
         /// This is the main configuration method. Call this in the Constructor of your app. This registers an error handler for unhandled errors.
         /// </summary>
         /// <param name="this"></param>
         /// <param name="appIdentifier">Your unique app id from HockeyApp.</param>
-        /// <param name="endpointAddress">The HTTP address where the telemetry is sent</param>
+        /// <param name="endpointAddress">The HTTP address where the telemetry is sent.</param>
+        /// <param name="configuration">Telemetry configuration.</param>
         /// <returns>Configurable Hockey client. Configure additional settings by calling methods on the returned IHockeyClientConfigurable</returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appIdentifier, string endpointAddress)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appIdentifier, TelemetryConfiguration configuration = null)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelper81();
             @this.AsInternal().AppIdentifier = appIdentifier;
 
-            Application.Current.UnhandledException += async (sender, e) =>
-            {
-                e.Handled = true;
-                await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
-                if (customUnhandledExceptionFunc == null || customUnhandledExceptionFunc(e))
-                {
-                    Application.Current.Exit();
-                }
-            };
-
-            WindowsAppInitializer.InitializeAsync(appIdentifier, new TelemetryConfiguration() { Collectors = WindowsCollectors.Metadata | WindowsCollectors.Session, EndpointAddress = endpointAddress });
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            ServiceLocator.AddService<Services.IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
+            WindowsAppInitializer.InitializeAsync(appIdentifier, configuration);
             return @this as IHockeyClientConfigurable;
         }
-
-        private static Func<UnhandledExceptionEventArgs, bool> customUnhandledExceptionFunc;
-
-        private static Func<UnobservedTaskExceptionEventArgs, bool> customUnobservedTaskExceptionFunc;
 
         /// <summary>
         /// Adds the handler for UnobservedTaskException
         /// </summary>
-        /// <param name="this"></param>
+        /// <param name="this"></par    am>
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterUnobservedTaskExceptionHandler(this IHockeyClientConfigurable @this)
         {
@@ -81,7 +68,7 @@ namespace Microsoft.HockeyApp
         /// <returns></returns>
         public static IHockeyClientConfigurable RegisterCustomUnhandledExceptionLogic(this IHockeyClientConfigurable @this, Func<UnhandledExceptionEventArgs, bool> customFunc)
         {
-            customUnhandledExceptionFunc = customFunc;
+            UnhandledExceptionTelemetryModule.CustomUnhandledExceptionFunc = customFunc;
             return @this;
         }
 

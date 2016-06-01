@@ -5,6 +5,18 @@
 
     internal class HockeyConstants
     {
+        internal const string CrashFilePrefix = "crashinfo_";
+        internal const string USER_AGENT_STRING = "Hockey/WinForms";
+        internal const string SDKNAME = "HockeySDKWinForms";
+        internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
+
+        internal static string SDKVERSION
+        {
+            get
+            {
+                return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion();
+            }
+        }
 
         public static string GetPathToHockeyCrashes()
         {
@@ -15,14 +27,6 @@
             return path;
         }
 
-        internal const string CrashFilePrefix = "crashinfo_";
 
-        internal const string USER_AGENT_STRING = "Hockey/WinForms";
-        internal const string SDKNAME = "HockeySDKWinForms";
-
-        // ToDo: Read version from assembly version attribute.
-        internal const string SDKVERSION = "2.2.0-beta5"; 
-
-        internal const string NAME_OF_SYSTEM_SEMAPHORE = "HOCKEYAPPSDK_SEMAPHORE";
     }
 }

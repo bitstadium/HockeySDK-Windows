@@ -33,9 +33,5 @@
     <file src="$configuration$\Kit.WP81\Views\*.xbf" target="lib\portable-wpa81\Microsoft.HockeyApp.Kit\Views" />
     <file src="$configuration$\Kit.WP81\Assets\*.*" target="lib\portable-wpa81\Microsoft.HockeyApp.Kit\Assets" />
     <file src="$configuration$\NuGet\HockeySDK.WINRT\tools\**" target="tools" />
-  
-    <!-- Application Insights -->
-    <file src="$configuration$\Extensibility.Wrt81\Microsoft.HockeyApp.*" target="lib\portable-win81" />
-    <file src="$configuration$\Extensibility.Wrt81\Microsoft.HockeyApp.*" target="lib\portable-wpa81" />
   </files>
 </package>
