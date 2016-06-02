@@ -22,16 +22,16 @@ The official Windows SDK for the http://www.hockeyapp.com.
 5. WPF 4.5
 
 ## Onboarding Instructions 
-1. Add nuget package: 
-| Platform                             |     Nuget Package Manager Console Command       |
-| ------------------------------------ |-------------------------------------------------|
-| Windows 10 (UWP)                     | Install-Package HockeySDK.UWP -Pre              |
-| Windows 8.1 (WinRT)                  | Install-Package HockeySDK.WINRT -Pre            |
-| Windows Phone 8.1 (Silverlight)      | Install-Package HockeySDK.WP -Pre               | 
-| WPF 4.5                              | Install-Package HockeySDK.WPF -Pre              |
+1.  Add nuget package: 
 
-2.
- In the namespace usage declaration section add the following line: <pre>using Microsoft.HockeyApp;</pre>
+| Platform | Nuget Package Manager Console Command |
+| --- | --- |
+| Windows 10 (UWP) | Install-Package HockeySDK.UWP -Pre |
+| Windows 8.1 (WinRT) | Install-Package HockeySDK.WINRT -Pre |
+| Windows Phone 8.1 (Silverlight) | nstall-Package HockeySDK.WP -Pre |
+| WPF 4.5 | Install-Package HockeySDK.WPF -Pre |
+
+2.  In the namespace usage declaration section add the following line: <pre>using Microsoft.HockeyApp;</pre>
 3. In the App class constructor add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
 4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>
    <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
