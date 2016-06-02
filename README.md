@@ -23,13 +23,15 @@ The official Windows SDK for the http://www.hockeyapp.com.
 
 ## Onboarding Instructions 
 1. Add nuget package: 
-	a. Windows 10 UWP: <pre>Install-Package HockeySDK.UWP -Pre</pre>
+	a. Windows 10 (UWP): <pre>Install-Package HockeySDK.UWP -Pre</pre>
 	b. Windows 8.1 (WinRT): <pre>Install-Package HockeySDK.WinRT -Pre</pre>
 	c. Windows Phone 8.1 (Silverlight), Windows Phone 8.0: <pre>Install-Package HockeySDK.WP -Pre</pre>
 	d. WPF 4.5: <pre>Install-Package HockeySDK.WPF -Pre</pre>
 3. In the namespace usage declaration section add the following line: <pre>using Microsoft.HockeyApp;</pre>
 4. In the App class constructor add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
-5. Enable Internet(Client) Capability in package manifest.
+5. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>
+   <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
+6. Enable Internet(Client) Capability in package manifest.
 
 ## Demo Applications
 https://github.com/bitstadium/HockeySDK-WindowsDemo
@@ -38,7 +40,7 @@ https://github.com/bitstadium/HockeySDK-WindowsDemo
 https://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone
  
 
-### Contributor License
+## Contributor License
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
 
 ## Support
