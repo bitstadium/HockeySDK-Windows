@@ -4,27 +4,41 @@
 HockeySDK for Windows
 =========
 
-The official Windows SDK for the HockeyApp service. Supports Universal Windows 10 Applications.
+The official Windows SDK for the http://www.hockeyapp.com.
 
 ## Introduction
 
-The HockeySDK for Windows allows users to send crash reports right from within the application.
-When your app crashes, a file with basic information about the environment (device type, OS version, etc.), the reason and the stacktrace of the exception is created. 
-The next time the user starts the app, the crash log is sent to HockeyApp and then the file deleted from the device.
+The following features are supported by HockeySDK for Windows:
+1. Crash Reporting
+2. Beta Distribution
+3. Feedback
+4. Authentication
+5. Custom Events Telemetry
+6. Usage Metrics Reporting
 
-
-## Features
-### Universal Windows 10 Applications
-* Automatic crash reporting
-
-### Windows Phone 8.1, WinRT, WPF
-Deprecated but still available (no Nuget package available -> use the source)
-
+## Supported Platforms
+1. Windows 10 (Universal Windows Platform (UWP))
+2. Windows 8.1 (WinRT)
+3. Windows Phone 8.1 (Silverlight)
+4. Windows Phone 8.0
+5. WPF 4.5
 
 ## Onboarding instructions 
-1. Add nuget package: <pre>Install-Package HockeySDK.UWP</pre>
-2. In the App class constructor add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
-3. Enable Internet(Client) Capability in package manifest
+1. Add nuget package: 
+	a. Windows 10 UWP: <pre>Install-Package HockeySDK.UWP</pre>
+	b. Windows 8.1 (WinRT): <pre>Install-Package HockeySDK.WinRT</pre>
+	c. Windows Phone 8.1 (Silverlight), Windows Phone 8.0: <pre>Install-Package HockeySDK.WP</pre>
+	d. WPF 4.5: <pre>Install-Package HockeySDK.WPF</pre>
+3. In the namespace usage declaration section add the following line: <pre>using Microsoft.HockeyApp;</pre>
+4. In the App class constructor add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
+5. Enable Internet(Client) Capability in package manifest.
+
+## Demo Applications
+https://github.com/bitstadium/HockeySDK-WindowsDemo
+
+## Documentation
+https://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone
+ 
 
 ### Contributor License
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
