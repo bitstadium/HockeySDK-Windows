@@ -28,7 +28,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 | --- | --- |
 | Windows 10 (UWP) | Install-Package HockeySDK.UWP -Pre |
 | Windows 8.1 (WinRT) | Install-Package HockeySDK.WINRT -Pre |
-| Windows Phone 8.1 (Silverlight) | Install-Package HockeySDK.WP -Pre |
+| Windows Phone 8.1 (Silverlight), Windows Phone 8.0 (Silverlight) | Install-Package HockeySDK.WP -Pre |
 | WPF 4.5 | Install-Package HockeySDK.WPF -Pre |
 
 2. In the namespace usage declaration section add the following line: <pre>using Microsoft.HockeyApp;</pre>
