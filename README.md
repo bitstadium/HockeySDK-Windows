@@ -6,9 +6,7 @@ HockeySDK for Windows
 
 The official Windows SDK for the http://www.hockeyapp.com.
 
-## Introduction
-
-The following features are supported by HockeySDK for Windows:
+## Feature Support
 1. Crash Reporting
 2. Beta Distribution
 3. Feedback
@@ -16,14 +14,14 @@ The following features are supported by HockeySDK for Windows:
 5. Custom Events Telemetry
 6. Usage Metrics Reporting
 
-## Supported Platforms
+## Platform Support
 1. Windows 10 (Universal Windows Platform (UWP))
 2. Windows 8.1 (WinRT)
 3. Windows Phone 8.1 (Silverlight)
 4. Windows Phone 8.0
 5. WPF 4.5
 
-## Onboarding instructions 
+## Onboarding Instructions 
 1. Add nuget package: 
 	a. Windows 10 UWP: <pre>Install-Package HockeySDK.UWP</pre>
 	b. Windows 8.1 (WinRT): <pre>Install-Package HockeySDK.WinRT</pre>
@@ -44,5 +42,4 @@ https://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
 
 ## Support
-
 If you have any questions, problems or suggestions, please contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
