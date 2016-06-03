@@ -69,6 +69,7 @@
       <Link>UpdateManager.cs</Link>
     </Compile>
     <Compile Include="RemoveEventSource.cs" />
+    <Compile Include="Services\PlatformService.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>

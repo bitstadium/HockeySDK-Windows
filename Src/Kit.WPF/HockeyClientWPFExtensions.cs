@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.HockeyApp.Extensibility;
+using Microsoft.HockeyApp.Services;
 
 namespace Microsoft.HockeyApp
 {
@@ -17,6 +18,20 @@ namespace Microsoft.HockeyApp
     /// </summary>
     public static class HockeyClientWPFExtensions
     {
+        private static IUpdateManager _updateManager = null;
+
+        public static IUpdateManager UpdateManager
+        {
+            get
+            {
+                if (_updateManager == null)
+                {
+                    _updateManager = new UpdateManager();
+                }
+                return _updateManager;
+            }
+        }
+
         #region Configure
 
         /// <summary>
@@ -32,7 +47,9 @@ namespace Microsoft.HockeyApp
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             TelemetryConfiguration.Active.InstrumentationKey = identifier;
+            
             return (IHockeyClientConfigurable)@this;
         }
 
@@ -154,7 +171,7 @@ namespace Microsoft.HockeyApp
         public static async Task<bool> CheckForUpdatesAsync(this IHockeyClient @this, bool autoShowUi, Func<bool> shutdownActions = null, Action<IAppVersion> updateAvailableAction = null)
         {
             @this.AsInternal().CheckForInitialization();
-            return await HockeyClient.Current.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
+            return await UpdateManager.CheckForUpdatesAsync(autoShowUi, shutdownActions, updateAvailableAction);
         }
 #pragma warning restore 612, 618
 
@@ -244,7 +261,7 @@ namespace Microsoft.HockeyApp
             byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
             byte[] result = md5.ComputeHash(sourceBytes);
             return System.BitConverter.ToString(result);
-        } 
+        }
 
         #endregion
     }
