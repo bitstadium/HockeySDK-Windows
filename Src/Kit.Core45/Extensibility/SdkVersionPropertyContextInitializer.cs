@@ -28,7 +28,8 @@
             {
                 var platformService = ServiceLocator.GetService<Services.IPlatformService>();
 
-                sdkVersion = platformService.SdkName() + ":" + typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
+                // SDK Name is expected to be lower case
+                sdkVersion = platformService.SdkName().ToLowerInvariant() + ":" + typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
                     .First()
                     .Version;
             }

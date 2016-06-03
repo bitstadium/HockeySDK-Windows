@@ -15,8 +15,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
   <ItemGroup>
-    <None Include="..\tools\install.ps1">
-      <Link>tools\install.ps1</Link>
+    <None Include="..\tools\Init.ps1">
+      <Link>tools\Init.ps1</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Package.nuspec">

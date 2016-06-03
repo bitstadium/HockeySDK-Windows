@@ -12,7 +12,7 @@
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>HockeyApp core library. This package is a dependent package for all other HockeyApp packages. Please install the platform specific package for the best experience.</description>
     <language>en-US</language>
-    <releaseNotes>For the release notes please follow http://go.microsoft.com/fwlink/?LinkId=535037</releaseNotes>
+    <releaseNotes>For the release notes please follow https://www.hockeyapp.net/blog</releaseNotes>
     <tags>HockeyApp; Windows; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
     <dependencies>
       <!--

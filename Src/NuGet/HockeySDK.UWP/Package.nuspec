@@ -20,5 +20,6 @@
   <files>
     <file src="$configuration$\Kit.UWP\Microsoft.HockeyApp.Kit.*" target="lib\uap10.0" />
     <file src="$configuration$\Kit.UWP\Properties\*" target="lib\uap10.0\Microsoft.HockeyApp.Kit\Properties" />
+    <file src="$configuration$\NuGet\HockeySDK.UWP\tools\**" target="tools" />
   </files>
 </package>
