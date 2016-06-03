@@ -31,8 +31,8 @@ The official Windows SDK for the http://www.hockeyapp.com.
 | Windows Phone 8.1 (Silverlight), Windows Phone 8.0 (Silverlight) | Install-Package HockeySDK.WP -Pre |
 | WPF 4.5 | Install-Package HockeySDK.WPF -Pre |
 
-2. In App.xaml.cs file add the following line: <pre>using Microsoft.HockeyApp;</pre> in usage declaration section.
-3. In App.xaml.cs file add the following line: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre> in App class constructor.
+2. In App.xaml.cs file add the following line in usage declaration section: <pre>using Microsoft.HockeyApp;</pre>
+3. In App.xaml.cs file add the following line in App class constructor: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
 4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>
    <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
 5. Enable Internet(Client) Capability in package manifest.
