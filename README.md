@@ -10,17 +10,10 @@ The official Windows SDK for the http://www.hockeyapp.com.
 
 | SDK Name | Crash Reporting  | Beta Distribution | Feedback | Authentication | Custom Events | Usage Metrics
 | --- | --- | --- | --- | --- | --- | --- |
-| HockeySDK.UWP | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
-| HockeySDK.WINRT | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
-| HockeySDK.WP | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
-| HockeySDK.WPF | &#x2713; | &#x2713; | &#x2713; | &#x2713; |  | 
-
-## Platform Support
-1. Windows 10 (Universal Windows Platform (UWP))
-2. Windows 8.1 (WinRT)
-3. Windows Phone 8.1 (Silverlight)
-4. Windows Phone 8.0
-5. WPF 4.5
+| Windows 10 Universal Windows Platform (UWP) | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
+| Windows 8.1 (WinRT) | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
+| Windows Phone (Silverlight) 8.0, 8.1 | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
+| HockeySDK.WPF 4.5 | &#x2713; | &#x2713; | &#x2713; | &#x2713; |  | 
 
 ## Onboarding Instructions 
 1. Add nuget package: 
