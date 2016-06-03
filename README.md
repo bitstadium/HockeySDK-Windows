@@ -8,7 +8,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 
 ## Feature Support
 
-| SDK Name | Crash Reporting  | Beta Distribution | Feedback | Authentication | Custom Events | Usage Metrics
+| Platform Name | Crash Reporting  | Beta Distribution | Feedback | Authentication | Custom Events | Usage Metrics
 | --- | --- | --- | --- | --- | --- | --- |
 | Windows 10 Universal Windows Platform (UWP) | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
 | Windows 8.1 (WinRT) | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
