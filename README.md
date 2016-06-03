@@ -7,12 +7,13 @@ HockeySDK for Windows
 The official Windows SDK for the http://www.hockeyapp.com.
 
 ## Feature Support
-1. Crash Reporting
-2. Beta Distribution
-3. Feedback
-4. Authentication
-5. Custom Events Telemetry
-6. Usage Metrics Reporting
+| SDK Name | Crash Reporting  | Beta Distribution | Feedback | Authentication | Custom Events | Usage Metrics
+| --- | --- |
+| HockeySDK.UWP | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
+| HockeySDK.WINRT | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
+| HockeySDK.WP | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
+| HockeySDK.WPF | &#x2713; | &#x2713; | &#x2713; | &#x2713; |  | 
+
 
 ## Platform Support
 1. Windows 10 (Universal Windows Platform (UWP))
