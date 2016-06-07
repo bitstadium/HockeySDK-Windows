@@ -38,7 +38,7 @@
     <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="Services\Device\DeviceContextReader.cs" />
+    <Compile Include="Services\Device\DeviceService.cs" />
     <Compile Include="Extensibility\ApplicationStoppingEventArgs.cs" />
     <Compile Include="Extensibility\ExceptionHandler.cs" />
     <Compile Include="Extensibility\PEImageReader.cs" />

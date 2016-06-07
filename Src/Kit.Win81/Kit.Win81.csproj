@@ -33,8 +33,8 @@
     <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
       <Link>Services\ApplicationService.cs</Link>
     </Compile>
-    <Compile Include="..\Kit.UWP\Services\Device\DeviceContextReader.cs">
-      <Link>Services\Device\DeviceContextReader.cs</Link>
+    <Compile Include="..\Kit.UWP\Services\Device\DeviceService.cs">
+      <Link>Services\Device\DeviceService.cs</Link>
     </Compile>
     <Compile Include="..\Kit.UWP\Services\Device\NativeMethods.cs">
       <Link>Services\Device\NativeMethods.cs</Link>

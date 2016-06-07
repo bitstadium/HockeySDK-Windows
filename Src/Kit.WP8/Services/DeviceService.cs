@@ -14,7 +14,7 @@
     /// <summary>
     /// The reader is platform specific and applies to Windows Phone Silverlight applications only.
     /// </summary>
-    internal partial class DeviceContextReader : IDeviceService
+    internal partial class DeviceService : IDeviceService
     {
         /// <summary>
         /// The file name used when storing persistent context.
@@ -205,7 +205,7 @@
                     return this.cachedContext;
                 }
 
-                FallbackDeviceContext temp = ReadSerializedContext(DeviceContextReader.ContextPersistentStorageFileName);
+                FallbackDeviceContext temp = ReadSerializedContext(DeviceService.ContextPersistentStorageFileName);
                 Thread.MemoryBarrier();
                 this.cachedContext = temp;
             }

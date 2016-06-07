@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Windows.Storage;
-using Windows.Storage.Streams;
-using Windows.UI.Xaml.Controls;
-using Microsoft.HockeyApp.Tools;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.UI.Xaml;
-using Windows.Security.ExchangeActiveSyncProvisioning;
-using Windows.UI.Core;
-
-namespace Microsoft.HockeyApp
+﻿namespace Microsoft.HockeyApp
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.IO;
+    using System.Threading.Tasks;
+    using Windows.Storage;
+    using Microsoft.HockeyApp.Tools;
+    using Windows.UI.Xaml;
+    using Windows.Security.ExchangeActiveSyncProvisioning;
+    using Services;
+
     internal partial class HockeyPlatformHelper81 : IHockeyPlatformHelper
     {
         public HockeyPlatformHelper81()
@@ -116,10 +111,6 @@ namespace Microsoft.HockeyApp
             throw new NotImplementedException();
         }
 
-
-
-
-
         public string AppVersion
         {
             get { return AppxManifest.Current.Package.Identity.Version; }
@@ -142,12 +133,15 @@ namespace Microsoft.HockeyApp
 
 
         private string osVersion = "8.1"; 
+        
         // there is sadly currently no way to get the correct Windows Version Number
-        //http://stackoverflow.com/questions/24122013/getting-windows-phone-version-and-device-name-in-windows-phone-8-1-xaml
+        // http://stackoverflow.com/questions/24122013/getting-windows-phone-version-and-device-name-in-windows-phone-8-1-xaml
         public string OSVersion
         {
-            get { return osVersion; }
-            set { osVersion = value; }
+            get
+            {
+                return osVersion;
+            }
         }
     }
 }

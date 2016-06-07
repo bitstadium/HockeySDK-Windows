@@ -140,6 +140,5 @@ namespace Microsoft.HockeyApp
         {
             return @this.OSPlatform.Contains("Phone") ? @this.OSVersion : String.Empty;
         }
-
     }
 }

@@ -23,7 +23,7 @@ namespace Microsoft.HockeyApp.Services.Device
     /// <summary>
     /// The reader is platform specific and will contain different implementations for reading specific data based on the platform its running on.
     /// </summary>
-    internal partial class DeviceContextReader : IDeviceService
+    internal partial class DeviceService : IDeviceService
     {
         private const string ModelNameKey = "System.Devices.ModelName";
         private const string ManufacturerKey = "System.Devices.Manufacturer";
@@ -40,9 +40,9 @@ namespace Microsoft.HockeyApp.Services.Device
         private const int AsyncRetryIntervalInMilliseconds = 100;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeviceContextReader"/> class.
+        /// Initializes a new instance of the <see cref="DeviceService"/> class.
         /// </summary>
-        internal DeviceContextReader()
+        internal DeviceService()
         {
         }
 

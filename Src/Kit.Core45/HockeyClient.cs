@@ -229,6 +229,7 @@
                 {
                     this._osVersion = this.PlatformHelper.OSVersion;
                 }
+
                 return _osVersion;
             }
             set { _osVersion = value; }

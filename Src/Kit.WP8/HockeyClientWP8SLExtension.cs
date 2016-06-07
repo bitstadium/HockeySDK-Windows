@@ -33,7 +33,7 @@
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<Services.IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<Services.IPlatformService>(new PlatformService());
-            ServiceLocator.AddService<IDeviceService>(new DeviceContextReader());
+            ServiceLocator.AddService<IDeviceService>(new DeviceService());
             var exceptionModule = new UnhandledExceptionTelemetryModule(rootFrame);
 
             // we need to initialize in Configure method and not in WindowsAppInitializer.InitializeAsync 

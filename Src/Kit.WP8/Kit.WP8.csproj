@@ -59,7 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>HockeyAppStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Services\DeviceContextReader.cs" />
+    <Compile Include="Services\DeviceService.cs" />
     <Compile Include="ToolStack\ToolStackCRCLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterLib.cs" />
     <Compile Include="ToolStack\ToolStackPNGWriterWBext.cs" />
