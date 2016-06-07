@@ -39,8 +39,6 @@ namespace Microsoft.HockeyApp.Services.Device
         /// </summary>
         private const int AsyncRetryIntervalInMilliseconds = 100;
 
-        private static ushort? processorArchitecture;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="DeviceContextReader"/> class.
         /// </summary>
@@ -244,31 +242,7 @@ namespace Microsoft.HockeyApp.Services.Device
             // currently SDK supports Windows only, so we are hardcoding this value.
             return "Windows";
         }
-
-        /// <summary>
-        /// Get the processor architecture of this computer.
-        /// </summary>
-        /// <returns>The processor architecture of this computer. </returns>
-        internal static ushort GetProcessorArchitecture()
-        {
-            if (!processorArchitecture.HasValue)
-            {
-                try
-                {
-                    var sysInfo = new NativeMethods._SYSTEM_INFO();
-                    NativeMethods.GetNativeSystemInfo(ref sysInfo);
-                    processorArchitecture = sysInfo.wProcessorArchitecture;
-                }
-                catch
-                {
-                    // unknown architecture.
-                    processorArchitecture = 0xffff;
-                }
-            }
-
-            // https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx
-            return processorArchitecture.Value;
-        }
+        
 
         private static TValue GetValueOrDefault<TKey, TValue>(IReadOnlyDictionary<TKey, TValue> dictionary, TKey key)
         {

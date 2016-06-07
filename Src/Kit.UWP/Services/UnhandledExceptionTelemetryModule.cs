@@ -23,6 +23,7 @@
     internal sealed class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
         private TelemetryClient client;
+        private static ushort? processorArchitecture;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UnhandledExceptionTelemetryModule"/> class.
@@ -147,7 +148,7 @@
                         Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
                         Path = codeView.PdbPath,
                         Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
-                        CpuType = DeviceContextReader.GetProcessorArchitecture()
+                        CpuType = GetProcessorArchitecture()
                     };
 
                     result.Binaries.Add(crashBinary);
@@ -157,6 +158,35 @@
 
             result.StackTrace = exception.StackTrace;
             return result;
+        }
+
+        /// <summary>
+        /// Get the processor architecture of this computer.
+        /// </summary>
+        /// <remarks>
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
+        /// </remarks>
+        /// <returns>The processor architecture of this computer. </returns>
+        private static ushort GetProcessorArchitecture()
+        {
+            if (!processorArchitecture.HasValue)
+            {
+                try
+                {
+                    var sysInfo = new NativeMethods._SYSTEM_INFO();
+                    NativeMethods.GetNativeSystemInfo(ref sysInfo);
+                    processorArchitecture = sysInfo.wProcessorArchitecture;
+                }
+                catch
+                {
+                    // unknown architecture.
+                    processorArchitecture = 0xffff;
+                }
+            }
+
+            // https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx
+            return processorArchitecture.Value;
         }
     }
 }
