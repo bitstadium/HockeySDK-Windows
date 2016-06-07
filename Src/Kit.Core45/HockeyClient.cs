@@ -225,6 +225,14 @@
         {
             get
             {
+                // in TelemetryClient the OS version is correctly identified, use it if TelemetryClient initialized.
+                // otherwise go to PlatformHelper implementation.
+                if (telemetryClient != null && telemetryClient.Context != null && telemetryClient.Context.Device != null
+                    && telemetryClient.Context.Device != null)
+                {
+                    return this.telemetryClient.Context.Device.DeviceOSVersion;
+                }
+
                 if (_osVersion == null && this.PlatformHelper != null)
                 {
                     this._osVersion = this.PlatformHelper.OSVersion;
@@ -232,6 +240,7 @@
 
                 return _osVersion;
             }
+
             set { _osVersion = value; }
         }
 
@@ -747,7 +756,7 @@
                     {
                         PackageName = this.PlatformHelper.AppPackageName,
                         OperatingSystem = this.PlatformHelper.OSPlatform,
-                        Windows = this.PlatformHelper.GetWindowsVersionString(),
+                        Windows = OsVersion,
                         WindowsPhone = this.PlatformHelper.GetWindowsPhoneVersionString(),
                         Manufacturer = this.PlatformHelper.Manufacturer,
                         Model = this.PlatformHelper.Model,
