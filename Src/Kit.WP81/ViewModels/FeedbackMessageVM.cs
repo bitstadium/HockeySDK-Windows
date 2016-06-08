@@ -31,11 +31,16 @@ namespace Microsoft.HockeyApp.ViewModels
 
         private void SetCommands()
         {
-            Frame rootFrame = (Window.Current.Content as Frame);
+            // Window.Current can be null in case of application is suspended.
+            // issue discussed at https://support.hockeyapp.net/discussions/problems/57803-hockeysdkwinrt-version-223-bug
+            Frame rootFrame = Window.Current == null ?  null : (Window.Current.Content as Frame);
 
             CancelCommand = new RelayCommand(() =>
             {
-                rootFrame.GoBack();
+                if (rootFrame != null)
+                {
+                    rootFrame.GoBack();
+                }
             });
 
             SendCommand = new RelayCommand(async () =>
@@ -84,7 +89,10 @@ namespace Microsoft.HockeyApp.ViewModels
                 vm.IsNewAttachment = false;
                 dynamic pars = new DynamicNavigationParameters();
                 pars.Attachment = vm;
-                rootFrame.Navigate(this.FeedbackImagePageType, pars);
+                if (rootFrame != null)
+                {
+                    rootFrame.Navigate(this.FeedbackImagePageType, pars);
+                }
             });
 
         }
