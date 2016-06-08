@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.WPF</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <copyright>$copyright$</copyright>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HockeyApp SDK for WPF applications. Use HockeyApp to collect crash reports, feedback, and manage beta distribution.</description>
+    <language>en-US</language>
+    <tags>HockeyApp; Windows; WPF; Crash reports; reporting; feedback; Telemetry; Analytics</tags>
+    <dependencies>
+       <dependency id="HockeySDK.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+
+  <files>
+    <!-- HockeySDK -->
+    <file src="$configuration$\Kit.WPF45\Microsoft.HockeyApp.Kit.*" target="lib\net45" />
+    <file src="$configuration$\NuGet\HockeySDK.WPF\tools\**" target="tools" />
+
+    <!-- Application Insights -->
+    <file src="$configuration$\Kit.WPF45\Microsoft.HockeyApp.*" target="lib\net45" />
+  </files>
+</package>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HockeySDK.UWP</id>
+    <version>$version$</version>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <copyright>$copyright$</copyright>
+    <licenseUrl>https://github.com/bitstadium/HockeySDK-Windows/blob/master/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/bitstadium/HockeySDK-Windows</projectUrl>
+    <iconUrl>https://rink.hockeyapp.net/images/icon@2x.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>HockeyApp SDK for Universal Windows Applications. Use HockeyApp to collect crash reports.</description>
+    <language>en-US</language>
+    <tags>HockeyApp; Windows; Crash reports; reporting; Telemetry; Analytics; UWP, Universal Windows Applications</tags>
+      <dependencies>
+       <dependency id="HockeySDK.Core" version="$version$" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="$configuration$\Kit.UWP\Microsoft.HockeyApp.Kit.*" target="lib\uap10.0" />
+    <file src="$configuration$\Kit.UWP\Properties\*" target="lib\uap10.0\Microsoft.HockeyApp.Kit\Properties" />
+    <file src="$configuration$\NuGet\HockeySDK.UWP\tools\**" target="tools" />
+  </files>
+</package>

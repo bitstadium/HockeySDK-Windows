@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props" Condition="Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props')" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'HockeyApp.props'))\HockeyApp.props" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.20506</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A24597D-D3CF-4C4C-9330-B5A391A3905B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Microsoft.HockeyApp</RootNamespace>
+    <AssemblyName>Microsoft.HockeyApp.Kit</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <ExpressionBlendVersion>12.0.50716.0</ExpressionBlendVersion>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <NoWarn>1591</NoWarn>
+    <!-- Disabling Code Analysis on the project, as it is firing  an error was encountered while parsing il for method exception which causes no harm. -->
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AppxBundlePlatforms>Any CPU</AppxBundlePlatforms>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
+  <ItemGroup>
+    <Compile Include="..\Kit.Core45\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\ApplicationService.cs">
+      <Link>Services\ApplicationService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\DeviceService.cs">
+      <Link>Services\Device\DeviceService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\NativeMethods.cs">
+      <Link>Services\Device\NativeMethods.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\Device\PlatformDispatcher.cs">
+      <Link>Services\Device\PlatformDispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\HttpClientTransmission.cs">
+      <Link>Services\HttpClientTransmission.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\PlatformService.cs">
+      <Link>Services\PlatformService.cs</Link>
+    </Compile>
+    <Compile Include="..\Kit.UWP\Services\StorageService.cs">
+      <Link>Services\StorageService.cs</Link>
+    </Compile>
+    <Compile Include="AuthManager.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
+    <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="FeedbackManager.cs" />
+    <Compile Include="HockeyClientExtensionsWP81.cs" />
+    <Compile Include="HockeyPlatformHelper81.cs" />
+    <Compile Include="Tools\UIExtensions.cs" />
+    <Compile Include="Tools\UtilExtensions.cs" />
+    <Compile Include="UnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="Universal\HockeyPlatformHelper81.cs" />
+    <Compile Include="Universal\AuthManager.cs" />
+    <Compile Include="Universal\ConstantsUniversal.cs" />
+    <Compile Include="Universal\CrashHandler.cs" />
+    <Compile Include="Universal\FeedbackManager.cs" />
+    <Compile Include="Universal\HockeyClientExtensionsWinUniversal.cs" />
+    <Compile Include="Universal\LocalizedAssets.cs" />
+    <Compile Include="Universal\LocalizedStrings.cs" />
+    <Compile Include="Universal\Model\ModelExtensions.cs" />
+    <Compile Include="Universal\Tools\AppxManifest.cs" />
+    <Compile Include="Universal\Tools\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Universal\Tools\CanvasExtensions.cs" />
+    <Compile Include="Universal\Tools\DynamicNavigationParameters.cs" />
+    <Compile Include="Universal\Tools\ScreenResolution.cs" />
+    <Compile Include="Universal\Tools\StringColonConverter.cs" />
+    <Compile Include="Universal\Tools\UtilExtensions.cs" />
+    <Compile Include="Universal\Tools\WebBrowserHelper.cs" />
+    <Compile Include="Universal\ViewModels\FeedbackAttachmentVM.cs" />
+    <Compile Include="Universal\ViewModels\FeedbackMessageVM.cs" />
+    <Compile Include="Universal\ViewModels\VMBase.cs" />
+    <Compile Include="UpdateManager.cs" />
+    <Compile Include="ViewModels\FeedbackAttachmentVM.cs" />
+    <Compile Include="ViewModels\FeedbackMessageVM.cs" />
+    <Compile Include="Universal\ViewModels\FeedbackThreadVM.cs" />
+    <Compile Include="ViewModels\FeedbackThreadVM.cs" />
+    <Compile Include="ViewModels\LoginPageVM.cs" />
+    <Compile Include="ViewModels\UpdatePageVM.cs" />
+    <Compile Include="Views\FeedbackFormPage.xaml.cs">
+      <DependentUpon>FeedbackFormPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackImagePage.xaml.cs">
+      <DependentUpon>FeedbackImagePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeedbackMainPage.xaml.cs">
+      <DependentUpon>FeedbackMainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UpdatePage.xaml.cs">
+      <DependentUpon>UpdatePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="_NamespaceDoc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\windows_phone.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\wp8releasenotes.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Views\FeedbackFormPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackImagePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeedbackMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UpdatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <DesignData Include="SampleData\FeedbackMessageVMSampleData.xaml" />
+    <DesignData Include="SampleData\FeedbackThreadVMSampleData.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\de\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\en\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Kit.Core45\Kit.Core45.csproj">
+      <Project>{14123a8e-6d6b-4362-b001-35b8c2505eed}</Project>
+      <Name>Kit.Core45</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets" Condition="Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets')" />
+</Project>

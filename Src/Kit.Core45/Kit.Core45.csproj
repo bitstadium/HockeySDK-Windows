@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props" Condition="Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Import Project="$([MSBuild]::GetDirectoryNameOfFileAbove($(MSBuildProjectDirectory), 'Core.props'))\Core.props" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{14123A8E-6D6B-4362-B001-35B8C2505EED}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
+    <DefineConstants>TRACE;DEBUG; NET45;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <DefineConstants>TRACE;CODE_ANALYSIS;CODE_ANALYSIS;CODE_ANALYSIS;</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyName>Microsoft.HockeyApp.Core45</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Application\ComponentContextInitializer.cs" />
+    <Compile Include="Properties\AssemblyInfoCore.cs" />
+    <Compile Include="Services\HttpService.cs" />
+    <Compile Include="Services\IHttpService.cs" />
+    <Compile Include="Services\IUnhandledExceptionTelemetryModule.cs" />
+    <Compile Include="TelemetryConfigurationFactory.cs" />
+    <Compile Include="Application\ComponentContextData.cs" />
+    <Compile Include="ContextTagKeys.cs" />
+    <Compile Include="Device\DeviceContextData.cs" />
+    <Compile Include="InternalContextData.cs" />
+    <Compile Include="Device\LocationContextData.cs" />
+    <Compile Include="OperationContextData.cs" />
+    <Compile Include="PerformanceCounterData.g.cs" />
+    <Compile Include="UserMetrics\SessionContextData.cs" />
+    <Compile Include="UserMetrics\SessionStateData.g.cs" />
+    <Compile Include="SeverityLevel.g.cs" />
+    <Compile Include="Tags.cs" />
+    <Compile Include="UserMetrics\UserContextData.cs" />
+    <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
+    <Compile Include="Channels\InMemory\InMemoryTransmitter.cs" />
+    <Compile Include="Channels\InMemory\ITelemetry.cs" />
+    <Compile Include="Channels\InMemory\ITelemetryChannel.cs" />
+    <Compile Include="Channels\InMemory\TelemetryBuffer.cs" />
+    <Compile Include="Channels\InMemory\Transmission.cs" />
+    <Compile Include="Channels\Persistence\FlushManager.cs" />
+    <Compile Include="Channels\Persistence\PersistenceChannel.cs" />
+    <Compile Include="Channels\Persistence\PersistenceTransmitter.cs" />
+    <Compile Include="Channels\Persistence\Sender.cs" />
+    <Compile Include="Device\DeviceContextInitializer.cs" />
+    <Compile Include="Services\IDeviceService.cs" />
+    <Compile Include="Services\IApplicationService.cs" />
+    <Compile Include="Services\BaseStorageService.cs" />
+    <Compile Include="Channels\Persistence\StorageTransmission.cs" />
+    <Compile Include="DataContracts\Attachments.cs" />
+    <Compile Include="DataContracts\CrashTelemetry.cs" />
+    <Compile Include="DataContracts\CrashTelemetryBinary.cs" />
+    <Compile Include="DataContracts\CrashTelemetryHeader.cs" />
+    <Compile Include="DataContracts\CrashTelemetryThread.cs" />
+    <Compile Include="DataContracts\CrashTelemetryThreadFrame.cs" />
+    <Compile Include="DataContracts\DependencyKind.g.cs" />
+    <Compile Include="DataContracts\EventTelemetry.cs" />
+    <Compile Include="DataContracts\ExceptionHandledAt.cs" />
+    <Compile Include="DataContracts\ExceptionTelemetry.cs" />
+    <Compile Include="DataContracts\IJsonSerializable.cs" />
+    <Compile Include="DataContracts\IJsonWriter.cs" />
+    <Compile Include="DataContracts\InnerExceptionCountExceededException.cs" />
+    <Compile Include="DataContracts\ISupportProperties.cs" />
+    <Compile Include="DataContracts\MetricTelemetry.cs" />
+    <Compile Include="DataContracts\PageViewTelemetry.cs" />
+    <Compile Include="DataContracts\PerformanceCounterTelemetry.cs" />
+    <Compile Include="DataContracts\DependencyTelemetry.cs" />
+    <Compile Include="DataContracts\RequestTelemetry.cs" />
+    <Compile Include="DataContracts\SessionState.cs" />
+    <Compile Include="DataContracts\SessionStateTelemetry.cs" />
+    <Compile Include="DataContracts\SeverityLevel.cs" />
+    <Compile Include="DataContracts\TelemetryContext.cs" />
+    <Compile Include="DataContracts\TraceTelemetry.cs" />
+    <Compile Include="Extensibility\IContextInitializer.cs" />
+    <Compile Include="Extensibility\IDebugOutput.cs" />
+    <Compile Include="Extensibility\Implementation\AdapterList.cs" />
+    <Compile Include="Extensibility\Implementation\AppInsightsTypes.g.cs" />
+    <Compile Include="Extensibility\Implementation\ComponentContext.cs" />
+    <Compile Include="Extensibility\Implementation\DebugOutput.cs" />
+    <Compile Include="Extensibility\Implementation\DeviceContext.cs" />
+    <Compile Include="Extensibility\Implementation\ExceptionConverter.cs" />
+    <Compile Include="Extensibility\Implementation\Clock.cs" />
+    <Compile Include="Extensibility\Implementation\External\ContextTagKeys.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\CrashData.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\CrashDataBinary.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\CrashDataHeaders.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\CrashDataThread.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\CrashDataThreadFrame.g.cs" />
+    <Compile Include="Extensibility\Implementation\External\PerformanceCounterData.cs" />
+    <Compile Include="Extensibility\Implementation\External\StackFrame.cs" />
+    <Compile Include="Extensibility\Implementation\External\SessionStateData.cs" />
+    <Compile Include="Extensibility\Implementation\FixedSizeQueue.cs" />
+    <Compile Include="Extensibility\Implementation\IClock.cs" />
+    <Compile Include="Extensibility\Implementation\InternalContext.cs" />
+    <Compile Include="Services\IPlatformService.cs" />
+    <Compile Include="Extensibility\Implementation\IRandomNumberBatchGenerator.cs" />
+    <Compile Include="Extensibility\Implementation\JsonSerializer.cs" />
+    <Compile Include="Extensibility\Implementation\JsonWriter.cs" />
+    <Compile Include="Extensibility\Implementation\LocationContext.cs" />
+    <Compile Include="Extensibility\Implementation\OperationContext.cs" />
+    <Compile Include="Extensibility\Implementation\Platform\PlatformSingleton.cs" />
+    <Compile Include="Extensibility\Implementation\Property.cs" />
+    <Compile Include="Extensibility\Implementation\SessionContext.cs" />
+    <Compile Include="Extensibility\Implementation\SeverityLevelExtensions.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingCollection.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingDictionary.cs" />
+    <Compile Include="Extensibility\Implementation\SnapshottingList.cs" />
+    <Compile Include="Extensibility\Implementation\TaskTimer.cs" />
+    <Compile Include="Extensibility\Implementation\Telemetry.cs" />
+    <Compile Include="Extensibility\Implementation\TelemetryContextExtensions.cs" />
+    <Compile Include="Extensibility\Implementation\TelemetryItemExtensions.cs" />
+    <Compile Include="Extensibility\Implementation\External\AjaxCallData.cs" />
+    <Compile Include="Extensibility\Implementation\External\EventData.cs" />
+    <Compile Include="Extensibility\Implementation\External\ExceptionData.cs" />
+    <Compile Include="Extensibility\Implementation\External\ExceptionDetails.cs" />
+    <Compile Include="Extensibility\Implementation\External\DataPoint.cs" />
+    <Compile Include="Extensibility\Implementation\External\PageViewPerfData.cs" />
+    <Compile Include="Extensibility\Implementation\External\MetricData.cs" />
+    <Compile Include="Extensibility\Implementation\External\PageViewData.cs" />
+    <Compile Include="Extensibility\Implementation\External\RemoteDependencyData.cs" />
+    <Compile Include="Extensibility\Implementation\External\RequestData.cs" />
+    <Compile Include="Extensibility\Implementation\External\MessageData.cs" />
+    <Compile Include="Tracing\CoreEventSource.cs" />
+    <Compile Include="Extensibility\Implementation\TypeExtensions.cs" />
+    <Compile Include="Extensibility\Implementation\UserContext.cs" />
+    <Compile Include="Extensibility\Implementation\WeakConcurrentRandom.cs" />
+    <Compile Include="Extensibility\Implementation\XorshiftRandomBatchGenerator.cs" />
+    <Compile Include="Extensibility\ITelemetryModule.cs" />
+    <Compile Include="Extensibility\ITelemetryInitializer.cs" />
+    <Compile Include="Extensibility\SdkVersionPropertyContextInitializer.cs" />
+    <Compile Include="Extensibility\TelemetryConfiguration.cs" />
+    <Compile Include="Extensibility\SequencePropertyInitializer.cs" />
+    <Compile Include="Extensibility\TelemetryModules.cs" />
+    <Compile Include="Extensibility\TimestampPropertyInitializer.cs" />
+    <Compile Include="Extensibility\WindowsCollectors.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ServiceLocator.cs" />
+    <Compile Include="UserMetrics\UserContextInitializer.cs" />
+    <Compile Include="UserMetrics\SessionTelemetryModule.cs" />
+    <Compile Include="TelemetryClient.cs" />
+    <Compile Include="TimeSpanEx.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="Exceptions\WebTransferException.cs" />
+    <Compile Include="Extensions\ExceptionExtension.cs" />
+    <Compile Include="Extensions\MD5.cs" />
+    <Compile Include="Extensions\UtilExtensions.cs" />
+    <Compile Include="Extensions\WebRequestExtension.cs" />
+    <Compile Include="HockeyClient.cs" />
+    <Compile Include="HockeyClientConfiguration.cs" />
+    <Compile Include="HockeyClientPCLExtensions.cs" />
+    <Compile Include="Application\IAppVersion.cs" />
+    <Compile Include="IAuthStatus.cs" />
+    <Compile Include="ICrashData.cs" />
+    <Compile Include="Feedback\IFeedbackAttachment.cs" />
+    <Compile Include="Feedback\IFeedbackMessage.cs" />
+    <Compile Include="Feedback\IFeedbackThread.cs" />
+    <Compile Include="IHockeyClient.cs" />
+    <Compile Include="IHockeyClientInternal.cs" />
+    <Compile Include="IHockeyPlatformHelper.cs" />
+    <Compile Include="InternalUnhandledExceptionEventArgs.cs" />
+    <Compile Include="Tracing\Logging.cs" />
+    <Compile Include="Model\AppVersion.cs" />
+    <Compile Include="Model\AuthStatus.cs" />
+    <Compile Include="Model\CrashData.cs" />
+    <Compile Include="Model\CrashLogInformation.cs" />
+    <Compile Include="Model\FeedbackAttachment.cs" />
+    <Compile Include="Model\FeedbackMessage.cs" />
+    <Compile Include="Model\FeedbackResponseSingle.cs" />
+    <Compile Include="Model\FeedbackThread.cs" />
+    <Compile Include="Model\SDKConstants.cs" />
+    <Compile Include="Extensions\AsyncLock.cs" />
+    <Compile Include="Extensions\TaskEx.cs" />
+    <Compile Include="Extensions\PortableExtensions45.cs" />
+    <Compile Include="Model\_NamespaceDoc.cs" />
+    <Compile Include="WindowsAppInitializer.cs" />
+    <Compile Include="_NamespaceDoc.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.props'))" />
+    <Error Condition="!Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets'))" />
+  </Target>
+  <Import Project="..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets" Condition="Exists('..\..\..\packages\MicroBuild.Core.0.1.1\build\MicroBuild.Core.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
