@@ -240,8 +240,10 @@
 
                 return _osVersion;
             }
-
-            set { _osVersion = value; }
+            set
+            {
+                _osVersion = value;
+            }
         }
 
         private string _device;
@@ -757,13 +759,13 @@
                         PackageName = this.PlatformHelper.AppPackageName,
                         OperatingSystem = this.PlatformHelper.OSPlatform,
                         Windows = OsVersion,
-                        WindowsPhone = this.PlatformHelper.GetWindowsPhoneVersionString(),
                         Manufacturer = this.PlatformHelper.Manufacturer,
                         Model = this.PlatformHelper.Model,
                         ProductID = this.PlatformHelper.ProductID,
                         Version = this.PlatformHelper.AppVersion
                     };
                 }
+
                 return _crashLogInfo.Value;
             }
         }

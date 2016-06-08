@@ -10,6 +10,8 @@
     using Windows.UI.Xaml;
     using Windows.Security.ExchangeActiveSyncProvisioning;
     using Services;
+    using System.Reflection;
+    using Services.Device;
 
     internal partial class HockeyPlatformHelper81 : IHockeyPlatformHelper
     {
@@ -131,16 +133,13 @@
             get { return clientDeviceInfo.SystemProductName; } 
         }
 
-
-        private string osVersion = "8.1"; 
-        
-        // there is sadly currently no way to get the correct Windows Version Number
-        // http://stackoverflow.com/questions/24122013/getting-windows-phone-version-and-device-name-in-windows-phone-8-1-xaml
         public string OSVersion
         {
             get
             {
-                return osVersion;
+                // we will return empty version just to not break interface. The correct implementation is done in 
+                // <see href="DeviceService" />
+                return "";
             }
         }
     }

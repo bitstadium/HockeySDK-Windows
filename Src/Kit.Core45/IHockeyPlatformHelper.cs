@@ -128,17 +128,4 @@ namespace Microsoft.HockeyApp
         #endregion
        
     }
-
-    internal static class PlatformHelperExtensions
-    {
-        internal static string GetWindowsVersionString(this IHockeyPlatformHelper @this)
-        {
-            return @this.OSPlatform.Contains("Phone") ? String.Empty : @this.OSVersion;
-        }
-
-        internal static string GetWindowsPhoneVersionString(this IHockeyPlatformHelper @this)
-        {
-            return @this.OSPlatform.Contains("Phone") ? @this.OSVersion : String.Empty;
-        }
-    }
 }

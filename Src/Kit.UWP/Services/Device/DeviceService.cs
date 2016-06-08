@@ -142,18 +142,71 @@ namespace Microsoft.HockeyApp.Services.Device
             // Because for non-uwp we are enumerating all PNP objects, which requires ~2.8 MB.
             string sv = AnalyticsInfo.VersionInfo.DeviceFamilyVersion;
             ulong v = ulong.Parse(sv);
+            return ConvertIntToVersion(v);
+#else
+            // WINRT
+
+            // Getting OS Version for WinRT application is tricky. The Silverlight API using <see href="System.Environment.OSVersion" />
+            // has been removed, but the new one <see href="AnalyticsInfo.VersionInfo.DeviceFamilyVersion" /> has been introduced only in a next 
+            // version, Windows 10 UWP.
+
+            // Therefore trick is the following:
+            // For Windows Phone, try to get the version using reflection on top of AnalyticsInfo.VersionInfo.DeviceFamilyVersion, if that fails, 
+            // return 8.1
+
+            // For Windows 8.1 just use PnpObject which does its job. You can't use PnpObject for Windows Phone, it does not return correct value.
+            return HockeyPlatformHelper81.Name == "HockeySDKWP81" ? GetOsVersionUsingAnalyticsInfo() : await GetOsVersionUsingPnpObject();
+#endif
+        }
+#pragma warning restore 1998
+
+        /// <summary>
+        /// Converts integer to a <see cref="System.Version"/> format.
+        /// </summary>
+        /// <param name="v">Integer, that represents an OS version</param>
+        /// <returns>Version string in format {0}.{1}.{2}.{3}</returns>
+        internal static string ConvertIntToVersion(ulong v)
+        {
             ulong v1 = (v & 0xFFFF000000000000L) >> 48;
             ulong v2 = (v & 0x0000FFFF00000000L) >> 32;
             ulong v3 = (v & 0x00000000FFFF0000L) >> 16;
             ulong v4 = (v & 0x000000000000FFFFL);
-            string res = string.Format("{0}.{1}.{2}.{3}", v1, v2, v3, v4);
+            string res = string.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}.{3}", v1, v2, v3, v4);
             return res;
-#else
+        }
+
+        private static string GetOsVersionUsingAnalyticsInfo()
+        {
+            const string DefaultWindows81Version = "8.1.0.0";
+            var analyticsInfoType = Type.GetType("Windows.System.Profile.AnalyticsInfo, Windows, ContentType=WindowsRuntime");
+            var versionInfoType = Type.GetType("Windows.System.Profile.AnalyticsVersionInfo, Windows, ContentType=WindowsRuntime");
+            if (analyticsInfoType == null || versionInfoType == null)
+            {
+                // Apparently you are not on Windows 10, because AnalyticsInfo API was not available before Windows 10.
+                return DefaultWindows81Version;
+            }
+
+            var versionInfoProperty = analyticsInfoType.GetRuntimeProperty("VersionInfo");
+            object versionInfo = versionInfoProperty.GetValue(null);
+            var versionProperty = versionInfoType.GetRuntimeProperty("DeviceFamilyVersion");
+            object familyVersion = versionProperty.GetValue(versionInfo);
+
+            ulong versionBytes;
+            if (!ulong.TryParse(familyVersion.ToString(), out versionBytes))
+            {
+                return DefaultWindows81Version;
+            }
+
+            return ConvertIntToVersion(versionBytes);
+        }
+
+        private static async Task<string> GetOsVersionUsingPnpObject()
+        {
             string[] requestedProperties = new string[]
-                                    {
+                                   {
                                                    DeviceDriverVersionKey,
                                                    DeviceDriverProviderKey
-                                    };
+                                   };
 
             PnpObjectCollection pnpObjects = await PnpObject.FindAllAsync(PnpObjectType.Device, requestedProperties, RootContainerQuery);
 
@@ -170,9 +223,8 @@ namespace Microsoft.HockeyApp.Services.Device
                                               .First();
 
             return guessedVersion;
-#endif
         }
-#pragma warning restore 1998
+
 
         /// <summary>
         /// Get the name of the manufacturer of this computer.
