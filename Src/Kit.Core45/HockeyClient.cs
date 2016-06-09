@@ -775,12 +775,14 @@
         /// <summary>
         /// Send a custom event for display in Events tab.
         /// </summary>
-        /// <param name="eventName">Event name</param>
-        public void TrackEvent(string eventName)
+        /// <param name="eventName">A name for the event.</param>
+        /// <param name="properties">Named string values you can use to search and classify events.</param>
+        /// <param name="metrics">Measurements associated with this event.</param>
+        public void TrackEvent(string eventName, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
         {
             if (this.telemetryClient != null)
             {
-                this.telemetryClient.TrackEvent(eventName);
+                this.telemetryClient.TrackEvent(eventName, properties, metrics);
             }
             else
             {
