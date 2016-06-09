@@ -38,9 +38,6 @@
     <Compile Include="..\Kit.UWP\Services\Device\DeviceService.cs">
       <Link>Services\Device\DeviceService.cs</Link>
     </Compile>
-    <Compile Include="..\Kit.UWP\Services\Device\NativeMethods.cs">
-      <Link>Services\Device\NativeMethods.cs</Link>
-    </Compile>
     <Compile Include="..\Kit.UWP\Services\Device\PlatformDispatcher.cs">
       <Link>Services\Device\PlatformDispatcher.cs</Link>
     </Compile>
