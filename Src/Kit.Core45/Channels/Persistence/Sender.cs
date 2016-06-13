@@ -228,7 +228,10 @@ namespace Microsoft.HockeyApp.Channel
 
                     // there is no internet connection available, return than.
                     if (!isConnected)
+                    {
+                        CoreEventSource.Log.LogVerbose("Cannot send data to the HockeyApp server. Internet connection is not available");
                         return true;
+                    } 
 
                     transmission.SendAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                     
