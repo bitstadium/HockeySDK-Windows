@@ -11,7 +11,7 @@ namespace Microsoft.HockeyApp.Channel
     using System.Threading.Tasks;
     using Extensibility.Implementation.Tracing;
     using Services;
-
+    using System.Net.NetworkInformation;
     /// <summary>
     /// Fetch transmissions from the storage and sends it. 
     /// </summary>
@@ -217,13 +217,19 @@ namespace Microsoft.HockeyApp.Channel
         /// </summary>
         /// <param name="transmission">The transmission to send.</param>
         /// <param name="nextSendInterval">When this value returns it will hold a recommendation for when to start the next sending iteration.</param>
-        /// <returns>A boolean value that indicates if there was a retriable error.</returns>        
+        /// <returns>True, if there was sent error and we need to retry sending, otherwise false.</returns>        
         protected virtual bool Send(StorageTransmission transmission, ref TimeSpan nextSendInterval)
         {   
             try
             {
                 if (transmission != null)
                 {
+                    bool isConnected = NetworkInterface.GetIsNetworkAvailable();
+
+                    // there is no internet connection available, return than.
+                    if (!isConnected)
+                        return true;
+
                     transmission.SendAsync().ConfigureAwait(false).GetAwaiter().GetResult();
                     
                     // After a successful sending, try immeidiately to send another transmission. 
