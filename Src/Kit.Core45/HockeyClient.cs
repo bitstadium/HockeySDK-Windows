@@ -5,7 +5,6 @@
     using Exceptions;
     using Extensibility;
     using Extensibility.Implementation;
-    using Extensibility.Implementation.Platform;
     using Extensibility.Implementation.Tracing;
     using Extensions;
     using Internal;
@@ -36,7 +35,6 @@
         /// </summary>
         private readonly Queue<ITelemetry> queue = new Queue<ITelemetry>();
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClient));
-        private TelemetryConfiguration configuration;
         private TelemetryContext context;
         private ITelemetryChannel channel;
 
@@ -339,7 +337,7 @@
         /// </summary>
         internal bool IsTelemetryInitialized
         {
-            get { return this.configuration != null; }
+            get; set;
         }
 
         /// <summary>
@@ -382,7 +380,7 @@
                 ITelemetryChannel output = this.channel;
                 if (output == null)
                 {
-                    output = this.configuration.TelemetryChannel;
+                    output = TelemetryConfiguration.Active.TelemetryChannel;
                     this.channel = output;
                 }
 
@@ -1052,28 +1050,28 @@
         [EditorBrowsable(EditorBrowsableState.Never)]
         internal void Track(ITelemetry telemetry)
         {
+            if (!IsTelemetryInitialized)
+            {
+                CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
+                queue.Enqueue(telemetry);
+                if (queue.Count > MaxQueueSize)
+                {
+                    queue.Dequeue();
+                }
+
+                return;
+            }
+
             // TALK TO YOUR TEAM MATES BEFORE CHANGING THIS.
             // This method needs to be public so that we can build and ship new telemetry types without having to ship core.
             // It is hidden from intellisense to prevent customer confusion.
-            if (this.IsEnabled())
+            if (this.IsTelemetryEnabled())
             {
-                if (!IsTelemetryInitialized)
-                {
-                    CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
-                    queue.Enqueue(telemetry);
-                    if (queue.Count > MaxQueueSize)
-                    {
-                        queue.Dequeue();
-                    }
-
-                    return;
-                }
-
                 string instrumentationKey = this.Context.InstrumentationKey;
 
                 if (string.IsNullOrEmpty(instrumentationKey))
                 {
-                    instrumentationKey = this.configuration.InstrumentationKey;
+                    instrumentationKey = TelemetryConfiguration.Active.InstrumentationKey;
                 }
 
                 if (string.IsNullOrEmpty(instrumentationKey))
@@ -1096,7 +1094,7 @@
                 }
 
                 telemetry.Context.Initialize(this.Context, instrumentationKey);
-                foreach (ITelemetryInitializer initializer in this.configuration.TelemetryInitializers)
+                foreach (ITelemetryInitializer initializer in TelemetryConfiguration.Active.TelemetryInitializers)
                 {
                     try
                     {
@@ -1181,7 +1179,7 @@
         /// </summary>
         internal void Initialize()
         {
-            configuration = TelemetryConfiguration.Active;
+            this.IsTelemetryInitialized = true;
             while (queue.Count > 0)
             {
                 this.Track(queue.Dequeue());
@@ -1191,9 +1189,9 @@
         /// <summary>
         /// Check to determine if the tracking is enabled.
         /// </summary>
-        internal bool IsEnabled()
+        internal bool IsTelemetryEnabled()
         {
-            return !this.configuration.DisableTelemetry;
+            return !TelemetryConfiguration.Active.DisableTelemetry;
         }
 
         /// <summary>
@@ -1207,7 +1205,7 @@
         private async Task<TelemetryContext> CreateInitializedContextAsync()
         {
             var context = new TelemetryContext();
-            foreach (IContextInitializer initializer in this.configuration.ContextInitializers)
+            foreach (IContextInitializer initializer in TelemetryConfiguration.Active.ContextInitializers)
             {
                 await initializer.Initialize(context);
             }

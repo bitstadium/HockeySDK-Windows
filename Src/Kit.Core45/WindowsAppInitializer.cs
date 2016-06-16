@@ -63,6 +63,7 @@
 
             TelemetryConfigurationFactory.Instance.Initialize(configuration);
             TelemetryConfiguration.Active = configuration;
+            ((HockeyClient)HockeyClient.Current).Initialize();
 
             if (configuration.Collectors.HasFlag(WindowsCollectors.Session))
             {
@@ -82,8 +83,6 @@
 
                 TelemetryModules.Instance.Modules.Add(unhandledExceptionModule);
             }
-
-            ((HockeyClient)HockeyClient.Current).Initialize();
         }
     }
 }
