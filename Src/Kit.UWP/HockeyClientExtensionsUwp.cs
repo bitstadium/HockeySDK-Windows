@@ -17,7 +17,7 @@
         /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
         public static void Configure(this IHockeyClient @this, string appId)
         {
-            WindowsAppInitializer.InitializeAsync(appId, null);
+            Configure(@this, appId, null);
         }
 
         /// <summary>
