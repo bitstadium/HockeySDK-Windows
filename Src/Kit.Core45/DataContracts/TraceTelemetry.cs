@@ -1,5 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.DataContracts
 {
+    using Microsoft.HockeyApp;
     using System;
     using System.Collections.Generic;
     using System.Threading;
@@ -76,8 +77,8 @@
         /// </summary>
         public SeverityLevel? SeverityLevel
         {
-            get { return this.Data.severityLevel.TranslateSeverityLevel(); }
-            set { this.Data.severityLevel = value.TranslateSeverityLevel(); }
+            get { return this.Data.severityLevel; }
+            set { this.Data.severityLevel = value; }
         }
 
         /// <summary>

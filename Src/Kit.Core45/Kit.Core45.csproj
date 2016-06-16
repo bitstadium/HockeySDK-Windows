@@ -43,7 +43,6 @@
     <Compile Include="PerformanceCounterData.g.cs" />
     <Compile Include="UserMetrics\SessionContextData.cs" />
     <Compile Include="UserMetrics\SessionStateData.g.cs" />
-    <Compile Include="SeverityLevel.g.cs" />
     <Compile Include="Tags.cs" />
     <Compile Include="UserMetrics\UserContextData.cs" />
     <Compile Include="Channels\InMemory\InMemoryChannel.cs" />
@@ -115,7 +114,6 @@
     <Compile Include="Extensibility\Implementation\Platform\PlatformSingleton.cs" />
     <Compile Include="Extensibility\Implementation\Property.cs" />
     <Compile Include="Extensibility\Implementation\SessionContext.cs" />
-    <Compile Include="Extensibility\Implementation\SeverityLevelExtensions.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingCollection.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingDictionary.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingList.cs" />
@@ -152,7 +150,6 @@
     <Compile Include="Services\ServiceLocator.cs" />
     <Compile Include="UserMetrics\UserContextInitializer.cs" />
     <Compile Include="UserMetrics\SessionTelemetryModule.cs" />
-    <Compile Include="TelemetryClient.cs" />
     <Compile Include="TimeSpanEx.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="Exceptions\WebTransferException.cs" />

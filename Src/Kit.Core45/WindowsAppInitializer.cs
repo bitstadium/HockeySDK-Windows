@@ -67,7 +67,7 @@
             if (configuration.Collectors.HasFlag(WindowsCollectors.Session))
             {
                 SessionTelemetryModule sessionModule = new SessionTelemetryModule();
-                sessionModule.Initialize(configuration);
+                sessionModule.Initialize();
                 TelemetryModules.Instance.Modules.Add(sessionModule);
             }
 
@@ -76,7 +76,7 @@
                 LazyInitializer.EnsureInitialized(ref unhandledExceptionModule, 
                     () => {
                         var module = ServiceLocator.GetService<IUnhandledExceptionTelemetryModule>();
-                        module.Initialize(configuration);
+                        module.Initialize();
                         return module;
                     });
 

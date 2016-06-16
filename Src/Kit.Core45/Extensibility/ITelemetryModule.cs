@@ -8,6 +8,6 @@
         /// <summary>
         /// Initialize method is called after all configuration properties have been loaded from the configuration.
         /// </summary>
-        void Initialize(TelemetryConfiguration configuration);
+        void Initialize();
     }
 }

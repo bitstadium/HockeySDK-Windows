@@ -83,7 +83,7 @@
             public void InitializeSetsSessionIdOfGivenTelemetryAfterApplicationIsStarted()
             {
                 SessionTelemetryModule module = this.CreateSessionTelemetryModule();
-                module.Initialize(this.configuration);                
+                module.Initialize();                
 
                 var telemetry = new StubTelemetry();
                 ((ITelemetryInitializer)module).Initialize(telemetry);
@@ -119,7 +119,7 @@
             public void InitializeSetsSessionIsFirstWhenPreviousSessionWasNotFound()
             {
                 SessionTelemetryModule module = this.CreateSessionTelemetryModule();
-                module.Initialize(this.configuration);
+                module.Initialize();
 
                 var telemetry = new StubTelemetry();
                 ((ITelemetryInitializer)module).Initialize(telemetry);
@@ -134,7 +134,7 @@
                 
                 // Application started and suspended 1 day ago
                 this.clock.Time = DateTimeOffset.Now - TimeSpan.FromDays(1);
-                module.Initialize(this.configuration);
+                module.Initialize();
                 module.HandleApplicationStoppingEvent(null, null);
 
                 // Application resumes today
@@ -154,7 +154,7 @@
 
                 // Application started for the first time and suspended 5 seconds ago
                 this.clock.Time = DateTimeOffset.Now - TimeSpan.FromSeconds(5);
-                module.Initialize(this.configuration);
+                module.Initialize();
                 module.HandleApplicationStoppingEvent(null, null);
 
                 // Application resumes now
@@ -171,7 +171,7 @@
             public void InitializePreservesExistingIsFirstSessionOfGivenTelemetry()
             {
                 SessionTelemetryModule module = this.CreateSessionTelemetryModule();
-                module.Initialize(this.configuration);
+                module.Initialize();
 
                 var telemetry = new StubTelemetry();
                 telemetry.Context.Session.IsFirst = false;
@@ -190,7 +190,7 @@
                 var module = new SessionTelemetryModule(new StubPlatform(), new StubClock());
                 var configuration = new TelemetryConfiguration();
                 configuration.TelemetryChannel = new InMemoryChannel();
-                module.Initialize(configuration);
+                module.Initialize();
 
                 Assert.Contains(module, configuration.TelemetryInitializers);
             }
@@ -202,7 +202,7 @@
 
                 this.clock.Time = DateTimeOffset.Now;
                 DateTimeOffset expectedStartTime = this.clock.Time;
-                module.Initialize(this.configuration);
+                module.Initialize();
 
                 var sessionStart = Assert.IsType<SessionStateTelemetry>(this.sentTelemetry.Single());
                 Assert.Equal(SessionState.Start, sessionStart.State);
@@ -222,7 +222,7 @@
                 // Application started and suspended 1 day ago
                 this.clock.Time = DateTimeOffset.Now - TimeSpan.FromDays(1);
                 DateTimeOffset expectedEndTime = this.clock.Time;
-                module.Initialize(this.configuration);
+                module.Initialize();
                 module.HandleApplicationStoppingEvent(null, null);
 
                 // Application is resuming now
@@ -244,7 +244,7 @@
                 // Application started and suspended 5 seconds ago
                 this.clock.Time = DateTimeOffset.Now - TimeSpan.FromSeconds(5);
                 DateTimeOffset expectedStartTime = this.clock.Time;
-                module.Initialize(this.configuration);
+                module.Initialize();
                 module.HandleApplicationStoppingEvent(null, null);
 
                 // Application is resuming now
@@ -262,7 +262,7 @@
 
                 // Application started and suspended 1 day ago
                 this.clock.Time = DateTimeOffset.Now - TimeSpan.FromDays(1);
-                module.Initialize(this.configuration);
+                module.Initialize();
                 module.HandleApplicationStoppingEvent(null, null);
 
                 // Application is resuming now

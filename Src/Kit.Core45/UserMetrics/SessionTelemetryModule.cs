@@ -26,7 +26,6 @@
         private bool isFirstSession;
         private string sessionId;
         private TimeSpan timeout = TimeSpan.FromSeconds(20);
-        private TelemetryClient client;
         private IApplicationService application;
 
 
@@ -90,17 +89,14 @@
         /// <summary>
         /// Initializes this instance of <see cref="SessionTelemetryModule"/> and begins session tracking.
         /// </summary>
-        public void Initialize(TelemetryConfiguration configuration)
+        public void Initialize()
         {
             // Avoid double initialization (once as a TelemetryModule and once as a TelemetryInitializer)
-            if (this.client == null)
-            {
-                // To track SessionStateTelemetry, this module handles Windows Phone lifecycle events.
-                this.client = new TelemetryClient(configuration);
-                application = ServiceLocator.GetService<IApplicationService>();
-                application.Init();
+            // To track SessionStateTelemetry, this module handles Windows Phone lifecycle events.
+            application = ServiceLocator.GetService<IApplicationService>();
+            application.Init();
 
-                // ToDo: Clarify what to do with Silverlight applications.
+            // ToDo: Clarify what to do with Silverlight applications.
 //#if SILVERLIGHT
 //                PhoneApplicationService.Current.Activated += this.HandleApplicationStartedEvent;
 //                PhoneApplicationService.Current.Launching += this.HandleApplicationStartedEvent;
@@ -108,15 +104,14 @@
 //                PhoneApplicationService.Current.Deactivated += this.HandleApplicationStoppingEvent;
 //                PhoneApplicationService.Current.Closing += this.HandleApplicationStoppingEvent;
 //#endif
-                application.OnResuming += this.HandleApplicationStartedEvent; 
-                application.OnSuspending += this.HandleApplicationStoppingEvent; 
+            application.OnResuming += this.HandleApplicationStartedEvent; 
+            application.OnSuspending += this.HandleApplicationStoppingEvent; 
 
-                // To set Session.Id for all telemetry types, this module also serves as a TelemetryInitializer.
-                configuration.TelemetryInitializers.Add(this);
+            // To set Session.Id for all telemetry types, this module also serves as a TelemetryInitializer.
+            TelemetryConfiguration.Active.TelemetryInitializers.Add(this);
 
-                this.TrackSessionState();
-                this.SaveSessionState(); // To prevent HandleApplicationStarted from tracking a duplicate session start
-            }
+            this.TrackSessionState();
+            this.SaveSessionState(); // To prevent HandleApplicationStarted from tracking a duplicate session start
         }
 
         internal async void HandleApplicationStartedEvent(object sender, object e)
@@ -194,7 +189,7 @@
             // Without calling TelemetryClient.Flush we have up to 50 delay for the user to see the data (30 sec interval to write to temp file, 10 sec interval to read data from the file)
             // As (1) this is important statistic, it tracks users and session and (2) it is important onboarding experience, calling Flush to remove 30 sec write interval.
             // ToDo: Investigate whether it affects performance.
-            this.client.Flush();
+            ((HockeyClient)HockeyClient.Current).Flush();
         }
 
         private void Track(SessionState state, string id, DateTimeOffset timestamp)
@@ -202,7 +197,7 @@
             var session = new SessionStateTelemetry(state);
             session.Context.Session.Id = id;
             session.Timestamp = timestamp;
-            this.client.Track(session);
+            ((HockeyClient)HockeyClient.Current).Track(session);
         }
     }
 }

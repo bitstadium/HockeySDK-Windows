@@ -38,7 +38,7 @@
         private const int HookNavigationEventsRetryIntervalInMilliseconds = 100;
 
         private TelemetryConfiguration configuration = null;
-        private TelemetryClient client;
+        private HockeyClient client;
         private List<FrameHandler> trackedFrames = new List<FrameHandler>();
         private int currentHookRetryCount = (int)TimeSpan.FromMinutes(1).TotalMilliseconds / PageViewTelemetryModule.HookNavigationEventsRetryIntervalInMilliseconds;
 
@@ -93,7 +93,7 @@
 
         private void TrackPageView(string pageName, TimeSpan duration)
         {
-            TelemetryClient client = LazyInitializer.EnsureInitialized(ref this.client, () => new TelemetryClient(this.configuration));
+            var client = (HockeyClient)(HockeyClient.Current);
 
             var telemetry = new PageViewTelemetry(pageName)
             {
@@ -196,11 +196,11 @@
         /// <summary>
         /// Initialize method is called after all configuration properties have been loaded from the configuration.
         /// </summary>
-        public void Initialize(TelemetryConfiguration configuration)
+        public void Initialize()
         {
             if (configuration != null)
             {
-                this.configuration = configuration;
+                this.configuration = TelemetryConfiguration.Active;
             }
 
             // ToDo: Implement Initialize method

@@ -22,7 +22,6 @@
     /// </summary>
     internal sealed class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
-        private TelemetryClient client;
         private static ushort? processorArchitecture;
 
         /// <summary>
@@ -49,7 +48,7 @@
         /// the exception object may be read only once. The second time it is read, it will return empty <see cref="System.Exception"/> without call stack.
         /// It is OS Bug 560663, 7133918 that must be fixed in Windows Redstone 2 (~2017).
         /// </summary>
-        public void Initialize(TelemetryConfiguration configuration)
+        public void Initialize()
         {
             CoreApplication.UnhandledErrorDetected += CoreApplication_UnhandledErrorDetected;
         }
@@ -66,10 +65,11 @@
             {
                 try
                 {
-                    LazyInitializer.EnsureInitialized(ref this.client, () => { return new TelemetryClient(); });
+
                     ITelemetry crashTelemetry = CreateCrashTelemetry(eventException);
-                    this.client.Track(crashTelemetry);
-                    this.client.Flush();
+                    var client = ((HockeyClient)(HockeyClient.Current));
+                    client.Track(crashTelemetry);
+                    client.Flush();
                 }
                 catch (Exception ex)
                 {

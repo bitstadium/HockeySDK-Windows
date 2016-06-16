@@ -1,9 +1,9 @@
-﻿namespace Microsoft.HockeyApp.DataContracts
+﻿namespace Microsoft.HockeyApp
 {
     /// <summary>
     /// This enumeration is used by ExceptionTelemetry and TraceTelemetry to identify severity level.
     /// </summary>
-    internal enum SeverityLevel
+    public enum SeverityLevel
     {
         /// <summary>
         /// Verbose severity level.

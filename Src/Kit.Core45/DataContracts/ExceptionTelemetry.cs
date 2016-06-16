@@ -119,8 +119,8 @@
         /// </summary>
         public SeverityLevel? SeverityLevel
         {
-            get { return this.Data.severityLevel.TranslateSeverityLevel(); }
-            set { this.Data.severityLevel = value.TranslateSeverityLevel(); }
+            get { return this.Data.severityLevel; }
+            set { this.Data.severityLevel = value; }
         }
 
         internal IList<ExceptionDetails> Exceptions

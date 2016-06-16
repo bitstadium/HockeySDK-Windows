@@ -38,7 +38,7 @@
 
             // we need to initialize in Configure method and not in WindowsAppInitializer.InitializeAsync 
             // to prevent UnauthorizedAccessException with Invalid cross-thread access message
-            exceptionModule.Initialize(null);
+            exceptionModule.Initialize();
             ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(exceptionModule);
             WindowsAppInitializer.InitializeAsync(appId, telemetryConfiguration);
             return @this as IHockeyClientConfigurable;

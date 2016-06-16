@@ -123,7 +123,6 @@
     <Compile Include="Extensibility\Implementation\Platform\PlatformImplementationTest.cs" />
     <Compile Include="Extensibility\Implementation\PropertyTest.cs" />
     <Compile Include="Extensibility\Implementation\SessionContextTest.cs" />
-    <Compile Include="Extensibility\Implementation\SeverityLevelExtensionsTest.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingCollectionTest.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingDictionaryTest.cs" />
     <Compile Include="Extensibility\Implementation\SnapshottingListTest.cs" />
@@ -134,7 +133,6 @@
     <Compile Include="Extensibility\SdkVersionPropertyContextInitializerTest.cs" />
     <Compile Include="Extensibility\TelemetryConfigurationTest.cs" />
     <Compile Include="Extensibility\TimestampPropertyInitializerTest.cs" />
-    <Compile Include="TelemetryClientTest.cs" />
     <Compile Include="Thread.cs" />
     <Compile Include="AsyncTest.cs" />
     <Compile Include="EventSourceTest.cs" />

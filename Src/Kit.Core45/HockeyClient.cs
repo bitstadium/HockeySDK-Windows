@@ -1,41 +1,74 @@
 ﻿namespace Microsoft.HockeyApp
 {
-    using Microsoft.HockeyApp.Model;
+    using Channel;
+    using DataContracts;
+    using Exceptions;
+    using Extensibility;
+    using Extensibility.Implementation;
+    using Extensibility.Implementation.Platform;
+    using Extensibility.Implementation.Tracing;
+    using Extensions;
+    using Internal;
+    using Model;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.IO;
     using System.Linq;
     using System.Net;
-    using System.Text;
-    using System.IO;
-    using System.Threading.Tasks;
-    using Microsoft.HockeyApp.Exceptions;
-    using Microsoft.HockeyApp.Extensions;
-    using Microsoft.HockeyApp.Internal;
     using System.Net.NetworkInformation;
+    using System.Text;
     using System.Threading;
-
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Implements the HockeyClient singleton
     /// </summary>
     public class HockeyClient : HockeyApp.IHockeyClient, IHockeyClientInternal, IHockeyClientConfigurable
     {
+        private const int MaxQueueSize = 4096;
+
+        private static HockeyClient _instance = null;
+
         /// <summary>
-        /// Telemetry buffer of items that were tracked by the user before <see cref="telemetryClient"/> instance has been created.
+        /// Telemetry buffer of items that were tracked by the user before configuration has been initialized.
         /// </summary>
-        private readonly Queue<string> eventQueue = new Queue<string>();
-
-        private TelemetryClient telemetryClient;
-
+        private readonly Queue<ITelemetry> queue = new Queue<ITelemetry>();
         private ILog logger = HockeyLogManager.GetLog(typeof(HockeyClient));
+        private TelemetryConfiguration configuration;
+        private TelemetryContext context;
+        private ITelemetryChannel channel;
 
-        #region fields
+        private HockeyClient()
+        {
+        }
+
+        #region Properties
+
+        /// <summary>
+        /// The current singleton instance of HockeyClient. Use the extension methods in the HockeyApp namespace 
+        /// to work with the instance:
+        /// HockeyClient.Current.Configure(..) must be called first to initialize the client!
+        /// </summary>
+        public static IHockeyClient Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new HockeyClient();
+                }
+
+                return _instance;
+            }
+        }
 
         /// <summary>
         /// ApiBase of HockeyApp server
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.EndsWith(System.String)")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)", Justification ="ToDo: Perform refactoring after HA/AI SDK integration.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1307:SpecifyStringComparison", MessageId = "System.String.IndexOf(System.String)", Justification = "ToDo: Perform refactoring after HA/AI SDK integration.")]
         [Obsolete("Use Version-specific ApiBase!")]
         public string ApiBase
         {
@@ -92,14 +125,15 @@
             get { return ApiDomain + "api/3/"; }
         }
 
-        
+
         private string _userAgentString;
         /// <summary>
         /// User agent string
         /// </summary>
         public string UserAgentString
         {
-            get {
+            get
+            {
                 if (_userAgentString == null)
                 {
                     this._userAgentString = SDKConstants.UserAgentString;
@@ -108,18 +142,20 @@
                         this._userAgentString = this.PlatformHelper.UserAgentString;
                     }
                 }
-                return _userAgentString; }
+                return _userAgentString;
+            }
             set { _userAgentString = value; }
         }
 
-        
+
         private string _sdkName;
         /// <summary>
         /// SDK info
         /// </summary>
         public string SdkName
         {
-            get {
+            get
+            {
                 if (_sdkName == null)
                 {
                     this._sdkName = SDKConstants.SdkName;
@@ -128,18 +164,19 @@
                         this._sdkName = this.PlatformHelper.SDKName;
                     }
                 }
-                return _sdkName; }
+                return _sdkName;
+            }
             set { _sdkName = value; }
         }
 
-        
         private string _sdkVersion;
         /// <summary>
         /// SDK Version
         /// </summary>
         public string SdkVersion
         {
-            get {
+            get
+            {
                 if (_sdkVersion == null)
                 {
                     this._sdkVersion = SDKConstants.SdkVersion;
@@ -148,7 +185,8 @@
                         this._sdkVersion = this.PlatformHelper.SDKVersion;
                     }
                 }
-                return _sdkVersion; }
+                return _sdkVersion;
+            }
             set { _sdkVersion = value; }
         }
 
@@ -185,20 +223,19 @@
             }
             set { _versionInfo = value; }
         }
-        
+
         /// <summary>
         /// UserID of current app user (if provided)
         /// </summary>
         public string UserID { get; set; }
-        
+
         /// <summary>
         /// Contact information for current user
         /// </summary>
         public string ContactInformation { get; set; }
-        
+
         //Operating system (set by platform-specific SDK if used)
         private string _os;
-
         /// <summary>
         /// Name of platform OS
         /// </summary>
@@ -215,9 +252,7 @@
             set { _os = value; }
         }
 
-        
         private string _osVersion;
-        
         /// <summary>
         /// Operating system version (set by platform-specific SDK if used)
         /// </summary>
@@ -227,10 +262,9 @@
             {
                 // in TelemetryClient the OS version is correctly identified, use it if TelemetryClient initialized.
                 // otherwise go to PlatformHelper implementation.
-                if (telemetryClient != null && telemetryClient.Context != null && telemetryClient.Context.Device != null
-                    && telemetryClient.Context.Device != null)
+                if (IsTelemetryInitialized && Context != null && Context.Device != null && Context.Device != null)
                 {
-                    return this.telemetryClient.Context.Device.DeviceOSVersion;
+                    return this.Context.Device.DeviceOSVersion;
                 }
 
                 if (_osVersion == null && this.PlatformHelper != null)
@@ -247,7 +281,6 @@
         }
 
         private string _device;
-        
         /// <summary>
         /// Device (set by platform-specific SDK if used)
         /// </summary>
@@ -265,7 +298,6 @@
         }
 
         private string _oem;
-        
         /// <summary>
         /// Oem of Device (set by platform-specific SDK if used)
         /// </summary>
@@ -286,12 +318,12 @@
         /// unique user id provided by platform (set by platform-specific SDK if used)
         /// </summary>
         public string Uuid { get; set; }
-        
+
         /// <summary>
         /// Authorized user id (set during login process)
         /// </summary>
         public string Auid { get; internal set; }
-        
+
         /// <summary>
         /// Identified user id (set during login process)
         /// </summary>
@@ -302,31 +334,69 @@
         /// </summary>
         public Func<Exception, string> DescriptionLoader { get; set; }
 
-        #endregion
-
-        #region ctor
-        private ILog _logger = HockeyLogManager.GetLog(typeof(HockeyClient));
-        private static HockeyClient _instance = null;
+        /// <summary>
+        /// Gets a value indicating whether telemetry client has been initialized.
+        /// </summary>
+        internal bool IsTelemetryInitialized
+        {
+            get { return this.configuration != null; }
+        }
 
         /// <summary>
-        /// The current singleton instance of HockeyClient. Use the extension methods in the HockeyApp namespace 
-        /// to work with the instance:
-        /// HockeyClient.Current.Configure(..) must be called first to initialize the client!
+        /// Gets or sets the current context that will be used to augment telemetry you send.
         /// </summary>
-        public static IHockeyClient Current
+        internal TelemetryContext Context
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new HockeyClient();
-                }
+                // In order to prevent a deadlock, we are calling async method from sync using Task.Run to offload a work to a ThreadPool
+                // thread which does not have a SynchronizationContext and there is no real risk for a deadlock.
+                // http://stackoverflow.com/questions/28305968/use-task-run-in-synchronous-method-to-avoid-deadlock-waiting-on-async-method
+                LazyInitializer.EnsureInitialized(ref this.context, () => { return Task.Run(async () => { return await this.CreateInitializedContextAsync(); }).Result; });
+                return this.context;
+            }
 
-                return _instance;
+            set
+            {
+                this.context = value;
             }
         }
 
-        private HockeyClient() { }
+        /// <summary>
+        /// Gets or sets the default instrumentation key for all <see cref="ITelemetry"/> objects logged.
+        /// </summary>
+        internal string InstrumentationKey
+        {
+            get { return this.Context.InstrumentationKey; }
+            set { this.Context.InstrumentationKey = value; }
+        }
+
+        /// <summary>
+        /// Gets or sets the channel used by the client helper. Note that this doesn't need to be public as a customer can create a new client 
+        /// with a new channel via telemetry configuration.
+        /// </summary>
+        internal ITelemetryChannel Channel
+        {
+            get
+            {
+                ITelemetryChannel output = this.channel;
+                if (output == null)
+                {
+                    output = this.configuration.TelemetryChannel;
+                    this.channel = output;
+                }
+
+                return output;
+            }
+
+            set
+            {
+                this.channel = value;
+            }
+        }
+
+        #endregion
+
 
         /// <summary>
         /// Check if this HockeyClient has already been initialized (used internally by platform SDKs)
@@ -339,9 +409,7 @@
             }
         }
 
-        #endregion
-
-        #region events
+        #region Events
         
         /// <summary>
         /// Subscribe to this event to get all exceptions that are swallowed by HockeySDK.
@@ -349,18 +417,6 @@
         /// </summary>
         public event EventHandler<InternalUnhandledExceptionEventArgs> OnHockeySDKInternalException;
 
-        /// <summary>
-        /// Handle Exceptions that are swallowed because we don't want our SDK crash other apps
-        /// For internal use by platform SDKs
-        /// </summary>
-        /// <param name="unhandledException">the exception to propagate</param>
-        public void HandleInternalUnhandledException(Exception unhandledException) {
-            logger.Error(unhandledException);
-            var args = new InternalUnhandledExceptionEventArgs() { Exception = unhandledException };
-            var handler = OnHockeySDKInternalException;
-            if (handler != null)
-                handler(this, args);
-        }
 
         #endregion
 
@@ -773,32 +829,402 @@
         #endregion
 
         /// <summary>
+        /// Handle Exceptions that are swallowed because we don't want our SDK crash other apps
+        /// For internal use by platform SDKs
+        /// </summary>
+        /// <param name="unhandledException">the exception to propagate</param>
+        public void HandleInternalUnhandledException(Exception unhandledException)
+        {
+            logger.Error(unhandledException);
+            var args = new InternalUnhandledExceptionEventArgs() { Exception = unhandledException };
+            OnHockeySDKInternalException?.Invoke(this, args);
+        }
+
+        /// <summary>
         /// Send a custom event for display in Events tab.
         /// </summary>
         /// <param name="eventName">Event name</param>
         public void TrackEvent(string eventName)
         {
-            if (this.telemetryClient != null)
+            this.TrackEvent(new EventTelemetry(eventName));
+        }
+
+        /// <summary>
+        /// Send an event telemetry for display in Diagnostic Search and aggregation in Metrics Explorer.
+        /// </summary>
+        /// <param name="eventName">A name for the event.</param>
+        /// <param name="properties">Named string values you can use to search and classify events.</param>
+        /// <param name="metrics">Measurements associated with this event.</param>
+        public void TrackEvent(string eventName, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
+        {
+            var telemetry = new EventTelemetry(eventName);
+
+            if (properties != null && properties.Count > 0)
             {
-                this.telemetryClient.TrackEvent(eventName);
+                Utils.CopyDictionary(properties, telemetry.Context.Properties);
             }
-            else
+
+            if (metrics != null && metrics.Count > 0)
             {
-                eventQueue.Enqueue(eventName);
+                Utils.CopyDictionary(metrics, telemetry.Metrics);
+            }
+
+            this.TrackEvent(telemetry);
+        }
+
+        /// <summary>
+        /// Send a trace message for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="message">Message to display.</param>
+        public void TrackTrace(string message)
+        {
+            this.TrackTrace(new TraceTelemetry(message));
+        }
+
+        /// <summary>
+        /// Send a trace message for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="message">Message to display.</param>
+        /// <param name="severityLevel">Trace severity level.</param>
+        public void TrackTrace(string message, SeverityLevel severityLevel)
+        {
+            this.TrackTrace(new TraceTelemetry(message, severityLevel));
+        }
+
+        /// <summary>
+        /// Send a trace message for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="message">Message to display.</param>
+        /// <param name="properties">Named string values you can use to search and classify events.</param>
+        public void TrackTrace(string message, IDictionary<string, string> properties)
+        {
+            TraceTelemetry telemetry = new TraceTelemetry(message);
+
+            if (properties != null && properties.Count > 0)
+            {
+                Utils.CopyDictionary(properties, telemetry.Context.Properties);
+            }
+
+            this.TrackTrace(telemetry);
+        }
+
+        /// <summary>
+        /// Send a trace message for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="message">Message to display.</param>
+        /// <param name="severityLevel">Trace severity level.</param>
+        /// <param name="properties">Named string values you can use to search and classify events.</param>
+        public void TrackTrace(string message, SeverityLevel severityLevel, IDictionary<string, string> properties)
+        {
+            TraceTelemetry telemetry = new TraceTelemetry(message, severityLevel);
+
+            if (properties != null && properties.Count > 0)
+            {
+                Utils.CopyDictionary(properties, telemetry.Context.Properties);
+            }
+
+            this.TrackTrace(telemetry);
+        }
+
+        /// <summary>
+        /// Send a trace message for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="telemetry">Message with optional properties.</param>
+        internal void TrackTrace(TraceTelemetry telemetry)
+        {
+            telemetry = telemetry ?? new TraceTelemetry();
+            this.Track(telemetry);
+        }
+
+        /// <summary>
+        /// Send a <see cref="MetricTelemetry"/> for aggregation in Metric Explorer.
+        /// </summary>
+        /// <param name="name">Metric name.</param>
+        /// <param name="value">Metric value.</param>
+        /// <param name="properties">Named string values you can use to classify and filter metrics.</param>
+        public void TrackMetric(string name, double value, IDictionary<string, string> properties = null)
+        {
+            var telemetry = new MetricTelemetry(name, value);
+            if (properties != null && properties.Count > 0)
+            {
+                Utils.CopyDictionary(properties, telemetry.Properties);
+            }
+
+            this.TrackMetric(telemetry);
+        }
+
+        /// <summary>
+        /// Send information about the page viewed in the application.
+        /// </summary>
+        /// <param name="name">Name of the page.</param>
+        public void TrackPageView(string name)
+        {
+            this.Track(new PageViewTelemetry(name));
+        }
+
+        /// <summary>
+        /// Send a <see cref="MetricTelemetry"/> for aggregation in Metric Explorer.
+        /// </summary>
+        internal void TrackMetric(MetricTelemetry telemetry)
+        {
+            if (telemetry == null)
+            {
+                telemetry = new MetricTelemetry();
+            }
+
+            this.Track(telemetry);
+        }
+
+        /// <summary>
+        /// Send an <see cref="ExceptionTelemetry"/> for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="exception">The exception to log.</param>
+        /// <param name="properties">Named string values you can use to classify and search for this exception.</param>
+        /// <param name="metrics">Additional values associated with this exception.</param>
+        internal void TrackException(Exception exception, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
+        {
+            if (exception == null)
+            {
+                exception = new Exception(Utils.PopulateRequiredStringValue(null, "message", typeof(ExceptionTelemetry).FullName));
+            }
+
+            var telemetry = new ExceptionTelemetry(exception) { HandledAt = ExceptionHandledAt.UserCode };
+
+            if (properties != null && properties.Count > 0)
+            {
+                Utils.CopyDictionary(properties, telemetry.Context.Properties);
+            }
+
+            if (metrics != null && metrics.Count > 0)
+            {
+                Utils.CopyDictionary(metrics, telemetry.Metrics);
+            }
+
+            this.TrackException(telemetry);
+        }
+
+        /// <summary>
+        /// Send an <see cref="ExceptionTelemetry"/> for display in Diagnostic Search.
+        /// </summary>
+        internal void TrackException(ExceptionTelemetry telemetry)
+        {
+            if (telemetry == null)
+            {
+                var exception = new Exception(Utils.PopulateRequiredStringValue(null, "message", typeof(ExceptionTelemetry).FullName));
+                telemetry = new ExceptionTelemetry(exception)
+                {
+                    HandledAt = ExceptionHandledAt.UserCode,
+                };
+            }
+
+            this.Track(telemetry);
+        }
+
+        /// <summary>
+        /// Send information about external dependency call in the application.
+        /// </summary>
+        /// <param name="dependencyName">External dependency name.</param>
+        /// <param name="commandName">Dependency call command name.</param>
+        /// <param name="startTime">The time when the dependency was called.</param>
+        /// <param name="duration">The time taken by the external dependency to handle the call.</param>
+        /// <param name="success">True if the dependency call was handled successfully.</param>
+        internal void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success)
+        {
+            this.TrackDependency(new DependencyTelemetry(dependencyName, commandName, startTime, duration, success));
+        }
+
+        /// <summary>
+        /// Send information about external dependency call in the application.
+        /// </summary>
+        internal void TrackDependency(DependencyTelemetry telemetry)
+        {
+            if (telemetry == null)
+            {
+                telemetry = new DependencyTelemetry();
+            }
+
+            this.Track(telemetry);
+        }
+
+        /// <summary>
+        /// This method is an internal part of Application Insights infrastructure. Do not call.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal void Track(ITelemetry telemetry)
+        {
+            // TALK TO YOUR TEAM MATES BEFORE CHANGING THIS.
+            // This method needs to be public so that we can build and ship new telemetry types without having to ship core.
+            // It is hidden from intellisense to prevent customer confusion.
+            if (this.IsEnabled())
+            {
+                if (!IsTelemetryInitialized)
+                {
+                    CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
+                    queue.Enqueue(telemetry);
+                    if (queue.Count > MaxQueueSize)
+                    {
+                        queue.Dequeue();
+                    }
+
+                    return;
+                }
+
+                string instrumentationKey = this.Context.InstrumentationKey;
+
+                if (string.IsNullOrEmpty(instrumentationKey))
+                {
+                    instrumentationKey = this.configuration.InstrumentationKey;
+                }
+
+                if (string.IsNullOrEmpty(instrumentationKey))
+                {
+                    return;
+                }
+
+                var telemetryWithProperties = telemetry as ISupportProperties;
+                if (telemetryWithProperties != null)
+                {
+                    if (this.Channel.DeveloperMode.HasValue && this.Channel.DeveloperMode.Value)
+                    {
+                        if (!telemetryWithProperties.Properties.ContainsKey("DeveloperMode"))
+                        {
+                            telemetryWithProperties.Properties.Add("DeveloperMode", "true");
+                        }
+                    }
+
+                    Utils.CopyDictionary(this.Context.Properties, telemetryWithProperties.Properties);
+                }
+
+                telemetry.Context.Initialize(this.Context, instrumentationKey);
+                foreach (ITelemetryInitializer initializer in this.configuration.TelemetryInitializers)
+                {
+                    try
+                    {
+                        initializer.Initialize(telemetry);
+                    }
+                    catch (Exception exception)
+                    {
+                        CoreEventSource.Log.LogError(string.Format(
+                                                        CultureInfo.InvariantCulture,
+                                                        "Exception while initializing {0}, exception message - {1}",
+                                                        initializer.GetType().FullName,
+                                                        exception.ToString()));
+                    }
+                }
+
+                telemetry.Sanitize();
+
+                this.Channel.Send(telemetry);
+
+                if (System.Diagnostics.Debugger.IsAttached)
+                {
+                    this.WriteTelemetryToDebugOutput(telemetry);
+                }
+            }
+        }
+
+
+        /// <summary>
+        /// Send information about the page viewed in the application.
+        /// </summary>
+        internal void TrackPageView(PageViewTelemetry telemetry)
+        {
+            if (telemetry == null)
+            {
+                telemetry = new PageViewTelemetry();
+            }
+
+            this.Track(telemetry);
+        }
+
+        /// <summary>
+        /// Send information about a request handled by the application.
+        /// </summary>
+        /// <param name="name">The request name.</param>
+        /// <param name="startTime">The time when the page was requested.</param>
+        /// <param name="duration">The time taken by the application to handle the request.</param>
+        /// <param name="responseCode">The response status code.</param>
+        /// <param name="success">True if the request was handled successfully by the application.</param>
+        internal void TrackRequest(string name, DateTimeOffset startTime, TimeSpan duration, string responseCode, bool success)
+        {
+            this.Track(new RequestTelemetry(name, startTime, duration, responseCode, success));
+        }
+
+        /// <summary>
+        /// Send information about a request handled by the application.
+        /// </summary>
+        internal void TrackRequest(RequestTelemetry request)
+        {
+            if (request == null)
+            {
+                request = new RequestTelemetry();
+            }
+
+            this.Track(request);
+        }
+
+        /// <summary>
+        /// Send an <see cref="EventTelemetry"/> for display in Diagnostic Search and aggregation in Metrics Explorer.
+        /// </summary>
+        /// <param name="telemetry">An event log item.</param>
+        internal void TrackEvent(EventTelemetry telemetry)
+        {
+            if (telemetry != null)
+            {
+                this.Track(telemetry);
             }
         }
 
         /// <summary>
-        /// Initializes <see cref="telemetryClient"/>. 
+        /// Initializes telemetry client.
         /// For performance reasons, this call needs to be performed only after <see cref="TelemetryConfiguration"/> has been initialized.
         /// </summary>
         internal void Initialize()
         {
-            this.telemetryClient = new TelemetryClient();
-            while (eventQueue.Count > 0)
+            configuration = TelemetryConfiguration.Active;
+            while (queue.Count > 0)
             {
-                this.telemetryClient.TrackEvent(eventQueue.Dequeue());
+                this.Track(queue.Dequeue());
             }
         }
-    }
+
+        /// <summary>
+        /// Check to determine if the tracking is enabled.
+        /// </summary>
+        internal bool IsEnabled()
+        {
+            return !this.configuration.DisableTelemetry;
+        }
+
+        /// <summary>
+        /// Flushes the in-memory buffer. 
+        /// </summary>
+        internal void Flush()
+        {
+            this.Channel.Flush();
+        }
+
+        private async Task<TelemetryContext> CreateInitializedContextAsync()
+        {
+            var context = new TelemetryContext();
+            foreach (IContextInitializer initializer in this.configuration.ContextInitializers)
+            {
+                await initializer.Initialize(context);
+            }
+
+            return context;
+        }
+
+        private void WriteTelemetryToDebugOutput(ITelemetry telemetry)
+        {
+            if (CoreEventSource.Log.Enabled)
+            {
+                using (var stringWriter = new StringWriter(CultureInfo.InvariantCulture))
+                {
+                    string serializedTelemetry = JsonSerializer.SerializeAsString(telemetry);
+                    CoreEventSource.Log.LogVerbose("HockeySDK Telemetry: " + serializedTelemetry);
+                }
+            }
+        }
+   }
 }

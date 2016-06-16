@@ -22,6 +22,7 @@
 
 namespace Microsoft.HockeyApp.Extensibility.Implementation.External
 {
+    using HockeyApp;
     using System.Collections.Generic;
 
     

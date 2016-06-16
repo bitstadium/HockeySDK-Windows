@@ -144,36 +144,5 @@
                 channel.Dispose();
             }
         }
-
-        [TestClass]
-        public class TelemetryClientConstructorTest : PersistenceChannelTest
-        {
-            /// <summary>
-            /// Testing that creating multiple instances of TelemetryClient and TelemetryChannel is not causing a deadlock.
-            /// </summary>
-            [Owner("mihailsm")]
-            [TestMethod]
-            public void TestTelemetryClientConstructorOnDeadlock()
-            {
-                List<Task> taskList = new List<Task>();
-                for (int i = 0; i < 30; i++)
-                {
-                    var task = new Task(Action);
-                    task.Start();
-                    taskList.Add(task);
-                }
-
-                // giving 2 sec for every instance of TelemetryClient to be created.
-                var completed = Task.WaitAll(taskList.ToArray(), taskList.Count * 2000);
-                Assert.IsTrue(completed, "tasks did not finish. Potential deadlock problem.");
-            }
-
-            private void Action()
-            {
-                var client = new TelemetryClient();
-                client.Channel = new PersistenceChannel();
-                var context = client.Context;
-            }
-        }
     }
 }

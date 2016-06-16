@@ -18,7 +18,7 @@
             this.rootFrame = rootFrame;
         }
 
-        public void Initialize(TelemetryConfiguration configuration)
+        public void Initialize()
         {
             if (!initialized)
             {

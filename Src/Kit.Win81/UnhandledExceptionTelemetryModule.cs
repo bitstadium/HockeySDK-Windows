@@ -13,7 +13,7 @@
             get; set;
         }
 
-        public void Initialize(TelemetryConfiguration configuration)
+        public void Initialize()
         {
             if (!initialized)
             {
