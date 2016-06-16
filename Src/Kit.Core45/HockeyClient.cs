@@ -1111,13 +1111,8 @@
                 }
 
                 telemetry.Sanitize();
-
                 this.Channel.Send(telemetry);
-
-                if (System.Diagnostics.Debugger.IsAttached)
-                {
-                    this.WriteTelemetryToDebugOutput(telemetry);
-                }
+                this.WriteTelemetryToDebugOutput(telemetry);
             }
         }
 
