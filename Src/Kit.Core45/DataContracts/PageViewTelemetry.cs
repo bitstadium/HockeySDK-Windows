@@ -2,8 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Globalization;
-    using System.Threading;
     using Channel;
     using Extensibility.Implementation;
     using Extensibility.Implementation.External;
@@ -11,11 +9,6 @@
     /// <summary>
     /// Telemetry type used to track page views.
     /// </summary>
-    /// <remarks>
-    /// You can send information about pages viewed by your application to Application Insights by 
-    /// passing an instance of the <see cref="PageViewTelemetry"/> class to the <see cref="TelemetryClient.TrackPageView(PageViewTelemetry)"/> 
-    /// method.
-    /// </remarks>
     internal sealed class PageViewTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "PageView";

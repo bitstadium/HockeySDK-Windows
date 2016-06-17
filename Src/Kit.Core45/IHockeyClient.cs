@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Microsoft.HockeyApp
 {
@@ -62,5 +63,12 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="name">Name of the page.</param>
         void TrackPageView(string name);
+
+        /// <summary>
+        /// Send a exception for display in Diagnostic Search.
+        /// </summary>
+        /// <param name="ex">The exception to log.</param>
+        /// <param name="properties">Named string values you can use to classify and search for this exception.</param>
+        void TrackException(Exception ex, IDictionary<string, string> properties = null);
     }
 }

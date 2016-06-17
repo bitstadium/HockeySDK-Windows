@@ -1,6 +1,5 @@
 ﻿namespace Microsoft.HockeyApp
 {
-    using Extensibility.Implementation;
     using Extensibility.Windows;
     using Services;
     using Services.Device;
@@ -15,9 +14,9 @@
         /// </summary>
         /// <param name="this"><see cref="HockeyClient"/></param>
         /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
-        public static void Configure(this IHockeyClient @this, string appId)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId)
         {
-            Configure(@this, appId, null);
+            return Configure(@this, appId, null) as IHockeyClientConfigurable;
         }
 
         /// <summary>
@@ -26,7 +25,7 @@
         /// <param name="this"><see cref="HockeyClient"/></param>
         /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
         /// <param name="configuration">Telemetry Configuration.</param>
-        public static void Configure(this IHockeyClient @this, string appId, TelemetryConfiguration configuration)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration configuration)
         {
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
@@ -35,6 +34,7 @@
             ServiceLocator.AddService<IHttpService>(new HttpClientTransmission());
             ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
             WindowsAppInitializer.InitializeAsync(appId, configuration);
+            return @this as IHockeyClientConfigurable;
         }
     }
 }

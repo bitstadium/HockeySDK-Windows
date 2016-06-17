@@ -104,11 +104,6 @@
         /// Gets or sets the default instrumentation key for the application.
         /// </summary>
         /// <exception cref="ArgumentNullException">The new value is null.</exception>
-        /// <remarks>
-        /// This instrumentation key value is used by default by all <see cref="TelemetryClient"/> instances
-        /// created in the application. This value can be overwritten by setting the <see cref="TelemetryContext.InstrumentationKey"/>
-        /// property of the <see cref="TelemetryClient.Context"/>.
-        /// </remarks>
         internal string InstrumentationKey
         {
             get
@@ -131,8 +126,7 @@
         /// Gets or sets a value indicating whether sending of telemetry to Application Insights is disabled.
         /// </summary>
         /// <remarks>
-        /// This disable tracking setting value is used by default by all <see cref="TelemetryClient"/> instances
-        /// created in the application. 
+        /// This disable tracking setting value is used by default by all instances created in the application. 
         /// </remarks>
         internal bool DisableTelemetry
         {
@@ -163,7 +157,7 @@
         /// <remarks>
         /// Context initializers extend Application Insights telemetry collection by supplying additional information 
         /// about application environment, such as <see cref="TelemetryContext.User"/> or <see cref="TelemetryContext.Device"/> 
-        /// information that remains constant during application lifetime. A <see cref="TelemetryClient"/> invokes context 
+        /// information that remains constant during application lifetime. A client invokes context 
         /// initializers to obtain initial property values for <see cref="TelemetryContext"/> object during its construction.
         /// The default list of context initializers is provided by the Application Insights NuGet packages and loaded from 
         /// the configuration file located in the application directory. 
@@ -178,8 +172,8 @@
         /// </summary>
         /// <remarks>
         /// Telemetry initializers extend Application Insights telemetry collection by supplying additional information 
-        /// about individual <see cref="ITelemetry"/> items, such as <see cref="ITelemetry.Timestamp"/>. A <see cref="TelemetryClient"/>
-        /// invokes telemetry initializers each time <see cref="TelemetryClient.Track"/> method is called.
+        /// about individual <see cref="ITelemetry"/> items, such as <see cref="ITelemetry.Timestamp"/>. A telemetry client
+        /// invokes telemetry initializers each time track method is called.
         /// The default list of telemetry initializers is provided by the Application Insights NuGet packages and loaded from 
         /// the configuration file located in the application directory. 
         /// </remarks>

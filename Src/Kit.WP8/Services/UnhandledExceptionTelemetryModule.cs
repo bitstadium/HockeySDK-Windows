@@ -5,6 +5,8 @@
     using System.Windows.Controls;
 
     using Services;
+    using Channel;
+    using DataContracts;
 
     internal class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
@@ -42,6 +44,11 @@
 
                 initialized = true;
             }
+        }
+
+        public ITelemetry CreateCrashTelemetry(Exception exception, ExceptionHandledAt handledAt)
+        {
+            return new ExceptionTelemetry(exception) { HandledAt = handledAt };
         }
     }
 }

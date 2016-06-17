@@ -11,11 +11,6 @@
     /// <summary>
     /// Encapsulates information about a web request handled by the application.
     /// </summary>
-    /// <remarks>
-    /// You can send information about requests processed by your web application to Application Insights by 
-    /// passing an instance of the <see cref="RequestTelemetry"/> class to the <see cref="TelemetryClient.TrackRequest(RequestTelemetry)"/> 
-    /// method.
-    /// </remarks>
     internal sealed class RequestTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Request";

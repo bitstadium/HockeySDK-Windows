@@ -9,6 +9,7 @@
     using Extensions;
     using Internal;
     using Model;
+    using Services;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
@@ -978,27 +979,23 @@
         /// </summary>
         /// <param name="exception">The exception to log.</param>
         /// <param name="properties">Named string values you can use to classify and search for this exception.</param>
-        /// <param name="metrics">Additional values associated with this exception.</param>
-        internal void TrackException(Exception exception, IDictionary<string, string> properties = null, IDictionary<string, double> metrics = null)
+        public void TrackException(Exception exception, IDictionary<string, string> properties = null)
         {
             if (exception == null)
             {
                 exception = new Exception(Utils.PopulateRequiredStringValue(null, "message", typeof(ExceptionTelemetry).FullName));
             }
 
-            var telemetry = new ExceptionTelemetry(exception) { HandledAt = ExceptionHandledAt.UserCode };
+            var service = ServiceLocator.GetService<IUnhandledExceptionTelemetryModule>();
 
+            // if service is not implemented, use default exception telemetry
+            ITelemetry telemetry = service == null ? telemetry = new ExceptionTelemetry(exception) { HandledAt = ExceptionHandledAt.UserCode } : service.CreateCrashTelemetry(exception, ExceptionHandledAt.UserCode);
             if (properties != null && properties.Count > 0)
             {
                 Utils.CopyDictionary(properties, telemetry.Context.Properties);
             }
 
-            if (metrics != null && metrics.Count > 0)
-            {
-                Utils.CopyDictionary(metrics, telemetry.Metrics);
-            }
-
-            this.TrackException(telemetry);
+            this.Track(telemetry);
         }
 
         /// <summary>

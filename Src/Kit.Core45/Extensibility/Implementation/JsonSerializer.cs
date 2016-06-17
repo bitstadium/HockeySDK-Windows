@@ -622,6 +622,7 @@
                     writer.WriteStartObject();
 
                     writer.WriteProperty("ver", telemetry.Data.ver);
+                    writer.WriteProperty("handledAt", Utils.PopulateRequiredStringValue(telemetry.Data.handledAt, "handledAt", typeof(ExceptionTelemetry).FullName));
                     writer.WriteProperty("stackTrace", telemetry.StackTrace);
 
                     // write headers
@@ -666,6 +667,8 @@
                     {
                         writer.WriteStartObject();
                         writer.WriteProperty("description", telemetry.Attachments.Description);
+                        writer.WriteProperty("userName", HockeyClient.Current.AsInternal().UserID);
+                        writer.WriteProperty("userEmail", HockeyClient.Current.AsInternal().ContactInformation);
                         writer.WriteEndObject();
                     }
 
