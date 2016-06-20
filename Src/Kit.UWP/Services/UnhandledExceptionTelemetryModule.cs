@@ -1,8 +1,6 @@
 ﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
-    using System.Threading;
-
     using Channel;
     using DataContracts;
     using Implementation.Tracing;
@@ -16,6 +14,7 @@
     using System.IO;
     using Services;
     using Services.Device;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
@@ -51,6 +50,28 @@
         public void Initialize()
         {
             CoreApplication.UnhandledErrorDetected += CoreApplication_UnhandledErrorDetected;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException; 
+        }
+
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            // Imlementing this feature based on this request 
+            // https://support.hockeyapp.net/discussions/problems/58502-uwp-how-to-call-trackexception?mail_type=queue
+
+            try
+            {
+                if (e.Exception != null)
+                {
+                    ITelemetry crashTelemetry = CreateCrashTelemetry(e.Exception, ExceptionHandledAt.Unhandled);
+                    var client = ((HockeyClient)(HockeyClient.Current));
+                    client.Track(crashTelemetry);
+                    client.Flush();
+                }
+            }
+            catch(Exception ex)
+            {
+                CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.TaskScheduler_UnobservedTaskException: " + ex);
+            }
         }
 
         /// <summary>
