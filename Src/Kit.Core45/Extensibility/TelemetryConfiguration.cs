@@ -60,14 +60,6 @@
         }
 
         /// <summary>
-        /// Gets or sets a callback that is called when an unhandled exception happens and the returns a string that is added as additional description of the exception.
-        /// </summary>
-        public Func<Exception, string> DescriptionLoader
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Gets or sets the active <see cref="TelemetryConfiguration"/> instance loaded from the configuration file. 
         /// If the configuration file does not exist, the active configuration instance is initialized with minimum defaults 
         /// needed to send telemetry to Application Insights.

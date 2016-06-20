@@ -89,11 +89,11 @@
             result.Headers.ExceptionReason = exception.Message;
 
             var description = string.Empty;
-            if (TelemetryConfiguration.Active.DescriptionLoader != null)
+            if (HockeyClient.Current.AsInternal().DescriptionLoader != null)
             {
                 try
                 {
-                    result.Attachments.Description = TelemetryConfiguration.Active.DescriptionLoader(exception);
+                    result.Attachments.Description = HockeyClient.Current.AsInternal().DescriptionLoader(exception);
                 }
                 catch (Exception ex)
                 {
