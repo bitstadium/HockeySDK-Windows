@@ -1023,7 +1023,7 @@
         /// <param name="startTime">The time when the dependency was called.</param>
         /// <param name="duration">The time taken by the external dependency to handle the call.</param>
         /// <param name="success">True if the dependency call was handled successfully.</param>
-        internal void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success)
+        public void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success)
         {
             this.TrackDependency(new DependencyTelemetry(dependencyName, commandName, startTime, duration, success));
         }

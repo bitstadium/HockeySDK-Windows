@@ -35,7 +35,7 @@ namespace Microsoft.HockeyApp
         /// <param name="severityLevel">Trace severity level.</param>
         void TrackTrace(string message, SeverityLevel severityLevel);
 
-        /// <summary>
+        /// <summary>Mic
         /// Send a trace message for display in Diagnostic Search.
         /// </summary>
         /// <param name="message">Message to display.</param>
@@ -70,5 +70,15 @@ namespace Microsoft.HockeyApp
         /// <param name="ex">The exception to log.</param>
         /// <param name="properties">Named string values you can use to classify and search for this exception.</param>
         void TrackException(Exception ex, IDictionary<string, string> properties = null);
+
+        /// <summary>
+        /// Send information about external dependency call in the application.
+        /// </summary>
+        /// <param name="dependencyName">External dependency name.</param>
+        /// <param name="commandName">Dependency call command name.</param>
+        /// <param name="startTime">The time when the dependency was called.</param>
+        /// <param name="duration">The time taken by the external dependency to handle the call.</param>
+        /// <param name="success">True if the dependency call was handled successfully.</param>
+        void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success);
     }
 }

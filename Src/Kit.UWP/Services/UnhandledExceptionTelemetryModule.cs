@@ -149,8 +149,24 @@
                 }
             }
 
-            result.StackTrace = exception.StackTrace;
+            result.StackTrace = GetStrackTrace(exception);
             return result;
+        }
+
+        private string GetStrackTrace(Exception e)
+        {
+            CultureInfo originalUICulture = CultureInfo.CurrentUICulture;
+            try
+            {
+                // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
+                // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
+                CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+                return e.StackTrace;
+            }
+            finally
+            {
+                CultureInfo.CurrentUICulture = originalUICulture;
+            }
         }
 
         private void CoreApplication_UnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
