@@ -336,7 +336,7 @@
         /// <summary>
         /// Gets a value indicating whether telemetry client has been initialized.
         /// </summary>
-        internal bool IsTelemetryInitialized
+        public bool IsTelemetryInitialized
         {
             get; set;
         }

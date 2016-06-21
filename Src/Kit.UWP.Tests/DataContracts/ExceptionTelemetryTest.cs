@@ -20,7 +20,7 @@
 #endif
     using Assert = Xunit.Assert;
     using DataPlatformModel = Microsoft.Developer.Analytics.DataCollection.Model.v2;
-
+    using Services;
     [TestClass]
     public class ExceptionTelemetryTest
     {
@@ -44,6 +44,7 @@
         [TestMethod]
         public void ConstructorAddsExceptionToExceptionPropertyAndExceptionsCollectionProperty()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             Exception constructorException = new Exception("ConstructorException");
             var testExceptionTelemetry = new ExceptionTelemetry(constructorException);
 
@@ -54,6 +55,7 @@
         [TestMethod]
         public void ExceptionPropertySetterReplacesExceptionDetailsInExceptionsCollectionProperty()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             Exception constructorException = new Exception("ConstructorException");
             var testExceptionTelemetry = new ExceptionTelemetry(constructorException);
 
@@ -262,6 +264,7 @@
         [TestMethod]
         public void SerializeWritesSingleInnerExceptionOfAggregateExceptionOnlyOnce()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             var exception = new AggregateException("Test Exception", new Exception());
 
             ExceptionTelemetry expected = CreateExceptionTelemetry(exception);
@@ -303,74 +306,6 @@
             Assert.NotNull(item.Data.BaseData.HandledAt);
             Assert.NotNull(item.Data.BaseData.Exceptions);
             Assert.Equal(0, item.Data.BaseData.Exceptions.Count); // constructor without parameters does not initialize exception object
-        }
-
-        [TestMethod]
-        public void ExceptionPropertySetterHandlesAggregateExceptionsWithMultipleNestedExceptionsCorrectly()
-        {
-            Exception exception1121 = new Exception("1.1.2.1");
-            Exception exception111 = new Exception("1.1.1");
-            Exception exception112 = new Exception("1.1.2", exception1121);
-            AggregateException exception11 = new AggregateException("1.1", exception111, exception112);
-            Exception exception121 = new Exception("1.2.1");
-            Exception exception12 = new Exception("1.2", exception121);
-            AggregateException rootLevelException = new AggregateException("1", exception11, exception12);
-
-            ExceptionTelemetry telemetry = new ExceptionTelemetry { Exception = rootLevelException };
-
-            string[] expectedSequence = new string[]
-                                            {
-                                                "1",
-                                                "1.1",
-                                                "1.1.1",
-                                                "1.1.2",
-                                                "1.1.2.1",
-                                                "1.2",
-                                                "1.2.1"
-                                            };
-
-            Assert.Equal(expectedSequence.Length, telemetry.Exceptions.Count);
-            int counter = 0;
-            foreach (ExceptionDetails details in telemetry.Exceptions)
-            {
-                Assert.Equal(expectedSequence[counter], details.message);
-                counter++;
-            }
-        }
-
-        [TestMethod]
-        public void ExceptionPropertySetterHandlesAggregateExceptionsWithMultipleNestedExceptionsAndTrimsAfterReachingMaxCount()
-        {
-            const int Overage = 5;
-            List<Exception> innerExceptions = new List<Exception>();
-            for (int i = 0; i < ExceptionTelemetry.MaxExceptionCountToSave + Overage; i++)
-            {
-                innerExceptions.Add(new Exception((i + 1).ToString(CultureInfo.InvariantCulture)));
-            }
-
-            AggregateException rootLevelException = new AggregateException("0", innerExceptions);
-
-            ExceptionTelemetry telemetry = new ExceptionTelemetry { Exception = rootLevelException };
-
-            Assert.Equal(ExceptionTelemetry.MaxExceptionCountToSave + 1, telemetry.Exceptions.Count);
-            int counter = 0;
-            foreach (ExceptionDetails details in telemetry.Exceptions.Take(ExceptionTelemetry.MaxExceptionCountToSave))
-            {
-                Assert.Equal(counter.ToString(CultureInfo.InvariantCulture), details.message);
-                counter++;
-            }
-
-            ExceptionDetails first = telemetry.Exceptions.First();
-            ExceptionDetails last = telemetry.Exceptions.Last();
-            Assert.Equal(first.id, last.outerId);
-            Assert.Equal(typeof(InnerExceptionCountExceededException).FullName, last.typeName);
-            Assert.Equal(
-                string.Format(
-                    CultureInfo.InvariantCulture,
-                    "The number of inner exceptions was {0} which is larger than {1}, the maximum number allowed during transmission. All but the first {1} have been dropped.",
-                    1 + ExceptionTelemetry.MaxExceptionCountToSave + Overage,
-                    ExceptionTelemetry.MaxExceptionCountToSave),
-                last.message);
         }
 
         [TestMethod]

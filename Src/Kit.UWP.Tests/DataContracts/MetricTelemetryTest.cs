@@ -21,21 +21,6 @@
     [TestClass]
     public class MetricTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void MetricTelemetryIsPublic()
-        {
-            Assert.True(typeof(MetricTelemetry).GetTypeInfo().IsPublic);
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void MetricTelemetryImplementsITelemetryContract()
-        {
-            var test = new ITelemetryTest<MetricTelemetry, DataPlatformModel.MetricData>();
-            test.Run();
-        }
-
         [TestMethod]
         public void EventTelemetryReturnsNonNullContext()
         {

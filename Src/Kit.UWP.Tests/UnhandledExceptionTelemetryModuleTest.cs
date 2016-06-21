@@ -38,12 +38,5 @@
             this.telemetrySent.Dispose();
             this.channel.Dispose();
         }
-
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowUsersConfigureItProgrammatically()
-        {
-            Assert.True(typeof(UnhandledExceptionTelemetryModule).GetTypeInfo().IsPublic);
-        }
     }
 }

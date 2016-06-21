@@ -117,28 +117,6 @@
                 Assert.False(actionInvoked.IsSet);
                 Assert.True(actionInvoked.Wait(50));
             }
-
-            // Test Fails on 2015.12.01
-            [Ignore]
-            [TestMethod]
-            public void CancelsPreviousActionWhenStartIsCalledMultipleTimes()
-            {
-                var timer = new TaskTimer { Delay = TimeSpan.FromMilliseconds(1) };
-
-                int invokationCount = 0;
-                var lastActionInvoked = new ManualResetEventSlim();
-                timer.Start(() => Task.Factory.StartNew(() => Interlocked.Increment(ref invokationCount)));
-                timer.Start(
-                    () => Task.Factory.StartNew(
-                        () =>
-                            {
-                                Interlocked.Increment(ref invokationCount);
-                                lastActionInvoked.Set();
-                            }));
-
-                Assert.True(lastActionInvoked.Wait(50));
-                Assert.Equal(1, invokationCount);
-            }
         }
 
         [TestClass]

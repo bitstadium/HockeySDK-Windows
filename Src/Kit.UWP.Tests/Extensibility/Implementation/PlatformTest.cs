@@ -15,6 +15,7 @@
 #if WINRT || WINDOWS_UWP
     using global::Windows.ApplicationModel;
     using global::Windows.Storage;
+    using Services;
 #endif
 
     [TestClass]
@@ -43,6 +44,7 @@
         [TestMethod]
         public void CurrentIsAutomaticallyInitializedForEasyAccess()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             Assert.IsNotNull(PlatformSingleton.Current);
         }
 
@@ -54,14 +56,6 @@
             Assert.AreSame(platform, PlatformSingleton.Current);
         }
         
-        [TestMethod]
-        public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
-        {
-            string configuration = PlatformSingleton.Current.ReadConfigurationXml();
-            Assert.IsNotNull(configuration);
-            Assert.AreEqual(0, configuration.Length);
-        }
-
         private static void CreateConfigurationFile(string content)
         {
             using (Stream fileStream = OpenConfigurationFile())

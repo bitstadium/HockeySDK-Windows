@@ -10,7 +10,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 #endif
     using Assert = Xunit.Assert;
-
+    using Services;
     [TestClass]
     public class SdkVersionPropertyContextInitializerTest
     {
@@ -29,6 +29,7 @@
         [TestMethod]
         public async Task InitializeSetsSdkVersionPropertyOfGivenTelemetry()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             var initializer = new SdkVersionPropertyContextInitializer();
             var telemetryContext = new TelemetryContext();
             await initializer.Initialize(telemetryContext);
@@ -39,22 +40,16 @@
         [TestMethod]
         public async Task InitializeSetsSdkVersionValueAsAssemblyVersion()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
             var initializer = new SdkVersionPropertyContextInitializer();
             var telemetryContext = new TelemetryContext();
             await initializer.Initialize(telemetryContext);
             
             string expectedSdkVersion;
-#if !WINRT && !WINDOWS_UWP
-            expectedSdkVersion = typeof(SdkVersionPropertyContextInitializer).Assembly.GetCustomAttributes(false)
-                    .OfType<AssemblyFileVersionAttribute>()
-                    .First()
-                    .Version;
-#else
             expectedSdkVersion = typeof(SdkVersionPropertyContextInitializer).GetTypeInfo().Assembly.GetCustomAttributes<AssemblyFileVersionAttribute>()
                     .First()
                     .Version;
-#endif
-            Assert.Equal(telemetryContext.Internal.SdkVersion, expectedSdkVersion);
+            Assert.Equal("hockeysdk.uwp:" + expectedSdkVersion, telemetryContext.Internal.SdkVersion);
         }
     }
 }

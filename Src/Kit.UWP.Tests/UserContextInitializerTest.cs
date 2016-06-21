@@ -12,6 +12,7 @@
     using Assert = Xunit.Assert;
 #if WINRT || WINDOWS_UWP
     using TaskEx = System.Threading.Tasks.Task;
+    using Services;
 #endif
 
     [TestClass]
@@ -23,6 +24,8 @@
         [TestInitialize]
         public void TestInitialize()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             this.applicationSettings = new Dictionary<string, object>(); 
             this.platform = new StubPlatform { OnGetApplicationSettings = () => this.applicationSettings, };
             PlatformSingleton.Current = this.platform;
@@ -32,13 +35,6 @@
         public void TestCleanup()
         {
             PlatformSingleton.Current = null;
-        }
-
-        [Ignore]
-        [TestMethod]
-        public void ClassIsPublicToAllowConfigurationThroughFileAndUserCode()
-        {
-            Assert.True(typeof(UserContextInitializer).GetTypeInfo().IsPublic);
         }
 
         [TestMethod]
@@ -105,17 +101,6 @@
             {
                 Assert.Equal(firstUserId, telemetry[i].Result.Context.User.Id);
             }
-        }
-
-        [TestMethod]
-        public void InitializerSetsUserAcquisitionDateForGivenTelemetry()
-        {
-            var initializer = new UserContextInitializer();
-
-            var telemetry = new StubTelemetry();
-            initializer.Initialize(telemetry);
-
-            Assert.NotNull(telemetry.Context.User.AcquisitionDate);
         }
 
         [TestMethod]

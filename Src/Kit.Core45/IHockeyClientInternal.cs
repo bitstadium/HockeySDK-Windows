@@ -64,9 +64,11 @@
         /// </summary>
         Func<Exception, string> DescriptionLoader { get; set; }
 
+        bool IsTelemetryInitialized { get; set; }
+
         #endregion
 
-         /// <summary>
+        /// <summary>
         /// Handle Exceptions that are swallowed because we don't want our SDK crash other apps
         /// For internal use by platform SDKs
         /// </summary>

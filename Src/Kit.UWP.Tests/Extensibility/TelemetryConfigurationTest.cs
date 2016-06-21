@@ -23,13 +23,6 @@
     [TestClass]
     public class TelemetryConfigurationTest
     {
-        [Ignore]
-        [TestMethod]
-        public void TelemetryConfigurationIsPublicToAllowUsersManipulateConfigurationProgrammatically()
-        {
-            Assert.True(typeof(TelemetryConfiguration).GetTypeInfo().IsPublic);
-        }
-
         #region Active
 
         [TestMethod]
@@ -74,33 +67,6 @@
             {
                 TelemetryConfigurationFactory.Instance = null;
                 TelemetryConfiguration.Active = null;
-            }
-        }
-
-        [TestMethod]
-        public void ActiveInitializesSingleInstanceRegardlessOfNumberOfThreadsTryingToAccessIt()
-        {
-            int numberOfInstancesInitialized = 0;
-            TelemetryConfiguration.Active = null;
-            TelemetryConfigurationFactory.Instance = new StubTelemetryConfigurationFactory
-            {
-                OnInitialize = configuration => { Interlocked.Increment(ref numberOfInstancesInitialized); },
-            };
-            try
-            {
-                var tasks = new Task[8];
-                for (int i = 0; i < tasks.Length; i++)
-                {
-                    tasks[i] = TaskEx.Run(() => TelemetryConfiguration.Active);
-                }
-
-                Task.WaitAll(tasks);
-                Assert.Equal(1, numberOfInstancesInitialized);
-            }
-            finally
-            {
-                TelemetryConfiguration.Active = null;
-                TelemetryConfigurationFactory.Instance = null;
             }
         }
 

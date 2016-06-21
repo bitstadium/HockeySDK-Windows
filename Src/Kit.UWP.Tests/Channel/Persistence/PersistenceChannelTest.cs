@@ -3,13 +3,12 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading;
-    using System.Threading.Tasks;    
-    using Extensibility;
+    using System.Threading.Tasks;
     using Extensibility.Implementation.Platform;
-    using TestFramework;    
+    using TestFramework;
     using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
     using TaskEx = System.Threading.Tasks.Task;
+    using Services;
 
     public class PersistenceChannelTest : AsyncTest
     {
@@ -32,6 +31,7 @@
             [TestMethod]
             public void DeveloperModeIsFalseByDefault()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 Assert.IsFalse(channel.DeveloperMode.Value);
             }
@@ -39,6 +39,7 @@
             [TestMethod]
             public void DeveloperModeCanBeModifiedByConfiguration()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 channel.DeveloperMode = true;
                 Assert.IsTrue(channel.DeveloperMode.Value);
@@ -47,6 +48,7 @@
             [TestMethod]
             public void WhenSetToTrueChangesTelemetryBufferCapacityToOneForImmediateTransmission()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 channel.DeveloperMode = true;
                 Assert.AreEqual(1, channel.TelemetryBuffer.Capacity);
@@ -55,6 +57,7 @@
             [TestMethod]
             public void WhenSetToFalseChangesTelemetryBufferCapacityToOriginalValueForBufferedTransmission()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 int originalTelemetryBufferSize = channel.TelemetryBuffer.Capacity;
 
@@ -71,6 +74,7 @@
             [TestMethod]
             public void EndpointAddressCanBeModifiedByConfiguration()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                
                 Uri expectedEndpoint = new Uri("http://abc.com");
@@ -86,6 +90,7 @@
             [TestMethod]
             public void GetterReturnsTelemetryBufferCapacity()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 channel.TelemetryBuffer.Capacity = 42;
                 Assert.AreEqual(42, channel.MaxTelemetryBufferCapacity);
@@ -94,6 +99,7 @@
             [TestMethod]
             public void SetterChangesTelemetryBufferCapacity()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
                 channel.MaxTelemetryBufferCapacity = 42;
                 Assert.AreEqual(42, channel.TelemetryBuffer.Capacity);
@@ -106,6 +112,7 @@
             [TestMethod]
             public void PassesTelemetryToMemoryBufferChannel()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 var channel = new PersistenceChannel();
 
                 var telemetry = new StubTelemetry();
@@ -126,6 +133,7 @@
             [TestMethod]
             public void TestPersistenceChannelConstructorAndDisposeOnDeadlock()
             {
+                ServiceLocator.AddService<BaseStorageService>(new StorageService());
                 List<Task> taskList = new List<Task>();
                 for (int i = 0; i < 500; i++)
                 {

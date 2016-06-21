@@ -4,19 +4,20 @@
 
     using Extensibility;
     using Extensibility.Implementation.Platform;
-    using TestFramework;    
-    
-    using VisualStudio.TestPlatform.UnitTestFramework;
+    using TestFramework;
 
+    using VisualStudio.TestPlatform.UnitTestFramework;
+    using Services;
     [TestClass]
     public class WindowsAppInitializerTests
     {
         [TestMethod]
         public void WindowsBootStrapperSettingTheInstrumentationKeyWhenSupplied()
         {
+            ServiceLocator.AddService<BaseStorageService>(new TestStorageService());
+
             string instrumentationKey = Guid.NewGuid().ToString();
             WindowsAppInitializer.InitializeAsync(instrumentationKey, new TelemetryConfiguration() { Collectors = WindowsCollectors.Metadata }).GetAwaiter().GetResult();
-
             Assert.IsFalse(string.IsNullOrEmpty(TelemetryConfiguration.Active.InstrumentationKey));
         }
 

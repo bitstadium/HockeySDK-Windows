@@ -17,14 +17,6 @@
     [TestClass]
     public class SessionStateTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void SessionStateTelemetryImplementsITelemetryContract()
-        {
-            var test = new ITelemetryTest<SessionStateTelemetry, DataPlatformModel.SessionStateData>();
-            test.Run();
-        }
-
         [TestMethod]
         public void ConstructorInitializesStateWithSpecifiedValue()
         {

@@ -30,14 +30,6 @@
             GC.SuppressFinalize(this);
         }
 
-        [TestMethod]
-        public void ReadConfigurationXmlIgnoresMissingConfigurationFileByReturningEmptyString()
-        {
-            var platform = ServiceLocator.GetService<IPlatformService>();
-            string configuration = platform.ReadConfigurationXml();
-            Assert.AreEqual(0, configuration.Length);
-        }
-
         protected virtual void Dispose(bool disposing)
         {
             if (disposing == true)

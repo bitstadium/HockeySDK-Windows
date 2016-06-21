@@ -16,13 +16,6 @@
     [TestClass]
     public class TelemetryContextTest
     {
-        [Ignore]
-        [TestMethod]
-        public void TelemetryContextIsPublicAndMeantToBeUsedByCustomers()
-        {
-            Assert.True(typeof(TelemetryContext).GetTypeInfo().IsPublic);
-        }
-
         [TestMethod]
         public void TelemetryContextIsSealedToSupportCompilationAsWinmd()
         {

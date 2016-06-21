@@ -20,13 +20,6 @@
     [TestClass]
     public class RequestTelemetryTest
     {
-        [Ignore]
-        [TestMethod]
-        public void RequestTelemetryITelemetryContractConsistentlyWithOtherTelemetryTypes()
-        {
-            new ITelemetryTest<RequestTelemetry, DataPlatformModel.RequestData>().Run();
-        }
-
         [TestMethod]
         public void ParameterlessConstructorInitializesRequiredFields()
         {

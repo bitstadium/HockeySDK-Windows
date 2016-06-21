@@ -32,22 +32,24 @@
 
             // breeze accepts instrumentation key in 32 digits separated by hyphens format only.
             instrumentationKey = instrumentationKeyGuid.ToString("D");
-            return Task.Delay(TimeSpan.FromSeconds(1)).ContinueWith(t => Initalize(instrumentationKey, configuration));
-        }
-
-        private static void Initalize(string instrumentationKey, TelemetryConfiguration configuration)
-        {
             if (configuration == null)
             {
                 configuration = new TelemetryConfiguration();
             }
 
+            configuration.InstrumentationKey = instrumentationKey;
+            TelemetryConfiguration.Active = configuration;
+            return Task.Delay(TimeSpan.FromSeconds(1)).ContinueWith(t => Initalize());
+        }
+
+        private static void Initalize()
+        {
+            var configuration = TelemetryConfiguration.Active;
             if (configuration.EnableDiagnostics)
             {
                 CoreEventSource.Log.Enabled = true;
             }
-
-            configuration.InstrumentationKey = instrumentationKey;
+            
             if (configuration.Collectors.HasFlag(WindowsCollectors.Metadata))
             {
                 configuration.ContextInitializers.Add(new DeviceContextInitializer());

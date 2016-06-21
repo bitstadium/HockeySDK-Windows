@@ -18,9 +18,7 @@
     /// </remarks>
     public sealed class TelemetryConfiguration : IDisposable
     {
-        private static object syncRoot = new object();
         private static TelemetryConfiguration active;
-
         private readonly SnapshottingList<IContextInitializer> contextInitializers = new SnapshottingList<IContextInitializer>();
         private readonly SnapshottingList<ITelemetryInitializer> telemetryInitializers = new SnapshottingList<ITelemetryInitializer>();
 
@@ -70,13 +68,10 @@
             {
                 if (active == null)
                 {
-                    lock (syncRoot)
+                    if (active == null)
                     {
-                        if (active == null)
-                        {
-                            active = new TelemetryConfiguration();
-                            TelemetryConfigurationFactory.Instance.Initialize(active);
-                        }
+                        active = new TelemetryConfiguration();
+                        TelemetryConfigurationFactory.Instance.Initialize(active);
                     }
                 }
 
@@ -85,10 +80,7 @@
 
             set
             {
-                lock (syncRoot)
-                {
-                    active = value;
-                }
+                active = value;
             }
         }
 
