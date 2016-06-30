@@ -27,7 +27,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 | WPF 4.5 | Install-Package HockeySDK.WPF -Pre |
 
 2. In App.xaml.cs file add the following line in usage declaration section: <pre>using Microsoft.HockeyApp;</pre>
-3. In App.xaml.cs file add the following line in App class constructor: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(ìYour_App_IDî);</pre>
+3. In App.xaml.cs file add the following line in App class constructor: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(‚ÄúYour_App_ID‚Äù);</pre>
 4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>
    <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
 5. Enable Internet(Client) Capability in package manifest.
@@ -37,7 +37,9 @@ https://github.com/bitstadium/HockeySDK-WindowsDemo
 
 ## Documentation
 https://support.hockeyapp.net/kb/client-integration-windows-and-windows-phone
- 
+
+## Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Contributor License
 You must sign a [Contributor License Agreement](https://cla.microsoft.com/) before submitting your pull request. To complete the Contributor License Agreement (CLA), you will need to submit a request via the [form](https://cla.microsoft.com/) and then electronically sign the CLA when you receive the email containing the link to the document. You need to sign the CLA only once to cover submission to any Microsoft OSS project. 
