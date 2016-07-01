@@ -21,6 +21,7 @@
     <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.Core45\Microsoft.HockeyApp.Core45.dll</PackageVersionFile>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <StableRelease>True</StableRelease>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />

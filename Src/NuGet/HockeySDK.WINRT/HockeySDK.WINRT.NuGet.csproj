@@ -8,6 +8,7 @@
     <OutputType>Library</OutputType>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
     <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.Win81\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
+    <StableRelease>True</StableRelease>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />

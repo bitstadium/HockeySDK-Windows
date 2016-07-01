@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
 
     <!-- Marking Nuget As Stable. This property needs to be set only in master branch!!. Do not merge this value to child branches. -->
-    <StableRelease>False</StableRelease>
+    <StableRelease>True</StableRelease>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
     <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.UWP\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
   </PropertyGroup>
