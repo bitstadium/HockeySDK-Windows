@@ -1187,9 +1187,9 @@
         }
 
         /// <summary>
-        /// Flushes the in-memory buffer. 
+        /// Clears all buffers for this telemetry stream and causes any buffered data to be written to the underlying channel.
         /// </summary>
-        internal void Flush()
+        public void Flush()
         {
             this.Channel.Flush();
         }
@@ -1216,5 +1216,5 @@
                 }
             }
         }
-   }
+    }
 }

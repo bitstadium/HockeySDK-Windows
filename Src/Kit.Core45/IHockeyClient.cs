@@ -80,5 +80,10 @@ namespace Microsoft.HockeyApp
         /// <param name="duration">The time taken by the external dependency to handle the call.</param>
         /// <param name="success">True if the dependency call was handled successfully.</param>
         void TrackDependency(string dependencyName, string commandName, DateTimeOffset startTime, TimeSpan duration, bool success);
+
+        /// <summary>
+        /// Clears all buffers for this telemetry stream and causes any buffered data to be written to the underlying channel.
+        /// </summary>
+        void Flush();
     }
 }
