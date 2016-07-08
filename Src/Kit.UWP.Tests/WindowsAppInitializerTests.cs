@@ -8,6 +8,7 @@
 
     using VisualStudio.TestPlatform.UnitTestFramework;
     using Services;
+    using Services.Device;
     [TestClass]
     public class WindowsAppInitializerTests
     {
@@ -50,6 +51,10 @@
         [TestMethod]
         public void WindowsBootstrapperInitializeTheModulesAccordingToInputFlags()
         {
+            ServiceLocator.AddService<IPlatformService>(new PlatformService());
+            ServiceLocator.AddService<BaseStorageService>(new TestStorageService());
+            ServiceLocator.AddService<IApplicationService>(new TestApplicationService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceService());
             WindowsAppInitializer.InitializeAsync(Guid.NewGuid().ToString(), new TelemetryConfiguration() { Collectors = WindowsCollectors.Session | WindowsCollectors.Metadata }).GetAwaiter().GetResult();
             TelemetryConfiguration configuration = TelemetryConfiguration.Active;
             Assert.AreEqual(3, configuration.ContextInitializers.Count);

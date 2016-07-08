@@ -157,29 +157,5 @@
                 Assert.Contains(module, TelemetryConfiguration.Active.TelemetryInitializers);
             }
         }
-
-        [TestClass]
-        public class HandleApplicationStartedEvent : SessionTelemetryModuleTest
-        {
-            [TestMethod]
-            public void DoesNotTrackEndIfPreviousSessionIfItIsStillActive()
-            {
-                ServiceLocator.AddService<IApplicationService>(new ApplicationService());
-                SessionTelemetryModule module = CreateSessionTelemetryModule();
-
-                // Application started and suspended 5 seconds ago
-                this.clock.Time = DateTimeOffset.Now - TimeSpan.FromSeconds(5);
-                DateTimeOffset expectedStartTime = this.clock.Time;
-                module.Initialize();
-                module.HandleApplicationStoppingEvent(null, null);
-
-                // Application is resuming now
-                this.clock.Time = DateTimeOffset.Now;
-                module.HandleApplicationStartedEvent(null, null);
-
-                var sessionStart = Assert.IsType<SessionStateTelemetry>(this.sentTelemetry.Single());
-                Assert.Equal(expectedStartTime, sessionStart.Timestamp);
-            }
-        }
     }
 }
