@@ -14,7 +14,7 @@
       StableRelease property must be False in preseason branch and in master branch it must be True.
       Be careful during the merge to preserve this values accordingly. 
     -->
-    <StableRelease>True</StableRelease>
+    <StableRelease>False</StableRelease>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
