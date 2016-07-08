@@ -23,7 +23,7 @@
         /// Bootstraps HockeyApp SDK.
         /// </summary>
         /// <param name="this"><see cref="HockeyClient"/></param>
-        /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp.</param>
+        /// <param name="appId">The application identifier, which is a unique hash string which is automatically created when you add a new application to HockeyApp service.</param>
         /// <param name="configuration">Telemetry Configuration.</param>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration configuration)
         {

@@ -6,11 +6,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{EAEE6A70-5CEA-41F4-B43A-94E088F5254C}</ProjectGuid>
     <OutputType>Library</OutputType>
-
-    <!-- Marking Nuget As Stable. This property needs to be set only in master branch!!. Do not merge this value to child branches. -->
-    <StableRelease>True</StableRelease>
     <PackageSpecFile>$(MSBuildProjectDirectory)\Package.nuspec</PackageSpecFile>
     <PackageVersionFile>$(BinRoot)\$(Configuration)\Kit.UWP\Microsoft.HockeyApp.Kit.dll</PackageVersionFile>
+    <!--  
+      !!Important:
+      To mark nuget packages from preaseason branch as prereleased, and to mark nuget packages from master branch as stable, 
+      StableRelease property must be False in preseason branch and in master branch it must be True.
+      Be careful during the merge to preserve this values accordingly. 
+    -->
+    <StableRelease>False</StableRelease>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " />
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " />
