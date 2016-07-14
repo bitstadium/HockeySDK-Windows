@@ -9,7 +9,7 @@
     /// <summary>
     /// Telemetry type used to track page views.
     /// </summary>
-    internal sealed class PageViewTelemetry : ITelemetry, ISupportProperties
+    public sealed class PageViewTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "PageView";
 

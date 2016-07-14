@@ -11,7 +11,7 @@
     /// <summary>
     /// Encapsulates information about a web request handled by the application.
     /// </summary>
-    internal sealed class RequestTelemetry : ITelemetry, ISupportProperties
+    public sealed class RequestTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Request";
 

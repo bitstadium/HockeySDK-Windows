@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading;
     using Channel;
     using Extensibility.Implementation;
     using Extensibility.Implementation.External;
@@ -10,7 +9,7 @@
     /// <summary>
     /// Telemetry type used to track events.
     /// </summary>
-    internal sealed class EventTelemetry : ITelemetry, ISupportProperties
+    public sealed class EventTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "Event";
          
