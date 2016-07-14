@@ -11,7 +11,7 @@
     /// <summary>
     /// Represents a context for sending telemetry to the Application Insights service.
     /// </summary>
-    internal sealed class TelemetryContext : IJsonSerializable
+    public sealed class TelemetryContext : IJsonSerializable
     {
         private readonly IDictionary<string, string> properties;
         private readonly IDictionary<string, string> tags;

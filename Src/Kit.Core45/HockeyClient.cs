@@ -929,7 +929,7 @@
         /// Send a trace message for display in Diagnostic Search.
         /// </summary>
         /// <param name="telemetry">Message with optional properties.</param>
-        internal void TrackTrace(TraceTelemetry telemetry)
+        public void TrackTrace(TraceTelemetry telemetry)
         {
             telemetry = telemetry ?? new TraceTelemetry();
             this.Track(telemetry);
@@ -964,7 +964,7 @@
         /// <summary>
         /// Send a <see cref="MetricTelemetry"/> for aggregation in Metric Explorer.
         /// </summary>
-        internal void TrackMetric(MetricTelemetry telemetry)
+        public void TrackMetric(MetricTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -1031,7 +1031,7 @@
         /// <summary>
         /// Send information about external dependency call in the application.
         /// </summary>
-        internal void TrackDependency(DependencyTelemetry telemetry)
+        public void TrackDependency(DependencyTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -1117,7 +1117,7 @@
         /// <summary>
         /// Send information about the page viewed in the application.
         /// </summary>
-        internal void TrackPageView(PageViewTelemetry telemetry)
+        public void TrackPageView(PageViewTelemetry telemetry)
         {
             if (telemetry == null)
             {
@@ -1157,7 +1157,7 @@
         /// Send an <see cref="EventTelemetry"/> for display in Diagnostic Search and aggregation in Metrics Explorer.
         /// </summary>
         /// <param name="telemetry">An event log item.</param>
-        internal void TrackEvent(EventTelemetry telemetry)
+        public void TrackEvent(EventTelemetry telemetry)
         {
             if (telemetry != null)
             {

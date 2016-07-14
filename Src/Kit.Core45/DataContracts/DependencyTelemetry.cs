@@ -15,7 +15,7 @@ namespace Microsoft.HockeyApp.DataContracts
     /// The class that represents information about the collected dependency.
     /// </summary>
     [DebuggerDisplay(@"Value={Value}; Name={Name}; Count={Count}; Success={Success}; Async={Async}; Timestamp={Timestamp}")]
-    internal sealed class DependencyTelemetry : ITelemetry, ISupportProperties
+    public sealed class DependencyTelemetry : ITelemetry, ISupportProperties
     {
         internal const string TelemetryName = "RemoteDependency";
 
