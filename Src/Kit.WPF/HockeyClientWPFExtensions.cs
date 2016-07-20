@@ -153,6 +153,8 @@ namespace Microsoft.HockeyApp
             {
                 customDispatcherUnhandledExceptionAction(e);
             }
+
+            e.Handled = true;
         }
 
         #endregion

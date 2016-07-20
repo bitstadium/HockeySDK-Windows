@@ -112,7 +112,7 @@
     <SemanticVersionDate>2016-2-10</SemanticVersionDate>
 
     <SemanticVersionMajor>4</SemanticVersionMajor>
-    <SemanticVersionMinor>1</SemanticVersionMinor>
+    <SemanticVersionMinor>2</SemanticVersionMinor>
 
     <!-- 
       SemanticVersionPatch version is used to distinguish internally built NuGet packages.
