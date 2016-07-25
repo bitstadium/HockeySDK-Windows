@@ -29,6 +29,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Application\ComponentContextInitializer.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Properties\AssemblyInfoCore.cs" />
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\IHttpService.cs" />

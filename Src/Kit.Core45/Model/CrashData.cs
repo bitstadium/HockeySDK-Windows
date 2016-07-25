@@ -125,22 +125,22 @@ namespace Microsoft.HockeyApp.Model
         public async Task SendDataAsync()
         {
             string rawData = "";
-            rawData += "raw=" + Uri.EscapeDataString(this.Log);
+            rawData += "raw=" + UriExtensions.EscapeDataString(this.Log);
             if (this.UserID != null)
             {
-                rawData += "&userID=" + Uri.EscapeDataString(this.UserID);
+                rawData += "&userID=" + UriExtensions.EscapeDataString(this.UserID);
             }
             if (this.Contact != null)
             {
-                rawData += "&contact=" + Uri.EscapeDataString(this.Contact);
+                rawData += "&contact=" + UriExtensions.EscapeDataString(this.Contact);
             }
             if (this.Description != null)
             {
-                rawData += "&description=" + Uri.EscapeDataString(this.Description);
+                rawData += "&description=" + UriExtensions.EscapeDataString(this.Description);
             }
 
-            rawData += "&sdk=" + Uri.EscapeDataString(this.SDKName);
-            rawData += "&sdk_version=" + Uri.EscapeDataString(this.SDKVersion);
+            rawData += "&sdk=" + UriExtensions.EscapeDataString(this.SDKName);
+            rawData += "&sdk_version=" + UriExtensions.EscapeDataString(this.SDKVersion);
 
 
             //Exception should be handled by caller
