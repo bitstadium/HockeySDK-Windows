@@ -20,6 +20,8 @@ namespace Microsoft.HockeyApp
     {
         private static IUpdateManager _updateManager = null;
 
+        private static HashSet<Exception> _processedExceptions = new HashSet<Exception>();
+
         public static IUpdateManager UpdateManager
         {
             get
@@ -130,7 +132,15 @@ namespace Microsoft.HockeyApp
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            HockeyClient.Current.AsInternal().HandleException((Exception)e.ExceptionObject);
+            var exception = (Exception)e.ExceptionObject;
+            if (_processedExceptions.Contains(exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(exception);
+
+            HockeyClient.Current.AsInternal().HandleException(exception);
             if (customUnhandledExceptionAction != null)
             {
                 customUnhandledExceptionAction(e);
@@ -139,6 +149,13 @@ namespace Microsoft.HockeyApp
 
         static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
+            if (_processedExceptions.Contains(e.Exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(e.Exception);
+
             HockeyClient.Current.AsInternal().HandleException(e.Exception);
             if (customUnobservedTaskExceptionAction != null)
             {
@@ -148,6 +165,13 @@ namespace Microsoft.HockeyApp
 
         static void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            if (_processedExceptions.Contains(e.Exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(e.Exception);
+
             HockeyClient.Current.AsInternal().HandleException(e.Exception);
             if (customDispatcherUnhandledExceptionAction != null)
             {
