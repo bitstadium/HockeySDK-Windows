@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.HockeyApp.Tools;
 
 namespace Microsoft.HockeyApp
 {
@@ -50,7 +51,7 @@ namespace Microsoft.HockeyApp
                     {
                         var img = s as BitmapImage;
                         img.ImageFailed -= failedHandler;
-                        img.UriSource = new Uri("ms-appx:///HockeyApp/Assets/" + index + ".png");
+                        img.UriSource = new Uri("ms-appx:///" + WebBrowserHelper.AssemblyNameWithoutExtension + "/Assets/" + index + ".png");
                     };
                     image.ImageFailed += failedHandler;
                     var customUri = new Uri("ms-appx:///Assets/HockeyApp/" + index + ".png");

@@ -18,7 +18,7 @@ namespace Microsoft.HockeyApp.Tools
         {
             if (cssStyles != null) { return cssStyles; }
 
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///HockeyApp/Assets/wp8releasenotes.css"));
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///"+ WebBrowserHelper.AssemblyNameWithoutExtension +"/Assets/wp8releasenotes.css"));
             using (Stream stream = await file.OpenStreamForReadAsync())
             {
                 cssStyles = new StreamReader(stream).ReadToEnd();
