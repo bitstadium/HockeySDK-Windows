@@ -120,5 +120,19 @@ namespace Microsoft.HockeyApp.Channel
 
             Task.WaitAll(stoppedTasks.ToArray());
         }
+
+        /// <summary>
+        /// Flushed the persistent telemetry data to the endpoint. 
+        /// </summary>
+        internal void Flush()
+        {
+            var flushTasks = new List<Task>();
+            foreach (var sender in this.senders)
+            {
+                flushTasks.Add(sender.FlushAsync());
+            }
+
+            Task.WaitAll(flushTasks.ToArray());
+        }
     }
 }

@@ -5,6 +5,7 @@
 namespace Microsoft.HockeyApp.Channel
 {
     using System;
+    using System.Collections.Generic;
     using System.Globalization;
     using System.Net;
     using System.Threading;
@@ -12,6 +13,7 @@ namespace Microsoft.HockeyApp.Channel
     using Extensibility.Implementation.Tracing;
     using Services;
     using System.Net.NetworkInformation;
+
     /// <summary>
     /// Fetch transmissions from the storage and sends it. 
     /// </summary>
@@ -86,7 +88,7 @@ namespace Microsoft.HockeyApp.Channel
             this.drainingTimeout = TimeSpan.FromSeconds(100);
             this.defaultSendingInterval = TimeSpan.FromSeconds(5);
 
-            // TODO: instead of a circualr reference, pass the TelemetryConfiguration.
+            // TODO: instead of a circular reference, pass the TelemetryConfiguration.
             this.transmitter = transmitter;
             this.storage = storage;
 
@@ -149,7 +151,7 @@ namespace Microsoft.HockeyApp.Channel
             this.stopped = true;
             this.DelayHandler.Set();
 
-            // if delayHandler was set while a transmision was being sent, the return task waill wait for it to finsih, for an additional second,
+            // if delayHandler was set while a transmision was being sent, the return task will wait for it to finsih, for an additional second,
             // before it will mark the task as completed. 
             return Task.Factory.StartNew(() =>
                 {
@@ -210,6 +212,70 @@ namespace Microsoft.HockeyApp.Channel
             catch (ObjectDisposedException)
             {
             }
+        }
+
+        /// <summary>
+        /// Flushes persistent telemetry data to the endpoint if possible.
+        /// </summary>
+        /// <returns></returns>
+        internal Task FlushAsync()
+        {
+            bool isConnected = NetworkInterface.GetIsNetworkAvailable();
+
+            // there is no internet connection available, return than.
+            if (!isConnected)
+            {
+                return Task.FromResult(true);
+            }
+
+            // using asynchronous Task to allow flushing all senders (if multiple instances) with less time
+            return Task.Factory.StartNew(() =>
+            {
+                try
+                {
+                    bool hasItems = true;
+                    TimeSpan sendingInterval = TimeSpan.FromSeconds(0);
+                    IList<string> sendAttempts = new List<string>();
+
+                    // sent persistent telemetry data if available
+                    while (hasItems)
+                    {
+                        using (StorageTransmission transmission = this.storage.Peek())
+                        {
+                            // If there is a transmission to send - send it. 
+                            if (transmission != null)
+                            {
+                                bool shouldRetry = this.Send(transmission, ref sendingInterval);
+                                if (!shouldRetry)
+                                {
+                                    // If retry is not required - delete the transmission.
+                                    this.storage.Delete(transmission);
+                                }
+                                else
+                                {
+                                    if (sendAttempts.Contains(transmission.FileName))
+                                    {
+                                        // after two attempts for a same telemetry data, considering that is impossible to send them at the moment
+                                        // because telemetry data are dequeue sorted by name, no more flush is possible
+                                        hasItems = false;
+                                    }
+                                    else
+                                    {
+                                        sendAttempts.Add(transmission.FileName);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                hasItems = false;
+                            }
+                        }
+                    }
+                }
+                catch (ObjectDisposedException)
+                {
+                }
+            });
         }
 
         /// <summary>

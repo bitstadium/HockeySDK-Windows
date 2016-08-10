@@ -1194,6 +1194,15 @@
             this.Channel.Flush();
         }
 
+        /// <summary>
+        /// Clears all buffers for this telemetry stream and causes any buffered data to be written to the underlying channel.
+        /// And send all persistent telemetry data, if persistence channel is used and if possible with current conditions otherwise telemetry data still persist.
+        /// </summary>
+        public void FlushAndSendPersistentTelemetry()
+        {
+            this.Channel.FlushAndSend();
+        }
+
         private async Task<TelemetryContext> CreateInitializedContextAsync()
         {
             var context = new TelemetryContext();
