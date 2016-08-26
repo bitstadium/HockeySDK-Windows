@@ -26,7 +26,7 @@ namespace Microsoft.HockeyApp
 
         private string PostfixWithAppIdHash(string folderName, bool noDirectorySeparator = false)
         {
-            return ((folderName ?? "") + (noDirectorySeparator ? "" : "" + Path.DirectorySeparatorChar) + HockeyClientWPFExtensions.AppIdHash);
+            return ((folderName ?? "") + (noDirectorySeparator ? "" : "" + Path.DirectorySeparatorChar) + HockeyClientWPFExtensions.AppUniqueFolderName);
         }
 
         /// <summary>

@@ -266,14 +266,23 @@ namespace Microsoft.HockeyApp
         private static string _appIdHash = null;
 
         /// <summary>
-        /// Gets the AppId hash.
+        /// Gets a unique folder name for the current app.  
         /// </summary>
-        public static string AppIdHash
+        public static string AppUniqueFolderName
         {
             get {
                 if (_appIdHash == null)
                 {
-                    _appIdHash = GetMD5Hash(HockeyClient.Current.AsInternal().AppIdentifier);
+                    string appId = HockeyClient.Current.AsInternal().AppIdentifier;
+                    try
+                    {
+                        _appIdHash = GetMD5Hash(appId);
+                    } 
+                    catch (InvalidOperationException e)
+                    {
+                        // On FIPS enabled machines GetMD5Hash will throw. On those machines use AppId directly.  
+                        return appId;
+                    }
                 }
                 return _appIdHash; }
         }
@@ -281,10 +290,12 @@ namespace Microsoft.HockeyApp
         internal static string GetMD5Hash(string sourceString)
         {
             if (String.IsNullOrEmpty(sourceString)) { return string.Empty; }
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
-            byte[] result = md5.ComputeHash(sourceBytes);
-            return System.BitConverter.ToString(result);
+            using (MD5 md5 = new MD5CryptoServiceProvider())
+            {
+                byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
+                byte[] result = md5.ComputeHash(sourceBytes);
+                return System.BitConverter.ToString(result);
+            }
         }
 
         #endregion
