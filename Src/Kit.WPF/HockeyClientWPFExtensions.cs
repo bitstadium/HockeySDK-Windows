@@ -20,6 +20,8 @@ namespace Microsoft.HockeyApp
     {
         private static IUpdateManager _updateManager = null;
 
+        private static HashSet<Exception> _processedExceptions = new HashSet<Exception>();
+
         public static IUpdateManager UpdateManager
         {
             get
@@ -130,7 +132,15 @@ namespace Microsoft.HockeyApp
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            HockeyClient.Current.AsInternal().HandleException((Exception)e.ExceptionObject);
+            var exception = (Exception)e.ExceptionObject;
+            if (_processedExceptions.Contains(exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(exception);
+
+            HockeyClient.Current.AsInternal().HandleException(exception);
             if (customUnhandledExceptionAction != null)
             {
                 customUnhandledExceptionAction(e);
@@ -139,6 +149,13 @@ namespace Microsoft.HockeyApp
 
         static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
+            if (_processedExceptions.Contains(e.Exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(e.Exception);
+
             HockeyClient.Current.AsInternal().HandleException(e.Exception);
             if (customUnobservedTaskExceptionAction != null)
             {
@@ -148,6 +165,13 @@ namespace Microsoft.HockeyApp
 
         static void Current_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            if (_processedExceptions.Contains(e.Exception))
+            {
+                // Handles the case where multiple handlers are called for the same exception.
+                return;
+            }
+            _processedExceptions.Add(e.Exception);
+
             HockeyClient.Current.AsInternal().HandleException(e.Exception);
             if (customDispatcherUnhandledExceptionAction != null)
             {
@@ -239,28 +263,39 @@ namespace Microsoft.HockeyApp
 
         #region Helper
 
-        private static string _appIdHash = null;
+        private static string _appUniqueFolderName = null;
 
         /// <summary>
-        /// Gets the AppId hash.
+        ///  Gets a unique folder name for the current app.
         /// </summary>
-        public static string AppIdHash
+        public static string AppUniqueFolderName
         {
             get {
-                if (_appIdHash == null)
+                if (_appUniqueFolderName == null)
                 {
-                    _appIdHash = GetMD5Hash(HockeyClient.Current.AsInternal().AppIdentifier);
+                    string appId = HockeyClient.Current.AsInternal().AppIdentifier;
+                    try
+                    {
+                        _appUniqueFolderName = GetMD5Hash(appId);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        // On FIPS enabled machines GetMD5Hash will throw. On those machines use AppId directly.
+                        _appUniqueFolderName = appId;
+                    }
                 }
-                return _appIdHash; }
+                return _appUniqueFolderName; }
         }
 
         internal static string GetMD5Hash(string sourceString)
         {
             if (String.IsNullOrEmpty(sourceString)) { return string.Empty; }
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
-            byte[] result = md5.ComputeHash(sourceBytes);
-            return System.BitConverter.ToString(result);
+            using (MD5 md5 = new MD5CryptoServiceProvider())
+            {
+                byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
+                byte[] result = md5.ComputeHash(sourceBytes);
+                return System.BitConverter.ToString(result);
+            }   
         }
 
         #endregion
