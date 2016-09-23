@@ -82,7 +82,7 @@ namespace Microsoft.HockeyApp.Views
             this.VM.NewestVersion = appVersions.First();
 
             this.AppIconImage.ImageFailed += (sender, ex) => { 
-                this.AppIconImage.Source = new BitmapImage(new Uri("ms-appx:///HockeyApp/Assets/windows_phone.png", UriKind.RelativeOrAbsolute)); 
+                this.AppIconImage.Source = new BitmapImage(new Uri("ms-appx:///" + WebBrowserHelper.AssemblyNameWithoutExtension + "/Assets/windows_phone.png", UriKind.RelativeOrAbsolute)); 
             };
             this.AppIconImage.Source = new BitmapImage(new Uri(HockeyClient.Current.AsInternal().ApiBaseVersion2 + "apps/" + this.VM.NewestVersion.PublicIdentifier + ".png"));
 
