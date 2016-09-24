@@ -118,6 +118,7 @@
     <!-- 
       Pre-release version is used to distinguish internally built NuGet packages.
       Pre-release version = Minutes since semantic version was set, modulo by 65535 (to make it fit in a UInt16).
+	  Note that every 45 days there is a chance for duplication. So if Major/Minor/Patch were not bumped in 45 days, builds can be duplicated.
     -->
     <PreReleaseVersion>$([MSBuild]::Modulo($([System.Convert]::ToInt64($([System.DateTime]::Now.Subtract($([System.DateTime]::Parse($(SemanticVersionDate)))).TotalMinutes))), $([System.Convert]::ToInt64(65535))).ToString('F0'))</PreReleaseVersion>
 
