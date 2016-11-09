@@ -41,9 +41,6 @@
     <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="Services\WmiService.cs" />
-    <Compile Include="Storage.cs">
-      <Link>Storage.cs</Link>
-    </Compile>
     <Compile Include="Constants.cs" />
     <Compile Include="HockeyClientWinFormsExtensions.cs" />
     <Compile Include="HockeyPlatformHelperWinForms.cs" />
