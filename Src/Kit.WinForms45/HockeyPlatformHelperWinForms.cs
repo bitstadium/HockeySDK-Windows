@@ -1,25 +1,24 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+
+using Microsoft.HockeyApp.Services;
 
 namespace Microsoft.HockeyApp
 {
     /// <summary>
-    /// HockeyPlatformHelper for WPF.
+    /// HockeyPlatformHelper for WinForms.
     /// </summary>
-    public class HockeyPlatformHelperWPF : IHockeyPlatformHelper
+    public class HockeyPlatformHelperWinForms : IHockeyPlatformHelper
     {
 
         private const string FILE_PREFIX = "HA__SETTING_";
         IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+        private readonly DeviceService _hardwareInfo = new DeviceService();
 
         /// <summary>
         /// Sets setting value.
@@ -29,7 +28,8 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
-            using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key,FileMode.Create, FileAccess.Write)){
+            using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write))
+            {
                 using (var writer = new StreamWriter(fileStream))
                 {
                     writer.Write(value);
@@ -45,9 +45,12 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
-            if(isoStore.FileExists(FILE_PREFIX + key)) {
-                using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key,FileMode.Open, FileAccess.Read)){
-                    using(var reader = new StreamReader(fileStream)) {
+            if (isoStore.FileExists(FILE_PREFIX + key))
+            {
+                using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Open, FileAccess.Read))
+                {
+                    using (var reader = new StreamReader(fileStream))
+                    {
                         return reader.ReadToEnd();
                     }
                 }
@@ -61,14 +64,15 @@ namespace Microsoft.HockeyApp
         /// <param name="key">Key.</param>
         public void RemoveSettingValue(string key)
         {
-            if(isoStore.FileExists(FILE_PREFIX + key)) {
+            if (isoStore.FileExists(FILE_PREFIX + key))
+            {
                 isoStore.DeleteFile(FILE_PREFIX + key);
             }
         }
 
 
         #region File access
-        
+
         // ToDo: Remove warning suppression
 #pragma warning disable 1998
         /// <summary>
@@ -126,7 +130,7 @@ namespace Microsoft.HockeyApp
                 return new string[0];
             }
         }
- #pragma warning restore 1998
+#pragma warning restore 1998
 
         /// <summary>
         /// Writes stream to file.
@@ -138,11 +142,13 @@ namespace Microsoft.HockeyApp
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
             // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(folderName)) {
+            if (!isoStore.DirectoryExists(folderName))
+            {
                 isoStore.CreateDirectory(folderName);
             }
 
-            using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
+            using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+            {
                 await dataStream.CopyToAsync(fileStream);
             }
         }
@@ -188,8 +194,10 @@ namespace Microsoft.HockeyApp
         {
             get
             {
-                if(_appPackageName == null) {
-                    _appPackageName = Assembly.GetExecutingAssembly().EntryPoint.DeclaringType.Namespace;
+                if (_appPackageName == null)
+                {
+                    var assembly = Assembly.GetEntryAssembly();
+                    _appPackageName = assembly.EntryPoint.DeclaringType.Namespace;
                 }
                 return _appPackageName;
             }
@@ -206,22 +214,27 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string AppVersion
         {
-            get { 
+            get
+            {
 
-                if(_appVersion == null) {
-                //ClickOnce
-                    try {
+                if (_appVersion == null)
+                {
+                    //ClickOnce
+                    try
+                    {
                         var type = Type.GetType("System.Deployment.Application.ApplicationDeployment");
-                        object deployment = type.GetMethod("CurrentDeployment").Invoke(null,null);
+                        object deployment = type.GetMethod("CurrentDeployment").Invoke(null, null);
                         Version version = type.GetMethod("CurrentVersion").Invoke(deployment, null) as Version;
                         _appVersion = version.ToString();
-                    } catch (Exception) { }
-                //Excecuting Assembly
-                    _appVersion = Assembly.GetCallingAssembly().GetName().Version.ToString();
+                    }
+                    catch (Exception) { }
+                    //entry Assembly
+                    _appVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
                 }
                 return _appVersion ?? "0.0.0-unknown";
             }
-            set {
+            set
+            {
                 _appVersion = value;
             }
         }
@@ -276,26 +289,15 @@ namespace Microsoft.HockeyApp
             get { return _productID; }
             set { _productID = value; }
         }
-        
+
         /// <summary>
         /// Gets manufacturer.
         /// </summary>
         public string Manufacturer
         {
-            get { 
-                //TODO System.Management referenzieren !?
-                /*
-                Type.GetType
-                ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
-            //collection to store all management objects
-            ManagementObjectCollection moc = mc.GetInstances();
-            if (moc.Count != 0)
+            get
             {
-                foreach (ManagementObject mo in mc.GetInstances())
-                {
-                 mo["Manufacturer"].ToString()
-                */
-                return null;
+                return _hardwareInfo.GetSystemManufacturer();
             }
         }
 
@@ -306,10 +308,8 @@ namespace Microsoft.HockeyApp
         {
             get
             {
-                //TODO siehe Manufacturer mit "Model"
-                return null;
+                return _hardwareInfo.GetDeviceModel();
             }
         }
-        
     }
 }

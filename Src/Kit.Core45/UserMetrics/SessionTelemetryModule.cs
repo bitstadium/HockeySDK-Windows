@@ -136,7 +136,9 @@
                 settings.TryGetValue(SessionEndSetting, out storedSessionEnd))
             {
                 previousSessionId = (string)storedSessionId;
-                previousSessionEnd = DateTimeOffset.Parse((string)storedSessionEnd, CultureInfo.InvariantCulture);
+
+                previousSessionEnd = storedSessionEnd is DateTimeOffset ? (DateTimeOffset)storedSessionEnd
+                    : DateTimeOffset.Parse((string)storedSessionEnd, CultureInfo.InvariantCulture);
                 return true;
             }
 

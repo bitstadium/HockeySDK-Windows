@@ -1,10 +1,10 @@
-﻿using Microsoft.HockeyApp.Internal;
-using System;
+﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HockeyPlatformHelperWinForms = Microsoft.HockeyApp.HockeyPlatformHelperWPF;
-using Microsoft.HockeyApp.Extensibility;
+using System.Collections.Generic;
+
+using Microsoft.HockeyApp.Services;
 
 namespace Microsoft.HockeyApp
 {
@@ -18,9 +18,13 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="this">HockeyClient object.</param>
         /// <param name="identifier">Identfier.</param>
+        /// <param name="localApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true</param>
+        /// <param name="roamingApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true.</param>
         /// <param name="keepRunningAfterException">Keep running after exception.</param>
         /// <returns>Instance object.</returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, bool keepRunningAfterException)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException)
         {
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWinForms();
             @this.AsInternal().AppIdentifier = identifier;
@@ -32,7 +36,36 @@ namespace Microsoft.HockeyApp
                 Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
             }
 
-            TelemetryConfiguration.Active.InstrumentationKey = identifier;
+            ServiceLocator.AddService<IPlatformService>(new PlatformService(localApplicationSettings, roamingApplicationSettings));
+            ServiceLocator.AddService<IHttpService>(new WinFormsHttpService());
+            ServiceLocator.AddService<IDeviceService>(new DeviceService());
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            //ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
+
+            var config = new TelemetryConfiguration()
+            {
+#if DEBUG
+                EnableDiagnostics = true,
+#endif
+                InstrumentationKey = identifier
+            };
+            WindowsAppInitializer.InitializeAsync(identifier, config);
+
+            return (IHockeyClientConfigurable)@this;
+        }
+
+        /// <summary>
+        /// Use this if your WinForms app is a UWP bridge (aka Centennial) app
+        /// </summary>
+        /// <param name="this"></param>
+        /// <param name="appId"></param>
+        /// <param name="appVersion"></param>
+        /// <param name="storeRegion"></param>
+        /// <returns></returns>
+        public static IHockeyClientConfigurable SetApplicationDetails(this IHockeyClientConfigurable @this, string appId, string appVersion, string storeRegion)
+        {
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService(appId, appVersion, storeRegion));
+
             return (IHockeyClientConfigurable)@this;
         }
 
@@ -66,6 +99,7 @@ namespace Microsoft.HockeyApp
                 await HockeyClient.Current.AsInternal().HandleExceptionAsync(ex);
             }
         }
+
         static async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
