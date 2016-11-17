@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Management;
+using System.Globalization;
 
 namespace Microsoft.HockeyApp.Services
 {
@@ -10,7 +11,8 @@ namespace Microsoft.HockeyApp.Services
         {
             try
             {
-                return from x in new ManagementObjectSearcher($"SELECT {property} FROM {path}").Get().Cast<ManagementObject>()
+                var select = string.Format(CultureInfo.InvariantCulture, "SELECT {0} FROM {1}", property, path);
+                return from x in new ManagementObjectSearcher(@select).Get().Cast<ManagementObject>()
                        let p = x.GetPropertyValue(property)
                        where p != null
                        select p.ToString();
@@ -23,15 +25,7 @@ namespace Microsoft.HockeyApp.Services
 
         public string GetManagementProperty(string path, string property)
         {
-            try
-            {
-                var name = GetManagementProperties(path, property).FirstOrDefault();
-                return name != null ? name.ToString() : "Unknown";
-            }
-            catch
-            {
-            }
-            return null;
+            return GetManagementProperties(path, property).FirstOrDefault() ?? "Unknown";
         }
     }
 }

@@ -21,6 +21,9 @@ namespace Microsoft.HockeyApp.Services
 
         public PlatformService(IDictionary<string,object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings)
         {
+            if (localApplicationSettings == null) { throw new ArgumentNullException("localApplicationSettings"); }
+            if (roamingApplicationSettings == null) { throw new ArgumentNullException("roamingApplicationSettings"); }
+
             _localSettings = localApplicationSettings;
             _roamingSettings = roamingApplicationSettings;
         }
@@ -54,7 +57,7 @@ namespace Microsoft.HockeyApp.Services
             if (File.Exists(path))
             {
                 Stream stream = File.OpenRead(path);
-                using (StreamReader reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream))
                 {
                     return reader.ReadToEnd();
                 }

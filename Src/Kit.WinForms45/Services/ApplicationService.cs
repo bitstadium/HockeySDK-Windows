@@ -4,10 +4,10 @@ namespace Microsoft.HockeyApp.Services
 {
     sealed class ApplicationService : IApplicationService
     {
+#pragma warning disable 0067
         public event EventHandler OnResuming;
         public event EventHandler OnSuspending;
-
-        private bool initialized = false;
+#pragma warning restore 0067
 
         private readonly string _storeRegion;
         private readonly string _version;
@@ -15,6 +15,10 @@ namespace Microsoft.HockeyApp.Services
 
         public ApplicationService(string appId, string appVersion, string storeRegion)
         {
+            if (string.IsNullOrEmpty(appId)) { throw new ArgumentException("appId"); }
+            if (string.IsNullOrEmpty(appVersion)) { throw new ArgumentException("appVersion"); }
+            if (string.IsNullOrEmpty(storeRegion)) { throw new ArgumentException("storeRegion"); }
+
             _applicationId = appId;
             _version = appVersion;
             _storeRegion = storeRegion;
@@ -28,11 +32,7 @@ namespace Microsoft.HockeyApp.Services
 
         public void Init()
         {
-            if (initialized)
-            {
-                return;
-            }
-            initialized = true;
+
         }
 
         public bool IsDevelopmentMode()

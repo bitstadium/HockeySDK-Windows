@@ -13,12 +13,19 @@ namespace Microsoft.HockeyApp
     /// <summary>
     /// HockeyPlatformHelper for WinForms.
     /// </summary>
-    public class HockeyPlatformHelperWinForms : IHockeyPlatformHelper
+    public sealed class HockeyPlatformHelperWinForms : IHockeyPlatformHelper
     {
 
         private const string FILE_PREFIX = "HA__SETTING_";
-        IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-        private readonly DeviceService _hardwareInfo = new DeviceService();
+        private readonly IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+        private readonly DeviceService _deviceService;
+
+        internal HockeyPlatformHelperWinForms(DeviceService deviceService)
+        {
+            if (deviceService == null) { throw new ArgumentNullException("deviceService"); }
+
+            _deviceService = deviceService;
+        }
 
         /// <summary>
         /// Sets setting value.
@@ -29,11 +36,10 @@ namespace Microsoft.HockeyApp
         public void SetSettingValue(string key, string value)
         {
             using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write))
+            using (var writer = new StreamWriter(fileStream))
             {
-                using (var writer = new StreamWriter(fileStream))
-                {
-                    writer.Write(value);
-                }
+                writer.Write(value);
+                writer.Flush();
             }
         }
 
@@ -48,11 +54,9 @@ namespace Microsoft.HockeyApp
             if (isoStore.FileExists(FILE_PREFIX + key))
             {
                 using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Open, FileAccess.Read))
+                using (var reader = new StreamReader(fileStream))
                 {
-                    using (var reader = new StreamReader(fileStream))
-                    {
-                        return reader.ReadToEnd();
-                    }
+                    return reader.ReadToEnd();
                 }
             }
             return null;
@@ -150,6 +154,7 @@ namespace Microsoft.HockeyApp
             using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
             {
                 await dataStream.CopyToAsync(fileStream);
+                await fileStream.FlushAsync();
             }
         }
 
@@ -178,6 +183,7 @@ namespace Microsoft.HockeyApp
             using (var fileStream = isoStore.OpenFile((folderName ?? "") + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
             {
                 dataStream.CopyTo(fileStream);
+                fileStream.Flush();
             }
         }
 
@@ -297,7 +303,7 @@ namespace Microsoft.HockeyApp
         {
             get
             {
-                return _hardwareInfo.GetSystemManufacturer();
+                return _deviceService.GetSystemManufacturer();
             }
         }
 
@@ -308,7 +314,7 @@ namespace Microsoft.HockeyApp
         {
             get
             {
-                return _hardwareInfo.GetDeviceModel();
+                return _deviceService.GetDeviceModel();
             }
         }
     }

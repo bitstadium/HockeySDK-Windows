@@ -40,6 +40,7 @@
     <Compile Include="Services\HttpService.cs" />
     <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="Services\WmiService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="HockeyClientWinFormsExtensions.cs" />

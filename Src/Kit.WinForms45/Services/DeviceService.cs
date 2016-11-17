@@ -21,7 +21,7 @@ namespace Microsoft.HockeyApp.Services
         Laptop = 9,
         Notebook = 10,
         HandHeld = 11,
-        DickingStation = 12,
+        DockingStation = 12,
         AllInOne = 13,
         SubNotebook = 14,
         SpaceSaving = 15,
@@ -88,23 +88,23 @@ namespace Microsoft.HockeyApp.Services
 
                 foreach(var cpu in cpus)
                 {
-                    builder.Append($"{cpu},");
+                    builder.AppendFormat(CultureInfo.InvariantCulture, "{0},", cpu);
                 }
 
                 foreach (var hdd in hdds)
                 {
-                    builder.Append($",{hdd},");
+                    builder.AppendFormat(CultureInfo.InvariantCulture, "{0},", hdd);
                 }
 
                 foreach (var size in memory)
                 {
-                    builder.Append($",{size},");
+                    builder.AppendFormat(CultureInfo.InvariantCulture, "{0}", size);
                 }
 
-                builder.Append($",biosMfg,");
-                builder.Append($",biosVersion,");
-                builder.Append($",biosSN,");
-                builder.Append($",mac");
+                builder.Append($"biosMfg,");
+                builder.Append($"biosVersion,");
+                builder.Append($"biosSN,");
+                builder.Append(mac);
 
                 // since we don't have access to ASHWID we're going to do our best to come up with a 
                 // mostly stable, non-identifiable, but fairly unique hash of the local machine's properties

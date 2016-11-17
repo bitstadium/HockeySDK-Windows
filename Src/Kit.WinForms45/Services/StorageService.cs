@@ -22,16 +22,16 @@ namespace Microsoft.HockeyApp.Services
     {
         private const string DefaultStorageFolderName = "HockeyApp\\";
 
-        private readonly FixedSizeQueue<string> deletedFilesQueue = new FixedSizeQueue<string>(10);
         private readonly object peekLockObj = new object();
         private readonly object storageFolderLock = new object();
+        private readonly FixedSizeQueue<string> deletedFilesQueue = new FixedSizeQueue<string>(10);
 
         private long storageSize = 0;
         private long storageCountFiles = 0;
-        private string _storageFolder;
         private bool storageFolderInitialized = false;
         private uint transmissionsDropped = 0;
         private string _storageFolderName;
+        private string _storageFolder;
 
         public StorageService()
         {
@@ -41,7 +41,6 @@ namespace Microsoft.HockeyApp.Services
         {
             this.peekedTransmissions = new SnapshottingDictionary<string, string>();
             _storageFolderName = uniqueFolderName;
-
             if (string.IsNullOrEmpty(uniqueFolderName))
             {
                 _storageFolderName = DefaultStorageFolderName;
@@ -66,24 +65,6 @@ namespace Microsoft.HockeyApp.Services
         internal override string FolderName
         {
             get { return _storageFolderName; }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether storage folder was already tried to be created. Only used for UTs. 
-        /// Once this value is true, StorageFolder will always return null, which mocks scenario that storage's folder 
-        /// couldn't be created.
-        /// </summary>
-        internal bool StorageFolderInitialized
-        {
-            get
-            {
-                return this.storageFolderInitialized;
-            }
-
-            set
-            {
-                this.storageFolderInitialized = value;
-            }
         }
 
         /// <summary>
@@ -226,7 +207,7 @@ namespace Microsoft.HockeyApp.Services
                 await SaveTransmissionToFileAsync(transmission, tempFileName).ConfigureAwait(false);
 
                 // Now that the file is written increase storage size. 
-                long temporaryFileSize = this.GetSizeAsync(tempFileName);
+                long temporaryFileSize = this.GetSizeAsync(tempFileName);//.ConfigureAwait(false);
                 Interlocked.Add(ref this.storageSize, temporaryFileSize);
 
                 // Creates a new file name
@@ -290,7 +271,7 @@ namespace Microsoft.HockeyApp.Services
             {
                 if (this.StorageFolder != null)
                 {
-                    return Directory.GetFiles(StorageFolder, filterByExtension).Take(top);
+                    return Directory.GetFiles(StorageFolder, filterByExtension).Take(top);                    
                 }
             }
             catch (Exception e)
