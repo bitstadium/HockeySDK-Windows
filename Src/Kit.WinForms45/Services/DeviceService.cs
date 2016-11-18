@@ -82,9 +82,9 @@ namespace Microsoft.HockeyApp.Services
                                        where i.OperationalStatus == OperationalStatus.Up
                                        select i).FirstOrDefault();
 
-                var mac = activeInterface != null ? activeInterface.GetPhysicalAddress().ToString() : "";
+                var mac = activeInterface?.GetPhysicalAddress()?.ToString() ?? "";
 
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
 
                 foreach(var cpu in cpus)
                 {
@@ -111,8 +111,8 @@ namespace Microsoft.HockeyApp.Services
 
                 // Per documentation here http://msdn.microsoft.com/en-us/library/windows/apps/jj553431.aspx we are selectively pulling out 
                 // specific items from the hardware ID.
-                var sha = SHA256Managed.Create();
-                var bytes = UTF8Encoding.UTF8.GetBytes(builder.ToString());
+                var sha = SHA256.Create();
+                var bytes = Encoding.UTF8.GetBytes(builder.ToString());
 
                 var hash = sha.ComputeHash(bytes);
                 deviceId = Convert.ToBase64String(hash);

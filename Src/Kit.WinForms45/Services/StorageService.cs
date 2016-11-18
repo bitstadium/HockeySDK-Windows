@@ -155,9 +155,9 @@ namespace Microsoft.HockeyApp.Services
                 }
 
                 // Initial storage size calculation. 
-                CalculateSizeAsync();
+                CalculateSize();
 
-                long fileSize = GetSizeAsync(item.FileName);
+                long fileSize = GetSize(item.FileName);
                 File.Delete(Path.Combine(StorageFolder, item.FileName));
 
                 this.deletedFilesQueue.Enqueue(item.FileName);
@@ -183,7 +183,7 @@ namespace Microsoft.HockeyApp.Services
                 }
 
                 // Initial storage size calculation. 
-                CalculateSizeAsync();
+                CalculateSize();
 
                 if ((ulong)this.storageSize >= this.CapacityInBytes || this.storageCountFiles >= this.MaxFiles)
                 {
@@ -207,7 +207,7 @@ namespace Microsoft.HockeyApp.Services
                 await SaveTransmissionToFileAsync(transmission, tempFileName).ConfigureAwait(false);
 
                 // Now that the file is written increase storage size. 
-                long temporaryFileSize = this.GetSizeAsync(tempFileName);//.ConfigureAwait(false);
+                long temporaryFileSize = this.GetSize(tempFileName);
                 Interlocked.Add(ref this.storageSize, temporaryFileSize);
 
                 // Creates a new file name
@@ -286,7 +286,7 @@ namespace Microsoft.HockeyApp.Services
         /// <summary>
         /// Gets a file's size.
         /// </summary>
-        private long GetSizeAsync(string file)
+        private long GetSize(string file)
         {
             using (var stream = File.OpenRead(Path.Combine(StorageFolder, file)))
             {
@@ -298,7 +298,7 @@ namespace Microsoft.HockeyApp.Services
         /// Check the storage limits and return true if they reached. 
         /// Storage limits are defined by the number of files and the total size on disk. 
         /// </summary>        
-        private void CalculateSizeAsync()
+        private void CalculateSize()
         {
             var storageFiles = Directory.GetFiles(StorageFolder, "*.*");
 
@@ -307,7 +307,7 @@ namespace Microsoft.HockeyApp.Services
             long storageSizeInBytes = 0;
             foreach (var file in storageFiles)
             {
-                storageSizeInBytes += GetSizeAsync(file);
+                storageSizeInBytes += GetSize(file);
             }
 
             this.storageSize = storageSizeInBytes;
@@ -327,7 +327,7 @@ namespace Microsoft.HockeyApp.Services
                 foreach (var file in files)
                 {
                     var creationTime = File.GetCreationTimeUtc(Path.Combine(StorageFolder, file));
-                    // if the file is older then a minute - delete it.
+                    // if the file is older then 5 minutes - delete it.
                     if (DateTime.UtcNow - creationTime >= TimeSpan.FromMinutes(5))
                     {
                         File.Delete(Path.Combine(StorageFolder, file));
