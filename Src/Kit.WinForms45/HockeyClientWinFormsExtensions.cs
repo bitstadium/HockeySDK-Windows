@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Microsoft.HockeyApp.Services;
@@ -26,6 +27,9 @@ namespace Microsoft.HockeyApp
         /// <returns>Instance object.</returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, string appId, string appVersion, string storeRegion, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException)
         {
+            if (localApplicationSettings == null) throw new ArgumentNullException("localApplicationSettings");
+            if (roamingApplicationSettings == null) throw new ArgumentNullException("roamingApplicationSettings");
+
             var deviceService = new DeviceService();
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWinForms(deviceService);
             @this.AsInternal().AppIdentifier = identifier;
@@ -44,6 +48,13 @@ namespace Microsoft.HockeyApp
 #endif
                 InstrumentationKey = identifier
             };
+
+            object userId = null;
+            if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+            {
+                ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
+            }
+
             WindowsAppInitializer.InitializeAsync(identifier, config).ConfigureAwait(false).GetAwaiter().GetResult();
 
             return (IHockeyClientConfigurable)@this;
