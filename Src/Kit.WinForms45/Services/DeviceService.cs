@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Net.NetworkInformation;
 
+using Microsoft.HockeyApp.Services.Device;
+
 namespace Microsoft.HockeyApp.Services
 {
     enum ChassisType
@@ -86,7 +88,7 @@ namespace Microsoft.HockeyApp.Services
 
                 var builder = new StringBuilder();
 
-                foreach(var cpu in cpus)
+                foreach (var cpu in cpus)
                 {
                     builder.AppendFormat(CultureInfo.InvariantCulture, "{0},", cpu);
                 }
@@ -159,6 +161,30 @@ namespace Microsoft.HockeyApp.Services
         public string GetOperatingSystemName()
         {
             return "Windows";
+        }
+
+
+        /// <summary>
+        /// Get the processor architecture of this computer.
+        /// </summary>
+        /// <remarks>
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
+        /// </remarks>
+        /// <returns>The processor architecture of this computer. </returns>
+        public static ushort GetProcessorArchitecture()
+        {
+            try
+            {
+                var sysInfo = new NativeMethods._SYSTEM_INFO();
+                NativeMethods.GetNativeSystemInfo(ref sysInfo);
+                return sysInfo.wProcessorArchitecture;
+            }
+            catch
+            {
+                // unknown architecture.
+                return 0xffff;
+            }
         }
     }
 }

@@ -24,10 +24,10 @@ namespace Microsoft.HockeyApp.Services
 
         public async Task PostAsync(Uri address, byte[] content, string contentType, string contentEncoding, TimeSpan timeout = default(TimeSpan))
         {
-            HttpClient client = new HttpClient() { Timeout = timeout };
-            using (MemoryStream contentStream = new MemoryStream(content))
+            var client = new HttpClient() { Timeout = timeout };
+            using (var contentStream = new MemoryStream(content))
+            using (var request = new HttpRequestMessage(HttpMethod.Post, address))
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, address);
                 request.Content = new StreamContent(contentStream);
                 if (!string.IsNullOrEmpty(contentType))
                 {
