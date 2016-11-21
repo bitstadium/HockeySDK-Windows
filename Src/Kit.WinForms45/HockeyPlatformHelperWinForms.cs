@@ -285,15 +285,16 @@ namespace Microsoft.HockeyApp
             get { return HockeyConstants.USER_AGENT_STRING; }
         }
 
-        private string _productID = null;
-
         /// <summary>
         /// Gets product id.
         /// </summary>
         public string ProductID
         {
-            get { return _productID; }
-            set { _productID = value; }
+            get
+            {
+                var attr = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyProductAttribute>();
+                return attr?.Product;
+            }
         }
 
         /// <summary>

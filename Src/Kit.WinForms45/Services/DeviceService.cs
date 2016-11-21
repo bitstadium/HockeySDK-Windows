@@ -6,6 +6,8 @@ using System.Globalization;
 using System.Security.Cryptography;
 using System.Net.NetworkInformation;
 
+using Microsoft.HockeyApp.Services.Device;
+
 namespace Microsoft.HockeyApp.Services
 {
     enum ChassisType
@@ -82,11 +84,11 @@ namespace Microsoft.HockeyApp.Services
                                        where i.OperationalStatus == OperationalStatus.Up
                                        select i).FirstOrDefault();
 
-                var mac = activeInterface != null ? activeInterface.GetPhysicalAddress().ToString() : "";
+                var mac = activeInterface?.GetPhysicalAddress()?.ToString() ?? "";
 
-                StringBuilder builder = new StringBuilder();
+                var builder = new StringBuilder();
 
-                foreach(var cpu in cpus)
+                foreach (var cpu in cpus)
                 {
                     builder.AppendFormat(CultureInfo.InvariantCulture, "{0},", cpu);
                 }
@@ -111,8 +113,8 @@ namespace Microsoft.HockeyApp.Services
 
                 // Per documentation here http://msdn.microsoft.com/en-us/library/windows/apps/jj553431.aspx we are selectively pulling out 
                 // specific items from the hardware ID.
-                var sha = SHA256Managed.Create();
-                var bytes = UTF8Encoding.UTF8.GetBytes(builder.ToString());
+                var sha = SHA256.Create();
+                var bytes = Encoding.UTF8.GetBytes(builder.ToString());
 
                 var hash = sha.ComputeHash(bytes);
                 deviceId = Convert.ToBase64String(hash);
@@ -159,6 +161,29 @@ namespace Microsoft.HockeyApp.Services
         public string GetOperatingSystemName()
         {
             return "Windows";
+        }
+
+        /// <summary>
+        /// Get the processor architecture of this computer.
+        /// </summary>
+        /// <remarks>
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
+        /// </remarks>
+        /// <returns>The processor architecture of this computer. </returns>
+        public static ushort GetProcessorArchitecture()
+        {
+            try
+            {
+                var sysInfo = new NativeMethods._SYSTEM_INFO();
+                NativeMethods.GetNativeSystemInfo(ref sysInfo);
+                return sysInfo.wProcessorArchitecture;
+            }
+            catch
+            {
+                // unknown architecture.
+                return 0xffff;
+            }
         }
     }
 }
