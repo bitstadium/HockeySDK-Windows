@@ -1,10 +1,8 @@
-﻿using Microsoft.HockeyApp.Internal;
-using System;
-using System.Threading;
+﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using HockeyPlatformHelperWinForms = Microsoft.HockeyApp.HockeyPlatformHelperWPF;
-using Microsoft.HockeyApp.Extensibility;
+using System.Collections.Generic;
+
+using Microsoft.HockeyApp.Services;
 
 namespace Microsoft.HockeyApp
 {
@@ -18,21 +16,47 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="this">HockeyClient object.</param>
         /// <param name="identifier">Identfier.</param>
+        /// <param name="appId">Namespace of main app type.</param>
+        /// <param name="appVersion">Four field app version.</param>
+        /// <param name="storeRegion">storeRegion.</param>
+        /// <param name="localApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true</param>
+        /// <param name="roamingApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true.</param>
         /// <param name="keepRunningAfterException">Keep running after exception.</param>
         /// <returns>Instance object.</returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, bool keepRunningAfterException)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, string appId, string appVersion, string storeRegion, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException)
         {
-            @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWinForms();
+            if (localApplicationSettings == null) throw new ArgumentNullException("localApplicationSettings");
+            if (roamingApplicationSettings == null) throw new ArgumentNullException("roamingApplicationSettings");
+
+            var deviceService = new DeviceService();
+            @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWinForms(deviceService);
             @this.AsInternal().AppIdentifier = identifier;
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            if (keepRunningAfterException)
+            ServiceLocator.AddService<IPlatformService>(new PlatformService(localApplicationSettings, roamingApplicationSettings));
+            ServiceLocator.AddService<IApplicationService>(new ApplicationService(appId, appVersion, storeRegion));
+            ServiceLocator.AddService<IHttpService>(new WinFormsHttpService());
+            ServiceLocator.AddService<IDeviceService>(deviceService);
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule(keepRunningAfterException));
+
+            var config = new TelemetryConfiguration()
             {
-                Application.ThreadException += Current_ThreadException;
-                Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+#if DEBUG
+                EnableDiagnostics = true,
+#endif
+                InstrumentationKey = identifier
+            };
+
+            WindowsAppInitializer.InitializeAsync(identifier, config).ConfigureAwait(false).GetAwaiter().GetResult();
+
+            object userId = null;
+            if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+            {
+                ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
             }
 
-            TelemetryConfiguration.Active.InstrumentationKey = identifier;
             return (IHockeyClientConfigurable)@this;
         }
 
@@ -58,25 +82,10 @@ namespace Microsoft.HockeyApp
             return @this;
         }
 
-        static async void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            Exception ex = e.ExceptionObject as Exception;
-            if (ex != null)
-            {
-                await HockeyClient.Current.AsInternal().HandleExceptionAsync(ex);
-            }
-        }
         static async void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
         }
-
-        static async void Current_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            await HockeyClient.Current.AsInternal().HandleExceptionAsync(e.Exception);
-        }
-
-        #region CrashHandling
 
         /// <summary>
         /// Send crashes to the HockeyApp server
@@ -89,8 +98,5 @@ namespace Microsoft.HockeyApp
             bool result = await @this.AsInternal().SendCrashesAndDeleteAfterwardsAsync().ConfigureAwait(false);
             return result;
         }
-
-        #endregion
-
     }
 }
