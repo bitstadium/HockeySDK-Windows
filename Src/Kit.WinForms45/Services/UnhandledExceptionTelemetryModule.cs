@@ -8,7 +8,6 @@
     using System.Collections.Generic;
     using System.Diagnostics;
 
-
     using Channel;
 
     using DataContracts;
@@ -33,9 +32,9 @@
         {
             if (!initialized)
             {
-                Application.ThreadException += (o, e) => TrackUnhandledException(e.Exception, "Application_ThreadException");
-                AppDomain.CurrentDomain.UnhandledException += (o, e) => TrackUnhandledException(e.ExceptionObject as Exception, "CurrentDomain_UnhandledException");
-                TaskScheduler.UnobservedTaskException += (o, e) => TrackUnhandledException(e.Exception, "TaskScheduler_UnobservedTaskException");
+                Application.ThreadException += (o, e) => TrackUnhandledException(e.Exception, "Application.ThreadException");
+                AppDomain.CurrentDomain.UnhandledException += (o, e) => TrackUnhandledException(e.ExceptionObject as Exception, "CurrentDomain.UnhandledException");
+                TaskScheduler.UnobservedTaskException += (o, e) => TrackUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
 
                 initialized = true;
             }
@@ -48,7 +47,7 @@
                 CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule." + source + " started successfully");
                 try
                 {
-                    ITelemetry crashTelemetry = CreateCrashTelemetry(e, ExceptionHandledAt.Unhandled);
+                    var crashTelemetry = CreateCrashTelemetry(e, ExceptionHandledAt.Unhandled);
                     var client = ((HockeyClient)(HockeyClient.Current));
                     client.Track(crashTelemetry);
                     client.Flush();
@@ -101,7 +100,7 @@
                     CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
                     {
                         Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
-                    };
+                    }; 
 
                     thread.Frames.Add(crashFrame);
                     long nativeImageBase = frame.GetNativeImageBase().ToInt64();

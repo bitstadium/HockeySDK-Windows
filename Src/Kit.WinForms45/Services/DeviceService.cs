@@ -163,7 +163,6 @@ namespace Microsoft.HockeyApp.Services
             return "Windows";
         }
 
-
         /// <summary>
         /// Get the processor architecture of this computer.
         /// </summary>
