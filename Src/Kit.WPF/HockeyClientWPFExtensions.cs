@@ -44,14 +44,28 @@ namespace Microsoft.HockeyApp
         /// <returns>HockeyClient configurable.</returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier)
         {
-            @this.AsInternal().AppIdentifier = identifier;
-            @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWPF();
+            var applicationService = new ApplicationService();
+            var deviceService = new DeviceService();
+            var platformHelper = new HockeyPlatformHelperWPF(applicationService, deviceService);
 
-            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+            var appId = Guid.Parse(identifier);
+
+            @this.AsInternal().AppIdentifier = appId.ToString("N");
+            @this.AsInternal().PlatformHelper = platformHelper;
+
             ServiceLocator.AddService<IPlatformService>(new PlatformService());
-            TelemetryConfiguration.Active.InstrumentationKey = identifier;
-            
+            ServiceLocator.AddService<IApplicationService>(applicationService);
+            ServiceLocator.AddService<IDeviceService>(deviceService);
+            ServiceLocator.AddService<BaseStorageService>(new StorageService());
+            ServiceLocator.AddService<IUnhandledExceptionTelemetryModule>(new UnhandledExceptionTelemetryModule());
+
+            TelemetryConfiguration.Active.InstrumentationKey = appId.ToString("D");
+
+            WindowsAppInitializer
+                .InitializeAsync(appId.ToString("D"), TelemetryConfiguration.Active)
+                .ContinueWith(task => HockeyClient.Current.AsInternal().HandleInternalUnhandledException(task.Exception),
+                    TaskContinuationOptions.OnlyOnFaulted);
+
             return (IHockeyClientConfigurable)@this;
         }
 
@@ -219,7 +233,7 @@ namespace Microsoft.HockeyApp
         /// <returns>
         /// The Feedback-Thread or, if not found or delete, null.
         /// </returns>
-        public static async Task<IFeedbackThread> OpenFeedbackThreadAsync(this IHockeyClient @this,string feedbackToken)
+        public static async Task<IFeedbackThread> OpenFeedbackThreadAsync(this IHockeyClient @this, string feedbackToken)
         {
             return await @this.AsInternal().OpenFeedbackThreadAsync(feedbackToken);
         }
@@ -270,12 +284,14 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public static string AppIdHash
         {
-            get {
+            get
+            {
                 if (_appIdHash == null)
                 {
                     _appIdHash = GetMD5Hash(HockeyClient.Current.AsInternal().AppIdentifier);
                 }
-                return _appIdHash; }
+                return _appIdHash;
+            }
         }
 
         internal static string GetMD5Hash(string sourceString)

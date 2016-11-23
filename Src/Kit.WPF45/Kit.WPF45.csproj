@@ -23,6 +23,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -69,7 +70,14 @@
       <Link>UpdateManager.cs</Link>
     </Compile>
     <Compile Include="RemoveEventSource.cs" />
+    <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\Device\ChassisType.cs" />
+    <Compile Include="Services\Device\DeviceService.cs" />
+    <Compile Include="Services\Device\WmiService.cs" />
+    <Compile Include="Services\PersistentDictionary.cs" />
     <Compile Include="Services\PlatformService.cs" />
+    <Compile Include="Services\StorageService.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>
