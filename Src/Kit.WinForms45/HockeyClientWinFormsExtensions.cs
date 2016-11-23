@@ -62,6 +62,22 @@ namespace Microsoft.HockeyApp
         }
 
         /// <summary>
+        /// Configures HockeyClient.
+        /// </summary>
+        /// <param name="this">HockeyClient object.</param>
+        /// <param name="identifier">Identfier.</param>
+        /// <param name="localApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true</param>
+        /// <param name="roamingApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true.</param>
+        /// <param name="keepRunningAfterException">Keep running after exception.</param>
+        /// <returns>Instance object.</returns>
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException)
+        {
+            return @this.Configure(identifier, null, null, null, localApplicationSettings, roamingApplicationSettings, keepRunningAfterException);
+        }
+
+        /// <summary>
         /// Adds the handler for UnobservedTaskExceptions
         /// </summary>
         /// <param name="this"></param>
