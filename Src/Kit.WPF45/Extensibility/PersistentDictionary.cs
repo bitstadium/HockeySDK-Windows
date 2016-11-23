@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.IsolatedStorage;
-using System.Linq;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Microsoft.HockeyApp.Services
+﻿namespace Microsoft.HockeyApp.Extensibility.Implementation
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.IsolatedStorage;
+    using System.Linq;
+    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Text;
+    using System.Threading.Tasks;
+
     /// <summary>
     /// This persistent dictionary makes use of the isolated storage, BinaryFormatter serialization
     /// </summary>

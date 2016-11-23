@@ -69,12 +69,14 @@
     <Compile Include="..\Kit.WPF\UpdateManager.cs">
       <Link>UpdateManager.cs</Link>
     </Compile>
+    <Compile Include="Extensibility\PEImageReader.cs" />
+    <Compile Include="Extensions\StackFrameExtensions.cs" />
     <Compile Include="RemoveEventSource.cs" />
     <Compile Include="Services\ApplicationService.cs" />
     <Compile Include="Services\Device\ChassisType.cs" />
     <Compile Include="Services\Device\DeviceService.cs" />
     <Compile Include="Services\Device\WmiService.cs" />
-    <Compile Include="Services\PersistentDictionary.cs" />
+    <Compile Include="Extensibility\PersistentDictionary.cs" />
     <Compile Include="Services\PlatformService.cs" />
     <Compile Include="Services\StorageService.cs" />
     <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
