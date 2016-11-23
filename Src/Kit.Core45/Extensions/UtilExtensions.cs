@@ -78,7 +78,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="value">the string</param>
         /// <returns></returns>
-        public static string ToUriEscapeDataString(this string value)
+        public static string ToLongUriEscapeDataString(this string value)
         {
             if (value == null)
             {
