@@ -156,7 +156,6 @@
     <Compile Include="Extensions\ExceptionExtension.cs" />
     <Compile Include="Extensions\MD5.cs" />
     <Compile Include="Extensions\UtilExtensions.cs" />
-    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Extensions\WebRequestExtension.cs" />
     <Compile Include="HockeyClient.cs" />
     <Compile Include="HockeyClientConfiguration.cs" />
