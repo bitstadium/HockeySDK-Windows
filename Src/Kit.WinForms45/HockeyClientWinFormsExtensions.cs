@@ -49,13 +49,14 @@ namespace Microsoft.HockeyApp
                 InstrumentationKey = identifier
             };
 
-            WindowsAppInitializer.InitializeAsync(identifier, config).ConfigureAwait(false).GetAwaiter().GetResult();
-
-            object userId = null;
-            if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+            WindowsAppInitializer.InitializeAsync(identifier, config).ContinueWith(t =>
             {
-                ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
-            }
+                object userId = null;
+                if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+                {
+                    ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
+                }
+            });
 
             return (IHockeyClientConfigurable)@this;
         }
