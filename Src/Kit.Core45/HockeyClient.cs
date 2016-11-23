@@ -636,18 +636,18 @@
         {
             StringBuilder url = new StringBuilder(this.ApiBaseVersion2 + "apps/" + this.AppIdentifier + ".json");
 
-            url.Append("?app_version=" + Uri.EscapeDataString(this.VersionInfo));
-            if (!String.IsNullOrEmpty(this.Os)) { url.Append("&os=" + Uri.EscapeDataString(this.Os)); }
-            if (!String.IsNullOrEmpty(this.OsVersion)) { url.Append("&os_version=" + Uri.EscapeDataString(this.OsVersion)); }
-            if (!String.IsNullOrEmpty(this.Device)) { url.Append("&device=" + Uri.EscapeDataString(this.Device)); }
-            if (!String.IsNullOrEmpty(this.Oem)) { url.Append("&oem=" + Uri.EscapeDataString(this.Oem)); }
-            if (!String.IsNullOrEmpty(this.SdkName)) { url.Append("&sdk=" + Uri.EscapeDataString(this.SdkName)); }
-            if (!String.IsNullOrEmpty(this.SdkVersion)) { url.Append("&sdk_version=" + Uri.EscapeDataString(this.SdkVersion)); }
-            url.Append("&lang=" + Uri.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
+            url.Append("?app_version=" + UriExtensions.EscapeDataString(this.VersionInfo));
+            if (!String.IsNullOrEmpty(this.Os)) { url.Append("&os=" + UriExtensions.EscapeDataString(this.Os)); }
+            if (!String.IsNullOrEmpty(this.OsVersion)) { url.Append("&os_version=" + UriExtensions.EscapeDataString(this.OsVersion)); }
+            if (!String.IsNullOrEmpty(this.Device)) { url.Append("&device=" + UriExtensions.EscapeDataString(this.Device)); }
+            if (!String.IsNullOrEmpty(this.Oem)) { url.Append("&oem=" + UriExtensions.EscapeDataString(this.Oem)); }
+            if (!String.IsNullOrEmpty(this.SdkName)) { url.Append("&sdk=" + UriExtensions.EscapeDataString(this.SdkName)); }
+            if (!String.IsNullOrEmpty(this.SdkVersion)) { url.Append("&sdk_version=" + UriExtensions.EscapeDataString(this.SdkVersion)); }
+            url.Append("&lang=" + UriExtensions.EscapeDataString(System.Globalization.CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
-            if (!String.IsNullOrEmpty(this.Auid)) { url.Append("&=auid" + Uri.EscapeDataString(this.Auid)); }
-            else if (!String.IsNullOrEmpty(this.Iuid)) { url.Append("&=iuid" + Uri.EscapeDataString(this.Iuid)); }
-            else if (!String.IsNullOrEmpty(this.Uuid)) { url.Append("&=duid" + Uri.EscapeDataString(this.Uuid)); }
+            if (!String.IsNullOrEmpty(this.Auid)) { url.Append("&=auid" + UriExtensions.EscapeDataString(this.Auid)); }
+            else if (!String.IsNullOrEmpty(this.Iuid)) { url.Append("&=iuid" + UriExtensions.EscapeDataString(this.Iuid)); }
+            else if (!String.IsNullOrEmpty(this.Uuid)) { url.Append("&=duid" + UriExtensions.EscapeDataString(this.Uuid)); }
 
             var request = WebRequest.CreateHttp(new Uri(this.ApiBaseVersion2 + "apps/" + this.AppIdentifier + ".json", UriKind.Absolute));
             request.Method = "Get";
