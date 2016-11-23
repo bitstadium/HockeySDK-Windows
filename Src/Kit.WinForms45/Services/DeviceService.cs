@@ -166,14 +166,10 @@ namespace Microsoft.HockeyApp.Services
         /// <summary>
         /// Get the processor architecture of this computer.
         /// </summary>
-        /// <remarks>
-        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
-        /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
-        /// </remarks>
-        /// <returns>The processor architecture of this computer. </returns>
+        /// <returns>The processor architecture of this computer.</returns>
         public static ushort GetProcessorArchitecture()
         {
-            try
+            try 
             {
                 var sysInfo = new NativeMethods._SYSTEM_INFO();
                 NativeMethods.GetNativeSystemInfo(ref sysInfo);
