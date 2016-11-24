@@ -17,6 +17,8 @@
     using System.Windows.Threading;
     using System.Windows;
     using System.Runtime.CompilerServices;
+    using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
@@ -147,7 +149,8 @@
                 {
                     CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
                     {
-                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
+                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64()),
+                        Symbol = string.Format(CultureInfo.InvariantCulture, "   at {0}.{1}  (0x{2:x8}, 0x{3:x})", frame.GetMethod().DeclaringType.FullName, frame.GetMethod().Name, frame.GetMethod().MetadataToken, frame.GetILOffset())
                     };
 
                     thread.Frames.Add(crashFrame);
@@ -179,26 +182,9 @@
                 }
             }
 
-            result.StackTrace = GetStrackTrace(exception);
-            return result;
-        }
+            result.StackTrace = exception.StackTrace;
 
-        private string GetStrackTrace(Exception e)
-        {
-            CultureInfo originalUICulture = CultureInfo.CurrentUICulture;
-            try
-            {
-                // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
-                // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
-                //todo
-                //CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-                return e.StackTrace;
-            }
-            finally
-            {
-                //todo
-                //CultureInfo.CurrentUICulture = originalUICulture;
-            }
+            return result;
         }
 
         /// <summary>
