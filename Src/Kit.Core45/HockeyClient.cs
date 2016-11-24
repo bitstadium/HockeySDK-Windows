@@ -836,7 +836,8 @@
         {
             logger.Error(unhandledException);
             var args = new InternalUnhandledExceptionEventArgs() { Exception = unhandledException };
-            OnHockeySDKInternalException?.Invoke(this, args);
+            if (OnHockeySDKInternalException != null)
+                OnHockeySDKInternalException.Invoke(this, args);
         }
 
         /// <summary>

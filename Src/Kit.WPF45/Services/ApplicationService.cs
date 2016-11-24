@@ -36,6 +36,24 @@ namespace Microsoft.HockeyApp.Services
         /// </summary>
         public void Init()
         {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                Application.Current.Exit -= Current_Exit;
+                Application.Current.Exit += Current_Exit;
+            }));
+        }
+
+        /// <summary>
+        /// Handles the Exit event of the Current control.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="ExitEventArgs"/> instance containing the event data.</param>
+        private void Current_Exit(object sender, ExitEventArgs e)
+        {
+            if (this.OnSuspending != null)
+            {
+                this.OnSuspending(sender, e);
+            }
         }
 
         /// <summary>
