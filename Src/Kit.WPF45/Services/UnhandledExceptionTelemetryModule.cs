@@ -37,16 +37,19 @@
         internal bool AlwaysHandleExceptions { get; set; }
 
         /// <summary>
+        /// Unsubscribe from the <see cref="Application.UnhandledException"/> event.
+        /// </summary>
+        public void Dispose()
+        {
+        }
+
+        /// <summary>
         /// Subscribes to unhandled event notifications.
         /// </summary>
         public void Initialize()
         {
             AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
-
-            // This is handled by the AppDomain_UnhandledException handler as well
-            // Application.Current.DispatcherUnhandledException += Application_DispatcherUnhandledException;
-
-            // This exception won't cause an application crash
+            Application.Current.DispatcherUnhandledException += Application_DispatcherUnhandledException;
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 

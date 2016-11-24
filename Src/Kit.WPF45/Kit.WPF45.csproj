@@ -39,6 +39,9 @@
     <Compile Include="..\Kit.WPF\Constants.cs">
       <Link>Constants.cs</Link>
     </Compile>
+    <Compile Include="..\Kit.WPF\CrashHandler.cs">
+      <Link>CrashHandler.cs</Link>
+    </Compile>
     <Compile Include="..\Kit.WPF\DownloadProgressInformation.cs">
       <Link>DownloadProgressInformation.cs</Link>
     </Compile>
