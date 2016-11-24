@@ -57,6 +57,17 @@ namespace Microsoft.HockeyApp.Services
         }
 
         /// <summary>
+        /// Resumings this instance.
+        /// </summary>
+        private void Resuming()
+        {
+            if (this.OnResuming != null)
+            {
+                this.OnResuming(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
         /// Indicates whether the application is installed in development mode.
         /// </summary>
         /// <returns>

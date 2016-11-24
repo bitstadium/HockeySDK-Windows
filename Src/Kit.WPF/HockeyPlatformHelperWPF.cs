@@ -13,6 +13,9 @@ using System.Windows;
 
 namespace Microsoft.HockeyApp
 {
+
+#pragma warning disable 1998
+
     /// <summary>
     /// HockeyPlatformHelperWPF class.
     /// </summary>
@@ -288,4 +291,5 @@ namespace Microsoft.HockeyApp
         }
 
     }
+#pragma warning restore 1998
 }
