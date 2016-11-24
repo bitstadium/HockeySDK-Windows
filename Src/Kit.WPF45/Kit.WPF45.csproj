@@ -69,6 +69,7 @@
     <Compile Include="..\Kit.WPF\UpdateManager.cs">
       <Link>UpdateManager.cs</Link>
     </Compile>
+    <Compile Include="Extensibility\NativeMethods.cs" />
     <Compile Include="Extensibility\PEImageReader.cs" />
     <Compile Include="Extensions\StackFrameExtensions.cs" />
     <Compile Include="RemoveEventSource.cs" />

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Threading;
 using Microsoft.HockeyApp.Extensibility;
 using Microsoft.HockeyApp.Services;
+using Microsoft.HockeyApp.Extensibility.Windows;
 
 namespace Microsoft.HockeyApp
 {

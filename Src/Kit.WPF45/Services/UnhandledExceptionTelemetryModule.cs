@@ -1,68 +1,114 @@
-﻿namespace Microsoft.HockeyApp.Services
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
-    using System.Threading.Tasks;
+    using Channel;
+    using DataContracts;
+    using Implementation.Tracing;
+
+    using Microsoft.HockeyApp.Extensions;
+
+    using System.Collections.Generic;
+    using Implementation;
+    using System.Diagnostics;
     using System.Globalization;
     using System.IO;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-
-    using Channel;
-
-    using DataContracts;
-
-    using Extensions;
-
-    using Extensibility.Implementation.Tracing;
-    using Extensibility.Implementation;
+    using Services;
+    using System.Threading.Tasks;
+    using System.Windows.Threading;
     using System.Windows;
+    using System.Runtime.CompilerServices;
 
     /// <summary>
-    /// The unhandled exception telemetry module
+    /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
     /// </summary>
     internal sealed class UnhandledExceptionTelemetryModule : IUnhandledExceptionTelemetryModule
     {
+        private static ushort? processorArchitecture;
+
         /// <summary>
-        /// Indicates whether the module has already been initialized.
+        /// Initializes a new instance of the <see cref="UnhandledExceptionTelemetryModule"/> class.
         /// </summary>
-        private bool initialized;
+        internal UnhandledExceptionTelemetryModule()
+        {
+        }
 
-        //private static ushort? processorArchitecture;
+        internal bool AlwaysHandleExceptions { get; set; }
 
         /// <summary>
-        /// Initialize method is called after all configuration properties have been loaded from the configuration.
+        /// Unsubscribe from the <see cref="Application.UnhandledException"/> event.
+        /// </summary>
+        public void Dispose()
+        {
+        }
+
+        /// <summary>
+        /// Subscribes to unhandled event notifications.
         /// </summary>
         public void Initialize()
         {
-            if (!initialized)
-            {
-                Application.Current.DispatcherUnhandledException += (o, e) => TrackUnhandledException(e.Exception, "Application.DispatcherUnhandledException");
-                AppDomain.CurrentDomain.UnhandledException += (o, e) => TrackUnhandledException(e.ExceptionObject as Exception, "CurrentDomain.UnhandledException");
-                TaskScheduler.UnobservedTaskException += (o, e) => TrackUnhandledException(e.Exception, "TaskScheduler.UnobservedTaskException");
-
-                initialized = true;
-            }
+            AppDomain.CurrentDomain.UnhandledException += AppDomain_UnhandledException;
+            Application.Current.DispatcherUnhandledException += Application_DispatcherUnhandledException;
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
-        private void TrackUnhandledException(Exception e, string source)
+        /// <summary>
+        /// Handles the DispatcherUnhandledException event of the Application's dispatcher.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="DispatcherUnhandledExceptionEventArgs"/> instance containing the event data.</param>
+        private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-            if (e != null)
+            TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+        }
+
+        /// <summary>
+        /// Handles the UnhandledException event of the current app domain.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="UnhandledExceptionEventArgs"/> instance containing the event data.</param>
+        private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            TrackException(e.ExceptionObject as Exception, ExceptionHandledAt.Unhandled);
+        }
+
+        /// <summary>
+        /// Handles the UnobservedTaskException event of the default task scheduler.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The <see cref="UnobservedTaskExceptionEventArgs"/> instance containing the event data.</param>
+        private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+        }
+
+        /// <summary>
+        /// Tracks the exception.
+        /// </summary>
+        /// <param name="exception">The exception to initialize the class with.</param>
+        /// <param name="handledAt">Determines whether exception is handled or unhandled.</param>
+        private void TrackException(Exception exception, ExceptionHandledAt handledAt)
+        {
+            try
             {
-                CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule." + source + " started successfully");
-                try
+                if (exception != null)
                 {
-                    var crashTelemetry = CreateCrashTelemetry(e, ExceptionHandledAt.Unhandled);
+                    ITelemetry crashTelemetry = CreateCrashTelemetry(exception, handledAt);
                     var client = ((HockeyClient)(HockeyClient.Current));
                     client.Track(crashTelemetry);
                     client.Flush();
                 }
-                catch (Exception ex)
-                {
-                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule." + source + " " + ex);
-                }
+            }
+            catch (Exception ex)
+            {
+                CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.TrackException: " + ex);
             }
         }
 
+        /// <summary>
+        /// Creates <see cref="CrashTelemetry"/> instance.
+        /// </summary>
+        /// <param name="exception">The exception to initialize the class with.</param>
+        /// <param name="handledAt">Determines whether exception is handled or unhandled.</param>
         public ITelemetry CreateCrashTelemetry(Exception exception, ExceptionHandledAt handledAt)
         {
             CrashTelemetry result = new CrashTelemetry();
@@ -91,8 +137,6 @@
 
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
-
-            // TODO - based on the implementation of StackFrameExtensions.cs in this project this code section will never execute
 
             // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
             // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
@@ -126,8 +170,8 @@
                         EndAddress = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", codeView.EndAddress.ToInt64()),
                         Uuid = string.Format(CultureInfo.InvariantCulture, "{0:N}-{1}", codeView.Signature, codeView.Age),
                         Path = codeView.PdbPath,
-                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null
-                        //CpuType = processorArchitecture ?? (long)(processorArchitecture = DeviceService.GetProcessorArchitecture())
+                        Name = string.IsNullOrEmpty(codeView.PdbPath) == false ? Path.GetFileNameWithoutExtension(codeView.PdbPath) : null,
+                        CpuType = GetProcessorArchitecture()
                     };
 
                     result.Binaries.Add(crashBinary);
@@ -139,20 +183,51 @@
             return result;
         }
 
-        private static string GetStrackTrace(Exception e)
+        private string GetStrackTrace(Exception e)
         {
             CultureInfo originalUICulture = CultureInfo.CurrentUICulture;
             try
             {
                 // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
                 // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
-                CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
+                //todo
+                //CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
                 return e.StackTrace;
             }
             finally
             {
-                CultureInfo.DefaultThreadCurrentUICulture = originalUICulture;
+                //todo
+                //CultureInfo.CurrentUICulture = originalUICulture;
             }
+        }
+
+        /// <summary>
+        /// Get the processor architecture of this computer.
+        /// </summary>
+        /// <remarks>
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
+        /// </remarks>
+        /// <returns>The processor architecture of this computer. </returns>
+        private static ushort GetProcessorArchitecture()
+        {
+            if (!processorArchitecture.HasValue)
+            {
+                try
+                {
+                    var sysInfo = new NativeMethods._SYSTEM_INFO();
+                    NativeMethods.GetNativeSystemInfo(ref sysInfo);
+                    processorArchitecture = (ushort)sysInfo.wProcessorArchitecture;
+                }
+                catch
+                {
+                    // unknown architecture.
+                    processorArchitecture = 0xffff;
+                }
+            }
+
+            // https://msdn.microsoft.com/en-us/library/windows/desktop/ms724958(v=vs.85).aspx
+            return processorArchitecture.Value;
         }
     }
 }
