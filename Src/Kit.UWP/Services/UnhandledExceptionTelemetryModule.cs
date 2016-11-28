@@ -102,6 +102,25 @@
                 }
             }
 
+            // Flatten the AggregateException and wrap it if we only have a single inner exception
+            var aggregateException = exception as AggregateException;
+            if (aggregateException != null)
+            {
+                aggregateException = aggregateException.Flatten();
+                if (aggregateException.InnerException != null)
+                {
+                    exception = aggregateException.InnerException;
+                }
+                else if (aggregateException.InnerExceptions.Count == 1)
+                {
+                    exception = aggregateException.InnerExceptions[0];
+                }
+                else
+                {
+                    exception = aggregateException;
+                }
+            }
+
             CrashTelemetryThread thread = new CrashTelemetryThread { Id = Environment.CurrentManagedThreadId };
             result.Threads.Add(thread);
             HashSet<long> seenBinaries = new HashSet<long>();
