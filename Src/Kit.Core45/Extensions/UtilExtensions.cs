@@ -76,36 +76,22 @@ namespace Microsoft.HockeyApp
         /// <summary>
         /// Escapes the given string into an Uri escaped data string
         /// </summary>
-        /// <param name="value">the string</param>
+        /// <param name="longString">the string</param>
         /// <returns></returns>
-        public static string ToLongUriEscapeDataString(this string value)
+        public static string ToLongUriEscapeDataString(this string longString)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
+            const int limit = 32766;
 
-            const int limit = 32760;
+            var sb = new StringBuilder();
+            var loops = longString.Length / limit;
 
-            string result;
-            int length = value.Length;
-            if (length < limit)
+            for (var i = 0; i <= loops; i++)
             {
-                result = Uri.EscapeDataString(value);
+                sb.Append(i < loops
+                                    ? Uri.EscapeDataString(longString.Substring(limit * i, limit))
+                                    : Uri.EscapeDataString(longString.Substring(limit * i)));
             }
-            else
-            {
-                int offset = 0;
-                StringBuilder sb = new StringBuilder(length);
-                while (offset < length)
-                {
-                    int size = Math.Min(length - offset, limit);
-                    sb.Append(Uri.EscapeDataString(value.Substring(offset, size)));
-                    offset += size;
-                }
-                result = sb.ToString();
-            }
-            return result;
+            return sb.ToString();
         }
     }
 }
