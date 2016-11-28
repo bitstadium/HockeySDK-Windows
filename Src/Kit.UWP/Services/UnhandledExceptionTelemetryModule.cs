@@ -38,6 +38,7 @@
         public void Dispose()
         {
             CoreApplication.UnhandledErrorDetected -= CoreApplication_UnhandledErrorDetected;
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
         }
 
         /// <summary>
