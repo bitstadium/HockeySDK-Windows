@@ -13,7 +13,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 | Windows 10 Universal Windows Platform (UWP) | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
 | Windows 8.1 (WinRT) | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
 | Windows Phone (Silverlight) 8.0, 8.1 | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
-| HockeySDK.WPF 4.5 | &#x2713; | &#x2713; | &#x2713; | &#x2713; |  | 
+| HockeySDK.WPF 4.5 | &#x2713; | &#x2713; | | |  | 
 | PCL |  |  |  |  | &#x2713; | |
 
 ## Onboarding Instructions 
@@ -46,3 +46,6 @@ You must sign a [Contributor License Agreement](https://cla.microsoft.com/) befo
 
 ## Support
 If you have any questions, problems or suggestions, please contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
+
+## WinForms SDK
+There is no official support for WinForms SDK. The code under https://github.com/bitstadium/HockeySDK-Windows/tree/develop/Src/Kit.WinForms45 was written by the community and is kept there for sharing purpose only. We tend to accept pull requests but with no validations and you should use it on your own risk.

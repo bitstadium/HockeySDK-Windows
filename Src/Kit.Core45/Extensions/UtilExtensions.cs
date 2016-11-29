@@ -72,5 +72,26 @@ namespace Microsoft.HockeyApp
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString(CultureInfo.InvariantCulture) + suf[place];
         }
+
+        /// <summary>
+        /// Escapes the given string into an Uri escaped data string
+        /// </summary>
+        /// <param name="longString">the string</param>
+        /// <returns></returns>
+        public static string ToLongUriEscapeDataString(this string longString)
+        {
+            const int limit = 32766;
+
+            var sb = new StringBuilder();
+            var loops = longString.Length / limit;
+
+            for (var i = 0; i <= loops; i++)
+            {
+                sb.Append(i < loops
+                                    ? Uri.EscapeDataString(longString.Substring(limit * i, limit))
+                                    : Uri.EscapeDataString(longString.Substring(limit * i)));
+            }
+            return sb.ToString();
+        }
     }
 }
