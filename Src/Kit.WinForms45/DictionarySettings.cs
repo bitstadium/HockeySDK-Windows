@@ -15,11 +15,21 @@ namespace Microsoft.HockeyApp
     sealed class DictionarySettings
     {
         private static DictionarySettings _current;
+        private static object _loadSyncObject = new object();
 
         /// <summary>
         /// Settings instance for this AppDomain
         /// </summary>
-        public static DictionarySettings Current { get { return _current ?? (_current = new DictionarySettings()); } }
+        public static DictionarySettings Current
+        {
+            get
+            {
+                lock (_loadSyncObject)
+                {
+                    return _current ?? (_current = new DictionarySettings());
+                }
+            }
+        }
 
         private const string FILE_NAME = "settings.json";
         private const string FOLDER_NAME = "HockeyApp";
