@@ -125,7 +125,7 @@ namespace Microsoft.HockeyApp.Model
         public async Task SendDataAsync()
         {
             string rawData = "";
-            rawData += "raw=" + Uri.EscapeDataString(this.Log);
+            rawData += "raw=" + this.Log.ToLongUriEscapeDataString();
             if (this.UserID != null)
             {
                 rawData += "&userID=" + Uri.EscapeDataString(this.UserID);
@@ -136,7 +136,7 @@ namespace Microsoft.HockeyApp.Model
             }
             if (this.Description != null)
             {
-                rawData += "&description=" + Uri.EscapeDataString(this.Description);
+                rawData += "&description=" + this.Description.ToLongUriEscapeDataString();
             }
 
             rawData += "&sdk=" + Uri.EscapeDataString(this.SDKName);
