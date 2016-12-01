@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Microsoft.HockeyApp.Services;
+using Microsoft.HockeyApp.Services.Device;
 
 namespace Microsoft.HockeyApp
 {
@@ -11,6 +12,33 @@ namespace Microsoft.HockeyApp
     /// </summary>
     public static class HockeyClientWinFormsExtensions
     {
+        /// <summary>
+        /// Configures HockeyClient.
+        /// </summary>
+        /// <param name="this">HockeyClient object.</param>
+        /// <param name="identifier">Identfier.</param>
+        /// <returns>Instance object.</returns>
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier)
+        {
+            return @this.Configure(identifier, null, null, null, DictionarySettings.Current.LocalSettings, DictionarySettings.Current.RoamingSettings);
+        }
+
+        /// <summary>
+        /// Configures HockeyClient.
+        /// </summary>
+        /// <param name="this">HockeyClient object.</param>
+        /// <param name="identifier">Identfier.</param>
+        /// <param name="localApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true</param>
+        /// <param name="roamingApplicationSettings">A persistable collection of settings equivalent to:
+        /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true.</param>
+        /// <param name="keepRunningAfterException">Keep running after exception.</param>
+        /// <returns>Instance object.</returns>
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException = false)
+        {
+            return @this.Configure(identifier, null, null, null, localApplicationSettings, roamingApplicationSettings, keepRunningAfterException);
+        }
+
         /// <summary>
         /// Configures HockeyClient.
         /// </summary>
@@ -25,7 +53,7 @@ namespace Microsoft.HockeyApp
         /// https://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k(Windows.Storage.ApplicationData);k(TargetFrameworkMoniker-.NETCore,Version%3Dv5.0);k(DevLang-csharp)&rd=true.</param>
         /// <param name="keepRunningAfterException">Keep running after exception.</param>
         /// <returns>Instance object.</returns>
-        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, string appId, string appVersion, string storeRegion, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException)
+        public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, string appId, string appVersion, string storeRegion, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException = false)
         {
             if (localApplicationSettings == null) throw new ArgumentNullException("localApplicationSettings");
             if (roamingApplicationSettings == null) throw new ArgumentNullException("roamingApplicationSettings");
@@ -49,13 +77,14 @@ namespace Microsoft.HockeyApp
                 InstrumentationKey = identifier
             };
 
-            WindowsAppInitializer.InitializeAsync(identifier, config).ConfigureAwait(false).GetAwaiter().GetResult();
-
-            object userId = null;
-            if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+            WindowsAppInitializer.InitializeAsync(identifier, config).ContinueWith(t =>
             {
-                ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
-            }
+                object userId = null;
+                if (roamingApplicationSettings.TryGetValue("HockeyAppUserId", out userId) && userId != null)
+                {
+                    ((IHockeyClientConfigurable)@this).SetContactInfo(userId.ToString(), null);
+                }
+            });
 
             return (IHockeyClientConfigurable)@this;
         }

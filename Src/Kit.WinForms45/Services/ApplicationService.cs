@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using System.Globalization;
 
 namespace Microsoft.HockeyApp.Services
 {
@@ -15,13 +17,9 @@ namespace Microsoft.HockeyApp.Services
 
         public ApplicationService(string appId, string appVersion, string storeRegion)
         {
-            if (string.IsNullOrEmpty(appId)) { throw new ArgumentException("appId"); }
-            if (string.IsNullOrEmpty(appVersion)) { throw new ArgumentException("appVersion"); }
-            if (string.IsNullOrEmpty(storeRegion)) { throw new ArgumentException("storeRegion"); }
-
-            _applicationId = appId;
-            _version = appVersion;
-            _storeRegion = storeRegion;
+            _applicationId = appId ?? Application.ProductName;
+            _version = appVersion ?? Application.ProductVersion;
+            _storeRegion = storeRegion ?? CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
         }
 
         public string GetApplicationId() => _applicationId;
