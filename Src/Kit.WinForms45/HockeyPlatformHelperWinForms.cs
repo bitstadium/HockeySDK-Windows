@@ -6,7 +6,7 @@ using System.IO.IsolatedStorage;
 using System.Reflection;
 using System.Threading.Tasks;
 
-using Microsoft.HockeyApp.Services;
+using Microsoft.HockeyApp.Services.Device;
 
 namespace Microsoft.HockeyApp
 {
@@ -36,7 +36,7 @@ namespace Microsoft.HockeyApp
         public void SetSettingValue(string key, string value)
         {
             using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write))
-            using (var writer = new StreamWriter(fileStream))
+            using (var writer = new StreamWriter(isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write)))
             {
                 writer.Write(value);
                 writer.Flush();

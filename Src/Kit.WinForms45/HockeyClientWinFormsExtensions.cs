@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 
 using Microsoft.HockeyApp.Services;
+using Microsoft.HockeyApp.Services.Device;
 
 namespace Microsoft.HockeyApp
 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 namespace Microsoft.HockeyApp.Services
 {
@@ -14,12 +15,14 @@ namespace Microsoft.HockeyApp.Services
 
         public static IntPtr GetNativeImageBase(this StackFrame stackFrame)
         {
-            return IntPtr.Zero;
+            return Marshal.GetHINSTANCE(stackFrame.GetMethod().Module.Assembly.ManifestModule);
         }
 
         public static IntPtr GetNativeIP(this StackFrame stackFrame)
         {
-            return IntPtr.Zero;
+            // Definitely wrong, but we need to return something
+            // probably need something like this https://msdn.microsoft.com/en-us/library/dn832657(v=vs.110).aspx (only works on .net 4.6)
+            return IntPtr.Add(GetNativeImageBase(stackFrame), stackFrame.GetNativeOffset());
         }
     }
 }

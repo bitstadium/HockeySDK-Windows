@@ -9,6 +9,7 @@
     using System.Diagnostics;
 
     using Channel;
+    using Device;
 
     using DataContracts;
 
@@ -99,8 +100,9 @@
                 {
                     CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
                     {
-                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
-                    }; 
+                        Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64()),
+                        Symbol = string.Format(CultureInfo.InvariantCulture, "   at {0}.{1}  (0x{2:x8}, 0x{3:x})", frame.GetMethod().DeclaringType.FullName, frame.GetMethod().Name, frame.GetMethod().MetadataToken, frame.GetILOffset())
+                    };
 
                     thread.Frames.Add(crashFrame);
                     long nativeImageBase = frame.GetNativeImageBase().ToInt64();
