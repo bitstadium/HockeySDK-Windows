@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.IsolatedStorage;
 using System.Reflection;
@@ -15,7 +14,6 @@ namespace Microsoft.HockeyApp
     /// </summary>
     public sealed class HockeyPlatformHelperWinForms : IHockeyPlatformHelper
     {
-
         private const string FILE_PREFIX = "HA__SETTING_";
         private readonly IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
         private readonly DeviceService _deviceService;
@@ -32,10 +30,8 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="key">Key.</param>
         /// <param name="value">Value.</param>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
-            using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write))
             using (var writer = new StreamWriter(isoStore.OpenFile(FILE_PREFIX + key, FileMode.Create, FileAccess.Write)))
             {
                 writer.Write(value);
@@ -48,13 +44,11 @@ namespace Microsoft.HockeyApp
         /// </summary>
         /// <param name="key">Key.</param>
         /// <returns>Setting value.</returns>
-        [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
             if (isoStore.FileExists(FILE_PREFIX + key))
             {
-                using (var fileStream = isoStore.OpenFile(FILE_PREFIX + key, FileMode.Open, FileAccess.Read))
-                using (var reader = new StreamReader(fileStream))
+                using (var reader = new StreamReader(isoStore.OpenFile(FILE_PREFIX + key, FileMode.Open, FileAccess.Read)))
                 {
                     return reader.ReadToEnd();
                 }
@@ -183,7 +177,6 @@ namespace Microsoft.HockeyApp
         }
 
         string _appPackageName = null;
-
         /// <summary>
         /// Gets or sets application package name.
         /// </summary>
@@ -204,8 +197,7 @@ namespace Microsoft.HockeyApp
             }
         }
 
-        string _appVersion = null;
-
+        string _appVersion = null;    
         /// <summary>
         /// Gets or sets application version.
         /// </summary>
@@ -213,7 +205,6 @@ namespace Microsoft.HockeyApp
         {
             get
             {
-
                 if (_appVersion == null)
                 {
                     //ClickOnce
