@@ -89,7 +89,7 @@
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
 
-            // TODO - based on the implementation of StackFrameExtensions.cs in this project this code section will never execute
+            // TODO the implementation of StackFrameExtensions.cs in this project controls whether and how this next section works
 
             // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
             // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
