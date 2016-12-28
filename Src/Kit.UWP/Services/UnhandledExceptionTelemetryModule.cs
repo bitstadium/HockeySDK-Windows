@@ -91,7 +91,6 @@
             result.Headers.ExceptionType = exception.GetType().FullName;
             result.Headers.ExceptionReason = exception.Message;
 
-            var description = string.Empty;
             if (HockeyClient.Current.AsInternal().DescriptionLoader != null)
             {
                 try
