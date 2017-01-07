@@ -66,22 +66,29 @@ namespace Microsoft.HockeyApp
 
         private static void Save(IDictionary<string, object> settings, string path)
         {
-            if (!Directory.Exists(path))
+            try
             {
-                Directory.CreateDirectory(path);
+                if (!Directory.Exists(path))
+                {
+                    Directory.CreateDirectory(path);
+                }
+
+                var serializer = new DataContractJsonSerializer(typeof(ConcurrentDictionary<string, object>), new DataContractJsonSerializerSettings()
+                {
+                    UseSimpleDictionaryFormat = true,
+                    KnownTypes = new Type[] { typeof(DateTimeOffset) },
+                    EmitTypeInformation = EmitTypeInformation.AsNeeded,
+                    RootName = "root"
+                });
+
+                using (var writer = File.CreateText(Path.Combine(path, FILE_NAME)))
+                {
+                    serializer.WriteObject(writer.BaseStream, settings);
+                }
             }
-
-            var serializer = new DataContractJsonSerializer(typeof(ConcurrentDictionary<string, object>), new DataContractJsonSerializerSettings()
+            catch (Exception e)
             {
-                UseSimpleDictionaryFormat = true,
-                KnownTypes = new Type[] { typeof(DateTimeOffset) },
-                EmitTypeInformation = EmitTypeInformation.AsNeeded,
-                RootName = "root"
-            });
-
-            using (var writer = File.CreateText(Path.Combine(path, FILE_NAME)))
-            {
-                serializer.WriteObject(writer.BaseStream, settings);
+                HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
             }
         }
 
@@ -114,7 +121,9 @@ namespace Microsoft.HockeyApp
                     {
                         File.Delete(fullPath);
                     }
-                    catch { }
+                    catch { /* can't delete setting file */ }
+
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 }
             }
 
