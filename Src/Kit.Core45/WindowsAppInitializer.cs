@@ -35,7 +35,6 @@
             if (configuration == null)
             {
                 configuration = new TelemetryConfiguration();
-                TelemetryConfigurationFactory.Instance.Initialize(configuration);
             }
 
             configuration.InstrumentationKey = instrumentationKey;
