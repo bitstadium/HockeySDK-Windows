@@ -84,8 +84,6 @@
         /// <param name="handledAt">Determines whether exception is handled or unhandled.</param>
         public ITelemetry CreateCrashTelemetry(Exception exception, ExceptionHandledAt handledAt)
         {
-            exception = FlattenAggregateException(exception);
-
             CrashTelemetry result = new CrashTelemetry();
             result.HandledAt = handledAt;
             result.Headers.Id = Guid.NewGuid().ToString("D");
@@ -195,25 +193,6 @@
                     seenBinaries.Add(nativeImageBase);
                 }
             }
-        }
-
-        private Exception FlattenAggregateException(Exception e)
-        {
-            // Flatten the AggregateException and unwrap it if we only have a single inner exception
-            var aggregateException = e as AggregateException;
-            if (aggregateException != null)
-            {
-                aggregateException = aggregateException.Flatten();
-                if (aggregateException.InnerException != null)
-                {
-                    e = aggregateException.InnerException;
-                }
-                else if (aggregateException.InnerExceptions.Count == 1)
-                {
-                    e = aggregateException.InnerExceptions[0];
-                }
-            }
-            return e;
         }
 
         private static string GetStrackTrace(Exception e)
