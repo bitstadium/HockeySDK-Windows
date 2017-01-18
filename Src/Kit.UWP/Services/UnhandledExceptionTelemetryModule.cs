@@ -3,6 +3,7 @@
     using System;
     using Channel;
     using DataContracts;
+    using Extensions;
     using Implementation.Tracing;
 
     using global::Windows.ApplicationModel.Core;
@@ -12,6 +13,7 @@
     using System.Diagnostics;
     using System.Globalization;
     using System.IO;
+    using System.Text;
     using Services;
     using Services.Device;
     using System.Threading.Tasks;
@@ -29,9 +31,9 @@
         internal UnhandledExceptionTelemetryModule()
         {
         }
-        
+
         internal bool AlwaysHandleExceptions { get; set; }
-        
+
         /// <summary>
         /// Unsubscribe from the <see cref="Application.UnhandledException"/> event.
         /// </summary>
@@ -51,7 +53,7 @@
         public void Initialize()
         {
             CoreApplication.UnhandledErrorDetected += CoreApplication_UnhandledErrorDetected;
-            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException; 
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
         }
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -69,7 +71,7 @@
                     client.Flush();
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.TaskScheduler_UnobservedTaskException: " + ex);
             }
@@ -82,14 +84,21 @@
         /// <param name="handledAt">Determines whether exception is handled or unhandled.</param>
         public ITelemetry CreateCrashTelemetry(Exception exception, ExceptionHandledAt handledAt)
         {
-            exception = FlattenAggregateException(exception);
-
             CrashTelemetry result = new CrashTelemetry();
             result.HandledAt = handledAt;
             result.Headers.Id = Guid.NewGuid().ToString("D");
             result.Headers.CrashThreadId = Environment.CurrentManagedThreadId;
             result.Headers.ExceptionType = exception.GetType().FullName;
             result.Headers.ExceptionReason = exception.Message;
+
+            CrashTelemetryThread thread = new CrashTelemetryThread { Id = Environment.CurrentManagedThreadId };
+            result.Threads.Add(thread);
+            HashSet<long> seenBinaries = new HashSet<long>();
+            StringBuilder exceptionMessagesBuilder = new StringBuilder();
+
+            AddExceptionInformation(exception, result, seenBinaries, exceptionMessagesBuilder);
+
+            bool hasNativeFrames = result.Threads != null && result.Threads.Count > 0 && result.Threads[0].Frames != null && result.Threads[0].Frames.Count > 0;
 
             if (HockeyClient.Current.AsInternal().DescriptionLoader != null)
             {
@@ -102,10 +111,44 @@
                     CoreEventSource.Log.LogError("An exception occured in TelemetryConfiguration.Active.DescriptionLoader callback : " + ex);
                 }
             }
+            else if (hasNativeFrames)
+            {
+                // If the user doesn't have a description loader, add info on all the inner exceptions.
+                result.Attachments.Description = exceptionMessagesBuilder.ToString();
+            }
 
-            CrashTelemetryThread thread = new CrashTelemetryThread { Id = Environment.CurrentManagedThreadId };
-            result.Threads.Add(thread);
-            HashSet<long> seenBinaries = new HashSet<long>();
+            result.StackTrace = GetStrackTrace(exception);
+            return result;
+        }
+
+        /// <summary>
+        /// Adds frames and binaries from this exception and all inner exceptions to the given telemetry result.
+        /// </summary>
+        /// <param name="exception">The exception to examine.</param>
+        /// <param name="telemetry">The telemetry object to add the frames to.</param>
+        /// <param name="seenBinaries">The set of binaries we have already added to the frame list.</param>
+        /// <param name="exceptionMessages">The list of exception types and messages seen.</param>
+        /// <remarks>This will produce a flat list with no indication of which frame belongs to which exception. This is a workaround
+        /// for the fact that the server side only knows how to process a flat list.</remarks>
+        private static void AddExceptionInformation(Exception exception, CrashTelemetry telemetry, HashSet<long> seenBinaries, StringBuilder exceptionMessages)
+        {
+            if (exception.InnerException != null)
+            {
+                var aggregateException = exception as AggregateException;
+                if (aggregateException != null)
+                {
+                    foreach (Exception innerException in aggregateException.InnerExceptions)
+                    {
+                        AddExceptionInformation(innerException, telemetry, seenBinaries, exceptionMessages);
+                    }
+                }
+                else
+                {
+                    AddExceptionInformation(exception.InnerException, telemetry, seenBinaries, exceptionMessages);
+                }
+            }
+
+            exceptionMessages.AppendLine($"{exception.GetType().FullName}: {exception.Message}");
 
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
@@ -122,9 +165,9 @@
                         Address = string.Format(CultureInfo.InvariantCulture, "0x{0:x16}", frame.GetNativeIP().ToInt64())
                     };
 
-                    thread.Frames.Add(crashFrame);
+                    telemetry.Threads[0].Frames.Add(crashFrame);
                     long nativeImageBase = frame.GetNativeImageBase().ToInt64();
-                    if (seenBinaries.Contains(nativeImageBase) == true)
+                    if (seenBinaries.Contains(nativeImageBase))
                     {
                         continue;
                     }
@@ -146,35 +189,13 @@
                         CpuType = GetProcessorArchitecture()
                     };
 
-                    result.Binaries.Add(crashBinary);
+                    telemetry.Binaries.Add(crashBinary);
                     seenBinaries.Add(nativeImageBase);
                 }
             }
-
-            result.StackTrace = GetStrackTrace(exception);
-            return result;
         }
 
-        private Exception FlattenAggregateException(Exception e)
-        {
-            // Flatten the AggregateException and unwrap it if we only have a single inner exception
-            var aggregateException = e as AggregateException;
-            if (aggregateException != null)
-            {
-                aggregateException = aggregateException.Flatten();
-                if (aggregateException.InnerException != null)
-                {
-                    e = aggregateException.InnerException;
-                }
-                else if (aggregateException.InnerExceptions.Count == 1)
-                {
-                    e = aggregateException.InnerExceptions[0];
-                }
-            }
-            return e;
-        }
-
-        private string GetStrackTrace(Exception e)
+        private static string GetStrackTrace(Exception e)
         {
             CultureInfo originalUICulture = CultureInfo.CurrentUICulture;
             try
@@ -182,7 +203,7 @@
                 // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
                 // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
                 CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
-                return e.StackTrace;
+                return e.StackTraceToString();
             }
             finally
             {
