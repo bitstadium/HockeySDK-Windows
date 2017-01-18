@@ -84,6 +84,13 @@
         /// <param name="handledAt">Determines whether exception is handled or unhandled.</param>
         public ITelemetry CreateCrashTelemetry(Exception exception, ExceptionHandledAt handledAt)
         {
+            // If we have an AggregateException with only one inner exception, it can be flattened
+            var aggEx = exception as AggregateException;
+            if ((aggEx != null) && (aggEx.InnerExceptions.Count == 1))
+            {
+                exception = aggEx.InnerException;
+            }
+
             CrashTelemetry result = new CrashTelemetry();
             result.HandledAt = handledAt;
             result.Headers.Id = Guid.NewGuid().ToString("D");
