@@ -23,6 +23,7 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -37,9 +38,6 @@
     </Compile>
     <Compile Include="..\Kit.WPF\Constants.cs">
       <Link>Constants.cs</Link>
-    </Compile>
-    <Compile Include="..\Kit.WPF\CrashHandler.cs">
-      <Link>CrashHandler.cs</Link>
     </Compile>
     <Compile Include="..\Kit.WPF\DownloadProgressInformation.cs">
       <Link>DownloadProgressInformation.cs</Link>
@@ -68,8 +66,18 @@
     <Compile Include="..\Kit.WPF\UpdateManager.cs">
       <Link>UpdateManager.cs</Link>
     </Compile>
+    <Compile Include="Extensibility\NativeMethods.cs" />
+    <Compile Include="Extensibility\PEImageReader.cs" />
+    <Compile Include="Extensions\StackFrameExtensions.cs" />
     <Compile Include="RemoveEventSource.cs" />
+    <Compile Include="Services\ApplicationService.cs" />
+    <Compile Include="Services\Device\ChassisType.cs" />
+    <Compile Include="Services\Device\DeviceService.cs" />
+    <Compile Include="Services\Device\WmiService.cs" />
+    <Compile Include="Extensibility\PersistentDictionary.cs" />
     <Compile Include="Services\PlatformService.cs" />
+    <Compile Include="Services\StorageService.cs" />
+    <Compile Include="Services\UnhandledExceptionTelemetryModule.cs" />
     <Compile Include="_NamespaceDoc.cs" />
   </ItemGroup>
   <ItemGroup>

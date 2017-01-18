@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.HockeyApp.Services;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -18,11 +19,24 @@ namespace Microsoft.HockeyApp
     /// <summary>
     /// HockeyPlatformHelperWPF class.
     /// </summary>
-    public class HockeyPlatformHelperWPF : IHockeyPlatformHelper
+    internal class HockeyPlatformHelperWPF : IHockeyPlatformHelper
     {
-
         private const string FILE_PREFIX = "HA__SETTING_";
         IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+
+        private ApplicationService applicationService;
+        private DeviceService deviceService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HockeyPlatformHelperWPF"/> class.
+        /// </summary>
+        /// <param name="applicationService">The application service.</param>
+        /// <param name="deviceService">The device service.</param>
+        internal HockeyPlatformHelperWPF(ApplicationService applicationService, DeviceService deviceService)
+        {
+            this.applicationService = applicationService;
+            this.deviceService = deviceService;
+        }
 
         private string PostfixWithAppIdHash(string folderName, bool noDirectorySeparator = false)
         {
@@ -54,10 +68,12 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
-            if(isoStore.FileExists(FILE_PREFIX + key)) {
+            if (isoStore.FileExists(FILE_PREFIX + key))
+            {
                 using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Open, FileAccess.Read))
                 {
-                    using(var reader = new StreamReader(fileStream)){
+                    using (var reader = new StreamReader(fileStream))
+                    {
                         return reader.ReadToEnd();
                     }
                 }
@@ -128,11 +144,13 @@ namespace Microsoft.HockeyApp
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
             // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName))) {
+            if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName)))
+            {
                 isoStore.CreateDirectory(PostfixWithAppIdHash(folderName));
             }
 
-            using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
+            using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+            {
                 await dataStream.CopyToAsync(fileStream);
             }
         }
@@ -145,9 +163,12 @@ namespace Microsoft.HockeyApp
         /// <returns>Task list.</returns>
         public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
         {
-            try {
+            try
+            {
                 return isoStore.GetFileNames(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
-            } catch (DirectoryNotFoundException) {
+            }
+            catch (DirectoryNotFoundException)
+            {
                 return new string[0];
             }
         }
@@ -182,54 +203,20 @@ namespace Microsoft.HockeyApp
 
         #endregion
 
-        string _appPackageName = null;
-
         /// <summary>
         /// Gets or sets application package name.
         /// </summary>
         public string AppPackageName
         {
-            get
-            {
-                if(_appPackageName == null) {
-                    _appPackageName = Application.Current.GetType().Namespace;
-                }
-                return _appPackageName;
-            }
-            set
-            {
-                _appPackageName = value;
-            }
+            get { return this.applicationService.GetApplicationId(); }
         }
-
-        string _appVersion = null;
 
         /// <summary>
         /// Gets or sets application version.
         /// </summary>
         public string AppVersion
         {
-            get { 
-                if(_appVersion == null) {
-                //ClickOnce
-                    try
-                    {
-                        var type = Type.GetType("System.Deployment.Application.ApplicationDeployment");
-                        object deployment = type.GetMethod("CurrentDeployment").Invoke(null, null);
-                        Version version = type.GetMethod("CurrentVersion").Invoke(deployment, null) as Version;
-                        _appVersion = version.ToString();
-                    }
-                    catch (Exception)
-                    {
-                        //Entry Assembly
-                        _appVersion = Assembly.GetEntryAssembly().GetName().Version.ToString();
-                    }
-                }
-                return _appVersion ?? "0.0.0.1";
-            }
-            set {
-                _appVersion = value;
-            }
+            get { return this.applicationService.GetVersion(); }
         }
 
 
@@ -238,29 +225,14 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string OSVersion
         {
-            get
-            {
-                //as windows 8.1 lies to us to be 8 we try via registry
-                try
-                {
-                    using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
-                    {
-                        return (string)registryKey.GetValue("CurrentVersion") + "." + (string)registryKey.GetValue("CurrentBuild") + ".0";
-                    }
-                }
-                catch (Exception e)
-                {
-                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
-                }
-                return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack; 
-            }
+            get { return this.deviceService.GetOperatingSystemVersion(); }
         }
 
         /// <summary>
         /// Gets OS platform name.
         /// </summary>
         public string OSPlatform
-        {   
+        {
             get { return "Windows"; }
         }
 
@@ -270,10 +242,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string SDKVersion
         {
-            get
-            {
-                return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion();
-            }
+            get { return Extensibility.SdkVersionPropertyContextInitializer.GetAssemblyVersion(); }
         }
 
 
@@ -282,8 +251,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string SDKName
         {
-            get
-            { return HockeyConstants.SDKNAME; }
+            get { return HockeyConstants.SDKNAME; }
         }
 
         /// <summary>
@@ -304,28 +272,14 @@ namespace Microsoft.HockeyApp
             get { return _productID; }
             set { _productID = value; }
         }
-        
+
 
         /// <summary>
         /// Gets manufacturer.
         /// </summary>
         public string Manufacturer
         {
-            get { 
-                //TODO System.Management referenzieren !?
-                /*
-                Type.GetType
-                ManagementClass mc = new ManagementClass("Win32_ComputerSystem");
-            //collection to store all management objects
-            ManagementObjectCollection moc = mc.GetInstances();
-            if (moc.Count != 0)
-            {
-                foreach (ManagementObject mo in mc.GetInstances())
-                {
-                 mo["Manufacturer"].ToString()
-                */
-                return null;
-            }
+            get { return deviceService.GetSystemManufacturer(); }
         }
 
         /// <summary>
@@ -333,11 +287,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string Model
         {
-            get
-            {
-                //TODO siehe Manufacturer mit "Model"
-                return null;
-            }
+            get { return deviceService.GetDeviceModel(); }
         }
 
     }
