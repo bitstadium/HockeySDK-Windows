@@ -342,6 +342,32 @@
         }
 
         /// <summary>
+        /// Gets a value indicating whether the platform specific Configure method has been called.
+        /// </summary>
+        private bool Configured = false;
+
+        /// <summary>
+        /// Checks whether the HockeyClient is configured and sets the value to true
+        /// </summary>
+        /// <param name="iHockeyClient">The IHockeyClient instance to check</param>
+        /// <returns>False if configured was false before setting it or IHockeyClient is not an instance of HockeyClient, true otherwise</returns>
+        internal static bool CheckAndSetConfigured(IHockeyClient iHockeyClient)
+        {
+            // If Hockey Client has already  been configured, do nothing
+            HockeyClient hockeyClient = iHockeyClient as HockeyClient;
+            if (hockeyClient != null)
+            {
+                if (hockeyClient.Configured)
+                {
+                    return true;
+                }
+
+                hockeyClient.Configured = true;
+            }
+            return false;
+        }
+
+        /// <summary>
         /// Gets or sets the current context that will be used to augment telemetry you send.
         /// </summary>
         internal TelemetryContext Context

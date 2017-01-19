@@ -26,6 +26,11 @@
         /// <returns></returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration telemetryConfiguration = null, Frame rootFrame = null)
         {
+            if (HockeyClient.CheckAndSetConfigured(@this))
+            {
+                return @this as IHockeyClientConfigurable;
+            }
+
             @this.AsInternal().PlatformHelper = new HockeyPlatformHelperWP8SL();
             @this.AsInternal().AppIdentifier = appId;
             CrashHandler.Current.Application = Application.Current;
