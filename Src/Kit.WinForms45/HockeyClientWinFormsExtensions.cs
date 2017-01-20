@@ -55,6 +55,10 @@ namespace Microsoft.HockeyApp
         /// <returns>Instance object.</returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier, string appId, string appVersion, string storeRegion, IDictionary<string, object> localApplicationSettings, IDictionary<string, object> roamingApplicationSettings, bool keepRunningAfterException = false)
         {
+            if (@this.AsInternal().TestAndSetIsConfigured())
+            {
+                return @this as IHockeyClientConfigurable;
+            }
             if (localApplicationSettings == null) throw new ArgumentNullException("localApplicationSettings");
             if (roamingApplicationSettings == null) throw new ArgumentNullException("roamingApplicationSettings");
 
