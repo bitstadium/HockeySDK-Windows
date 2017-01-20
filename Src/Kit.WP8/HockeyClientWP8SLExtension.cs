@@ -26,7 +26,7 @@
         /// <returns></returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration telemetryConfiguration = null, Frame rootFrame = null)
         {
-            if (HockeyClient.CheckAndSetConfigured(@this))
+            if (@this.AsInternal().TestAndSetIsConfigured())
             {
                 return @this as IHockeyClientConfigurable;
             }

@@ -341,30 +341,15 @@
             get; set;
         }
 
+        private int _isConfigured = 0;
         /// <summary>
-        /// Gets a value indicating whether the platform specific Configure method has been called.
+        /// Atomically checks if Configure has been called and sets it to true.
         /// </summary>
-        private bool Configured = false;
-
-        /// <summary>
-        /// Checks whether the HockeyClient is configured and sets the value to true
-        /// </summary>
-        /// <param name="iHockeyClient">The IHockeyClient instance to check</param>
-        /// <returns>False if configured was false before setting it or IHockeyClient is not an instance of HockeyClient, true otherwise</returns>
-        internal static bool CheckAndSetConfigured(IHockeyClient iHockeyClient)
+        /// <returns>True if the method has been previously called, false otherwise</returns>
+        public bool TestAndSetIsConfigured()
         {
-            // If Hockey Client has already  been configured, do nothing
-            HockeyClient hockeyClient = iHockeyClient as HockeyClient;
-            if (hockeyClient != null)
-            {
-                if (hockeyClient.Configured)
-                {
-                    return true;
-                }
-
-                hockeyClient.Configured = true;
-            }
-            return false;
+            const int configuredValue = 1;
+            return Interlocked.Exchange(ref _isConfigured, configuredValue) == configuredValue;
         }
 
         /// <summary>

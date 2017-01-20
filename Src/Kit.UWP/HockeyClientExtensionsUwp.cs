@@ -27,10 +27,11 @@
         /// <param name="configuration">Telemetry Configuration.</param>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appId, TelemetryConfiguration configuration)
         {
-            if (HockeyClient.CheckAndSetConfigured(@this))
+            if (@this.AsInternal().TestAndSetIsConfigured())
             {
                 return @this as IHockeyClientConfigurable;
             }
+            System.Diagnostics.Debug.WriteLine("Configuring");
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceService());

@@ -25,7 +25,7 @@
         /// <returns>Configurable Hockey client. Configure additional settings by calling methods on the returned IHockeyClientConfigurable</returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string appIdentifier, TelemetryConfiguration configuration = null)
         {
-            if (HockeyClient.CheckAndSetConfigured(@this))
+            if (@this.AsInternal().TestAndSetIsConfigured())
             {
                 return @this as IHockeyClientConfigurable;
             }

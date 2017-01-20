@@ -44,7 +44,7 @@ namespace Microsoft.HockeyApp
         /// <returns>HockeyClient configurable.</returns>
         public static IHockeyClientConfigurable Configure(this IHockeyClient @this, string identifier)
         {
-            if (HockeyClient.CheckAndSetConfigured(@this))
+            if (@this.AsInternal().TestAndSetIsConfigured())
             {
                 return @this as IHockeyClientConfigurable;
             }
