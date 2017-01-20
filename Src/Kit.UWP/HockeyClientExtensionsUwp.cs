@@ -31,7 +31,6 @@
             {
                 return @this as IHockeyClientConfigurable;
             }
-            System.Diagnostics.Debug.WriteLine("Configuring");
             ServiceLocator.AddService<BaseStorageService>(new StorageService());
             ServiceLocator.AddService<IApplicationService>(new ApplicationService());
             ServiceLocator.AddService<IDeviceService>(new DeviceService());
