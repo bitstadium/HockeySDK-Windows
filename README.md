@@ -28,7 +28,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 
 2. In App.xaml.cs file add the following line in usage declaration section: <pre>using Microsoft.HockeyApp;</pre>
 3. In App.xaml.cs file add the following line in App class constructor: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
-4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>
+4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>, or in <i>OnStartup(StartupEventArgs e)</i> for HockeySDK.WPF45.
    <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
 5. Enable Internet(Client) Capability in package manifest.
 
@@ -46,3 +46,6 @@ You must sign a [Contributor License Agreement](https://cla.microsoft.com/) befo
 
 ## Support
 If you have any questions, problems or suggestions, please contact us at [support@hockeyapp.net](mailto:support@hockeyapp.net).
+
+## WinForms SDK
+There is no official support for WinForms SDK. The code under https://github.com/bitstadium/HockeySDK-Windows/tree/develop/Src/Kit.WinForms45 was written by the community and is kept there for sharing purpose only. We tend to accept pull requests but with no validations and you should use it on your own risk.

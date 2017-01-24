@@ -72,5 +72,30 @@ namespace Microsoft.HockeyApp
             double num = Math.Round(bytes / Math.Pow(1024, place), 1);
             return (Math.Sign(byteCount) * num).ToString(CultureInfo.InvariantCulture) + suf[place];
         }
+
+        /// <summary>
+        /// Converts a string to its escaped representation.
+        /// </summary>
+        /// <remarks>
+        /// Uri.EscapeDataString throws when The length of stringToEscape exceeds 32766 characters.
+        /// This method handles long strings as well.
+        /// </remarks>
+        /// <param name="stringToEscape">The string to escape.</param>
+        /// <returns>A System.String that contains the escaped representation of stringToEscape.</returns>
+        public static string ToLongUriEscapeDataString(this string stringToEscape)
+        {
+            const int limit = 32766;
+
+            var sb = new StringBuilder();
+            var loops = stringToEscape.Length / limit;
+
+            for (var i = 0; i <= loops; i++)
+            {
+                sb.Append(i < loops
+                                    ? Uri.EscapeDataString(stringToEscape.Substring(limit * i, limit))
+                                    : Uri.EscapeDataString(stringToEscape.Substring(limit * i)));
+            }
+            return sb.ToString();
+        }
     }
 }

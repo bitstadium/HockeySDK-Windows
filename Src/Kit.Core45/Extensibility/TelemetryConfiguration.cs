@@ -68,11 +68,8 @@
             {
                 if (active == null)
                 {
-                    if (active == null)
-                    {
-                        active = new TelemetryConfiguration();
-                        TelemetryConfigurationFactory.Instance.Initialize(active);
-                    }
+                    active = new TelemetryConfiguration();
+                    TelemetryConfigurationFactory.Instance.Initialize(active);  
                 }
 
                 return active;

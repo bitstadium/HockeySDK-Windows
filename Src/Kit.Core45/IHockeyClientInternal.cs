@@ -66,6 +66,12 @@
 
         bool IsTelemetryInitialized { get; set; }
 
+        /// <summary>
+        /// Atomically checks if Configure has been called and sets it to true.
+        /// </summary>
+        /// <returns>True if the method has been previously called, false otherwise</returns>
+        bool TestAndSetIsConfigured();
+
         #endregion
 
         /// <summary>
@@ -131,7 +137,6 @@
         /// <returns>Metadata of the newest version of the app</returns>
         Task<IEnumerable<IAppVersion>> GetAppVersionsAsync();
         #endregion
-
 
         #region Crash handling
 
