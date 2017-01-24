@@ -60,6 +60,11 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customDispatcherUnhandledExceptionAction != null)
+            {
+                HockeyClientWPFExtensions.customDispatcherUnhandledExceptionAction(e);
+            }
         }
 
         /// <summary>
@@ -70,6 +75,11 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
         private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             TrackException(e.ExceptionObject as Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customUnhandledExceptionAction  != null)
+            {
+                HockeyClientWPFExtensions.customUnhandledExceptionAction(e);
+            }
         }
 
         /// <summary>
@@ -80,6 +90,11 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customUnobservedTaskExceptionAction != null)
+            {
+                HockeyClientWPFExtensions.customUnobservedTaskExceptionAction(e);
+            }
         }
 
         /// <summary>
