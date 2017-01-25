@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if DEBUG
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.HockeyApp;
 
@@ -51,3 +52,4 @@ namespace Kit.Core45.Tests
         #endregion
     }
 }
+#endif

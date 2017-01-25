@@ -58,7 +58,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HockeySDK.WP.NuGet", "Src\N
 		{621893EB-F854-4777-8CFD-9032E6FF740C} = {621893EB-F854-4777-8CFD-9032E6FF740C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.Core45.Tests", "Kit.Core45.Tests\Kit.Core45.Tests.csproj", "{B783C49C-FD04-49DA-BD5D-8D11AC9C20C3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kit.Core45.Tests", "Src\Kit.Core45.Tests\Kit.Core45.Tests.csproj", "{B783C49C-FD04-49DA-BD5D-8D11AC9C20C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
