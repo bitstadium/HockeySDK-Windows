@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Microsoft.HockeyApp
 {
     /// <summary>
-    /// Public Interface for HockeyClient. Used by static extension methods in platfomr-specific SDKs
+    /// Public Interface for HockeyClient. Used by static extension methods in platform-specific SDKs
     /// </summary>
     public interface IHockeyClient
     {

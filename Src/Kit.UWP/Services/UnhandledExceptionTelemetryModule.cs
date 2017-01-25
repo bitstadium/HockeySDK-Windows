@@ -148,7 +148,7 @@
                 }
             }
 
-            exceptionMessages.AppendLine($"{exception.GetType().FullName}: {exception.Message}");
+            exceptionMessages.AppendLine(string.Format(CultureInfo.CurrentCulture, "{0}: {1}", exception.GetType().FullName, exception.Message));
 
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();

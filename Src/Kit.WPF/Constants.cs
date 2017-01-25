@@ -14,7 +14,7 @@
         {
             string path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             if (!path.EndsWith("\\", StringComparison.OrdinalIgnoreCase)) { path += "\\"; }
-            path += "HockeyApp\\" + HockeyClientWPFExtensions.AppIdHash + "\\";
+            path += "HockeyApp\\" + HockeyClientWPFExtensions.AppUniqueFolderName + "\\";
             if (!Directory.Exists(path)) { Directory.CreateDirectory(path); }
             return path;
         }

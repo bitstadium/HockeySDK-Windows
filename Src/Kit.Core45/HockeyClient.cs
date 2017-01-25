@@ -341,6 +341,17 @@
             get; set;
         }
 
+        private int _isConfigured = 0;
+        /// <summary>
+        /// Atomically checks if Configure has been called and sets it to true.
+        /// </summary>
+        /// <returns>True if the method has been previously called, false otherwise</returns>
+        public bool TestAndSetIsConfigured()
+        {
+            const int configuredValue = 1;
+            return Interlocked.Exchange(ref _isConfigured, configuredValue) == configuredValue;
+        }
+
         /// <summary>
         /// Gets or sets the current context that will be used to augment telemetry you send.
         /// </summary>
