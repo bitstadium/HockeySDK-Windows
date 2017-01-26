@@ -286,10 +286,12 @@ namespace Microsoft.HockeyApp
         internal static string GetMD5Hash(string sourceString)
         {
             if (String.IsNullOrEmpty(sourceString)) { return string.Empty; }
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
-            byte[] result = md5.ComputeHash(sourceBytes);
-            return System.BitConverter.ToString(result);
+			using (mds = new MD5CryptoServiceProvider())
+			{
+				byte[] sourceBytes = Encoding.Default.GetBytes(sourceString);
+				byte[] result = md5.ComputeHash(sourceBytes);
+				return System.BitConverter.ToString(result);
+			}
         }
 
         #endregion
