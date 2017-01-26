@@ -103,11 +103,7 @@
         {
             if (this.fullPackageName == null)
             {
-#if WP8
-                this.fullPackageName = System.Windows.Application.Current.GetType().Namespace;
-#else
-                this.fullPackageName =  global::Windows.UI.Xaml.Application.Current.GetType().Namespace;
-#endif
+                this.fullPackageName = Package.Current.Id.FullName;
             }
 
             return this.fullPackageName;

@@ -63,5 +63,12 @@
         public void Flush()
         {   
         }
+
+        /// <summary>
+        /// Mock for the FlushAndSend method in <see cref="ITelemetryChannel"/>.
+        /// </summary>
+        public void FlushAndSend()
+        {
+        }
     }
 }

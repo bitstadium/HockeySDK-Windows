@@ -269,6 +269,15 @@ namespace Microsoft.HockeyApp.Channel
         public void Flush()
         {   
             this.flushManager.Flush();
-        }        
+        }    
+        
+        /// <summary>
+        /// Flushes the in-memory buffer to disk and attempt to send telemetry data.
+        /// </summary>
+        public void FlushAndSend()
+        {
+            this.Flush();
+            this.Transmitter.Flush();
+        }    
     }
 }

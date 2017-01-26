@@ -145,6 +145,15 @@ namespace Microsoft.HockeyApp.Channel
         }
 
         /// <summary>
+        /// Will send all the telemetry items stored in the memory.
+        /// Same as a Flush() call for InMemoryChannel.
+        /// </summary>
+        public void FlushAndSend()
+        {
+            this.Flush();
+        }
+
+        /// <summary>
         /// Disposing the channel.
         /// </summary>
         public void Dispose()
