@@ -2,7 +2,10 @@
 {
     using System;
 
-    interface IApplicationService
+    /// <summary>
+    /// Interface IApplicationService
+    /// </summary>
+    public interface IApplicationService
     {
         /// <summary>
         /// Occurs when an app is suspending.
@@ -31,6 +34,11 @@
         /// </summary>
         /// <returns>The extracted data.</returns>
         string GetVersion();
+
+        /// <summary>
+        /// Sets the version for the current application.
+        /// </summary>
+        void SetVersion(string version);
 
         /// <summary>
         /// Gets the application id, which is then namespace name for App class.

@@ -96,6 +96,14 @@
         }
 
         /// <summary>
+        /// Sets the version for the current application.
+        /// </summary>
+        public void SetVersion(string version)
+        {
+            this.version = version;
+        }
+
+        /// <summary>
         /// Gets the application identifier, which is the namespace name for App class.
         /// </summary>
         /// <returns>Namespace name for App class.</returns>

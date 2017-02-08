@@ -40,5 +40,21 @@
             WindowsAppInitializer.InitializeAsync(appId, configuration);
             return @this as IHockeyClientConfigurable;
         }
+
+        /// <summary>
+        /// Gets the application service.
+        /// </summary>
+        public static IApplicationService GetApplicationService(this IHockeyClient @this)
+        {
+            return ServiceLocator.GetService<IApplicationService>();
+        }
+
+        /// <summary>
+        /// Gets the service of the specified type.
+        /// </summary>
+        public static TService GetService<TService>(this IHockeyClient @this)
+        {
+            return ServiceLocator.GetService<TService>();
+        }
     }
 }
