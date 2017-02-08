@@ -45,8 +45,8 @@
 
         /// <summary>
         /// Subscribes to unhandled event notifications.
-        /// We are using <see cref="CoreApplication.UnhandledErrorDetected"/> instead of 
-        /// <see cref="Application.UnhandledException"/> because <see cref="Application.UnhandledException"/> is not idempotent and 
+        /// We are using <see cref="CoreApplication.UnhandledErrorDetected"/> instead of
+        /// <see cref="Application.UnhandledException"/> because <see cref="Application.UnhandledException"/> is not idempotent and
         /// the exception object may be read only once. The second time it is read, it will return empty <see cref="System.Exception"/> without call stack.
         /// It is OS Bug 560663, 7133918 that must be fixed in Windows Redstone 2 (~2017).
         /// </summary>
@@ -58,7 +58,7 @@
 
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
-            // Imlementing this feature based on this request 
+            // Imlementing this feature based on this request
             // https://support.hockeyapp.net/discussions/problems/58502-uwp-how-to-call-trackexception?mail_type=queue
 
             try
@@ -86,9 +86,13 @@
         {
             // If we have an AggregateException with only one inner exception, it can be flattened
             var aggEx = exception as AggregateException;
-            if ((aggEx != null) && (aggEx.InnerExceptions.Count == 1))
+            if (aggEx != null)
             {
-                exception = aggEx.InnerException;
+                aggEx = aggEx.Flatten();
+                if ((aggEx != null) && (aggEx.InnerExceptions.Count == 1))
+                {
+                    exception = aggEx.InnerException;
+                }
             }
 
             CrashTelemetry result = new CrashTelemetry();
@@ -160,7 +164,7 @@
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
 
-            // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
+            // stackTrace.GetFrames may return null (happened on Outlook Groups application).
             // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
             // and we can extract the frame addresses or not.
             if (frames != null && frames.Length > 0 && frames[0].HasNativeImage())
@@ -252,7 +256,7 @@
         /// Get the processor architecture of this computer.
         /// </summary>
         /// <remarks>
-        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/>
         /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
         /// </remarks>
         /// <returns>The processor architecture of this computer. </returns>
