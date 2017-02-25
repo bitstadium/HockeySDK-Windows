@@ -17,6 +17,7 @@
     using Services;
     using Services.Device;
     using System.Threading.Tasks;
+    using System.Linq;
 
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
@@ -117,7 +118,22 @@
                 result.Attachments.Description = exceptionMessagesBuilder.ToString();
             }
 
-            result.StackTrace = GetStrackTrace(exception);
+            // Get the stacktrace and check if we need a dummy line at the end.
+            // Dummy line is required because if there are onlay "!<BaseAddress>+0x"-entries in the stack trace, HockeyApp gets confused.
+            string stackTrace = GetStrackTrace(exception);
+            if (!string.IsNullOrEmpty(stackTrace))
+            {
+                var stackTraceLines = stackTrace.Split(Environment.NewLine.ToCharArray());
+                bool hasResolvedLine = stackTraceLines.Any(line => line.IndexOf(@"!<BaseAddress>+0x", StringComparison.OrdinalIgnoreCase) < 0);
+                if (!hasResolvedLine)
+                {
+                    var stackTraceList = stackTraceLines.ToList();
+                    stackTraceList.Add(typeof(UnhandledExceptionTelemetryModule).FullName + "." + nameof(CreateCrashTelemetry) + "()");
+                    stackTrace = string.Join(Environment.NewLine, stackTraceList);
+                }
+            }
+            result.StackTrace = stackTrace;
+
             return result;
         }
 
