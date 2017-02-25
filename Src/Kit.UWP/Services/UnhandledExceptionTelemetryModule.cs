@@ -148,7 +148,7 @@
                 }
             }
 
-            exceptionMessages.AppendLine(string.Format(CultureInfo.CurrentCulture, "{0}: {1}", exception.GetType().FullName, exception.Message));
+            exceptionMessages.AppendLine(string.Format(CultureInfo.CurrentCulture, "{0}: {1}", exception.GetType().FullName, GetMessage(exception)));
 
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
@@ -192,6 +192,20 @@
                     telemetry.Binaries.Add(crashBinary);
                     seenBinaries.Add(nativeImageBase);
                 }
+            }
+        }
+
+        private static string GetMessage(Exception e)
+        {
+            CultureInfo originalUICulture = CultureInfo.CurrentUICulture;
+            try
+            {
+                CultureInfo.CurrentUICulture = CultureInfo.InvariantCulture;
+                return e.Message;
+            }
+            finally
+            {
+                CultureInfo.CurrentUICulture = originalUICulture;
             }
         }
 
