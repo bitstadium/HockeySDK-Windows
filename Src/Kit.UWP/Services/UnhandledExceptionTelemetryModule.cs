@@ -78,6 +78,36 @@
             }
         }
 
+        private void CoreApplication_UnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
+        {
+            CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected started successfully");
+
+            try
+            {
+                // intentionally propagating exception to get the exception object that crashed the app.
+                e.UnhandledError.Propagate();
+            }
+            catch (Exception eventException)
+            {
+                try
+                {
+
+                    ITelemetry crashTelemetry = CreateCrashTelemetry(eventException, ExceptionHandledAt.Unhandled);
+                    var client = ((HockeyClient)(HockeyClient.Current));
+                    client.Track(crashTelemetry);
+                    client.Flush();
+                }
+                catch (Exception ex)
+                {
+                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
+                }
+
+                // if we don't throw exception - app will not be crashed. We need to throw to not change the app behavior.
+                // known issue: stack trace will contain SDK methods from now on.
+                throw;
+            }
+        }
+
         /// <summary>
         /// Creates <see cref="CrashTelemetry"/> instance.
         /// </summary>
@@ -224,36 +254,6 @@
             finally
             {
                 CultureInfo.CurrentUICulture = originalUICulture;
-            }
-        }
-
-        private void CoreApplication_UnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
-        {
-            CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected started successfully");
-
-            try
-            {
-                // intentionally propagating exception to get the exception object that crashed the app.
-                e.UnhandledError.Propagate();
-            }
-            catch (Exception eventException)
-            {
-                try
-                {
-
-                    ITelemetry crashTelemetry = CreateCrashTelemetry(eventException, ExceptionHandledAt.Unhandled);
-                    var client = ((HockeyClient)(HockeyClient.Current));
-                    client.Track(crashTelemetry);
-                    client.Flush();
-                }
-                catch (Exception ex)
-                {
-                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
-                }
-
-                // if we don't throw exception - app will not be crashed. We need to throw to not change the app behavior.
-                // known issue: stack trace will contain SDK methods from now on.
-                throw;
             }
         }
 
