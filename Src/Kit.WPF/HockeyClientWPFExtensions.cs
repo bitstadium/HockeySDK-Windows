@@ -70,9 +70,9 @@ namespace Microsoft.HockeyApp
             return (IHockeyClientConfigurable)@this;
         }
 
-        private static Action<UnhandledExceptionEventArgs> customUnhandledExceptionAction;
-        private static Action<UnobservedTaskExceptionEventArgs> customUnobservedTaskExceptionAction;
-        private static Action<DispatcherUnhandledExceptionEventArgs> customDispatcherUnhandledExceptionAction;
+        internal static Action<UnhandledExceptionEventArgs> customUnhandledExceptionAction;
+        internal static Action<UnobservedTaskExceptionEventArgs> customUnobservedTaskExceptionAction;
+        internal static Action<DispatcherUnhandledExceptionEventArgs> customDispatcherUnhandledExceptionAction;
 
         /// <summary>
         /// Adds the handler for UnobservedTaskExceptions

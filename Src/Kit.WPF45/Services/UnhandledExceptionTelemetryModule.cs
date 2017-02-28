@@ -1,4 +1,6 @@
-﻿namespace Microsoft.HockeyApp.Extensibility.Windows
+﻿using System.Threading;
+
+namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
     using Channel;
@@ -58,6 +60,11 @@
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customDispatcherUnhandledExceptionAction != null)
+            {
+                HockeyClientWPFExtensions.customDispatcherUnhandledExceptionAction(e);
+            }
         }
 
         /// <summary>
@@ -68,6 +75,11 @@
         private void AppDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             TrackException(e.ExceptionObject as Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customUnhandledExceptionAction  != null)
+            {
+                HockeyClientWPFExtensions.customUnhandledExceptionAction(e);
+            }
         }
 
         /// <summary>
@@ -78,6 +90,11 @@
         private void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             TrackException(e.Exception, ExceptionHandledAt.Unhandled);
+
+            if (HockeyClientWPFExtensions.customUnobservedTaskExceptionAction != null)
+            {
+                HockeyClientWPFExtensions.customUnobservedTaskExceptionAction(e);
+            }
         }
 
         /// <summary>
@@ -137,7 +154,7 @@
             StackTrace stackTrace = new StackTrace(exception, true);
             var frames = stackTrace.GetFrames();
 
-            // stackTrace.GetFrames may return null (happened on Outlook Groups application). 
+            // stackTrace.GetFrames may return null (happened on Outlook Groups application).
             // HasNativeImage() method invoke on first frame is required to understand whether an application is compiled in native tool chain
             // and we can extract the frame addresses or not.
             if (frames != null && frames.Length > 0 && frames[0].HasNativeImage())
@@ -181,16 +198,37 @@
                 }
             }
 
-            result.StackTrace = exception.StackTrace;
+            result.StackTrace = GetStackTrace(exception);
 
             return result;
+        }
+
+        /// <summary>
+        /// Gets the stack trace of the exception in the invariant culture.
+        /// </summary>
+        /// <param name="e">The exception.</param>
+        /// <returns>The culture independent stack trace.</returns>
+        private static string GetStackTrace(Exception e)
+        {
+            var originalUICulture = CultureInfo.CurrentUICulture;
+            try
+            {
+                // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
+                // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
+                return e.StackTraceToString();
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentUICulture = originalUICulture;
+            }
         }
 
         /// <summary>
         /// Get the processor architecture of this computer.
         /// </summary>
         /// <remarks>
-        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/> 
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/>
         /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
         /// </remarks>
         /// <returns>The processor architecture of this computer. </returns>
