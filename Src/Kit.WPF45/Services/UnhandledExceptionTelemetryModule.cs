@@ -115,7 +115,7 @@
             result.Headers.Id = Guid.NewGuid().ToString("D");
             result.Headers.CrashThreadId = Environment.CurrentManagedThreadId;
             result.Headers.ExceptionType = exception.GetType().FullName;
-            result.Headers.ExceptionReason = exception.Message;
+            result.Headers.ExceptionReason = exception.GetType().FullName;
 
             var description = string.Empty;
             if (HockeyClient.Current.AsInternal().DescriptionLoader != null)
@@ -142,6 +142,8 @@
             // and we can extract the frame addresses or not.
             if (frames != null && frames.Length > 0 && frames[0].HasNativeImage())
             {
+                result.Headers.ExceptionReason += string.Format(CultureInfo.InvariantCulture, " at {0}.{1}(...)", frames[0].GetMethod().DeclaringType.FullName, frames[0].GetMethod().Name);
+
                 foreach (StackFrame frame in stackTrace.GetFrames())
                 {
                     CrashTelemetryThreadFrame crashFrame = new CrashTelemetryThreadFrame
