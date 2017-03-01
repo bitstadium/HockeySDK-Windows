@@ -1,6 +1,4 @@
-﻿using System.Threading;
-
-namespace Microsoft.HockeyApp.Extensibility.Windows
+﻿namespace Microsoft.HockeyApp.Extensibility.Windows
 {
     using System;
     using Channel;
@@ -15,6 +13,8 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
     using System.Globalization;
     using System.IO;
     using Services;
+    using System.Text.RegularExpressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using System.Windows.Threading;
     using System.Windows;
@@ -216,7 +216,21 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
                 // we need to switch to invariant culture, because stack trace localized and we cannot parse it efficiently on the server side.
                 // see https://support.hockeyapp.net/discussions/problems/58504-non-english-stack-trace-not-displayed
                 Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-                return e.StackTraceToString();
+                var stack = e.StackTraceToString();
+
+                try
+                {
+                    // This has been introduced because the remote stack trace of an exception
+                    // will always be localized. Localized stack traces won't show up in the HockeyApp portal
+                    // "   bei Program.Main()" -> "   at Program.Main()"
+                    stack = Regex.Replace(stack, @"(?>   (?<token>(?>\w* )*)(?!\.))(?<method>.*)", "   at ${method}");
+                }
+                catch (Exception ex)
+                {
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(ex);
+                }
+
+                return stack;
             }
             finally
             {
@@ -228,7 +242,7 @@ namespace Microsoft.HockeyApp.Extensibility.Windows
         /// Get the processor architecture of this computer.
         /// </summary>
         /// <remarks>
-        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref NativeMethods._SYSTEM_INFO)"/>
+        /// This method cannot be used in SDK other than UWP, because it is using <see cref="NativeMethods.GetNativeSystemInfo(ref Extensibility.NativeMethods._SYSTEM_INFO)"/>
         /// API, which violates Windows Phone certification requirements for WinRT platform, see https://www.yammer.com/microsoft.com/#/uploaded_files/59829318?threadId=718448267
         /// </remarks>
         /// <returns>The processor architecture of this computer. </returns>
