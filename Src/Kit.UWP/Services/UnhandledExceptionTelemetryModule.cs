@@ -153,12 +153,13 @@
             string stackTrace = GetStrackTrace(exception);
             if (!string.IsNullOrEmpty(stackTrace))
             {
-                var stackTraceLines = stackTrace.Split(Environment.NewLine.ToCharArray());
-                bool hasResolvedLine = stackTraceLines.Any(line => line.IndexOf(@"!<BaseAddress>+0x", StringComparison.OrdinalIgnoreCase) < 0);
+                const string atPrefix = @"   at ";
+                string[] stackTraceLines = stackTrace.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                bool hasResolvedLine = stackTraceLines.Any(line => line.StartsWith(atPrefix, StringComparison.OrdinalIgnoreCase) && line.IndexOf(@"!<BaseAddress>+0x", StringComparison.OrdinalIgnoreCase) < 0);
                 if (!hasResolvedLine)
                 {
-                    var stackTraceList = stackTraceLines.ToList();
-                    stackTraceList.Add(typeof(UnhandledExceptionTelemetryModule).FullName + "." + nameof(CreateCrashTelemetry) + "()");
+                    List<string> stackTraceList = stackTraceLines.ToList();
+                    stackTraceList.Add(atPrefix + typeof(UnhandledExceptionTelemetryModule).Name + ".FakeLocationHelper()");
                     stackTrace = string.Join(Environment.NewLine, stackTraceList);
                 }
             }
