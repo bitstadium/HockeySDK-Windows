@@ -6,20 +6,74 @@
     using System;
     using System.Collections.Generic;
     using System.IO;
+#if WP8
+    using System.IO.IsolatedStorage;
+#endif
     using System.Linq;
     using Windows.ApplicationModel;
     using Windows.Storage;
 
     class PlatformService : IPlatformService
     {
+#if WP8
+        static volatile bool _isWP80 = false;
+#endif
+
         public IDictionary<string, object> GetLocalApplicationSettings()
         {
+#if WP8
+            IDictionary<string, object> settings = null;
+            if (!_isWP80)
+            {
+                try
+                {
+                    // NotImplementedException is threw on Windows Phone Silverlight 8.0 app
+                    // Windows Phone Silverlight 8.1 app is OK.
+                    settings = ApplicationData.Current.LocalSettings.Values;
+                }
+                catch (NotImplementedException)
+                {
+                    _isWP80 = true;
+                }
+            }
+            if(_isWP80 && settings == null)
+            {
+                // for  Windows Phone Silverlight 8.0 app
+                settings = IsolatedStorageSettings.ApplicationSettings;
+            }
+            return settings;
+#else
             return ApplicationData.Current.LocalSettings.Values;
+#endif
         }
 
         public IDictionary<string, object> GetRoamingApplicationSettings()
         {
+#if WP8
+            IDictionary<string, object> settings = null;
+            if (!_isWP80)
+            {
+                try
+                {
+                    // NotImplementedException is threw on Windows Phone Silverlight 8.0 app
+                    // Windows Phone Silverlight 8.1 app is OK.
+                    settings = ApplicationData.Current.RoamingSettings.Values;
+                }
+                catch (NotImplementedException)
+                {
+                    _isWP80 = true;
+                }
+            }
+            if (_isWP80 && settings == null)
+            {
+                // for  Windows Phone Silverlight 8.0 app
+                // Use localSettings because Windows Phone Silverlight 8.0 app does not support roaming settings
+                settings = IsolatedStorageSettings.ApplicationSettings;
+            }
+            return settings;
+#else
             return ApplicationData.Current.RoamingSettings.Values;
+#endif
         }
 
         public string ReadConfigurationXml()
