@@ -245,7 +245,18 @@ namespace Microsoft.HockeyApp
                 {
                     using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
                     {
-                        return (string)registryKey.GetValue("CurrentVersion") + "." + (string)registryKey.GetValue("CurrentBuild") + ".0";
+                        var newMajorVersion = registryKey.GetValue("CurrentMajorVersionNumber", 0).ToString();
+
+                        if (newMajorVersion != "0") {
+                            var newMinorVersion = registryKey.GetValue("CurrentMinorVersionNumber", 0).ToString();
+                            var newBuildNumber = registryKey.GetValue("CurrentBuildNumber", "0").ToString();
+
+                            return newMajorVersion + "." + newMinorVersion + "." + newBuildNumber;
+                        }
+                        else {
+                            // Note: CurrentVersion is "<Major>.<Minor>".
+                            return registryKey.GetValue("CurrentVersion", "0.0").ToString() + "." + registryKey.GetValue("CurrentBuild", "0").ToString();
+                        }
                     }
                 }
                 catch (Exception e)
