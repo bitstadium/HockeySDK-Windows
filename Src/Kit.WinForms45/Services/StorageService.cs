@@ -47,7 +47,7 @@ namespace Microsoft.HockeyApp.Services
             }
 
             this.CapacityInBytes = 10 * 1024 * 1024; // 10 MB
-            this.MaxFiles = 5000;
+            this.MaxFiles = 100;
 
             Task.Factory.StartNew(this.DeleteObsoleteFiles)
                 .ContinueWith(
