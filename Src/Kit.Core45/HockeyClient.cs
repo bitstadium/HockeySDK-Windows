@@ -1040,13 +1040,15 @@
         {
             if (!IsTelemetryInitialized)
             {
-                CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
-                queue.Enqueue(telemetry);
-                if (queue.Count > MaxQueueSize)
+                lock (queue)
                 {
-                    queue.Dequeue();
+                    CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
+                    queue.Enqueue(telemetry);
+                    if (queue.Count > MaxQueueSize)
+                    {
+                        queue.Dequeue();
+                    }
                 }
-
                 return;
             }
 
@@ -1163,9 +1165,12 @@
         internal void Initialize()
         {
             this.IsTelemetryInitialized = true;
-            while (queue.Count > 0)
+            lock (queue)
             {
-                this.Track(queue.Dequeue());
+                while (queue.Count > 0)
+                {
+                    this.Track(queue.Dequeue());
+                }
             }
         }
 
