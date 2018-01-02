@@ -17,6 +17,7 @@
     using Services;
     using Services.Device;
     using System.Threading.Tasks;
+    using System.Linq;
 
     /// <summary>
     /// A module that deals in Exception events and will create ExceptionTelemetry objects when triggered.
@@ -77,6 +78,36 @@
             }
         }
 
+        private void CoreApplication_UnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
+        {
+            CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected started successfully");
+
+            try
+            {
+                // intentionally propagating exception to get the exception object that crashed the app.
+                e.UnhandledError.Propagate();
+            }
+            catch (Exception eventException)
+            {
+                try
+                {
+
+                    ITelemetry crashTelemetry = CreateCrashTelemetry(eventException, ExceptionHandledAt.Unhandled);
+                    var client = ((HockeyClient)(HockeyClient.Current));
+                    client.Track(crashTelemetry);
+                    client.Flush();
+                }
+                catch (Exception ex)
+                {
+                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
+                }
+
+                // if we don't throw exception - app will not be crashed. We need to throw to not change the app behavior.
+                // known issue: stack trace will contain SDK methods from now on.
+                throw;
+            }
+        }
+
         /// <summary>
         /// Creates <see cref="CrashTelemetry"/> instance.
         /// </summary>
@@ -117,7 +148,23 @@
                 result.Attachments.Description = exceptionMessagesBuilder.ToString();
             }
 
-            result.StackTrace = GetStrackTrace(exception);
+            // Get the stacktrace and check if we need a dummy line at the end.
+            // Dummy line is required because if there are onlay "!<BaseAddress>+0x"-entries in the stack trace, HockeyApp gets confused.
+            string stackTrace = GetStrackTrace(exception);
+            if (!string.IsNullOrEmpty(stackTrace))
+            {
+                const string atPrefix = @"   at ";
+                string[] stackTraceLines = stackTrace.Split(Environment.NewLine.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                bool hasResolvedLine = stackTraceLines.Any(line => line.StartsWith(atPrefix, StringComparison.OrdinalIgnoreCase) && line.IndexOf(@"!<BaseAddress>+0x", StringComparison.OrdinalIgnoreCase) < 0);
+                if (!hasResolvedLine)
+                {
+                    List<string> stackTraceList = stackTraceLines.ToList();
+                    stackTraceList.Add(atPrefix + typeof(UnhandledExceptionTelemetryModule).Name + ".FakeLocationHelper()");
+                    stackTrace = string.Join(Environment.NewLine, stackTraceList);
+                }
+            }
+            result.StackTrace = stackTrace;
+
             return result;
         }
 
@@ -208,36 +255,6 @@
             finally
             {
                 CultureInfo.CurrentUICulture = originalUICulture;
-            }
-        }
-
-        private void CoreApplication_UnhandledErrorDetected(object sender, UnhandledErrorDetectedEventArgs e)
-        {
-            CoreEventSource.Log.LogVerbose("UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected started successfully");
-
-            try
-            {
-                // intentionally propagating exception to get the exception object that crashed the app.
-                e.UnhandledError.Propagate();
-            }
-            catch (Exception eventException)
-            {
-                try
-                {
-
-                    ITelemetry crashTelemetry = CreateCrashTelemetry(eventException, ExceptionHandledAt.Unhandled);
-                    var client = ((HockeyClient)(HockeyClient.Current));
-                    client.Track(crashTelemetry);
-                    client.Flush();
-                }
-                catch (Exception ex)
-                {
-                    CoreEventSource.Log.LogError("An exeption occured in UnhandledExceptionTelemetryModule.CoreApplication_UnhandledErrorDetected: " + ex);
-                }
-
-                // if we don't throw exception - app will not be crashed. We need to throw to not change the app behavior.
-                // known issue: stack trace will contain SDK methods from now on.
-                throw;
             }
         }
 
