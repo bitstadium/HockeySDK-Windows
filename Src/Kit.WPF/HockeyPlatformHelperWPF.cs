@@ -22,7 +22,6 @@ namespace Microsoft.HockeyApp
     {
 
         private const string FILE_PREFIX = "HA__SETTING_";
-        IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
         private string PostfixWithAppIdHash(string folderName, bool noDirectorySeparator = false)
         {
@@ -37,11 +36,14 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
-            using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Create, FileAccess.Write))
+            using (var isoStore = GetIsoStore())
             {
-                using (var writer = new StreamWriter(fileStream))
+                using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Create, FileAccess.Write))
                 {
-                    writer.Write(value);
+                    using (var writer = new StreamWriter(fileStream))
+                    {
+                        writer.Write(value);
+                    }
                 }
             }
         }
@@ -54,15 +56,20 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
-            if(isoStore.FileExists(FILE_PREFIX + key)) {
-                using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Open, FileAccess.Read))
+            using (var isoStore = GetIsoStore())
+            {
+                if (isoStore.FileExists(FILE_PREFIX + key))
                 {
-                    using(var reader = new StreamReader(fileStream)){
-                        return reader.ReadToEnd();
+                    using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(FILE_PREFIX + key, true), FileMode.Open, FileAccess.Read))
+                    {
+                        using (var reader = new StreamReader(fileStream))
+                        {
+                            return reader.ReadToEnd();
+                        }
                     }
                 }
+                return null;
             }
-            return null;
         }
 
         /// <summary>
@@ -71,9 +78,12 @@ namespace Microsoft.HockeyApp
         /// <param name="key"></param>
         public void RemoveSettingValue(string key)
         {
-            if (isoStore.FileExists(PostfixWithAppIdHash(FILE_PREFIX + key, true)))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.DeleteFile(PostfixWithAppIdHash(FILE_PREFIX + key, true));
+                if (isoStore.FileExists(PostfixWithAppIdHash(FILE_PREFIX + key, true)))
+                {
+                    isoStore.DeleteFile(PostfixWithAppIdHash(FILE_PREFIX + key, true));
+                }
             }
         }
 
@@ -88,12 +98,15 @@ namespace Microsoft.HockeyApp
         /// <returns>True if succeeds, otherwise false.</returns>
         public async Task<bool> DeleteFileAsync(string fileName, string folderName = null)
         {
-            if (isoStore.FileExists(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.DeleteFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName);
-                return true;
+                if (isoStore.FileExists(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName))
+                {
+                    isoStore.DeleteFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName);
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -104,7 +117,10 @@ namespace Microsoft.HockeyApp
         /// <returns>True if file exists, otherwise false.</returns>
         public async Task<bool> FileExistsAsync(string fileName, string folderName = null)
         {
-            return isoStore.FileExists(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName);
+            using (var isoStore = GetIsoStore())
+            {
+                return isoStore.FileExists(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName);
+            }
         }
 
         /// <summary>
@@ -115,7 +131,10 @@ namespace Microsoft.HockeyApp
         /// <returns>Stream object.</returns>
         public async Task<Stream> GetStreamAsync(string fileName, string folderName = null)
         {
-            return isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
+            using (var isoStore = GetIsoStore())
+            {
+                return isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
+            }
         }
 
         /// <summary>
@@ -127,13 +146,18 @@ namespace Microsoft.HockeyApp
         /// <returns>Task object.</returns>
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
-            // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName))) {
-                isoStore.CreateDirectory(PostfixWithAppIdHash(folderName));
-            }
+            using (var isoStore = GetIsoStore())
+            {
+                // Ensure crashes folder exists
+                if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName)))
+                {
+                    isoStore.CreateDirectory(PostfixWithAppIdHash(folderName));
+                }
 
-            using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
-                await dataStream.CopyToAsync(fileStream);
+                using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+                {
+                    await dataStream.CopyToAsync(fileStream);
+                }
             }
         }
 
@@ -146,7 +170,10 @@ namespace Microsoft.HockeyApp
         public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
         {
             try {
-                return isoStore.GetFileNames(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+                using (var isoStore = GetIsoStore())
+                {
+                    return isoStore.GetFileNames(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+                }
             } catch (DirectoryNotFoundException) {
                 return new string[0];
             }
@@ -168,16 +195,27 @@ namespace Microsoft.HockeyApp
         /// <param name="folderName">Folder name.</param>
         public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
         {
-            // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName)))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.CreateDirectory(PostfixWithAppIdHash(folderName));
-            }
+                // Ensure crashes folder exists
+                if (!isoStore.DirectoryExists(PostfixWithAppIdHash(folderName)))
+                {
+                    isoStore.CreateDirectory(PostfixWithAppIdHash(folderName));
+                }
 
-            using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
-            {
-                dataStream.CopyTo(fileStream);
+                using (var fileStream = isoStore.OpenFile(PostfixWithAppIdHash(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+                {
+                    dataStream.CopyTo(fileStream);
+                }
             }
+        }
+
+        /// <summary>
+        /// Gets an IsolatedStorageFile used for persistent storage
+        /// </summary>
+        private IsolatedStorageFile GetIsoStore()
+        {
+            return IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
         }
 
         #endregion
