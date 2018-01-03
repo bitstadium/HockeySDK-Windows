@@ -4,6 +4,10 @@
     using System.Globalization;
     using Windows.ApplicationModel;
     using Windows.ApplicationModel.Core;
+#if WP8
+    using Microsoft.Phone.Shell;
+    using System.Reflection;
+#endif
 
     internal class ApplicationService : IApplicationService
     {
@@ -32,11 +36,53 @@
                 return;
             }
 
+#if WP8
+            PhoneApplicationService.Current.Activated += Current_Activated;
+            //PhoneApplicationService.Current.Launching += Current_Launching;
+
+            PhoneApplicationService.Current.Deactivated += Current_Deactivated;
+            PhoneApplicationService.Current.Closing += Current_Closing;
+#else
             CoreApplication.Resuming += CoreApplication_Resuming;
             CoreApplication.Suspending += CoreApplication_Suspending;
+#endif
             initialized = true;
         }
 
+#if WP8
+        private void Current_Activated(object sender, ActivatedEventArgs e)
+        {
+            if (OnResuming != null)
+            {
+                this.OnResuming(this, null);
+            }
+        }
+
+        private void Current_Launching(object sender, LaunchingEventArgs e)
+        {
+            if (OnResuming != null)
+            {
+                this.OnResuming(this, null);
+            }
+        }
+
+        private void Current_Deactivated(object sender, DeactivatedEventArgs e)
+        {
+            if (OnSuspending != null)
+            {
+                this.OnSuspending(this, null);
+            }
+        }
+
+
+        private void Current_Closing(object sender, ClosingEventArgs e)
+        {
+            if (OnSuspending != null)
+            {
+                this.OnSuspending(this, null);
+            }
+        }
+#else
         private void CoreApplication_Suspending(object sender, Windows.ApplicationModel.SuspendingEventArgs e)
         {
             if (OnSuspending != null)
@@ -52,6 +98,7 @@
                 this.OnResuming(this, null);
             }
         }
+#endif
 
         public bool IsDevelopmentMode()
         {
@@ -75,6 +122,35 @@
             }
 
             string temp = null;
+#if WP8
+            try
+            {
+                var currentPackage = Package.Current;
+                // NotImplementedException is threw on Windows Phone Silverlight 8.0 app when accessing Id property
+                // Windows Phone Silverlight 8.1 app is OK.
+                if (currentPackage != null && currentPackage.Id != null)
+                {
+                    temp = string.Format(
+                                        CultureInfo.InvariantCulture,
+                                        "{0}.{1}.{2}.{3}",
+                                        currentPackage.Id.Version.Major,
+                                        currentPackage.Id.Version.Minor,
+                                        currentPackage.Id.Version.Build,
+                                        currentPackage.Id.Version.Revision);
+                }
+            }
+            catch (NotImplementedException)
+            {
+                // Use maniest file version
+                temp = ManifestHelper.GetAppVersion();
+                if (string.IsNullOrWhiteSpace(temp))
+                {
+                    // Use assembly version
+                    var versionAttribute = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyFileVersionAttribute), true).GetValue(0) as AssemblyFileVersionAttribute;
+                    temp = versionAttribute.Version.ToString();
+                }
+            }
+#else
             var currentPackage = Package.Current;
             if (currentPackage != null && currentPackage.Id != null)
             {
@@ -86,7 +162,7 @@
                                     currentPackage.Id.Version.Build,
                                     currentPackage.Id.Version.Revision);
             }
-
+#endif // WP8
             if (string.IsNullOrEmpty(temp) == false)
             {
                 return this.version = temp;
