@@ -239,9 +239,45 @@ namespace Microsoft.HockeyApp
         /// <summary>
         /// Gets OS version.
         /// </summary>
+        /// <remarks>
+        /// Starting from Windows 8 System.Environment.OsVersion.Version is only reliable to determine executing OS version
+        /// when the application is targeted for that OS version with a manifest file.
+        /// Otherwise only the registry values can be used.
+        /// <a href="https://msdn.microsoft.com/en-us/library/system.environment.osversion(v=vs.110).aspx">
+        /// System.Environment.OsVersion.Version / Remarks / Note section.
+        /// </a>
+        /// <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724832(v=vs.85).aspx">
+        /// OS version and manifest file requirement for targeting.
+        /// </a>
+        /// </remarks>
         public string OSVersion
         {
-            get { return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack; }
+            get
+            {
+                try
+                {
+                    using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
+                    {
+                        var newMajorVersion = registryKey.GetValue("CurrentMajorVersionNumber", 0).ToString();
+
+                        if (newMajorVersion != "0") {
+                            var newMinorVersion = registryKey.GetValue("CurrentMinorVersionNumber", 0).ToString();
+                            var newBuildNumber = registryKey.GetValue("CurrentBuildNumber", "0").ToString();
+
+                            return newMajorVersion + "." + newMinorVersion + "." + newBuildNumber;
+                        }
+                        else {
+                            // Note: CurrentVersion registry entry is "<Major>.<Minor>".
+                            return registryKey.GetValue("CurrentVersion", "0.0").ToString() + "." + registryKey.GetValue("CurrentBuild", "0").ToString();
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
+                }
+                return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack;
+            }
         }
 
         /// <summary>
