@@ -47,6 +47,21 @@ namespace Microsoft.HockeyApp.Gui
                 };
             }
         }
+
+        /// <summary>
+        /// Make WebBrowser encoding to utf-8  
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        private string utf8html(string text)
+        {
+            var sb = new StringBuilder();
+            sb.Append("<html><head><meta charset='utf-8'></head>");
+            sb.Append("<body>");
+            sb.Append(text);
+            sb.Append("</body></html>");
+            return sb.ToString();
+        }
      
         private void btnInstall_Click(object sender, RoutedEventArgs e)
         {
