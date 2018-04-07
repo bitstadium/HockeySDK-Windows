@@ -39,7 +39,7 @@ namespace Microsoft.HockeyApp.Gui
             this.txtReleaseNotes.Text = LocalizedStrings.LocalizedResources.ReleaseNotes;
             if (!string.IsNullOrWhiteSpace(newVersion.Notes))
             {
-                this.releaseNotes.NavigateToString(newVersion.Notes);
+                this.releaseNotes.NavigateToString(makeUtf8html(newVersion.Notes));
                 this.releaseNotes.Navigating += (sender, args) =>
                 {
                     Process.Start(args.Uri.ToString());
@@ -53,7 +53,7 @@ namespace Microsoft.HockeyApp.Gui
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private string utf8html(string text)
+        private string makeUtf8html(string text)
         {
             var sb = new StringBuilder();
             sb.Append("<html><head><meta charset='utf-8'></head>");
