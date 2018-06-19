@@ -167,7 +167,7 @@
 
                     telemetry.Threads[0].Frames.Add(crashFrame);
                     long nativeImageBase = frame.GetNativeImageBase().ToInt64();
-                    if (seenBinaries.Contains(nativeImageBase))
+                    if (seenBinaries.Contains(nativeImageBase) || nativeImageBase == 0)
                     {
                         continue;
                     }
