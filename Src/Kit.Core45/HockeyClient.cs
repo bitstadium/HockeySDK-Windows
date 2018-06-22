@@ -559,9 +559,8 @@
             }
         }
 
-#if NET_4_5
-        private readonly AsyncLock lck = new AsyncLock();
-#endif
+        private readonly AsyncLock _asyncLock = new AsyncLock();
+
         /// <summary>
         /// Send crash-logs from storage and deletes the if they could be sent
         /// </summary>
@@ -569,68 +568,49 @@
         public async Task<bool> SendCrashesAndDeleteAfterwardsAsync()
         {
             bool atLeatOneCrashSent = false;
-#if NET_4_5
-            using(var releaser = await lck.LockAsync()) { 
-#else
-            if (Monitor.TryEnter(this))
+            using (await _asyncLock.LockAsync())
             {
-                try
+                logger.Info("Start send crashes to platform.");
+                if (NetworkInterface.GetIsNetworkAvailable())
                 {
-#endif
-                    logger.Info("Start send crashes to platform.");
-                    if (NetworkInterface.GetIsNetworkAvailable())
+                    foreach (string filename in await this.GetCrashFileNamesAsync())
                     {
-                        foreach (string filename in await this.GetCrashFileNamesAsync())
+                        logger.Info("Crashfile found: {0}", filename);
+                        Exception error = null;
+                        try //don't stop if one file fails
                         {
-                            logger.Info("Crashfile found: {0}", filename);
-                            Exception error = null;
-                            try //don't stop if one file fails
+                            using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
                             {
-                                using (var stream = await this.PlatformHelper.GetStreamAsync(filename, SDKConstants.CrashDirectoryName))
-                                {
-                                    ICrashData cd = this.Deserialize(stream);
-                                    await cd.SendDataAsync();
-                                }
+                                ICrashData cd = this.Deserialize(stream);
+                                await cd.SendDataAsync();
+                            }
 
-                                atLeatOneCrashSent = true;
+                            atLeatOneCrashSent = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            HandleInternalUnhandledException(ex);
+                            error = ex;
+                        }
+                        if (error != null && error is WebTransferException)
+                        {
+                            //will retry on next start
+                        }
+                        else
+                        {
+                            //either no error or the file seems corrupt => try to delete it
+                            try
+                            {
+                                await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
                             }
                             catch (Exception ex)
                             {
                                 HandleInternalUnhandledException(ex);
-                                error = ex;
-                            }
-                            if (error != null && error is WebTransferException)
-                            {
-                                //will retry on next start
-                            }
-                            else
-                            {
-                                //either no error or the file seems corrupt => try to delete it
-                                try
-                                {
-                                    await this.PlatformHelper.DeleteFileAsync(filename, SDKConstants.CrashDirectoryName);
-                                }
-                                catch (Exception ex) {
-                                    HandleInternalUnhandledException(ex);
-                                }
                             }
                         }
                     }
                 }
-#if !NET_4_5
-                finally
-                {
-                    try
-                    {
-                        Monitor.Exit(this);
-                    }
-                    catch (Exception ex)
-                    { //ignore. on next start it will try again.
-                        HandleInternalUnhandledException(ex);
-                    }
-                }
             }
-#endif
             return atLeatOneCrashSent;
         }
 
@@ -1060,13 +1040,15 @@
         {
             if (!IsTelemetryInitialized)
             {
-                CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
-                queue.Enqueue(telemetry);
-                if (queue.Count > MaxQueueSize)
+                lock (queue)
                 {
-                    queue.Dequeue();
+                    CoreEventSource.Log.LogVerbose("HockeyClient configuration has not been initialized. Saving telemetry item to a queue.");
+                    queue.Enqueue(telemetry);
+                    if (queue.Count > MaxQueueSize)
+                    {
+                        queue.Dequeue();
+                    }
                 }
-
                 return;
             }
 
@@ -1183,9 +1165,12 @@
         internal void Initialize()
         {
             this.IsTelemetryInitialized = true;
-            while (queue.Count > 0)
+            lock (queue)
             {
-                this.Track(queue.Dequeue());
+                while (queue.Count > 0)
+                {
+                    this.Track(queue.Dequeue());
+                }
             }
         }
 

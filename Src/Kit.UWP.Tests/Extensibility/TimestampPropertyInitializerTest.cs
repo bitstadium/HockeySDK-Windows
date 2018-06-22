@@ -35,7 +35,7 @@
         public void InitializeDoesNotOverrideTimestampSpecifiedExplicitly()
         {
             var initializer = new TimestampPropertyInitializer();
-            var expected = new DateTimeOffset(new DateTime(42));
+            var expected = DateTimeOffset.UtcNow;
             var telemetry = new StubTelemetry { Timestamp = expected };
             initializer.Initialize(telemetry);
             Assert.Equal(expected, telemetry.Timestamp);

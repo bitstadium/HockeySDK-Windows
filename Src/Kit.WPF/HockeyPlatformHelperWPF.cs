@@ -22,7 +22,6 @@ namespace Microsoft.HockeyApp
     {
 
         private const string FILE_PREFIX = "HA__SETTING_";
-        IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
 
         private string PostfixWithUniqueAppString(string folderName, bool noDirectorySeparator = false)
         {
@@ -37,11 +36,14 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public void SetSettingValue(string key, string value)
         {
-            using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true), FileMode.Create, FileAccess.Write))
+            using (var isoStore = GetIsoStore())
             {
-                using (var writer = new StreamWriter(fileStream))
+                using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true), FileMode.Create, FileAccess.Write))
                 {
-                    writer.Write(value);
+                    using (var writer = new StreamWriter(fileStream))
+                    {
+                        writer.Write(value);
+                    }
                 }
             }
         }
@@ -54,15 +56,20 @@ namespace Microsoft.HockeyApp
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "ToDo: Fix it later.")]
         public string GetSettingValue(string key)
         {
-            if(isoStore.FileExists(FILE_PREFIX + key)) {
-                using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true), FileMode.Open, FileAccess.Read))
+            using (var isoStore = GetIsoStore())
+            {
+                if (isoStore.FileExists(FILE_PREFIX + key))
                 {
-                    using(var reader = new StreamReader(fileStream)){
-                        return reader.ReadToEnd();
+                    using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true), FileMode.Open, FileAccess.Read))
+                    {
+                        using (var reader = new StreamReader(fileStream))
+                        {
+                            return reader.ReadToEnd();
+                        }
                     }
                 }
+                return null;
             }
-            return null;
         }
 
         /// <summary>
@@ -71,9 +78,12 @@ namespace Microsoft.HockeyApp
         /// <param name="key"></param>
         public void RemoveSettingValue(string key)
         {
-            if (isoStore.FileExists(PostfixWithUniqueAppString(FILE_PREFIX + key, true)))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.DeleteFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true));
+                if (isoStore.FileExists(PostfixWithUniqueAppString(FILE_PREFIX + key, true)))
+                {
+                    isoStore.DeleteFile(PostfixWithUniqueAppString(FILE_PREFIX + key, true));
+                }
             }
         }
 
@@ -88,12 +98,15 @@ namespace Microsoft.HockeyApp
         /// <returns>True if succeeds, otherwise false.</returns>
         public async Task<bool> DeleteFileAsync(string fileName, string folderName = null)
         {
-            if (isoStore.FileExists(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.DeleteFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName);
-                return true;
+                if (isoStore.FileExists(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName))
+                {
+                    isoStore.DeleteFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName);
+                    return true;
+                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -104,7 +117,10 @@ namespace Microsoft.HockeyApp
         /// <returns>True if file exists, otherwise false.</returns>
         public async Task<bool> FileExistsAsync(string fileName, string folderName = null)
         {
-            return isoStore.FileExists(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName);
+            using (var isoStore = GetIsoStore())
+            {
+                return isoStore.FileExists(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName);
+            }
         }
 
         /// <summary>
@@ -115,7 +131,10 @@ namespace Microsoft.HockeyApp
         /// <returns>Stream object.</returns>
         public async Task<Stream> GetStreamAsync(string fileName, string folderName = null)
         {
-            return isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
+            using (var isoStore = GetIsoStore())
+            {
+                return isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Open, FileAccess.Read);
+            }
         }
 
         /// <summary>
@@ -127,13 +146,18 @@ namespace Microsoft.HockeyApp
         /// <returns>Task object.</returns>
         public async Task WriteStreamToFileAsync(Stream dataStream, string fileName, string folderName = null)
         {
-            // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(PostfixWithUniqueAppString(folderName))) {
-                isoStore.CreateDirectory(PostfixWithUniqueAppString(folderName));
-            }
+            using (var isoStore = GetIsoStore())
+            {
+                // Ensure crashes folder exists
+                if (!isoStore.DirectoryExists(PostfixWithUniqueAppString(folderName)))
+                {
+                    isoStore.CreateDirectory(PostfixWithUniqueAppString(folderName));
+                }
 
-            using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName,FileMode.Create,FileAccess.Write)) {
-                await dataStream.CopyToAsync(fileStream);
+                using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+                {
+                    await dataStream.CopyToAsync(fileStream);
+                }
             }
         }
 
@@ -146,7 +170,10 @@ namespace Microsoft.HockeyApp
         public async Task<IEnumerable<string>> GetFileNamesAsync(string folderName = null, string fileNamePattern = null)
         {
             try {
-                return isoStore.GetFileNames(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+                using (var isoStore = GetIsoStore())
+                {
+                    return isoStore.GetFileNames(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileNamePattern ?? "*");
+                }
             } catch (DirectoryNotFoundException) {
                 return new string[0];
             }
@@ -168,16 +195,27 @@ namespace Microsoft.HockeyApp
         /// <param name="folderName">Folder name.</param>
         public void WriteStreamToFileSync(Stream dataStream, string fileName, string folderName = null)
         {
-            // Ensure crashes folder exists
-            if (!isoStore.DirectoryExists(PostfixWithUniqueAppString(folderName)))
+            using (var isoStore = GetIsoStore())
             {
-                isoStore.CreateDirectory(PostfixWithUniqueAppString(folderName));
-            }
+                // Ensure crashes folder exists
+                if (!isoStore.DirectoryExists(PostfixWithUniqueAppString(folderName)))
+                {
+                    isoStore.CreateDirectory(PostfixWithUniqueAppString(folderName));
+                }
 
-            using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
-            {
-                dataStream.CopyTo(fileStream);
+                using (var fileStream = isoStore.OpenFile(PostfixWithUniqueAppString(folderName) + Path.DirectorySeparatorChar + fileName, FileMode.Create, FileAccess.Write))
+                {
+                    dataStream.CopyTo(fileStream);
+                }
             }
+        }
+
+        /// <summary>
+        /// Gets an IsolatedStorageFile used for persistent storage
+        /// </summary>
+        private IsolatedStorageFile GetIsoStore()
+        {
+            return IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
         }
 
         #endregion
@@ -209,7 +247,7 @@ namespace Microsoft.HockeyApp
         /// </summary>
         public string AppVersion
         {
-            get { 
+            get {
                 if(_appVersion == null) {
                 //ClickOnce
                     try
@@ -236,23 +274,44 @@ namespace Microsoft.HockeyApp
         /// <summary>
         /// Gets OS version.
         /// </summary>
+        /// <remarks>
+        /// Starting from Windows 8 System.Environment.OsVersion.Version is only reliable to determine executing OS version
+        /// when the application is targeted for that OS version with a manifest file.
+        /// Otherwise only the registry values can be used.
+        /// <a href="https://msdn.microsoft.com/en-us/library/system.environment.osversion(v=vs.110).aspx">
+        /// System.Environment.OsVersion.Version / Remarks / Note section.
+        /// </a>
+        /// <a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724832(v=vs.85).aspx">
+        /// OS version and manifest file requirement for targeting.
+        /// </a>
+        /// </remarks>
         public string OSVersion
         {
             get
             {
-                //as windows 8.1 lies to us to be 8 we try via registry
                 try
                 {
                     using (RegistryKey registryKey = Registry.LocalMachine.OpenSubKey(@"Software\Microsoft\Windows NT\CurrentVersion"))
                     {
-                        return (string)registryKey.GetValue("CurrentVersion") + "." + (string)registryKey.GetValue("CurrentBuild") + ".0";
+                        var newMajorVersion = registryKey.GetValue("CurrentMajorVersionNumber", 0).ToString();
+
+                        if (newMajorVersion != "0") {
+                            var newMinorVersion = registryKey.GetValue("CurrentMinorVersionNumber", 0).ToString();
+                            var newBuildNumber = registryKey.GetValue("CurrentBuildNumber", "0").ToString();
+
+                            return newMajorVersion + "." + newMinorVersion + "." + newBuildNumber;
+                        }
+                        else {
+                            // Note: CurrentVersion registry entry is "<Major>.<Minor>".
+                            return registryKey.GetValue("CurrentVersion", "0.0").ToString() + "." + registryKey.GetValue("CurrentBuild", "0").ToString();
+                        }
                     }
                 }
                 catch (Exception e)
                 {
                     HockeyClient.Current.AsInternal().HandleInternalUnhandledException(e);
                 }
-                return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack; 
+                return Environment.OSVersion.Version.ToString() + " " + Environment.OSVersion.ServicePack;
             }
         }
 
@@ -260,7 +319,7 @@ namespace Microsoft.HockeyApp
         /// Gets OS platform name.
         /// </summary>
         public string OSPlatform
-        {   
+        {
             get { return "Windows"; }
         }
 
@@ -304,14 +363,14 @@ namespace Microsoft.HockeyApp
             get { return _productID; }
             set { _productID = value; }
         }
-        
+
 
         /// <summary>
         /// Gets manufacturer.
         /// </summary>
         public string Manufacturer
         {
-            get { 
+            get {
                 //TODO System.Management referenzieren !?
                 /*
                 Type.GetType
