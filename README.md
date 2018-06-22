@@ -12,7 +12,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
 | --- | --- | --- | --- | --- | --- | --- |
 | Windows 10 Universal Windows Platform (UWP) | &#x2713; | &#x2713; |  |  | &#x2713; | &#x2713;
 | Windows 8.1 (WinRT) | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
-| Windows Phone (Silverlight) 8.0, 8.1 | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713; | &#x2713;
+| Windows Phone (Silverlight) 8.0, 8.1 | &#x2713; | &#x2713; | &#x2713; | &#x2713; | | &#x2713;
 | HockeySDK.WPF 4.5 | &#x2713; | &#x2713; | | |  | 
 | PCL |  |  |  |  | &#x2713; | |
 
