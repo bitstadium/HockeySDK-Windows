@@ -21,15 +21,23 @@ The official Windows SDK for the http://www.hockeyapp.com.
 
 | Platform | Nuget Package Manager Console Command |
 | --- | --- |
-| Windows 10 (UWP) | Install-Package HockeySDK.UWP -Pre |
-| Windows 8.1 (WinRT) | Install-Package HockeySDK.WINRT -Pre |
-| Windows Phone 8.1 (Silverlight), Windows Phone 8.0 (Silverlight) | Install-Package HockeySDK.WP -Pre |
-| WPF 4.5 | Install-Package HockeySDK.WPF -Pre |
+| Windows 10 (UWP) | `Install-Package HockeySDK.UWP -Pre` |
+| Windows 8.1 (WinRT) | `Install-Package HockeySDK.WINRT -Pre` |
+| Windows Phone 8.1 (Silverlight), Windows Phone 8.0 (Silverlight) | `Install-Package HockeySDK.WP -Pre` |
+| WPF 4.5 | `Install-Package HockeySDK.WPF -Pre` |
 
-2. In App.xaml.cs file add the following line in usage declaration section: <pre>using Microsoft.HockeyApp;</pre>
-3. In App.xaml.cs file add the following line in App class constructor: <pre>Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);</pre>
+2. In App.xaml.cs file add the following line in usage declaration section: 
+   ```cs
+   using Microsoft.HockeyApp;
+   ```
+3. In App.xaml.cs file add the following line in App class constructor: 
+   ```cs
+   Microsoft.HockeyApp.HockeyClient.Current.Configure(“Your_App_ID”);
+   ```
 4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>, or in <i>OnStartup(StartupEventArgs e)</i> for HockeySDK.WPF45.
-   <pre>await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);</pre>
+    ```cs
+    await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);
+    ```
 5. Enable Internet(Client) Capability in package manifest.
 
 ## Demo Applications
