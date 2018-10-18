@@ -286,17 +286,29 @@ namespace Microsoft.HockeyApp.Channel
         /// </summary>
         private static bool IsRetryable(int? httpStatusCode, WebExceptionStatus webExceptionStatus)
         {
-            // ToDo: Handle correctly this for NET45
-//#if NET40 || NET45 // WINRT doesn't support ProxyNameResolutionFailure/NameResolutionFailure/Timeout/ConnectFailure, for WinPhone this seems like a corner scenario and we don't want to spend the effot to test it now.
-//            switch (webExceptionStatus)
-//            {
-//                case WebExceptionStatus.ProxyNameResolutionFailure:
-//                case WebExceptionStatus.NameResolutionFailure:
-//                case WebExceptionStatus.Timeout:
-//                case WebExceptionStatus.ConnectFailure:
-//                    return true;
-//            }
-//#endif 
+#if NET40 || NET45 
+
+            // Can't use this code, as some values of the WebExceptionStatus enum are not defined in the portable, e.g. WINRT doesn't support ProxyNameResolutionFailure/NameResolutionFailure/Timeout/ConnectFailure
+            //            switch (webExceptionStatus)
+            //            {
+            //                case WebExceptionStatus.ProxyNameResolutionFailure:
+            //                case WebExceptionStatus.NameResolutionFailure:
+            //                case WebExceptionStatus.Timeout:
+            //                case WebExceptionStatus.ConnectFailure:
+            //                    return true;
+            //            }
+
+            // Use string comparison instead
+            switch (webExceptionStatus.ToString())
+            {
+                case "ProxyNameResolutionFailure":
+                case "NameResolutionFailure":
+                case "Timeout":
+                case "ConnectFailure":
+                    return true;
+            }
+#endif 
+
             if (httpStatusCode == null)
             {
                 return false;
