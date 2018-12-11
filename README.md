@@ -36,7 +36,11 @@ The official Windows SDK for the http://www.hockeyapp.com.
    ```
 4. If you are using HockeySDK.WinRT or HockeySDK.WP, in App.xaml.cs add the following line at the end of the <i>async void Application_Launching(object sender, LaunchingEventArgs e)</i>, or in <i>OnStartup(StartupEventArgs e)</i> for HockeySDK.WPF45.
     ```cs
-    await HockeyClient.Current.SendCrashesAsync(/* sendWithoutAsking: true */);
+    await HockeyClient.Current.SendCrashesAsync();
+    ```
+    Or if you want to send crashes automatically without asking user confirmation:
+    ```cs
+    await HockeyClient.Current.SendCrashesAsync(true);
     ```
 5. Enable Internet(Client) Capability in package manifest.
 
