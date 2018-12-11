@@ -38,7 +38,7 @@ The official Windows SDK for the http://www.hockeyapp.com.
     ```cs
     await HockeyClient.Current.SendCrashesAsync();
     ```
-    Or if you want to send crashes automatically without asking user confirmation:
+    Or if you want to send crashes automatically without asking for user confirmation:
     ```cs
     await HockeyClient.Current.SendCrashesAsync(true);
     ```
